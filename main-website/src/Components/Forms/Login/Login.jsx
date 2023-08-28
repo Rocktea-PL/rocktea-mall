@@ -3,7 +3,7 @@ import Button from '../../Button'
 import { NavLink } from 'react-router-dom'
 function Login() {
     return (
-        <section className="mt-[4rem] md:p-10 min-h-screen" style={{
+        <section className="md:p-10 min-h-screen" style={{
             backgroundImage: `url(${LoginBg})`,
             backgroundSize:'cover',
             backgroundPosition:'100%',

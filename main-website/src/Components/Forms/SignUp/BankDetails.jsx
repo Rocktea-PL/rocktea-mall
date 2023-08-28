@@ -2,8 +2,8 @@
 import BankIcon from '../../../assets/bankstore.svg'
 function BankDetails() {
     return (
-        <form className=''>
-             <div className='grid md:grid-cols-2 gap-4 px-5 md:mt-5 mb-10'>
+        <form>
+             <div className='grid md:grid-cols-2 gap-4 px-5 md:mt-10 mb-10'>
              <label className="">
                 <span className='flex items-center gap-2 mt-3'>
                 Name on Card 
@@ -26,13 +26,14 @@ function BankDetails() {
              <input type='text' placeholder='123'  />
              </label>
 
-             <label className="">
+             <label className="md:mb-5">
                 <span className='flex items-center gap-2 mt-3'>
                 Expiry date
                  <img src={BankIcon} />
                 </span>
              <input type='text' placeholder='19/04'  />
              </label>
+             
              
              
              </div>

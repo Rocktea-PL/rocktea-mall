@@ -36,9 +36,11 @@ setOpen(false)
   return (
     <header className=' bg-white shadow-md w-full fixed top-0 left-0 z-[99]'>
     <nav className="md:flex md:items-center md:justify-between gap-20 py-[1.7rem] md:py-4 md:px-10 px-7 ">
+    <Link to='/'>
       <figure className="flex items-center">
       <img src={RockteaLogo} width={180} height={180} alt='logo' />
       </figure>
+      </Link>
       <div onClick={()=>setOpen(!open)} className='text-3xl absolute right-8 top-6 cursor-pointer md:hidden z-50'>
       <span>{open ? <HiXMark/>:<HiBars3BottomRight/>}</span>
       </div>

@@ -45,7 +45,7 @@ function SignUp() {
 
     
     return (
-      <div className=" h-screen mt-[4rem] p-10 transition duration-500"
+      <div className=" h-screen p-10 md:p-20 transition duration-500 ease-in-out"
       style={{ backgroundImage: `url(${background})`, 
       backgroundSize:'cover',
       backgroundPosition:'100%',
@@ -54,7 +54,7 @@ function SignUp() {
        
         <div className='form '>
         <ProgressBar currentStep={currentStep} />
-        {currentStep === 0 ? <h5 className="flex items-center gap-1 font-semibold text-[var(--deep-blue) text-sm"> Step {currentStep + 1} </h5> : <h5 className="flex items-center gap-1 font-semibold text-[var(--deep-blue) text-sm"><FaAngleLeft onClick={() =>   setCurrentStep((step) => step - 1 )}/> Step {currentStep + 1} </h5> }
+        {currentStep === 0 ? <h5 className="flex items-center gap-1 font-semibold text-[var(--deep-blue) text-sm"> Step {currentStep + 1} </h5> : <h5 className="flex items-center gap-1 font-semibold text-[var(--deep-blue) text-sm cursor-pointer"><FaAngleLeft onClick={() =>   setCurrentStep((step) => step - 1 )}/> Step {currentStep + 1} </h5> }
              <h2 className="mt-0 text-center leading-[1.5rem]">{steps[currentStep].heading}</h2>  
              <h4 className="text-center text-[var(--yellow)] mb-7">{steps[currentStep].subHeading}</h4>
              <div>
@@ -66,7 +66,7 @@ function SignUp() {
        {currentStep === steps.length - 1 ? 'Submit':'Continue'}
     </button>
              </div>
-             {currentStep === 0 ? <p className='text-[15px] text-center mt-5'>Do not have an account? <NavLink to='/register' style={{color:'var(--deep-blue)',fontWeight:'bold'}}> Sign Up</NavLink> </p> : null}
+             {currentStep === 0 ? <p className='text-[15px] text-center mt-5'>Already have an account? <NavLink to='/login' style={{color:'var(--deep-blue)',fontWeight:'bold'}}> Sign In</NavLink> </p> : null}
       
         </div>
         
