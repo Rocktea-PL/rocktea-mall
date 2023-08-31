@@ -30,8 +30,7 @@ jobs:
               cd product-website
               npm install
               npm run build
-
-      - run: npm ci
+              
       - run: npm test
       
   publish-npm:
