@@ -33,6 +33,7 @@ function SignUp() {
       }
     }
 
+    //This is is used allow the user to move to the forms step by step and check if the user has reached the last form 
     const FormSteps = () => {
       if(currentStep === steps.length - 1){
       alert('You have reached the end of the form')
