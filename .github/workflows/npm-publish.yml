@@ -15,26 +15,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-
-      - name: Install main-website dependencies
-        run: | 
-              cd main-website
-              npm install
-      
-      - name: Install product-website dependencies
-        run: |
-              cd product-website
-              npm install
-      
-      - name: Build product-website
-        run: |
-                cd product-website
-                npm run build
-
-      - name: Build main-website
-        run: |
-                cd product-website
-                npm run build
       
       - run: npm ci
       - run: npm test
