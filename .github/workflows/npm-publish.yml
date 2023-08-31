@@ -22,14 +22,14 @@ jobs:
       - name: Change DR
         run: |
               cd main-website
-              npm build
+              npm run build
 
       - name: Change DR 2
         run: |
               cd product-website
               npm install
-              npm build
-              
+              npm run build
+
       - run: npm ci
       - run: npm test
       
