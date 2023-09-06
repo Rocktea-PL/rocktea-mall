@@ -4,6 +4,7 @@ import Layout from './routes/Layout';
 import Home from '../pages/Home';
 import Search from '../pages/Search';
 import Products from '../pages/Products';
+import ProductDetails from './components/Products/ProductDetails';
 
 
 
@@ -18,8 +19,12 @@ function App() {
           element:<Home/>
         },
         {
-          path:'/product',
+          path:'/products',
           element:< Products/>
+        },
+        {
+          path:'/products/details',
+          element:< ProductDetails/>
         },
         {
           path:'/search:query',
