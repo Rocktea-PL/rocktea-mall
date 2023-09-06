@@ -1,6 +1,7 @@
-import Categories from "../src/components/Categories";
-import Hero from "../src/components/Hero";
-import Products from "../src/components/Products";
+import Categories from "../src/components/Home/Categories";
+import Hero from "../src/components/Home/Hero";
+import Partners from "../src/components/Home/Partners";
+import Products from "../src/components/Home/Products";
 
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
         <Hero />
         <Categories />
         <Products />
+        <Partners />
     </div>
   )
 }
