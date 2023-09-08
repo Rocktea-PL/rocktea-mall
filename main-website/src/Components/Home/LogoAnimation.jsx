@@ -3,18 +3,31 @@ import { motion } from 'framer-motion';
 
 function LogoAnimation() {
     const animateVariants = {
+        initial: { y: -1000 }, // Adjust this value to match the final y value
         animate: {
-           y: [0,-1300],
-           transition: {
-            y:{
-                repeat:Infinity,
-                repeatType:"loop",
-                duration:10,
-                ease:"linear"
-            }
-           }
-        }
-    }
+          y: -1000,
+          transition: {
+            y: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 10,
+              ease: 'linear',
+            },
+          },
+        },
+        exit: {
+          y: -1000, // Adjust this value to match the initial y value
+        },
+        transition: {
+            y: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 10,
+              ease:'linear',
+            },
+          },
+      };
+      
     return (
         <section className="  md:relative bg-[var(--deep-blue)] p-10 md:flex z-[9] overflow-hidden">
             <article className='md:max-w-[50%] text-[var(--white)]'>
@@ -26,6 +39,7 @@ prefer us over our closest rival.&quot;</p>
             <motion.figure
             variants={animateVariants} 
             animate='animate'
+            exit='exit'
             className='hidden md:block absolute top-0 right-0 z-[5] overflow-hidden '>
     <img src={Logos} width={500} height={250} alt='animation' className='shadow-2xl' />
             </motion.figure>
