@@ -66,13 +66,10 @@
 }
 
 @layer components {
-  .signup-form {
-    background:var(--white);
-    margin-top: 50rem;
-  }
+ 
 
   .form {
-    @apply max-w-[80%] md:max-w-[50%] relative bg-white  mb-10  mx-auto p-5 pb-8 rounded-lg transition-all
+    @apply max-w-[80%] md:max-w-[50%] relative bg-white  mb-14 mx-auto p-5  rounded-lg transition-all
   }
 .form h2{
   @apply text-[25px]

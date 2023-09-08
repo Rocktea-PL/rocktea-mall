@@ -1,39 +1,84 @@
+import FileInput from "./FormImage";
 
 
-function UserDetails() {
-    return (
-        <form className="flex flex-col md:mb-6">
-             <div className='grid md:grid-cols-2 gap-2 px-5 md:mt-5'>
-             <label className="">Name
-             <input type='text' placeholder='Surname first'  />
-             </label>
-             <label className="flex flex-col">Email
-             <input type='email' placeholder='example@mail.com'  />
-             </label>
-             <label>Phone Number
-             <input type='tel' placeholder='08123456789' />
-             </label>
-             <label>Date of birth
-             <input type='date' placeholder='DD/MM/YYYY' />
-             </label>
-             
-             <label>Password
-             <input type='password' placeholder='**********************' />
-             </label>
-             <label>Image
-             <input type='file' className="border-none bg-transparent hidden"  />
-             <div className="flex items-center justify-center outline-none w-[90%] mb-6 md:mb-3 mt-3">
-             <div className="  bg-[var(--white)] border border-solid border-[var(--input-border)] w-full h-10 rounded-lg  "></div>
-                <span className=" bg-[var(--yellow)] w-[100px] h-10 -ml-3 rounded-md flex items-center justify-center">Upload</span>
-             </div>
-             </label>
-             
-             </div>
+function UserDetails({ userData, setUserData, error }) {
+    
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
+  };
 
-           </form>
-           
+  return (
+    <form 
+    action=""
+    className="flex flex-col md:mb-6 text-sm"
+    method="post" 
+    encType="multipart/form-data">
+      <div className='grid md:grid-cols-2 gap-2 px-5 md:mt-5'>
+        <label className="">First Name
+          <input
+            type='text'
+            placeholder='Surname first'
+            name='first_name'
+            value={userData.first_name}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label className=""> Last Name
+          <input
+            type='text'
+            placeholder='Surname first'
+            name='last_name'
+            value={userData.last_name}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label className="flex flex-col">Email
+          <input
+            type='email'
+            placeholder='example@mail.com'
+            name='email'
+            value={userData.email}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label className="">UserName
+          <input
+            type='text'
+            placeholder='Surname first'
+            name='username'
+            value={userData.username}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>Phone Number
+          <input
+            type='tel'
+            placeholder='08123456789'
+            name='contact'
+            value={userData.contact}
+            onChange={handleInputChange}
+          />
+        </label>
         
-    )
+        <label>Password
+          <input
+            type='password'
+            placeholder='***************'
+            name='password'
+            value={userData.password}
+            onChange={handleInputChange}
+          />
+        </label>
+        <FileInput userData={userData} setUserData={setUserData} />
+      </div>
+      {error && <div className="text-red-500">{error}</div>}
+      
+    </form>
+  );
 }
 
 export default UserDetails;

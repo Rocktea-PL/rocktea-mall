@@ -1,4 +1,3 @@
-
 import BankIcon from '../../../assets/bankstore.svg'
 function BankDetails() {
     return (
@@ -25,7 +24,6 @@ function BankDetails() {
                 </span>
              <input type='text' placeholder='123'  />
              </label>
-
              <label className="md:mb-5">
                 <span className='flex items-center gap-2 mt-3'>
                 Expiry date
@@ -40,9 +38,10 @@ function BankDetails() {
              
              
            </form>
-           
-        
-    )
+
+)
 }
 
 export default BankDetails;
+
+             
