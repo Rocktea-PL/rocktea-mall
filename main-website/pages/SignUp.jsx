@@ -7,7 +7,9 @@ import { NavLink } from 'react-router-dom';
 import { FaAngleLeft } from 'react-icons/fa';
 import { register } from './auth/auth';
 import emailjs from '@emailjs/browser';
-
+import userDetailsBg from '../src/assets/login-bg.png';
+import storeDetailsBg from '../src/assets/signup-bg2.png';
+import bankDetailsBg from '../src/assets/signup-bg3.png'
 function SignUp() {
   const [currentStep, setCurrentStep] = useState(0);
   const [userData, setUserData] = useState({
@@ -23,9 +25,9 @@ function SignUp() {
 
   //This is used to change the background images for each steps and show their various headings and sub headings
     const steps = [
-        {background :'../src/assets/login-bg.png', heading:'Become a Dropshipper', subHeading: 'User Profile'  },
-        {background :'../src/assets/signup-bg2.png', heading:'Let’s setup your store', subHeading: 'Store Details'  },
-        {background :'../src/assets/signup-bg3.png', heading:'Your money is yours', subHeading: 'Payment Details'  },
+        {background :userDetailsBg, heading:'Become a Dropshipper', subHeading: 'User Profile'  },
+        {background :storeDetailsBg, heading:'Let’s setup your store', subHeading: 'Store Details'  },
+        {background :bankDetailsBg, heading:'Your money is yours', subHeading: 'Payment Details'  },
     ]
 //Declared this in order to use it swiftly when changing the background using inline styling
 let background = steps[currentStep].background;
