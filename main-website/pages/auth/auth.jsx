@@ -17,6 +17,17 @@ export const register = async (userData) => {
   }
 };
 
+export const storeregister = async (storeData) => {
+  try {
+    const response = await axios.post(`${API_URL}/create/store/`, storeData);
+    console.log(response.data)
+    return response.data;
+    
+  } catch (error) {
+    console.log(error.response.data)
+    throw error.response.data; // Handle registration errors here
+  }
+};
 // Function to handle user login
 export const loginUser = async (credentials) => {
   try {
