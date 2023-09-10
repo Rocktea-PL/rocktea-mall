@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import UserDetails from '../src/Components/Forms/SignUp/UserDetails';
 import StoreDetails from '../src/Components/Forms/SignUp/StoreDetails';
 import BankDetails from '../src/Components/Forms/SignUp/BankDetails';
-import ProgressBar from "../src/Components/Forms/SignUp/ProgressBar";
-import { NavLink } from 'react-router-dom';
+//import ProgressBar from "../src/Components/Forms/SignUp/ProgressBar";
+//import { NavLink } from 'react-router-dom';
 import { FaAngleLeft } from 'react-icons/fa';
 import { register } from './auth/auth';
 import emailjs from '@emailjs/browser';
-import userDetailsBg from '../src/assets/login-bg.png';
-import storeDetailsBg from '../src/assets/signup-bg2.png';
-import bankDetailsBg from '../src/assets/signup-bg3.png'
+import userDetailsBg from '../src/assets/users-bg.png';
+import storeDetailsBg from '../src/assets/store-bg.png';
+import bankDetailsBg from '../src/assets/bank-bg.png'
+import { NavLink } from 'react-router-dom';
 function SignUp() {
   const [currentStep, setCurrentStep] = useState(0);
   const [userData, setUserData] = useState({
@@ -38,7 +39,6 @@ let background = steps[currentStep].background;
   const handleFormSubmit = async (e) => {
     e.preventDefault();
    
-  
   // Create a FormData object to send the form data including the image
   const formData = new FormData();
   formData.append('first_name', userData.first_name);
@@ -78,7 +78,7 @@ let background = steps[currentStep].background;
       // Handle successful registration
       // For now, let's just log the user data
       console.log('Registration successful', userData);
-   console.log(response)
+   console.log(response.error)
       // Move to the next step
       if (currentStep < 2) {
         setCurrentStep(currentStep + 1);
@@ -91,7 +91,7 @@ let background = steps[currentStep].background;
     }
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     const savedFormData = JSON.parse(localStorage.getItem('FormData'));
     if (savedFormData) {
       setUserData(savedFormData);
@@ -101,52 +101,62 @@ let background = steps[currentStep].background;
   useEffect(() => {
     localStorage.setItem('FormData', JSON.stringify(userData));
   }, [userData]);
-
+*/
 
   return (
-    <div className="h-full p-10 md:p-20 transition duration-500 ease-in-out"
-    style={{ backgroundImage: `url(${background})`, 
-    backgroundSize:'cover',
-    backgroundPosition:'100%',
-    backgroundRepeat:'no-repeat'
-    }}
-    >
-      <div className='form '>
-        <ProgressBar currentStep={currentStep} />
-        {currentStep === 0 ? <h5 className="flex items-center gap-1 font-semibold text-[var(--deep-blue) text-sm"> Step {currentStep + 1} </h5> : <h5 className="flex items-center gap-1 font-semibold text-[var(--deep-blue) text-sm cursor-pointer"><FaAngleLeft onClick={() => setCurrentStep((step) => step - 1 )}/> Step {currentStep + 1} </h5> }
+    <section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 md:overflow-hidden">
+      
+    <figure className="md:max-w-[50%] w-full h-[500px] md:h-screen  md:block">
+      <img src={background} alt="" className="w-full h-full object-cover" />
+    </figure>
+    
+    <div className="">
+      {currentStep === 0 ? (
+        <h5 className="flex items-center justify-items-end gap-1 font-semibold text-[var(--deep-blue) text-sm text-right"> Step {currentStep + 1} </h5>
+      ) : (
+        <h5 className="flex items-center justify-items-end gap-1 font-semibold text-[var(--deep-blue) text-sm text-right cursor-pointer">
+          <FaAngleLeft onClick={() => setCurrentStep((step) => step - 1)} /> Step {currentStep + 1}
+        </h5>
+      )}
+      <div className="form md:w-[500px]">
         <h2 className="mt-0 text-center leading-[1.5rem]">{steps[currentStep].heading}</h2>
         <h4 className="text-center text-[var(--yellow)] mb-7">{steps[currentStep].subHeading}</h4>
-        <div>
-          {/* Render the appropriate form component based on the current step */}
-          {currentStep === 0 ? (
-            <UserDetails
-              userData={userData}
-              setUserData={setUserData}
-              error={error}
-            />
-          ) : currentStep === 1 ? (
-            <StoreDetails />
-          ) : (
-            <BankDetails />
-          )}
+        <div className="scrollable-container">
+          <div className=" ">
+            {/* Render the appropriate form component based on the current step */}
+            {currentStep === 0 ? (
+              <UserDetails
+                currentStep={currentStep}
+                userData={userData}
+                setUserData={setUserData}
+                error={error}
+              />
+            ) : currentStep === 1 ? (
+              <StoreDetails />
+            ) : (
+              <BankDetails />
+            )}
+          </div>
+          <div className="flex items-center justify-center ">
+            <button className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-6" onClick={handleFormSubmit}>
+              {currentStep === 2 ? 'Submit' : 'Continue'}
+            </button>
+          </div>
         </div>
-
-        <div className='flex items-center justify-center md:mt-8'>
-          <button className='flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-6 md:mt-8' onClick={handleFormSubmit}>
-            {currentStep === 2 ? 'Submit' : 'Continue'}
-          </button>
-        </div>
-
-        {currentStep === 0 ? (
-          <p className='text-[15px] text-center mt-5'>
-            Already have an account?{' '}
-            <NavLink to='/login' style={{ color: 'var(--deep-blue)', fontWeight: 'bold' }}>
-              Sign In
-            </NavLink>{' '}
-          </p>
-        ) : null}
       </div>
+      {currentStep === 0 ? (
+        <div className="flex items-center gap-2 justify-center text-center mt-5 mb-5">
+          <p className="text-[15px] text-center">
+            Already have an account?{' '}
+          </p>{' '}
+          <NavLink to="/login" style={{ color: 'var(--deep-blue)', fontWeight: 'bold' }}>
+            Sign In
+          </NavLink>{' '}
+        </div>
+      ) : null}
     </div>
+  </section>
+  
   );
 }
 

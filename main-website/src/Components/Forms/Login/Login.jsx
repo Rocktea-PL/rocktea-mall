@@ -1,5 +1,6 @@
 import  { useState } from 'react';
-import LoginBg from '../../../assets/login-bg.png';
+//import LoginBg from '../../../assets/login-bg.png';
+import LoginImg from '../../../assets/loginbg.png'
 import Button from '../../Button';
 import { NavLink } from 'react-router-dom';
 import { loginUser } from '../../../../pages/auth/auth'; // Import the login function from your auth.js file
@@ -34,17 +35,15 @@ function Login() {
 
   return (
     <section
-      className="md:p-10 min-h-screen"
-      style={{
-        backgroundImage: `url(${LoginBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: '100%',
-        backgroundRepeat: 'no-repeat',
-      }}
+      className="flex items-center justify-center p-0 h-screen overflow-hidden"
+     
     >
+      <figure className='max-w-[50%]'>
+        <img src={LoginImg} alt="login" />
+      </figure>
       <form
         action=""
-        className="form pb-7 h-auto m-auto mt-8 "
+        className="form pb-7"
         onSubmit={handleFormSubmit} // Call handleFormSubmit on form submission
       >
         <h2>Welcome!</h2>
@@ -63,7 +62,7 @@ function Login() {
             Password
             <input
               type="password"
-              placeholder="**********************"
+              placeholder="*******"
               name="password"
               value={credentials.password}
               onChange={handleInputChange}

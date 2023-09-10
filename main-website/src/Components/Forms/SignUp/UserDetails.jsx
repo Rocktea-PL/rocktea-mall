@@ -1,3 +1,4 @@
+ 
 import FileInput from "./FormImage";
 
 
@@ -14,10 +15,10 @@ function UserDetails({ userData, setUserData, error }) {
   return (
     <form 
     action=""
-    className="flex flex-col md:mb-6 text-sm"
+    className="  flex flex-col text-sm "
     method="post" 
     encType="multipart/form-data">
-      <div className='grid md:grid-cols-2 gap-2 px-5 md:mt-5'>
+      <div className=' '>
         <label className="">First Name
           <input
             type='text'

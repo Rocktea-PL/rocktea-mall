@@ -11,6 +11,7 @@
   
 }
 
+
 @layer base {
   body {
     --deep-blue: #002440;
@@ -55,7 +56,7 @@
 
    }
    label{
-    @apply flex flex-col text-sm
+    @apply flex flex-col text-sm mt-5
    }
    input{
     @apply bg-[var(--white)] border border-solid border-[var(--input-border)] w-[90%] h-10 rounded-lg px-2 mt-3  outline-none
@@ -69,7 +70,7 @@
  
 
   .form {
-    @apply max-w-[80%] md:max-w-[50%] relative bg-white  mb-14 mx-auto p-5  rounded-lg transition-all
+    @apply relative  bg-white border border-solid border-gray-200 w-[400px] mx-auto  mr-5 py-8 rounded-lg transition-all  px-5
   }
 .form h2{
   @apply text-[25px]
@@ -81,9 +82,41 @@
     @apply text-[var(--yellow)] font-bold
     
 }
+
+
   
  
 }
+
+.scrollable-container {
+  max-height: calc(100vh - 300px); /* Adjust the height as needed */
+  overflow-y: auto;
+}
+
+/* Add the scrollbar styling here */
+.scrollable-container::-webkit-scrollbar {
+  width: 10px;
+  
+  
+  
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+  background-color: var(--input-border);
+  
+ 
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: var(--yellow);
+ 
+  
+}
+
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+  background-color: darkorange;
+}
+
 
 
   
