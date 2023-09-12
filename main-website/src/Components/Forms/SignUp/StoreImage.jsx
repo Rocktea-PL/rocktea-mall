@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
-function FileInput({ userData, setUserData,error }) {
+function StoreImage({ storeData, setStoreData,error }) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     console.log('File input change event:', file);
     setSelectedFile( file);
-    setUserData({
-      ...userData,
-      profile_image: file,
+    setStoreData({
+      ...storeData,
+      logo: file,
     });
   };
 
@@ -33,7 +33,7 @@ function FileInput({ userData, setUserData,error }) {
     <div className="flex flex-col justify-start space-y-4 w-full ">
       <label className="relative cursor-point text-black py-2 rounded-lg ">
       <span className="absolute top-0 left-0 right-0 bottom-0 opacity-0 cursor-pointer"></span>
-        <span className="">Profile Image</span>
+        <span className="">Store Image</span>
         <input
           type="file"
           name='profile_image'
@@ -65,12 +65,12 @@ function FileInput({ userData, setUserData,error }) {
             Upload
           </button>
         </div>
-        {error && error.profile_image && (
-            <div className="text-red-500">{error.profile_image}</div>
+        {error && error.logo && (
+            <div className="text-red-500">{error.logo}</div>
           )}
       </label>
     </div>
   );
 }
 
-export default FileInput;
+export default StoreImage;

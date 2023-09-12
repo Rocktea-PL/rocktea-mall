@@ -1,13 +1,11 @@
-import Home3 from '../../assets/home3.png'
-import Home4 from '../../assets/home4.png'
-import Home5 from '../../assets/home5.png'
+
 function HomeDetails() {
     return (
         <section className='mt-10'>
             
          <article className='flex flex-col md:flex-row items-start justify-center gap-20 mb-20'>
             <figure>
-             <img src={Home3} alt='home3' width={450} height={400}/>
+             <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421653/rocktea-main-website/assets/home3_kb67np.png' alt='home3' width={450} height={400}/>
             </figure>
             <div className='md:max-w-[50%]'>
                 <p className='text-[var(--yellow)] text-[15px]'>What you will do </p>
@@ -21,7 +19,7 @@ Join us now and embark on your path to profitability!</p>
 
             <article className='flex flex-col md:flex-row-reverse items-start justify-center gap-20 mb-20'>
             <figure>
-             <img src={Home4} alt='home3' width={450} height={400} />
+             <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421653/rocktea-main-website/assets/home4_wxe3tf.png' alt='home3' width={450} height={400} />
             </figure>
             <div className='md:max-w-[50%] '>
                 <p className='text-[var(--yellow)] text-[15px]'>Member motivation </p>
@@ -36,7 +34,7 @@ Start enjoying the fruits of your labor today!</p>
 
             <article className='flex flex-col md:flex-row items-start justify-center gap-20 mb-5'>
             <figure>
-             <img src={Home5} alt='home3' width={450} height={400} />
+             <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421646/rocktea-main-website/assets/home5_layygi.png' alt='home3' width={450} height={400} />
             </figure>
             <div className='md:max-w-[50%]'>
                 <p className='text-[var(--yellow)] text-[15px]'>Earn either ways </p>

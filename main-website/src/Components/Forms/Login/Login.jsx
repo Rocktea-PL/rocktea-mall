@@ -35,10 +35,10 @@ function Login() {
 
   return (
     <section
-      className="flex items-center justify-center p-0 h-screen overflow-hidden"
+      className="flex flex-col md:flex-row items-center justify-center p-0 h-screen overflow-hidden"
      
     >
-      <figure className='max-w-[50%]'>
+      <figure className='md:max-w-[50%] hidden md:block'>
         <img src={LoginImg} alt="login" />
       </figure>
       <form
@@ -69,14 +69,16 @@ function Login() {
             />
           </label>
           <div className="flex items-center justify-between w-[90%]">
-            <label className="flex flex-row-reverse items-center justify-center">
+            <label className="flex flex-row-reverse items-center justify-center -mt-1">
               Remember me
               <input
                 type="checkbox"
                 className="w-[30px] h-3 mt-0 px-1"
               />
             </label>
-            <p className="text-sm text-[var(--deep-blue)]">Forgot Password?</p>
+            <div>
+            <p className="text-[var(--deep-blue)] text-sm">Forgot Password?</p>
+            </div>
           </div>
         </div>
 
@@ -87,7 +89,7 @@ function Login() {
         </div>
         <p className="text-[15px] text-center mt-5">
           Do not have an account?{' '}
-          <NavLink to="/register" style={{ color: 'var(--deep-blue)', fontWeight: 'bold' }}>
+          <NavLink to="/personal_details" style={{ color: 'var(--deep-blue)', fontWeight: 'bold' }}>
             Sign Up
           </NavLink>{' '}
         </p>

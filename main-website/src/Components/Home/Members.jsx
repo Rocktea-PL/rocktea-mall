@@ -1,4 +1,4 @@
-import Avatar from '../../assets/members-avatar.png';
+
 import{FaAngleLeft, FaAngleRight, FaStar} from 'react-icons/fa'
 function Members() {
     return (
@@ -6,7 +6,7 @@ function Members() {
          <h2 className='text-[40px] text-center my-10 font-semibold'>Hear From <span className="text-[var(--yellow)]">Our Members</span></h2>  
          <article className='flex flex-col md:flex-row items-center justify-center  gap-16'>
             <figure className='block m-auto md:m-1'>
-           <img src={Avatar} width={300} height={300} alt='avatar' />
+           <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421649/rocktea-main-website/assets/members-avatar_xzoi0a.png' width={300} height={300} alt='avatar' />
             </figure>
             <div className='md:max-w-[50%]'>
                <div className='flex items-center justify-center md:justify-start gap-3 gap-y-1'>

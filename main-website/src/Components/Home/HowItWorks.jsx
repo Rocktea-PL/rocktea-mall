@@ -1,4 +1,4 @@
-import Home2 from '../../assets/home2.png'
+
 import Gradient1 from '../../assets/01.svg'
 import Gradient2 from '../../assets/02.svg'
 import Gradient3 from '../../assets/03.svg'
@@ -11,7 +11,7 @@ function HowItWorks() {
         <p className='text-[15px] text-[var(--yellow)]'>Let´s show you</p> 
         <h3 className='text-[54px] font-semibold text-[var(--deep-blue)]'>How It Works</h3> 
         <figure className='mt-4 '>
-            <img src={Home2}  width={500} height={600} alt='home2'/>
+            <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421642/rocktea-main-website/assets/home2_kg7fxu.png'  width={500} height={600} alt='home2'/>
         </figure>
             </article>
 

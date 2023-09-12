@@ -3,9 +3,12 @@ import './App.css'
 import Layout from './routes/Layout';
 import Home from '../pages/Home';
 import SignIn from '../pages/SignIn';
-import SignUp from '../pages/SignUp';
+//import SignUp from '../pages/SignUp';
 import About from '../pages/About';
 import Services from '../pages/Services';
+import UserDetails from '../pages/UserDetails';
+import StoreDetails from '../pages/StoreDetails';
+import BankDetails from '../pages/BankDetails';
 
 
 function App() {
@@ -31,8 +34,17 @@ function App() {
           element:<SignIn/>
         },
         {
-          path:'/register',
-          element:<SignUp/>
+          path:'/personal_details',
+          element:<UserDetails/>
+        },
+        {
+          path:'/store_details',
+          element:<StoreDetails/>
+        },
+        
+        {
+          path:'/bank_details',
+          element:<BankDetails/>
         },
         
       ]

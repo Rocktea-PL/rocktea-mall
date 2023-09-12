@@ -1,5 +1,5 @@
 import Button from '../Button'
-import HeroImg from '../../assets/receptionist.png'
+
 function Hero() {
   return (
     <section className='mt-[3.5rem] lg:mt-[8rem] flex flex-col md:flex-row justify-center  gap-20 md:gap-[10rem] '>
@@ -18,7 +18,7 @@ potential has never been easier.</p>
     <div className='relative bg-[var(--deep-blue)] w-[400px] h-[550px] mt-3 rounded-[2rem]'>
 
     </div>
-    <img src={HeroImg} width={400} height={350} className='absolute bottom-0 ' />
+    <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421644/rocktea-main-website/assets/receptionist_vbpllv.png' width={400} height={350} className='absolute bottom-0 ' />
  </figure>
  
   
