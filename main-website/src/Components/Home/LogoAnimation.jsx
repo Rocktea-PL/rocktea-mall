@@ -1,4 +1,4 @@
-import Logos from '../../assets/logo-animation.png'
+
 import { motion } from 'framer-motion';
 
 function LogoAnimation() {
@@ -41,7 +41,7 @@ prefer us over our closest rival.&quot;</p>
             animate='animate'
             exit='exit'
             className='hidden md:block absolute top-0 right-0 z-[5] overflow-hidden '>
-    <img src={Logos} width={500} height={250} alt='animation' className='shadow-2xl' />
+    <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421651/rocktea-main-website/assets/logo-animations_aggj4v.png' width={500} height={250} alt='animation' className='shadow-2xl' />
             </motion.figure>
            
  

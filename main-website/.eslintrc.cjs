@@ -19,6 +19,8 @@ module.exports = {
 
     ],
     'react/prop-types': ['off'], 
+    'import/no-anonymous-default-export': 'off',
+    "react-refresh/only-export-components": "off"
     
   },
 }
