@@ -1,4 +1,4 @@
-
+import heroImg from '../../assets/Groceries.png'
 
 export default function Hero() {
   return (
@@ -10,9 +10,10 @@ export default function Hero() {
          </div>
          <hr className="mt-3"/>   
         </div>
-        <div className=" flex items-center justify-center bg-[var(--product-bg)] p-16 rounded-md">
-        <h2 className="text-3xl">Hero Section</h2>
-        </div>
+        <figure>
+         <img src={heroImg} alt="" />
+        </figure>
+        
    
     </section>
   )

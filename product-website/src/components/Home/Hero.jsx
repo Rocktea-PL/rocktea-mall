@@ -1,5 +1,6 @@
 import Arrow from '../../assets/arrow.svg'
-import heroImg from '../../assets/hero-img.jpg'
+import heroImg from '../../assets/hero-section.png'
+import HeroReview from '../../assets/hero-review.png'
 //import Wooden from '../assets/wooden.png'
 export default function Hero() {
   return (
@@ -8,9 +9,13 @@ export default function Hero() {
     backgroundPosition:'center',
     backgroundRepeat:'no-repeat'
     }}>
-      <div className=' mt-[5rem] md:mt-[7rem] px-10'>
-      <h1 className='capitalize font-["Signika"] text-[50px] md:text-[60px] leading-tight font-bold'>Essential for <br/> daily use...</h1>
-      <button className='flex items-center gap-2 mt-12 md:mt-16 bg-[var(--product-bg)] p-3'>Shop Now <img src={Arrow} width={35} height={50}  alt='' className='arrow' /></button> 
+      <div className=' mt-[5rem] md:mt-[6rem] px-10'>
+        <p className='text-[var(--orange)]'>Save up to 30% buying</p>
+      <h1 className='capitalize font-["Signika"] text-[50px] md:text-[60px] leading-tight font-bold text-white'>Essential for <br/> daily use...</h1>
+      <button className='flex items-center gap-2 mt-10 bg-[var(--orange)] p-3 transition-all duration-500'>Shop Now <img src={Arrow} width={35} height={50}  alt='' className='w-8 arrow' /></button> 
+      <figure className='w-[300px] h-auto'>
+        <img src={HeroReview} alt="" className='w-full object-contain mt-5' />
+      </figure>
       </div>
      
     

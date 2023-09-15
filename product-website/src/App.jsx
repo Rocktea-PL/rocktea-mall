@@ -5,7 +5,9 @@ import Home from '../pages/Home';
 import Search from '../pages/Search';
 import Products from '../pages/Products';
 import ProductDetails from './components/Products/ProductDetails';
-
+import Cart from '../pages/Cart';
+import Checkout from '../pages/Checkout';
+import Logout from '../pages/Logout';
 
 
 function App() {
@@ -25,6 +27,18 @@ function App() {
         {
           path:'/products/details',
           element:< ProductDetails/>
+        },
+        {
+          path:'/cart',
+          element:< Cart/>
+        },
+        {
+          path:'/checkout',
+          element:< Checkout/>
+        },
+        {
+          path:'/logout',
+          element:< Logout/>
         },
         {
           path:'/search:query',

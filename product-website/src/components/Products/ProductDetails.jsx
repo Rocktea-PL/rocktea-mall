@@ -1,9 +1,9 @@
 import  { useState } from 'react';
-import Malt from '../../assets/malt.png';
+
 import Pepsi1 from '../../assets/ProductDet1.png'
 import Pepsi2 from '../../assets/ProductDet2.png'
 import Pepsi3 from '../../assets/ProductDet3.png'
-import ProductCard from '../../Features/ProductCard';
+import CommonProducts from './CommonProducts';
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
 
@@ -151,70 +151,12 @@ This refreshing delicious drink will have you savoring every gulp..
 
       
     </div>
-    <div className='mx-8'>
-        <h2 className='font-semibold text-2xl ml-5'>Customers Also Viewed</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-5 w-full  justify-between px-2 md:px-5 py-3 overflow-hidden">
-                  {product.map((item) => (
-                    <ProductCard name={item.name} image={item.image} price={item.price} key={item.id} />
-                  ))}
-                </div>
-      </div>
+    <div className='mx-10'> 
+    <CommonProducts  />
+    </div>
     </section>
   );
 };
 
 export default ProductDetails;
-
-const product = [
-    {
-        id:1,
-        image:Malt,
-        
-        name:'Pepsi',
-        price:1200,
-
-    },
-    {
-        id:2,
-        image:Malt,
-        
-        name:'Pepsi',
-        price:1200,
-
-    },
-    {
-        id:3,
-        image:Malt,
-        
-        name:'Pepsi',
-        price:1200,
-
-    },
-    {
-        id:4,
-        image:Malt,
-        
-        name:'Pepsi',
-        price:1200,
-
-    },
-    {
-        id:5,
-        image:Malt,
-       
-        name:'Pepsi',
-        price:1200,
-
-    },
-    {
-        id:6,
-        image:Malt,
-       
-        name:'Pepsi',
-        price:1200,
-
-    },
-    
-]
-
 
