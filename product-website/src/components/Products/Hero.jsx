@@ -1,5 +1,4 @@
 
-
 export default function Hero() {
   return (
     <section className="  mb-5">
@@ -10,9 +9,10 @@ export default function Hero() {
          </div>
          <hr className="mt-3"/>   
         </div>
-        <div className=" flex items-center justify-center bg-[var(--product-bg)] p-16 rounded-md">
-        <h2 className="text-3xl">Hero Section</h2>
-        </div>
+        <figure>
+         <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422709/rocktea-product-website/assets/Groceries_yxkazq.png' alt="" />
+        </figure>
+        
    
     </section>
   )

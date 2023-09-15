@@ -1,9 +1,6 @@
 import  { useState } from 'react';
-import Malt from '../../assets/malt.png';
-import Pepsi1 from '../../assets/ProductDet1.png'
-import Pepsi2 from '../../assets/ProductDet2.png'
-import Pepsi3 from '../../assets/ProductDet3.png'
-import ProductCard from '../../Features/ProductCard';
+import CommonProducts from './CommonProducts';
+
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
 
@@ -24,24 +21,24 @@ const ProductDetails = () => {
       <div className="flex flex-col md:flex-row-reverse gap-y-5 md:gap-x-4 w-full md:max-w-[50%] md:max-h-[500px] items-center justify-center ">
         {/* Main Image */}
         <img
-          src={Pepsi1}
+          src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422697/rocktea-product-website/assets/ProductDet1_sathej.png'
           alt="Main Product"
           className=" w-[90%] md:w-[70%] h-full"
         />
         {/* Additional Images */}
         <div className="flex md:flex-col items-center justify-center space-x-3 md:space-y-3 w-full md:max-h-full ">
           <img
-            src={Pepsi1}
+            src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422697/rocktea-product-website/assets/ProductDet1_sathej.png'
             alt="Additional Product 1"
             className=" object-cover w-[100px] md:w-[90%] h-[80%]"
           />
           <img
-            src={Pepsi2}
+            src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422698/rocktea-product-website/assets/ProductDet2_egpgdi.png'
             alt="Additional Product 2"
             className=" object-cover w-[100px] md:w-[90%] h-[80%]" />
 
           <img
-            src={Pepsi3}
+            src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422699/rocktea-product-website/assets/ProductDet3_kgdxcf.png'
             alt="Additional Product 3"
             className=" object-cover w-[100px] md:w-[90%] h-[80%]"
           />
@@ -151,70 +148,12 @@ This refreshing delicious drink will have you savoring every gulp..
 
       
     </div>
-    <div className='mx-8'>
-        <h2 className='font-semibold text-2xl ml-5'>Customers Also Viewed</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-5 w-full  justify-between px-2 md:px-5 py-3 overflow-hidden">
-                  {product.map((item) => (
-                    <ProductCard name={item.name} image={item.image} price={item.price} key={item.id} />
-                  ))}
-                </div>
-      </div>
+    <div className='mx-10'> 
+    <CommonProducts  />
+    </div>
     </section>
   );
 };
 
 export default ProductDetails;
-
-const product = [
-    {
-        id:1,
-        image:Malt,
-        
-        name:'Pepsi',
-        price:1200,
-
-    },
-    {
-        id:2,
-        image:Malt,
-        
-        name:'Pepsi',
-        price:1200,
-
-    },
-    {
-        id:3,
-        image:Malt,
-        
-        name:'Pepsi',
-        price:1200,
-
-    },
-    {
-        id:4,
-        image:Malt,
-        
-        name:'Pepsi',
-        price:1200,
-
-    },
-    {
-        id:5,
-        image:Malt,
-       
-        name:'Pepsi',
-        price:1200,
-
-    },
-    {
-        id:6,
-        image:Malt,
-       
-        name:'Pepsi',
-        price:1200,
-
-    },
-    
-]
-
 

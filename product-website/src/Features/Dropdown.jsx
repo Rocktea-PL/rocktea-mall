@@ -1,6 +1,7 @@
 import  { useState } from 'react';
+import {Link} from 'react-router-dom'
 import { FaRegUser } from 'react-icons/fa';
-import {RiSettings4Fill, RiListUnordered,RiBookmarkLine,RiLogoutCircleRLine} from 'react-icons/ri';
+import {RiSettings4Fill, RiListUnordered,RiBookmarkLine,RiLogoutCircleRLine, RiMapPinLine} from 'react-icons/ri';
 import {RxCaretDown, RxCaretUp} from 'react-icons/rx'
 const dropdown = [
   {
@@ -15,25 +16,39 @@ const dropdown = [
        
       },
       {
-        id:2,
+        id:3,
          title:'Orders',
          icon:<RiListUnordered />
         },
         {
-          id:2,
+          id:4,
+           title:'Shipping Address',
+           icon:<RiMapPinLine />
+          },
+        {
+          id:5,
            title:'Log Out',
-           icon:<RiLogoutCircleRLine />
+           icon:<RiLogoutCircleRLine />,
+           link:'/logout'
           },
 ]
 
 
 const ProfileDropdown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+const [logOut,setLogOut] = useState(false)
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+  const IsLogOut= () => {
+    setLogOut(!logOut);
 
+    if(dropdown.title ==='Logout'){
+      setLogOut(true)
+    }else {
+      setLogOut(false)
+    }
+  };
   return (
     <>
       <span
@@ -43,7 +58,7 @@ const ProfileDropdown = () => {
         <FaRegUser /> Daniel {isDropdownOpen ? <RxCaretUp /> : <RxCaretDown />}
       </span>
       {isDropdownOpen && (
-        <div className='origin-top-right absolute right-0 -bottom-[14rem] mt-2 w-40 rounded-md shadow-lg bg-white  focus:outline-none'>
+        <div className='origin-top-right absolute -right-5 -bottom-[16.5rem] mt-2 w-[12rem] rounded-md shadow-lg bg-white  focus:outline-none'>
           <div
             className='py-3'
             role='menu'
@@ -53,15 +68,15 @@ const ProfileDropdown = () => {
             {dropdown.map((item) => (
               <div key={item.id} className='flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 border-b border-b-solid border-b-black last:border-b-0'  >
                  <span>{item.icon}</span>
-              <a
-              href='#'
-              
-              className=''
+                 <Link to={item.link}>
+              <button
+              className='whitespace-nowrap'
               role='menuitem'
+              onClick={IsLogOut}
             >
               {item.title}
-            </a>
-           
+            </button>
+            </Link>
             </div>
             ))}
           </div>
