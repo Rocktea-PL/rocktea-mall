@@ -1,5 +1,5 @@
-import skin from '../../assets/skincare.png'
 
+ let skin = 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422703/rocktea-product-website/assets/skincare_icypoy.png'
 const category = [
     {
         id:1,

@@ -1,4 +1,3 @@
-import heroImg from '../../assets/Groceries.png'
 
 export default function Hero() {
   return (
@@ -11,7 +10,7 @@ export default function Hero() {
          <hr className="mt-3"/>   
         </div>
         <figure>
-         <img src={heroImg} alt="" />
+         <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422709/rocktea-product-website/assets/Groceries_yxkazq.png' alt="" />
         </figure>
         
    

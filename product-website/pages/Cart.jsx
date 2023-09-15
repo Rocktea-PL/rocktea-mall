@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import {Link} from 'react-router-dom'
-import Pepsi from '../src/assets/ProductDet1.png';
 import { FaAngleRight} from 'react-icons/fa'
 import CommonProducts from '../src/components/Products/CommonProducts';
 function Cart() {
@@ -35,7 +34,7 @@ function Cart() {
         
           <div className="flex items-center justify-center w-[120px] h-[120px]">
             <img
-              src={Pepsi} // Replace with your actual image URL
+              src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422697/rocktea-product-website/assets/ProductDet1_sathej.png' // Replace with your actual image URL
               alt="Product"
               className="object-cover h-full w-full rounded-md"
             />

@@ -1,5 +1,5 @@
 import ProductCard from '../../Features/ProductCard';
-import Malt from '../../assets/malt.png';
+let Malt = 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422692/rocktea-product-website/assets/malt_ofvezu.png';
 
 function CommonProducts() {
     return (

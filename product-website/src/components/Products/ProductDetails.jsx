@@ -1,9 +1,6 @@
 import  { useState } from 'react';
-
-import Pepsi1 from '../../assets/ProductDet1.png'
-import Pepsi2 from '../../assets/ProductDet2.png'
-import Pepsi3 from '../../assets/ProductDet3.png'
 import CommonProducts from './CommonProducts';
+
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
 
@@ -24,24 +21,24 @@ const ProductDetails = () => {
       <div className="flex flex-col md:flex-row-reverse gap-y-5 md:gap-x-4 w-full md:max-w-[50%] md:max-h-[500px] items-center justify-center ">
         {/* Main Image */}
         <img
-          src={Pepsi1}
+          src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422697/rocktea-product-website/assets/ProductDet1_sathej.png'
           alt="Main Product"
           className=" w-[90%] md:w-[70%] h-full"
         />
         {/* Additional Images */}
         <div className="flex md:flex-col items-center justify-center space-x-3 md:space-y-3 w-full md:max-h-full ">
           <img
-            src={Pepsi1}
+            src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422697/rocktea-product-website/assets/ProductDet1_sathej.png'
             alt="Additional Product 1"
             className=" object-cover w-[100px] md:w-[90%] h-[80%]"
           />
           <img
-            src={Pepsi2}
+            src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422698/rocktea-product-website/assets/ProductDet2_egpgdi.png'
             alt="Additional Product 2"
             className=" object-cover w-[100px] md:w-[90%] h-[80%]" />
 
           <img
-            src={Pepsi3}
+            src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422699/rocktea-product-website/assets/ProductDet3_kgdxcf.png'
             alt="Additional Product 3"
             className=" object-cover w-[100px] md:w-[90%] h-[80%]"
           />
