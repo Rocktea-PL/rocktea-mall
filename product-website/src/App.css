@@ -66,3 +66,7 @@ section{
   width: 100%;
   filter: drop-shadow(0,0,0,0,gray);
 }
+
+.logout {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.90) 29.16%, #E6CCFF 121.77%);
+}

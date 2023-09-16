@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const Pagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,8 +42,8 @@ const Pagination = () => {
         disabled={currentPage === 1}
         className={`px-4 py-2 rounded-sm ${
           currentPage === 1
-            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            : 'bg-[var(--orange)] text-black hover:bg-[var(--orange)]'
+            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-[var(--orange)] text-black hover:bg-[var(--orange)]"
         }`}
       >
         Previous
@@ -54,20 +54,22 @@ const Pagination = () => {
           onClick={() => setCurrentPage(pageNumber)}
           className={`px-4 py-2 rounded-sm ${
             pageNumber === currentPage
-              ? 'bg-[var(--orange)] text-black'
-              : 'border border-solid border-[var(--orange)] text-gray-700 hover:bg-[var(--orange)] hover:text-black'
+              ? "bg-[var(--orange)] text-black"
+              : "border border-solid border-[var(--orange)] text-gray-700 hover:bg-[var(--orange)] hover:text-black"
           }`}
         >
           {pageNumber}
         </button>
       ))}
-      <span className="text-gray-600  bg-[var(--product-bg)] px-4 py-3 rounded-sm whitespace-nowrap text-sm">---</span>
+      <span className="text-gray-600  bg-[var(--product-bg)] px-4 py-3 rounded-sm whitespace-nowrap text-sm">
+        ---
+      </span>
       <button
         onClick={() => setCurrentPage(totalPages)}
         className={`px-4 py-2 rounded-sm ${
           currentPage === totalPages
-            ? 'border border-solid border-[var(--orange)] text-black cursor-not-allowed'
-            : 'border border-solid border-[var(--orange)] text-black hover:bg-[var(--orange)]'
+            ? "border border-solid border-[var(--orange)] text-black cursor-not-allowed"
+            : "border border-solid border-[var(--orange)] text-black hover:bg-[var(--orange)]"
         }`}
       >
         {totalPages}
@@ -77,8 +79,8 @@ const Pagination = () => {
         disabled={currentPage === totalPages}
         className={`px-4 py-2 rounded-sm ${
           currentPage === totalPages
-            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            : 'bg-[var(--orange)] text-black hover:bg-[var(--orange)]'
+            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-[var(--orange)] text-black hover:bg-[var(--orange)]"
         }`}
       >
         Next
