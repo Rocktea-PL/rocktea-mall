@@ -2,7 +2,8 @@
 import { createContext, useContext, useState } from "react";
 import { register, registerStore } from "../../pages/auth/auth";
 import emailjs from "@emailjs/browser";
-import cogoToast from "cogo-toast";
+//import {toast} from 'react-hot-toast'
+//import cogoToast from "cogo-toast";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
@@ -86,10 +87,12 @@ const AppProvider = ({ children }) => {
       console.log("Registration successful", userData);
       console.log(response.error);
       // Move to the next step
-      cogoToast.success("Registered Succesfully!");
+      //toast.success('Registered Succesfully!');
+      //cogoToast.success("Registered Succesfully!");
     } catch (error) {
       setError(error);
-      cogoToast.error("Registration Failed. Please check your information");
+     // toast.error('Registration Failed. Please check your information');
+     // cogoToast.error("Registration Failed. Please check your information");
     }
   };
 

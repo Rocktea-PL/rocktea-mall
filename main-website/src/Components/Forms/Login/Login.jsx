@@ -2,8 +2,8 @@ import { useState } from "react";
 import Button from "../../Button";
 import { NavLink } from "react-router-dom";
 import { loginUser } from "../../../../pages/auth/auth"; // Import the login function from your auth.js file
-import cogoToast from "cogo-toast";
-
+//import cogoToast from "cogo-toast";
+//import {toast} from 'react-hot-toast'
 function Login() {
   const [credentials, setCredentials] = useState({
     email: "",
@@ -26,11 +26,13 @@ function Login() {
       const response = await loginUser(credentials); // Call the login function
       // Handle successful login (e.g., store token, redirect user)
       console.log("Login successful:", response);
-      cogoToast.success("Logged in Successfully");
+      //cogoToast.success("Logged in Successfully");
+      //toast.success('Logged in Successfully');
     } catch (error) {
       setError("Invalid credentials. Please try again."); // Handle login error
       console.error("Login error:", error);
-      cogoToast.success("Log in Failed. Check you Details");
+      //toast.error('Log in Failed. Check you Details');
+      //cogoToast.success("Log in Failed. Check you Details");
     }
   };
 
