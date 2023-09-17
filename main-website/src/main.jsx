@@ -1,11 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import { AppProvider } from './hooks/context.jsx';
-ReactDOM.createRoot(document.getElementById('root')).render(
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import { AppProvider } from "./hooks/context.jsx";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-     <AppProvider>
-    <App />
+    <AppProvider>
+      
+      <App />
+      
     </AppProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

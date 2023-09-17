@@ -1,16 +1,15 @@
-import  { useState } from 'react';
-//import LoginBg from '../../../assets/login-bg.png';
-import LoginImg from '../../../assets/loginbg.png'
-import Button from '../../Button';
-import { NavLink } from 'react-router-dom';
-import { loginUser } from '../../../../pages/auth/auth'; // Import the login function from your auth.js file
-
+import { useState } from "react";
+import Button from "../../Button";
+import { NavLink } from "react-router-dom";
+import { loginUser } from "../../../../pages/auth/auth"; // Import the login function from your auth.js file
+//import cogoToast from "cogo-toast";
+//import {toast} from 'react-hot-toast'
 function Login() {
   const [credentials, setCredentials] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -26,20 +25,21 @@ function Login() {
     try {
       const response = await loginUser(credentials); // Call the login function
       // Handle successful login (e.g., store token, redirect user)
-      console.log('Login successful:', response);
+      console.log("Login successful:", response);
+      //cogoToast.success("Logged in Successfully");
+      //toast.success('Logged in Successfully');
     } catch (error) {
-      setError('Invalid credentials. Please try again.'); // Handle login error
-      console.error('Login error:', error);
+      setError("Invalid credentials. Please try again."); // Handle login error
+      console.error("Login error:", error);
+      //toast.error('Log in Failed. Check you Details');
+      //cogoToast.success("Log in Failed. Check you Details");
     }
   };
 
   return (
-    <section
-      className="flex flex-col md:flex-row items-center justify-center p-0 h-screen overflow-hidden"
-     
-    >
-      <figure className='md:max-w-[50%] hidden md:block'>
-        <img src={LoginImg} alt="login" />
+    <section className="flex flex-col md:flex-row items-center justify-center p-0 h-screen overflow-hidden">
+      <figure className="md:max-w-[50%] hidden md:block">
+        <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961296/rocktea-main-website/assets/IMG_7812_eibblj.jpg' alt="login" />
       </figure>
       <form
         action=""
@@ -71,13 +71,12 @@ function Login() {
           <div className="flex items-center justify-between w-[90%]">
             <label className="flex flex-row-reverse items-center justify-center -mt-1">
               Remember me
-              <input
-                type="checkbox"
-                className="w-[30px] h-3 mt-0 px-1"
-              />
+              <input type="checkbox" className="w-[30px] h-3 mt-0 px-1" />
             </label>
             <div>
-            <p className="text-[var(--deep-blue)] text-sm">Forgot Password?</p>
+              <p className="text-[var(--deep-blue)] text-sm">
+                Forgot Password?
+              </p>
             </div>
           </div>
         </div>
@@ -88,10 +87,13 @@ function Login() {
           <Button text="Sign In" />
         </div>
         <p className="text-[15px] text-center mt-5">
-          Do not have an account?{' '}
-          <NavLink to="/personal_details" style={{ color: 'var(--deep-blue)', fontWeight: 'bold' }}>
+          Do not have an account?{" "}
+          <NavLink
+            to="/personal_details"
+            style={{ color: "var(--deep-blue)", fontWeight: "bold" }}
+          >
             Sign Up
-          </NavLink>{' '}
+          </NavLink>{" "}
         </p>
       </form>
     </section>
