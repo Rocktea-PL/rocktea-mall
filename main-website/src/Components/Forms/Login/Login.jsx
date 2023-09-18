@@ -3,7 +3,7 @@ import Button from "../../Button";
 import { NavLink } from "react-router-dom";
 import { loginUser } from "../../../../pages/auth/auth"; // Import the login function from your auth.js file
 //import cogoToast from "cogo-toast";
-//import {toast} from 'react-hot-toast'
+import {toast} from 'react-hot-toast'
 function Login() {
   const [credentials, setCredentials] = useState({
     email: "",
@@ -27,19 +27,19 @@ function Login() {
       // Handle successful login (e.g., store token, redirect user)
       console.log("Login successful:", response);
       //cogoToast.success("Logged in Successfully");
-      //toast.success('Logged in Successfully');
+      toast.success('Logged in Successfully');
     } catch (error) {
       setError("Invalid credentials. Please try again."); // Handle login error
       console.error("Login error:", error);
-      //toast.error('Log in Failed. Check you Details');
+      toast.error('Log in Failed. Check you Details');
       //cogoToast.success("Log in Failed. Check you Details");
     }
   };
 
   return (
     <section className="flex flex-col md:flex-row items-center justify-center p-0 h-screen overflow-hidden">
-      <figure className="md:max-w-[50%] hidden md:block">
-        <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961296/rocktea-main-website/assets/IMG_7812_eibblj.jpg' alt="login" />
+      <figure className="md:max-w-[50%] hidden md:block h-screen w-[570px]">
+        <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961296/rocktea-main-website/assets/IMG_7812_eibblj.jpg' alt="login" className="object-contain h-auto"  loading="lazy"/>
       </figure>
       <form
         action=""

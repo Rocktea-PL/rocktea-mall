@@ -1,6 +1,7 @@
 import { useGlobalContext } from "../src/hooks/context";
 import FileInput from "../src/Components/Forms/SignUp/FormImage";
 import { NavLink } from "react-router-dom";
+import { ImageWithLoading } from "../src/Components/ImageLoader";
 //import {useState} from 'react'
 function UserDetails() {
   const { userData, setUserData, error, setError, handleFormSubmit } =
@@ -19,11 +20,11 @@ function UserDetails() {
 
   return (
     <section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 md:overflow-hidden">
-      <figure className="hidden md:max-w-[50%]  w-[50%] md:block md:h-screen  ">
-        <img
+      <figure className="hidden md:max-w-[50%] w-[570px] md:block md:h-screen  ">
+      <ImageWithLoading
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961328/rocktea-main-website/assets/IMG_7813_mtdsgq.jpg"
           alt=""
-          className="w-full h-full object-cover"
+          
         />
       </figure>
       <div className="form">
