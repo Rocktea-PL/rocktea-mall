@@ -1,11 +1,22 @@
 import { useGlobalContext } from "../src/hooks/context";
 import FileInput from "../src/Components/Forms/SignUp/FormImage";
-import { NavLink } from "react-router-dom";
+import { NavLink, } from "react-router-dom";
 import { ImageWithLoading } from "../src/Components/ImageLoader";
+import EmailVerification from "../src/Components/Forms/SignUp/EmailVerification";
+import { useEffect } from "react";
+
 //import {useState} from 'react'
 function UserDetails() {
-  const { userData, setUserData, error, setError, handleFormSubmit } =
+  const { userData, setUserData, error, setError, handleFormSubmit,verifyEmail,setVerifyEmail } =
     useGlobalContext();
+    
+    useEffect(() => {
+      const storedVerifyEmail = localStorage.getItem('verifyEmail');
+      if (storedVerifyEmail) {
+        setVerifyEmail(JSON.parse(storedVerifyEmail));
+      }
+    }, [setVerifyEmail]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     const updatedErrors = { ...error, [name]: "" };
@@ -14,12 +25,19 @@ function UserDetails() {
       ...userData,
       [name]: value,
     });
-
+    
     setError(updatedErrors);
+    
   };
 
+  useEffect(() => {
+    localStorage.setItem('verifyEmail', JSON.stringify(verifyEmail));
+  }, [verifyEmail]);
+
   return (
-    <section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 md:overflow-hidden">
+<>
+    {verifyEmail ? <EmailVerification email={userData.email} />
+    :(<section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 md:overflow-hidden">
       <figure className="hidden md:max-w-[50%] w-[570px] md:block md:h-screen  ">
       <ImageWithLoading
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961328/rocktea-main-website/assets/IMG_7813_mtdsgq.jpg"
@@ -161,7 +179,8 @@ function UserDetails() {
           </NavLink>{" "}
         </div>
       </div>
-    </section>
+    </section>)}
+    </>
   );
 }
 

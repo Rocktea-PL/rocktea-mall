@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../Features/Navbar";
 import Footer from "../Features/Footer";
-
+import { AppProvider } from "../hooks/context";
 function Layout() {
   const location = useLocation();
 
@@ -13,11 +13,13 @@ function Layout() {
     location.pathname === "/login";
 
   return (
+    <AppProvider>
     <main className="relative">
       {!hideNavbar && <Navbar />}
       <Outlet />
       {!hideNavbar && <Footer />}
     </main>
+    </AppProvider>
   );
 }
 

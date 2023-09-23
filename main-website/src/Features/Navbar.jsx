@@ -14,13 +14,13 @@ const Navbar = () => {
     },
     {
       id: 2,
-      link: "/about",
-      title: "About",
+      link: "/faqs",
+      title: "FAQs",
     },
     {
       id: 3,
-      link: "/services",
-      title: "Services",
+      link: "/about",
+      title: "About",
     },
   ];
   let [open, setOpen] = useState(false);
