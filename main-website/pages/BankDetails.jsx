@@ -5,7 +5,7 @@ function BankDetails() {
   const { handleFormSubmit } = useGlobalContext();
   return (
     <section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 md:overflow-hidden">
-      <figure className=" relative hidden md:max-w-[50%] w-[570px] md:block md:h-screen ">
+      <figure className=" relative hidden lg:max-w-[50%] w-[570px] lg:block lg:h-screen ">
         <ImageWithLoading
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961328/rocktea-main-website/assets/IMG_7813_mtdsgq.jpg"
           alt=""

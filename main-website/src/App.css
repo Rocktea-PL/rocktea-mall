@@ -39,7 +39,7 @@
 
   h3{
     font-family: 'Poppins', sans-serif;
-    @apply text-[50px] font-semibold text-[var(--deep-blue)] leading-[3.5rem] 
+    @apply text-[30px] md:text-[50px] font-semibold text-[var(--deep-blue)] leading-tight lg:leading-[3.5rem] 
   }
 
   p{
@@ -48,6 +48,7 @@
   }
    section{
     padding: 1rem 3rem;
+   
    }
 
    

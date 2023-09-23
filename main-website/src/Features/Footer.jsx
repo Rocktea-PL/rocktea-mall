@@ -3,17 +3,17 @@ import RockteaLogo from "../assets/rocktea-logo.png";
 
 function Footer() {
   return (
-    <footer className="bg-[var(--deep-blue)] p-10 flex  flex-col md:flex-row items-center justify-between">
-      <figure className="flex flex-col items-center justify-center">
+    <footer className="bg-[var(--deep-blue)] p-6 lg:p-10 flex  flex-col lg:flex-row lg:items-center justify-between">
+      <figure className="flex flex-col md:items-center justify-center">
         <img src={RockteaLogo} width={180} height={180} alt="logo" />
-        <p className="text-[15px] mt-6 text-[var(--white)] md:ml-6">
+        <p className="text-[15px] mt-6 text-[var(--white)] lg:ml-6">
           Office:No 9, office address
           <br /> goes here lagos State,Nigeria
         </p>
       </figure>
 
-      <section className="flex items-center justify-between gap-20 text-[var(--white)]">
-        <article className=" flex flex-col gap-y-8">
+      <section className="flex flex-col md:flex-row lg:items-center justify-between gap-10 lg:gap-20 text-[var(--white)] px-0 lg:px-[3rem]">
+        <article className=" flex flex-col it gap-y-8">
           <h4 className="font-semibold text-[1rem] md:text-[1.2rem]">Links</h4>
           <ul className="flex flex-col gap-y-4">
             <li>Home</li>

@@ -1,8 +1,8 @@
 function About() {
   return (
     <section className="mt-[5rem] flex flex-col items-center justify-center mb-20">
-      <figure className="w-full">
-        <img src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298699/rocktea-main-website/assets/About_Us.png" className="w-full" alt="" />
+      <figure className=" h-full lg:w-full">
+        <img src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298699/rocktea-main-website/assets/About_Us.png" className="w-full h-full object-contain" alt="" />
       </figure>
       <article className="flex flex-col-reverse lg:flex-row items-center justify-center gap-y-10 lg:gap-20 mt-12 bg-white rounded-lg py-10 px-7">
         <figure className="w-[300px] h-[300px]">

@@ -18,8 +18,8 @@ function Login() {
   
 
   return (
-    <section className="flex flex-col md:flex-row items-center justify-center p-0 h-screen overflow-hidden">
-      <figure className="md:max-w-[50%] hidden md:block h-screen w-[570px]">
+    <section className="flex flex-col lg:flex-row items-center justify-center p-0 h-screen overflow-hidden">
+      <figure className="lg:max-w-[50%] hidden lg:block h-screen w-[570px]">
         <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961296/rocktea-main-website/assets/IMG_7812_eibblj.jpg' alt="login" className="object-contain h-auto"  loading="lazy"/>
       </figure>
       <form
