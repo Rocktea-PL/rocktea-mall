@@ -16,6 +16,9 @@ export default {
         'xxl':'1400px',
         'max-md': {'max': '767px'},
       },
+      colors:{
+        orange:'#ffa500',
+      }
     },
   },
   plugins: [],

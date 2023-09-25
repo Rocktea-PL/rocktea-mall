@@ -5,10 +5,10 @@ import Home from "../pages/Home";
 import SignIn from "../pages/SignIn";
 //import SignUp from '../pages/SignUp';
 import About from "../pages/About";
-import Services from "../pages/Services";
 import UserDetails from "../pages/UserDetails";
 import StoreDetails from "../pages/StoreDetails";
 import BankDetails from "../pages/BankDetails";
+import Faqs from "../pages/Faq";
 
 function App() {
   const router = createBrowserRouter([
@@ -26,7 +26,7 @@ function App() {
         },
         {
           path: "/faqs",
-          element: <Services />,
+          element: <Faqs />,
         },
         {
           path: "/login",

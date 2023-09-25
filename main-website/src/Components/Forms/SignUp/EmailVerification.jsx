@@ -21,9 +21,9 @@ function EmailVerification({email}) {
           </figure>
           <div className="mx-auto flex flex-col items-center justify-center text-center">
           <h3>Welcome!</h3>
-          <p className="my-5 text-[1rem]">Thank you for registering with us,
+          <p className="my-7 text-[1rem] leading-[1.8]">Thank you for registering with us,
 To continue with your registration a mail
-has been sent to your mail. <span className="text-[var(--deep-blue)] font-semibold">{email}</span></p>
+has been sent to your mail. <span className="text-[var(--deep-blue)] font-semibold ">{email}</span></p>
 
 </div>
               </div>
