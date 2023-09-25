@@ -1,7 +1,7 @@
 function Newsletter() {
   return (
     <section className="bg-[#1C1B1F] text-[var(--white)] flex flex-col items-center justify-center p-12">
-      <h2 className="text-[var(--white)] text-[50px] font-semibold text-center">
+      <h2 className="text-[var(--white)] text-[30px] leading-tight md:text-[50px] font-semibold text-center">
         Subscribe to our Newsletter{" "}
       </h2>
       <p className="text-center mt-2">

@@ -1,6 +1,8 @@
 import { useGlobalContext } from "../src/hooks/context";
 //import {useState} from 'react'
 import StoreImage from "../src/Components/Forms/SignUp/StoreImage";
+import { ImageWithLoading } from "../src/Components/ImageLoader";
+import { useEffect } from "react";
 
 function StoreDetails() {
   const {
@@ -33,21 +35,38 @@ function StoreDetails() {
     }
     // Add similar validation for other fields
 
-    setStoreData({
-      ...storeData,
+    setStoreData((prevStoreData) => ({
+      ...prevStoreData,
       [name]: value,
-    });
+    }));
 
     setStoreError(updatedErrors);
   };
 
+  useEffect(() => {
+    const owner = localStorage.getItem('owner');
+    if (owner) {
+      setStoreData((prevStoreData) => ({
+        ...prevStoreData,
+        owner: owner,
+      }));
+    } else {
+      setStoreData((prevStoreData) => ({
+        ...prevStoreData,
+        owner: '',  // Set a default value if owner is not in localStorage
+      }));
+    }
+  }, []);
+  
+console.log('storeDetails',storeData.owner)
+
   return (
     <section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 md:overflow-hidden">
-      <figure className="hidden md:max-w-[50%]  w-[50%] md:block md:h-screen  ">
-        <img
+      <figure className="hidden lg:max-w-[50%]   w-[570px] lg:block lg:h-screen  ">
+      <ImageWithLoading
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961328/rocktea-main-website/assets/IMG_7813_mtdsgq.jpg"
           alt=""
-          className="w-full h-full object-cover"
+          className=" h-auto object-cover"
         />
       </figure>
       <div className="form">
@@ -68,6 +87,23 @@ function StoreDetails() {
         <div className="scrollable-container">
           <form action="" method="post" encType="multipart/form-data">
             <div className="grid md:grid-cols-1 gap-2 px-5 md:mt-3 md:mb-6">
+            <label htmlFor="owner" className="hidden" >
+                Owner
+                <input
+                  type="text"
+                  name="owner"
+                  value={storeData?.owner}
+                  placeholder="owner"
+                  onChange={handleStoreInputChange}
+                  
+                  
+                />
+                {storeError?.owner && (
+                  <p className="text-red-500 text-sm">
+                    {storeError?.owner}
+                  </p>
+                )}
+              </label>
               <label htmlFor="name" className="">
                 Store Name
                 <input
@@ -78,7 +114,7 @@ function StoreDetails() {
                   onChange={handleStoreInputChange}
                 />
                 {storeError?.name && (
-                  <p className="text-red-500 text-sm">{storeError?.name}</p>
+                  <p className="text-red-500 text-sm">{storeError.name}</p>
                 )}
               </label>
               <label htmlFor="email" className="flex flex-col">
@@ -91,7 +127,7 @@ function StoreDetails() {
                   onChange={handleStoreInputChange}
                 />
                 {storeError?.email && (
-                  <p className="text-red-500 text-sm">{storeError?.email}</p>
+                  <p className="text-red-500 text-sm">{storeError.email}</p>
                 )}
               </label>
               <label htmlFor="TIN_number">
@@ -134,7 +170,7 @@ function StoreDetails() {
                   onChange={handleStoreInputChange}
                 />
                 {storeError?.category && (
-                  <p className="text-red-500 text-sm">{storeError?.category}</p>
+                  <p className="text-red-500 text-sm">{storeError.category}</p>
                 )}
               </label>
 

@@ -15,7 +15,7 @@ function LogoAnimation() {
     },
   };
   return (
-    <section className="  md:relative bg-[var(--deep-blue)] p-10 md:flex z-[9] overflow-hidden">
+    <section className="  lg:relative bg-[var(--deep-blue)] p-10 md:flex z-[9] overflow-hidden">
       <article className="md:max-w-[50%] text-[var(--white)]">
         <h2 className="text-[50px] leading-[1.20] font-semibold md:w-[700px] text-center text-white">
           &quot;Endorsed by the
@@ -24,7 +24,7 @@ function LogoAnimation() {
           Across the
           <br /> Globe&quot;
         </h2>
-        <p className="hidden md:block mt-5 text-center w-[650px]  mx-auto">
+        <p className="hidden lg:block mt-5 text-center w-[650px]  mx-auto">
           &quot;See for yourself why clients and brands
           <br />
           prefer us over our closest rival.&quot;
@@ -33,7 +33,7 @@ function LogoAnimation() {
       <motion.figure
         variants={animateVariants}
         animate="animate"
-        className="hidden md:block absolute top-0 right-0 z-[5] overflow-hidden "
+        className="hidden lg:block absolute top-0 right-0 z-[5] overflow-hidden "
       >
         <img
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421651/rocktea-main-website/assets/logo-animations_aggj4v.png"

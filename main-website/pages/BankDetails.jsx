@@ -1,13 +1,15 @@
 import { useGlobalContext } from "../src/hooks/context";
+import { ImageWithLoading } from "../src/Components/ImageLoader";
+
 function BankDetails() {
   const { handleFormSubmit } = useGlobalContext();
   return (
     <section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 md:overflow-hidden">
-      <figure className="hidden md:max-w-[50%]  w-[50%] md:block md:h-screen  ">
-        <img
+      <figure className=" relative hidden lg:max-w-[50%] w-[570px] lg:block lg:h-screen ">
+        <ImageWithLoading
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961328/rocktea-main-website/assets/IMG_7813_mtdsgq.jpg"
           alt=""
-          className="w-full h-full object-cover"
+          className=" h-auto object-cover"
         />
       </figure>
       <div className="form">
@@ -17,6 +19,7 @@ function BankDetails() {
             width={120}
             height={120}
             alt="logo"
+            loading="lazy"
           />
         </figure>
         <h2 className="mt-0 text-center leading-[1.5rem]">

@@ -39,17 +39,19 @@
 
   h3{
     font-family: 'Poppins', sans-serif;
-    @apply text-[50px] font-semibold text-[var(--deep-blue)] leading-[3.5rem] 
+    @apply text-[30px] md:text-[50px] font-semibold text-[var(--deep-blue)] leading-tight lg:leading-[3.5rem] 
   }
 
   p{
     @apply font-["Sora"] text-[20px];
     
   }
-   section {
+   section{
     padding: 1rem 3rem;
+   
    }
 
+   
    form h2{
     font-family: 'Sora',sans-serif;
     @apply text-[30px] text-center 
@@ -131,6 +133,26 @@
   60% {
     transform: translateY(-8px);
   }
+}
+
+@keyframes wave-animation {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.wave-animation-container {
+  display: inline-block; /* Ensure the container only takes as much width as the image */
+}
+
+.wavy-animation-image {
+  animation: wave-animation 1s infinite;
 }
 
 

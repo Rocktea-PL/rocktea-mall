@@ -1,26 +1,18 @@
 // MyContext.js
 import { createContext, useContext, useState } from "react";
-import { register, registerStore } from "../../pages/auth/auth";
+import { loginUser, register, registerStore } from "../../pages/auth/auth";
 import emailjs from "@emailjs/browser";
-//import {toast} from 'react-hot-toast'
+import {toast} from 'react-hot-toast'
+import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 //import cogoToast from "cogo-toast";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const test = "it is working";
+  const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(0);
 
-  const [storeData, setStoreData] = useState({
-    name: "",
-    email: "",
-    TIN_number: "",
-    year_of_establishment: "",
-    domain_name: "",
-    store_url: "",
-    logo: "",
-    category: "",
-    // Add more properties as needed
-  });
+  
   // Define initial user data state
   const [userData, setUserData] = useState({
     // Define initial user data state
@@ -33,8 +25,29 @@ const AppProvider = ({ children }) => {
     profile_image: "",
   });
 
+  const[credentials,setCredentials] = useState ({
+    email:"",
+    password:""
+  })
+
+  const [storeData, setStoreData] = useState({
+    name: "",
+    email: "",
+    TIN_number: "",
+    year_of_establishment: "",
+    domain_name: "",
+    store_url: "",
+    logo: "",
+    category: "",
+    owner:"",
+   
+    // Add more properties as needed
+  });
   const [error, setError] = useState(null);
   const [storeError, setStoreError] = useState(null);
+  const [loginError, setLoginError] = useState("");
+
+  const [verifyEmail,setVerifyEmail] = useState(false)
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -63,7 +76,7 @@ const AppProvider = ({ children }) => {
       const emailParams = {
         to_email: userData.email,
         to_name: userData.first_name,
-        to_link: "https://rocktea-mall.vercel.app/store_details",
+        
         // User's email address
         // Add any other template variables here
       };
@@ -82,24 +95,78 @@ const AppProvider = ({ children }) => {
         .catch((error) => {
           console.error("Email sending failed:", error);
         });
+
+        emailjs
+        .send(
+          "service_5hulf9r",
+          "template_nxo03xr",
+          emailParams,
+          "Sb11MyaNpQEgE-cBn",
+        )
+        .then((response) => {
+          console.log("Email sent:", response);
+        })
+        .catch((error) => {
+          console.error("Email sending failed:", error);
+        });
       // Handle successful registration
       // For now, let's just log the user data
       console.log("Registration successful", userData);
       console.log(response.error);
       // Move to the next step
-      //toast.success('Registered Succesfully!');
+      toast.success('Registered Succesfully!');
+      setVerifyEmail(true)
       //cogoToast.success("Registered Succesfully!");
     } catch (error) {
       setError(error);
-     // toast.error('Registration Failed. Please check your information');
+     toast.error('Registration Failed. Please check your information');
+     setVerifyEmail(false)
      // cogoToast.error("Registration Failed. Please check your information");
     }
   };
 
-  // Function to handle registering store details
-  const handleStoreFormSubmit = async (e) => {
+  const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
 
+    try {
+      const response = await loginUser(credentials); // Call the login function
+      // Handle successful login (e.g., store token, redirect user)
+      console.log("Login successful:", response);
+      console.log(response.user_data.uid)
+     navigate('/store_details')
+      setStoreData((prevStoreData) => ({
+        ...prevStoreData,
+        owner: response.user_data.uid,
+      }));
+      setTimeout(() => {
+        handleStoreFormSubmit(e,response.user_data.uid);
+      }, 0);
+      console.log("Owner set:", response.user_data.uid);
+      console.log("Updated storeData:", storeData);
+      
+      toast.success('Logged in Successfully');
+    } catch (error) {
+      setLoginError("Invalid credentials. Please try again."); // Handle login error
+      console.error("Login error:", error);
+      toast.error('Log in Failed. Check you Details');
+      //cogoToast.success("Log in Failed. Check you Details");
+    }
+  };
+  
+  // Function to handle registering store details
+  const handleStoreFormSubmit = async (e,owner) => {
+    e.preventDefault();
+    console.log("Owner in handleStoreFormSubmit:", owner);
+ //storeData.owner= owner;
+  owner = localStorage.getItem('owner');
+
+  if (!owner) {
+    console.error('Owner value not found in localStorage.');
+    return;
+  }
+
+  console.log('Owner from localStorage:', owner);
+  storeData.owner= owner;
     // Create a FormData object to send the form data including the image
     const formData = new FormData();
     formData.append("name", storeData.name);
@@ -110,6 +177,7 @@ const AppProvider = ({ children }) => {
     formData.append("domain_name", storeData.domain_name);
     formData.append("store_url", storeData.store_url);
     formData.append("logo", storeData.logo);
+    formData.append("owner", storeData.owner);
 
     try {
       // Call the registerStore function from auth.js to register store details
@@ -137,7 +205,6 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        test,
         handleFormSubmit,
         handleStoreFormSubmit,
         error,
@@ -148,6 +215,12 @@ const AppProvider = ({ children }) => {
         setUserData,
         setStoreData,
         storeData,
+        verifyEmail,
+        setVerifyEmail,
+        credentials,
+        setCredentials,
+        handleLoginFormSubmit,
+        loginError
       }}
     >
       {children}
