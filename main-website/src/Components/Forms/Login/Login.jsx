@@ -4,9 +4,9 @@ import { NavLink } from "react-router-dom";
 
 import { useGlobalContext } from "../../../hooks/context";
 function Login() {
-  const {credentials,setCredentials,handleLoginFormSubmit} = useGlobalContext()
- 
-  
+  const { credentials, setCredentials, handleLoginFormSubmit } =
+    useGlobalContext();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCredentials({
@@ -15,12 +15,15 @@ function Login() {
     });
   };
 
-  
-
   return (
     <section className="flex flex-col lg:flex-row items-center justify-center p-0 h-screen overflow-hidden">
       <figure className="lg:max-w-[50%] hidden lg:block h-screen w-[570px]">
-        <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961296/rocktea-main-website/assets/IMG_7812_eibblj.jpg' alt="login" className="object-contain h-auto"  loading="lazy"/>
+        <img
+          src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961296/rocktea-main-website/assets/IMG_7812_eibblj.jpg"
+          alt="login"
+          className="object-contain h-auto"
+          loading="lazy"
+        />
       </figure>
       <form
         action=""
@@ -62,12 +65,8 @@ function Login() {
           </div>
         </div>
 
-        
-
         <div className="flex items-center justify-center mt-8">
-          
           <Button text="Sign In" />
-          
         </div>
         <p className="text-[15px] text-center mt-5">
           Do not have an account?{" "}

@@ -14,11 +14,11 @@ function Layout() {
 
   return (
     <AppProvider>
-    <main className="relative">
-      {!hideNavbar && <Navbar />}
-      <Outlet />
-      {!hideNavbar && <Footer />}
-    </main>
+      <main className="relative">
+        {!hideNavbar && <Navbar />}
+        <Outlet />
+        {!hideNavbar && <Footer />}
+      </main>
     </AppProvider>
   );
 }

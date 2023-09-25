@@ -44,7 +44,7 @@ function StoreDetails() {
   };
 
   useEffect(() => {
-    const owner = localStorage.getItem('owner');
+    const owner = localStorage.getItem("owner");
     if (owner) {
       setStoreData((prevStoreData) => ({
         ...prevStoreData,
@@ -53,17 +53,17 @@ function StoreDetails() {
     } else {
       setStoreData((prevStoreData) => ({
         ...prevStoreData,
-        owner: '',  // Set a default value if owner is not in localStorage
+        owner: "", // Set a default value if owner is not in localStorage
       }));
     }
   }, []);
-  
-console.log('storeDetails',storeData.owner)
+
+  console.log("storeDetails", storeData.owner);
 
   return (
     <section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 md:overflow-hidden">
       <figure className="hidden lg:max-w-[50%]   w-[570px] lg:block lg:h-screen  ">
-      <ImageWithLoading
+        <ImageWithLoading
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961328/rocktea-main-website/assets/IMG_7813_mtdsgq.jpg"
           alt=""
           className=" h-auto object-cover"
@@ -87,7 +87,7 @@ console.log('storeDetails',storeData.owner)
         <div className="scrollable-container">
           <form action="" method="post" encType="multipart/form-data">
             <div className="grid md:grid-cols-1 gap-2 px-5 md:mt-3 md:mb-6">
-            <label htmlFor="owner" className="hidden" >
+              <label htmlFor="owner" className="hidden">
                 Owner
                 <input
                   type="text"
@@ -95,13 +95,9 @@ console.log('storeDetails',storeData.owner)
                   value={storeData?.owner}
                   placeholder="owner"
                   onChange={handleStoreInputChange}
-                  
-                  
                 />
                 {storeError?.owner && (
-                  <p className="text-red-500 text-sm">
-                    {storeError?.owner}
-                  </p>
+                  <p className="text-red-500 text-sm">{storeError?.owner}</p>
                 )}
               </label>
               <label htmlFor="name" className="">
