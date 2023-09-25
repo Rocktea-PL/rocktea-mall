@@ -17,9 +17,13 @@ const Accordion = ({ title, content }) => {
         <div className="px-2">{title}</div>
         <div>
           {isOpen ? (
-            <span className=""><FaAngleDown className="border-[1.5px] border-solid border-black "  /></span>
+            <span className="">
+              <FaAngleDown className="border-[1.5px] border-solid border-black " />
+            </span>
           ) : (
-            <span className=""><FaAngleUp className="border-[1.5px] border-solid border-black " /></span>
+            <span className="">
+              <FaAngleUp className="border-[1.5px] border-solid border-black " />
+            </span>
           )}
         </div>
       </div>

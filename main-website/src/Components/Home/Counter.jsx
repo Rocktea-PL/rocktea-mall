@@ -26,13 +26,17 @@ function Counter() {
         <h1 className=" text-[30px] md:text-[40px] font-bold text-[var(--deep-blue)]   bounce">
           {count}+
         </h1>
-        <p className=" text-sm md:text-md  text-[var(--deep-blue)] ">DropShippers</p>
+        <p className=" text-sm md:text-md  text-[var(--deep-blue)] ">
+          DropShippers
+        </p>
       </div>
       <div className="border-r border-solid border-gray pr-5">
         <h1 className=" text-[30px] md:text-[40px] font-bold text-[var(--deep-blue)] whitespace-nowrap  bounce">
           24 hrs
         </h1>
-        <p className=" text-sm md:text-md text-[var(--deep-blue)]">Delivery time</p>
+        <p className=" text-sm md:text-md text-[var(--deep-blue)]">
+          Delivery time
+        </p>
       </div>
     </div>
   );
