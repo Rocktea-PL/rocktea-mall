@@ -21,7 +21,7 @@ const ProductFilter = () => {
   };
 
   return (
-    <div className="overflow-x-auto whitespace-nowrap mb-5">
+    <section className="overflow-x-auto whitespace-nowrap  mt-6">
       {categories.map((category) => (
         <button
           key={category}
@@ -35,7 +35,7 @@ const ProductFilter = () => {
           {category}
         </button>
       ))}
-    </div>
+    </section>
   );
 };
 
