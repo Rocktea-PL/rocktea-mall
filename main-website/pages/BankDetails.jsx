@@ -1,6 +1,6 @@
 import { useGlobalContext } from "../src/hooks/context";
 import { ImageWithLoading } from "../src/Components/ImageLoader";
-
+//import {Link} from 'react-router-dom'
 function BankDetails() {
   const { handleFormSubmit } = useGlobalContext();
   return (
@@ -62,12 +62,14 @@ function BankDetails() {
             </div>
           </form>
           <div className="flex items-center justify-center ">
-            <button
+
+            <a
+            href='http://localhost:5173/dashboard'
               className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg"
               onClick={handleFormSubmit}
             >
               continue
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -1,10 +1,11 @@
 //import { useState } from "react";
-import Button from "../../Button";
+//import Button from "../../Button";
 import { NavLink } from "react-router-dom";
-
+import {Oval} from 'react-loader-spinner'
 import { useGlobalContext } from "../../../hooks/context";
 function Login() {
-  const { credentials, setCredentials, handleLoginFormSubmit } =
+  const { credentials, setCredentials, isLoading,
+    handleLoginFormSubmit } =
     useGlobalContext();
 
   const handleInputChange = (e) => {
@@ -53,12 +54,12 @@ function Login() {
             />
           </label>
           <div className="flex items-center justify-between w-[90%]">
-            <label className="flex flex-row-reverse items-center justify-center -mt-1">
+            <label className="flex flex-row-reverse items-center justify-center whitespace-nowrap text-[14px] -mt-1">
               Remember me
               <input type="checkbox" className="w-[30px] h-3 mt-0 px-1" />
             </label>
             <div>
-              <p className="text-[var(--deep-blue)] text-sm">
+              <p className="text-[var(--deep-blue)] whitespace-nowrap text-[14px]">
                 Forgot Password?
               </p>
             </div>
@@ -66,7 +67,25 @@ function Login() {
         </div>
 
         <div className="flex items-center justify-center mt-8">
-          <Button text="Sign In" />
+        <button
+    className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-6"
+    onClick={handleLoginFormSubmit}
+    disabled={isLoading}  // Disable the button when loading
+  >
+    {isLoading ? <Oval
+  height={30}
+  width={30}
+  color="#fff"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+  ariaLabel='oval-loading'
+  secondaryColor="#f6f6f6"
+  strokeWidth={7}
+  strokeWidthSecondary={7}
+
+/> : 'Sign In'}
+  </button>
         </div>
         <p className="text-[15px] text-center mt-5">
           Do not have an account?{" "}

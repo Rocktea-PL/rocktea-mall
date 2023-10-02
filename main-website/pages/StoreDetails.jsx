@@ -3,7 +3,10 @@ import { useGlobalContext } from "../src/hooks/context";
 import StoreImage from "../src/Components/Forms/SignUp/StoreImage";
 import { ImageWithLoading } from "../src/Components/ImageLoader";
 import { useEffect } from "react";
-
+//import Select from 'react-select';
+//import 'react-select/dist/react-select.css';
+import {Oval} from 'react-loader-spinner'
+import { useState } from "react";
 function StoreDetails() {
   const {
     handleStoreFormSubmit,
@@ -11,9 +14,12 @@ function StoreDetails() {
     setStoreData,
     storeError,
     setStoreError,
+    isLoading,
+    getCategories,
+    categories
   } = useGlobalContext();
   //const [emailError, setEmailError] = useState(false);
-
+  const [selectedCategory, setSelectedCategory] = useState('');
   const emailIsValid = (email) => {
     // Regular expression for basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -38,6 +44,7 @@ function StoreDetails() {
     setStoreData((prevStoreData) => ({
       ...prevStoreData,
       [name]: value,
+      category: selectedCategory, 
     }));
 
     setStoreError(updatedErrors);
@@ -59,7 +66,10 @@ function StoreDetails() {
   }, []);
 
   console.log("storeDetails", storeData.owner);
-
+  useEffect(() => {
+    getCategories();
+  }, []);
+  console.log(storeData.category)
   return (
     <section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 md:overflow-hidden">
       <figure className="hidden lg:max-w-[50%]   w-[570px] lg:block lg:h-screen  ">
@@ -156,19 +166,22 @@ function StoreDetails() {
                   </p>
                 )}
               </label>
-              <label>
-                Category
-                <input
-                  type="number"
-                  name="category"
-                  placeholder="Category"
-                  value={storeData?.category}
-                  onChange={handleStoreInputChange}
-                />
-                {storeError?.category && (
-                  <p className="text-red-500 text-sm">{storeError.category}</p>
-                )}
-              </label>
+              <label >
+  Category
+  <select
+    name="category"
+    value={selectedCategory}
+    onChange={(e) => setSelectedCategory(e.target.value)}
+  >
+    <option value="">Select a category</option>
+    {categories.map((item) => (
+      <option key={item.category_id} value={item.category_id}>
+        {item.category_name}
+      </option>
+    ))}
+  </select>
+</label>
+
 
               <label>
                 Domain Name
@@ -208,12 +221,26 @@ function StoreDetails() {
               />
             </div>
             <div className="flex items-center justify-center ">
-              <button
-                className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-5"
-                onClick={handleStoreFormSubmit}
-              >
-                continue
-              </button>
+            <button
+    className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-6"
+    onClick={handleStoreFormSubmit}
+    disabled={isLoading}  // Disable the button when loading
+  >
+    {isLoading ? <Oval
+  height={30}
+  width={30}
+  color="#fff"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+  ariaLabel='oval-loading'
+  secondaryColor="#f6f6f6"
+  strokeWidth={7}
+  strokeWidthSecondary={7}
+
+/> : 'Continue'}
+  </button>
+             
             </div>
           </form>
         </div>

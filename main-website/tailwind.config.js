@@ -8,7 +8,8 @@ export default {
   theme: {
     extend: {
       screens:{
-        'xsm':'320px',
+        'xxsm': {'max': '320px'},
+        'xsm':'330px',
         'sm':'500px',
         'md':'700px',
         'lg':'960px',
@@ -18,6 +19,13 @@ export default {
       },
       colors:{
         orange:'#ffa500',
+      },
+      fontSize:{
+        xsm:'0.8rem',
+        sm: '1rem',
+        md:'1.5rem',
+        lg:'2rem',
+        xl:'2.5rem,'
       }
     },
   },

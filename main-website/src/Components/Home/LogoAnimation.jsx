@@ -14,20 +14,32 @@ function LogoAnimation() {
       },
     },
   };
+
+  const mobileAnimateVariants = {
+    animate: {
+      x: ['0%', '-100%'],
+      transition: {
+        x: {
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: 10,
+          ease: "linear",
+        },
+      },
+    },
+  };
   return (
-    <section className="  lg:relative bg-[var(--deep-blue)] p-10 md:flex z-[9] overflow-hidden">
+    <section className="  relative bg-[var(--deep-blue)] p-10 pb-20 lg:pb-10 md:flex z-[9] overflow-hidden">
       <article className="md:max-w-[50%] text-[var(--white)]">
-        <h2 className="text-[50px] leading-[1.20] font-semibold md:w-[700px] text-center text-white">
-          &quot;Endorsed by the
+        <h2 className="text-lg lg:text-[50px] leading-[1.20] font-semibold md:w-[700px] text-center text-white">
+          &quot;Products from the
           <br /> Biggest Brands
           <br />
           Across the
           <br /> Globe&quot;
         </h2>
         <p className="hidden lg:block mt-5 text-center w-[650px]  mx-auto">
-          &quot;See for yourself why clients and brands
-          <br />
-          prefer us over our closest rival.&quot;
+          &quot; You name it, You want it, WE HAVE IT &quot;
         </p>
       </article>
       <motion.figure
@@ -41,6 +53,20 @@ function LogoAnimation() {
           height={250}
           alt="animation"
           className="shadow-2xl"
+        />
+      </motion.figure>
+
+      <motion.figure
+        variants={mobileAnimateVariants}
+        animate="animate"
+        className="block lg:hidden absolute bottom-8 right-0 z-[5] overflow-hidden "
+      >
+        <img
+          src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696092252/rocktea-main-website/assets/Partners_logo_swknam.png"
+          width={500}
+          height={500}
+          alt="animation"
+          className="shadow-2xl object-cover"
         />
       </motion.figure>
     </section>
