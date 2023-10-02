@@ -142,7 +142,7 @@ const [categories, setCategories] = useState([])
     const hasCompletedStoreDetails = localStorage.getItem('hasCompletedStoreDetails');
     
     if (hasCompletedStoreDetails) {
-    window.open('http://localhost:5174/dashboard','_self');
+    window.open('https://rocktea-mall-product.vercel.app/dashboard','_self');
     } else {
       navigate('/store_details');
     }
@@ -270,7 +270,7 @@ const pollPaymentVerification = async (paymentReference) => {
 
       if (verifyPayment.data.data.status === 'success') {
         clearInterval(interval); // Stop polling
-        window.location.href ='http://localhost:5174/dashboard';
+        window.location.href ='https://rocktea-mall-product.vercel.app/dashboard';
         console.log('Payment verification successful.');
       } else if (verifyPayment.data.data.status === 'failed') {
         clearInterval(interval); // Stop polling
