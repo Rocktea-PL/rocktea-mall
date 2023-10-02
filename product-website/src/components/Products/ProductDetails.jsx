@@ -16,38 +16,38 @@ const ProductDetails = () => {
 
   return (
     <section>
-      <div className=" mt-20 flex flex-col md:flex-row  space-x-10 p-8">
+      <div className=" flex flex-col lg:flex-row  lg:space-x-10 lg:p-8">
         {/* Product Images */}
         <div className="flex flex-col md:flex-row-reverse gap-y-5 md:gap-x-4 w-full md:max-w-[50%] md:max-h-[500px] items-center justify-center ">
           {/* Main Image */}
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422697/rocktea-product-website/assets/ProductDet1_sathej.png"
             alt="Main Product"
-            className=" w-[90%] md:w-[70%] h-full"
+            className=" w-[90%] lg:w-[70%] h-full"
           />
           {/* Additional Images */}
           <div className="flex md:flex-col items-center justify-center space-x-3 md:space-y-3 w-full md:max-h-full ">
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422697/rocktea-product-website/assets/ProductDet1_sathej.png"
               alt="Additional Product 1"
-              className=" object-cover w-[100px] md:w-[90%] h-[80%]"
+              className=" object-cover w-[100px] lg:w-[90%] h-[80%]"
             />
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422698/rocktea-product-website/assets/ProductDet2_egpgdi.png"
               alt="Additional Product 2"
-              className=" object-cover w-[100px] md:w-[90%] h-[80%]"
+              className=" object-cover w-[100px] lg:w-[90%] h-[80%]"
             />
 
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422699/rocktea-product-website/assets/ProductDet3_kgdxcf.png"
               alt="Additional Product 3"
-              className=" object-cover w-[100px] md:w-[90%] h-[80%]"
+              className=" object-cover w-[100px] lg:w-[90%] h-[80%]"
             />
           </div>
         </div>
 
         {/* Product Details */}
-        <div className="relative flex flex-col mt-[3rem] md:mt-0 md:max-w-[50%] ">
+        <div className="relative flex flex-col mt-[3rem] lg:mt-0 lg:max-w-[50%] ">
           <h4 className="absolute top-[17%] right-3 text-sm">See Size Guide</h4>
           <h2 className="text-xl font-semibold uppercase">Pepsi (Can)</h2>
           <p className="font-bold my-2"> ₦12,300</p>
@@ -127,7 +127,7 @@ const ProductDetails = () => {
             <h3 className="text-lg font-semibold border-b border-b-gray-300 pb-3">
               Specifications
             </h3>
-            <ul className=" pl-4 list-none flex flex-col gap-y-2 mt-5">
+            <ul className=" lg:pl-4 list-none flex flex-col gap-y-2 mt-5">
               <li className="font-semibold">
                 SKU: <span className="font-normal">PE952DV3HZ2TTNAFAMZ</span>{" "}
               </li>
@@ -162,7 +162,7 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-      <div className="mx-10">
+      <div className="mt-10">
         <CommonProducts />
       </div>
     </section>

@@ -21,7 +21,7 @@ function Counter() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center lg:justify-start gap-10 mt-10">
+    <div className="flex flex-row sm:flex-col lg:flex-row items-center justify-center lg:justify-start gap-10 mt-10">
       <div className=" border-r border-solid border-gray pr-5">
         <h1 className=" text-[30px] md:text-[40px] font-bold text-[var(--deep-blue)]   bounce">
           {count}+

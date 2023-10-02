@@ -24,8 +24,8 @@ function HowItWorks() {
               alt="home1 "
               className="w-[100px] h-[100px] lg:w-[150px] lg:h-[150px]"
             />
-            <p className="text-center lg:text-start">
-              Create an account with just 6 easy clicks
+            <p className="text-center text-md lg:text-start">
+            Create your store with 3 simple steps
             </p>
           </figure>
           <figure className="flex flex-col gap-y-3 items-center justify-center lg:items-start lg:justify-start mb-5">
@@ -34,8 +34,8 @@ function HowItWorks() {
               alt="home1"
               className="w-[100px] h-[100px] lg:w-[150px] lg:h-[150px]"
             />
-            <p className="text-center lg:text-start">
-              Let user purchase goods with your coupon code{" "}
+            <p className="text-center text-md lg:text-start">
+            Get customers to sign up on your store
             </p>
           </figure>
           <figure className="flex flex-col items-center justify-center lg:items-start lg:justify-start gap-y-3 mb-5">
@@ -44,8 +44,8 @@ function HowItWorks() {
               alt="home1"
               className="w-[100px] h-[100px] lg:w-[150px] lg:h-[150px]"
             />
-            <p className="text-center justify-center">
-              Withdraw your commission anyday and anytime
+            <p className="text-center text-md justify-center">
+            They make purchase, you earn!
             </p>
           </figure>
         </article>

@@ -2,7 +2,7 @@ import { FaAngleLeft, FaAngleRight, FaStar } from "react-icons/fa";
 function Members() {
   return (
     <section className="flex flex-col items-center justify-center">
-      <h2 className="text-[40px] text-center my-10 font-semibold">
+      <h2 className=" text-md xsm:text-[40px] text-center my-10 font-semibold leading-tight">
         Hear From <span className="text-[var(--yellow)]">Our Members</span>
       </h2>
       <article className="flex flex-col md:flex-row items-center justify-center  gap-16">

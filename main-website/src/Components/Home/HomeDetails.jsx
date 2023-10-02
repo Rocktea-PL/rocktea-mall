@@ -4,20 +4,18 @@ function HomeDetails() {
       <article className="flex flex-col items-center lg:flex-row lg:items-start justify-center gap-20 mb-20">
         <figure>
           <img
-            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421653/rocktea-main-website/assets/home3_kb67np.png"
+            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696084106/rocktea-main-website/assets/Side_hustle_s3kxyf.png"
             alt="home3"
             width={450}
             height={400}
           />
         </figure>
         <div className="lg:max-w-[50%] text-center lg:text-start">
-          <p className="text-[var(--yellow)] text-[15px]">What you will do </p>
-          <h3>You don’t need a physical store to sell for us.</h3>
-          <p className="mt-8">
-            Whether you’re looking to supplement your income or embark on a
-            full-fledged business journey, seize the opportunity to earn money
-            doing what you love without leaving where you are. Join us now and
-            embark on your path to profitability!
+          <p className="text-[var(--yellow)] text-[15px]">Why RockTea Mall? </p>
+          <h3>It’s the Perfect Side Hustle!</h3>
+          <p className="mt-8 leading-[2]">
+          RockTea Mall presents the perfect side hustle, characterized by our low entry barriers, personalized storefronts, profit management, and a nurturing community—rendering it the optimum choice for harmonizing your income with other responsibilities. With our state-of-the-art business monitoring system, we guarantee that even the least experienced store owner can proficiently oversee their enterprises through precise statistical insights and predictive analytics.
+Have a Wonderful Day!<br/> We’ve Got You Covered!
           </p>
         </div>
       </article>
@@ -25,7 +23,7 @@ function HomeDetails() {
       <article className="flex flex-col items-center  text-center  lg:text-start lg:flex-row-reverse lg:items-start justify-center gap-20 mb-20">
         <figure>
           <img
-            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421653/rocktea-main-website/assets/home4_wxe3tf.png"
+            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696084108/rocktea-main-website/assets/Happy_User_3_jnhlsq.png"
             alt="home3"
             width={450}
             height={400}
@@ -33,12 +31,15 @@ function HomeDetails() {
         </figure>
         <div className="lg:max-w-[50%] ">
           <p className="text-[var(--yellow)] text-[15px]">Member motivation </p>
-          <h3>Over ₦30M paid to members in 6 months.</h3>
-          <p className="mt-8">
-            Celebrate your success! Your hard-earned commissions are at your
-            fingertips. Withdraw them effortlessly, whenever you want. Your
-            dedication, your rewards – on your terms. Start enjoying the fruits
-            of your labor today!
+          <h3>Over N30M paid to
+drop-shippers in 6 months.</h3>
+          <p className="mt-8 leading-[2.5]">
+          In an impressive span of only six months, 
+          We’ve proudly paid out over N30 million in 
+earnings to our valued drop-shippers, 
+showcasing the incredible earning potential
+within our platform.<br/>
+“Work Hard! Earn Hard!” - Who said that?
           </p>
         </div>
       </article>
@@ -46,21 +47,17 @@ function HomeDetails() {
       <article className="flex flex-col items-center   text-center lg:text-start lg:flex-row lg:items-start justify-center gap-20 mb-5">
         <figure>
           <img
-            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421646/rocktea-main-website/assets/home5_layygi.png"
+            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696092257/rocktea-main-website/assets/Our_Community_tem21c.png"
             alt="home3"
             width={450}
             height={400}
           />
         </figure>
         <div className="lg:max-w-[50%]">
-          <p className="text-[var(--yellow)] text-[15px]">Earn either ways </p>
-          <h3>Don’t just earn, you can buy and sell.</h3>
-          <p className="mt-8">
-            More than earning, embrace a world of possibilities. Buy and sell
-            with confidence, transforming your earnings into tangible rewards.
-            Discover the joy of financial empowerment. Don’t settle for less –
-            explore the full spectrum of opportunities awaiting you. Your
-            journey to financial growth starts now.
+          <p className="text-[var(--yellow)] text-[15px]">There’s more? </p>
+          <h3>Our Community.</h3>
+          <p className="mt-8 leading-[2.5]">
+          Our Community at RockTea Mall is the heartbeat of our success, uniting entrepreneurs from all walks of life. We can’t be here without you, you’re our veins. To further establish that fact, we have created a community of our dedicated businesses. You can share your success story, ideas, advices and many more you name it.
           </p>
         </div>
       </article>

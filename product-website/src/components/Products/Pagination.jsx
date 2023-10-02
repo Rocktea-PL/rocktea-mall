@@ -36,7 +36,7 @@ const Pagination = () => {
   };
 
   return (
-    <div className="flex justify-center items-center space-x-3 mt-5 mb-7">
+    <section className="flex justify-center items-center space-x-3 mt-5 mb-7 ">
       <button
         onClick={handlePreviousClick}
         disabled={currentPage === 1}
@@ -85,7 +85,7 @@ const Pagination = () => {
       >
         Next
       </button>
-    </div>
+    </section>
   );
 };
 

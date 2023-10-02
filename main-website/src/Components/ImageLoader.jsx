@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -8,6 +9,16 @@ export const ImageWithLoading = ({ src, alt }) => {
     setLoading(false);
   };
 
+  
+  useEffect(() => {
+    // Simulate content loading
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Simulating a 2-second delay for content loading
+
+    // Clear the timer on component unmount
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <SkeletonTheme color="#f0f0f0">
       <div className="image-container relative m-auto">

@@ -43,7 +43,7 @@
   }
 
   p{
-    @apply font-["Sora"] text-[20px];
+    @apply  text-sm;
     
   }
    section{
@@ -53,14 +53,14 @@
 
    
    form h2{
-    font-family: 'Sora',sans-serif;
+    font-family: 'Poppins',sans-serif;
     @apply text-[30px] text-center 
 
    }
    label{
     @apply flex flex-col text-sm mt-5
    }
-   input{
+   input,select{
     @apply bg-[var(--white)] border border-solid border-[var(--input-border)] w-[90%] h-10 rounded-lg px-2 mt-3  outline-none
    }
    input::placeholder{

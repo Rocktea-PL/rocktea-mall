@@ -35,6 +35,7 @@ function EmailVerification({ email }) {
                 {email}
               </span>
             </p>
+            
           </div>
         </div>
       </div>

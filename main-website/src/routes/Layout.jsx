@@ -10,6 +10,7 @@ function Layout() {
     location.pathname === "/personal_details" ||
     location.pathname === "/store_details" ||
     location.pathname === "/bank_details" ||
+    location.pathname === "/make_payment" ||
     location.pathname === "/login";
 
   return (

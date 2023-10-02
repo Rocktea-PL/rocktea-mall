@@ -9,6 +9,7 @@ import UserDetails from "../pages/UserDetails";
 import StoreDetails from "../pages/StoreDetails";
 import BankDetails from "../pages/BankDetails";
 import Faqs from "../pages/Faq";
+import Otp from "../pages/Otp";
 
 function App() {
   const router = createBrowserRouter([
@@ -35,6 +36,10 @@ function App() {
         {
           path: "/personal_details",
           element: <UserDetails />,
+        },
+        {
+          path: "/make_payment",
+          element: <Otp />,
         },
         {
           path: "/store_details",

@@ -70,12 +70,14 @@ const ProfileDropdown = () => {
             aria-labelledby="options-menu"
           >
             {dropdown.map((item) => (
+              <>
+               <Link to={item.link}>
               <div
                 key={item.id}
                 className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 border-b border-b-solid border-b-black last:border-b-0"
               >
                 <span>{item.icon}</span>
-                <Link to={item.link}>
+               
                   <button
                     className="whitespace-nowrap"
                     role="menuitem"
@@ -83,8 +85,10 @@ const ProfileDropdown = () => {
                   >
                     {item.title}
                   </button>
-                </Link>
+              
               </div>
+              </Link>
+            </>
             ))}
           </div>
         </div>

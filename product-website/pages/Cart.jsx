@@ -15,7 +15,7 @@ function Cart() {
     }
   };
   return (
-    <section className="mt-20 px-5 mx-5">
+    <section className="">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1 mb-4">
           <p className="flex items-center">

@@ -9,9 +9,20 @@ import {
 import { IoMdNotificationsOutline } from "react-icons/io";
 import ProfileDropdown from "./Dropdown";
 import { Link, useNavigate } from "react-router-dom";
+import Categories from "./Categories";
+import { useState } from "react";
 //import { FaRegUser } from 'react-icons/fa;
 const Navbar = () => {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <header className="p-3 bg-white shadow-md fixed top-0 w-full z-[999]">
@@ -24,8 +35,8 @@ const Navbar = () => {
             {" "}
             <Link to="/">Home</Link>
           </li>
-          <li className="uppercase tracking-[1px]">
-            <Link to="/products">Products</Link>
+          <li className="uppercase tracking-[1px] cursor-pointer" onClick={openModal}>
+           Categories
           </li>
         </ul>
         <form action="" className="flex items-center gap-4">
@@ -59,6 +70,7 @@ const Navbar = () => {
           <ProfileDropdown />
         </div>
       </nav>
+      {isModalOpen && <Categories closeModal={closeModal} />}
     </header>
   );
 };

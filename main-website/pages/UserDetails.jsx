@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { ImageWithLoading } from "../src/Components/ImageLoader";
 import EmailVerification from "../src/Components/Forms/SignUp/EmailVerification";
 import { useEffect } from "react";
-
+import {Oval} from 'react-loader-spinner'
 //import {useState} from 'react'
 function UserDetails() {
   const {
@@ -15,6 +15,7 @@ function UserDetails() {
     handleFormSubmit,
     verifyEmail,
     setVerifyEmail,
+    isLoading
   } = useGlobalContext();
 
   useEffect(() => {
@@ -46,10 +47,11 @@ function UserDetails() {
         <EmailVerification email={userData.email} />
       ) : (
         <section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 md:overflow-hidden">
-          <figure className="hidden lg:max-w-[50%] w-[570px] lg:block lg:h-screen  ">
+          <figure className="hidden  lg:max-w-[50%] w-[570px] lg:block lg:h-screen  ">
             <ImageWithLoading
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961328/rocktea-main-website/assets/IMG_7813_mtdsgq.jpg"
               alt=""
+              className=" h-auto object-cover"
             />
           </figure>
           <div className="form">
@@ -131,6 +133,7 @@ function UserDetails() {
                     </label>
                     <label className="relative">
                       Phone Number
+                      
                       <input
                         type="tel"
                         placeholder="+234123456789"
@@ -166,12 +169,25 @@ function UserDetails() {
                 </form>
 
                 <div className="flex items-center justify-center ">
-                  <button
-                    className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-6"
-                    onClick={handleFormSubmit}
-                  >
-                    continue
-                  </button>
+                <button
+    className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-6"
+    onClick={handleFormSubmit}
+    disabled={isLoading}  // Disable the button when loading
+  >
+    {isLoading ? <Oval
+  height={30}
+  width={30}
+  color="#fff"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+  ariaLabel='oval-loading'
+  secondaryColor="#f6f6f6"
+  strokeWidth={7}
+  strokeWidthSecondary={7}
+
+/> : 'Continue'}
+  </button>
                 </div>
               </div>
             </div>

@@ -1,55 +1,55 @@
-let skin =
-  "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422703/rocktea-product-website/assets/skincare_icypoy.png";
+
 const category = [
   {
     id: 1,
-    image: skin,
-    name: "Skin Care",
+    image:'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728360/rocktea-product-website/assets/Rectangle_35_rdtaox.png',
+    name: "Processed Food",
   },
   {
     id: 1,
-    image: skin,
-    name: "Skin Care",
+    image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728356/rocktea-product-website/assets/Rectangle_35_1_abtt0z.png',
+    name: "Soft Drinks",
   },
   {
     id: 1,
-    image: skin,
-    name: "Skin Care",
+    image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728354/rocktea-product-website/assets/Rectangle_35_2_dndm8o.png',
+    name: "Wine",
   },
   {
     id: 1,
-    image: skin,
-    name: "Skin Care",
+    image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728351/rocktea-product-website/assets/Rectangle_35_3_mi82zb.png',
+    name: "Beverages",
   },
   {
     id: 1,
-    image: skin,
-    name: "Skin Care",
+    image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728350/rocktea-product-website/assets/Rectangle_35_4_hwyzor.png',
+    name: "Grains & Cereals",
   },
   {
     id: 1,
-    image: skin,
-    name: "Skin Care",
-  },
+    image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728349/rocktea-product-website/assets/Rectangle_35_5_msfzqc.png',
+    name: "Diary Products",
+  }
+  
 ];
 
 function Categories() {
   return (
-    <section className=" mt-5 pt-2 pb-5 md:mx-12 rounded-lg px-5">
-      <h2 className="text-center font-semibold mb-5 text-2xl">Categories</h2>
-      <section className="flex items-center justify-between gap-3 overflow-x-scroll ">
+    <section className=" mt-5 pt-2 pb-5  rounded-lg ">
+      <h2 className="text-center font-semibold  text-2xl">Categories</h2>
+      <article className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-5">
         {category.map((item) => (
           <div
             key={item.id}
-            className="bg-white px-3 py-10 rounded-lg flex flex-col items-center justify-center w-[230px]"
+            className="   rounded-lg w flex flex-col items-center justify-center "
           >
-            <figure>
-              <img src={item.image} alt="" width={150} height={150} />
+            <figure className="rounded-t-lg w-full  h-[150px]">
+              <img src={item.image} alt=""  className="w-full h-full rounded-t-lg object-cover" />
             </figure>
-            <p className="mt-3">{item.name}</p>
+            <p className="mt-0 bg-white py-5 w-full text-center rounded-b-lg">{item.name}</p>
           </div>
         ))}
-      </section>
+      </article>
     </section>
   );
 }

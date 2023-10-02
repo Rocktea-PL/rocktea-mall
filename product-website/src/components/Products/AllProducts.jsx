@@ -2,57 +2,13 @@ import { RxCaretDown } from "react-icons/rx";
 import ProductCard from "../../Features/ProductCard";
 import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
+import { product } from "../constant/data";
 
-let Malt =
-  "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422692/rocktea-product-website/assets/malt_ofvezu.png";
 
 export default function AllProducts() {
-  const product = [
-    {
-      id: 1,
-      image: Malt,
-
-      name: "Pepsi",
-      price: 1200,
-    },
-    {
-      id: 2,
-      image: Malt,
-
-      name: "Pepsi",
-      price: 1200,
-    },
-    {
-      id: 3,
-      image: Malt,
-
-      name: "Pepsi",
-      price: 1200,
-    },
-    {
-      id: 4,
-      image: Malt,
-
-      name: "Pepsi",
-      price: 1200,
-    },
-    {
-      id: 5,
-      image: Malt,
-
-      name: "Pepsi",
-      price: 1200,
-    },
-    {
-      id: 6,
-      image: Malt,
-
-      name: "Pepsi",
-      price: 1200,
-    },
-  ];
+  
   return (
-    <section>
+    <section className="mt-5">
       <div className="flex items-center justify-between">
         <h3 className="font-semibold">Show Filter +</h3>
         <h3 className="flex items-center justify-center gap-1 font-semibold">
@@ -67,6 +23,7 @@ export default function AllProducts() {
                 name={item.name}
                 image={item.image}
                 price={item.price}
+                oldPrice={item.oldPrice}
                 key={item.id}
               />
             </Link>
@@ -75,6 +32,7 @@ export default function AllProducts() {
                 name={item.name}
                 image={item.image}
                 price={item.price}
+                oldPrice={item.oldPrice}
                 key={item.id}
               />
             </Link>
@@ -83,7 +41,7 @@ export default function AllProducts() {
       </div>
       <Pagination />
       <div className="mt-10">
-        <h2 className="font-semibold text-2xl">Recently Viewed</h2>
+        <h2 className="lg:text-center font-semibold text-lg  lg:text-2xl">Recently Viewed</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 w-full justify-between  overflow-hidden mt-5">
           {product.map((item) => (
             <>
@@ -91,6 +49,7 @@ export default function AllProducts() {
                 name={item.name}
                 image={item.image}
                 price={item.price}
+                oldPrice={item.oldPrice}
                 key={item.id}
               />
             </>
