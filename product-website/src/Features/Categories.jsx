@@ -37,7 +37,7 @@ const Categories = ({ closeModal }) => {
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal flex items-center justify-between gap-16 ">
-        <div className="w-[70%]">
+        <div className="w-[100%]">
         <div className="flex items-start justify-between gap-10">
           <h2 className="text-[1.4rem] font-semibold my-6">Groceries</h2>
           <button className="text-[1rem] font-medium my-6">View all</button>
