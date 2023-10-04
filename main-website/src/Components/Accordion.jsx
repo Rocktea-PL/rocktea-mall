@@ -16,17 +16,17 @@ const Accordion = ({ title, content }) => {
         }`} 
         onClick={toggleAccordion}
       >
-        <div className= {`px-2 relative text-md  ${
+        <div className= {`px-2 relative text-sm lg:text-md  ${
           isOpen ? "font-normal" : " font-semibold"
         }`} >{title}</div>
         <div>
           {isOpen ? (
             <span className="">
-              <FaAngleDown className="border-[1.5px] w-[40px] h-7 border-solid border-black " />
+              <FaAngleDown className="border-[1.5px] w-[20px] lg:w-[40px] h-5 lg:h-7 border-solid border-black " />
             </span>
           ) : (
             <span className="">
-              <FaAngleUp className="border-[1.5px] w-[40px] h-7 border-solid border-black " />
+              <FaAngleUp className="border-[1.5px] w-[20px] lg:w-[40px] h-5  lg:h-7 border-solid border-black " />
             </span>
           )}
         </div>

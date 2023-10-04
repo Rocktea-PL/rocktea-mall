@@ -120,9 +120,10 @@ const [categories, setCategories] = useState([])
       setVerifyEmail(true);
       //cogoToast.success("Registered Succesfully!");
     } catch (error) {
-      setError(error);
-      toast.error("Registration Failed. Please check your information");
+      setError(error || error.response.data );
+      toast.error("Registration Failed. Please check your information" || {error} );
       setVerifyEmail(false);
+      console.log( error.response.data)
       // cogoToast.error("Registration Failed. Please check your information");
     }finally {
       setIsLoading(false); // Set loading state to false
@@ -164,11 +165,13 @@ const [categories, setCategories] = useState([])
       console.log("Updated storeData:", storeData);
       navigate('/store_details');
       toast.success("Logged in Successfully");
+
+    
       
     } catch (error) {
-      setLoginError("Invalid credentials. Please try again."); // Handle login error
+      setLoginError(error); // Handle login error
       console.error("Login error:", error);
-      toast.error("Log in Failed. Check you Details");
+      toast.error("Invalid credentials. Please try again.", error);
       //cogoToast.success("Log in Failed. Check you Details");
     }finally {
       setIsLoading(false);  // Set loading state back to false after the request is complete
@@ -221,11 +224,12 @@ localStorage.setItem('hasCompletedStoreDetails', 'true');
         // User has completed all steps, handle accordingly (e.g., redirect to dashboard)
         alert("You have completed the registration process.");
       }
-    } catch (error) {
-      // Handle any errors here
+      
+    } catch (error) { 
       console.error("Error registering store details:", error);
-      toast.error('Error registering store details:Check you Details');
-      setStoreError(error);
+    toast.error('Error registering store details:Check you Details');
+    setStoreError(error);
+      // Handle any errors here
     }finally {
       setIsLoading(false);  // Set loading state back to false after the request is complete
     }
@@ -301,6 +305,7 @@ const getCategories = async () => {
         error,
         setError,
         setStoreError,
+        
         storeError,
         userData,
         setUserData,
@@ -312,6 +317,7 @@ const getCategories = async () => {
         setCredentials,
         handleLoginFormSubmit,
         loginError,
+        setLoginError,
         //componentProps,
         isLoading,
         categories,

@@ -26,6 +26,10 @@
    color: var(--small-text);
  font-family: var(--family);
   }
+  .partner img {
+    filter: drop-shadow(0,0,0,0,gray);
+  }
+  
 
   h1{
     font-family: 'Poppins', sans-serif; 
@@ -72,7 +76,7 @@
  
 
   .form {
-    @apply relative  bg-white border border-solid border-gray-200 w-[400px] mx-auto   py-8 rounded-lg transition-all  px-5
+    @apply relative  bg-white border border-solid border-gray-200 w-[85%] sm:w-[400px] mx-auto   py-8 rounded-lg transition-all  px-5
   }
 .form h2{
   @apply text-[25px]

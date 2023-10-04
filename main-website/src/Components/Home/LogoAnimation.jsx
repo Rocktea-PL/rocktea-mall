@@ -31,7 +31,7 @@ function LogoAnimation() {
   return (
     <section className="  relative bg-[var(--deep-blue)] p-10 pb-20 lg:pb-10 md:flex z-[9] overflow-hidden">
       <article className="md:max-w-[50%] text-[var(--white)]">
-        <h2 className="text-lg lg:text-[50px] leading-[1.20] font-semibold md:w-[700px] text-center text-white">
+        <h2 className=" xxsm:text-[1.3rem] text-lg lg:text-[50px] leading-[1.20] font-semibold md:w-[700px] text-center whitespace-nowrap tracking-[0.25rem] text-white">
           &quot;Products from the
           <br /> Biggest Brands
           <br />

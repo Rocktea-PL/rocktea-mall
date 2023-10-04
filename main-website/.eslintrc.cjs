@@ -22,5 +22,6 @@ module.exports = {
     'import/no-anonymous-default-export': 'off',
     "react-refresh/only-export-components": "off",
     "react-hooks/exhaustive-deps": "off"
+  
   },
 }

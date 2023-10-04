@@ -4,16 +4,18 @@ import { NavLink } from "react-router-dom";
 import {Oval} from 'react-loader-spinner'
 import { useGlobalContext } from "../../../hooks/context";
 function Login() {
-  const { credentials, setCredentials, isLoading,
+  const { credentials, setCredentials, isLoading, loginError, setLoginError,
     handleLoginFormSubmit } =
     useGlobalContext();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    const updatedErrors = { ...loginError, [name]: "" };
     setCredentials({
       ...credentials,
       [name]: value,
     });
+    setLoginError(updatedErrors)
   };
 
   return (
@@ -42,6 +44,9 @@ function Login() {
               value={credentials.email}
               onChange={handleInputChange}
             />
+             {loginError && loginError.email && (
+                        <div className="text-red-500">{loginError.email}</div>
+                      )}
           </label>
           <label>
             Password
@@ -52,6 +57,9 @@ function Login() {
               value={credentials.password}
               onChange={handleInputChange}
             />
+            {loginError && loginError.password && (
+                        <div className="text-red-500">{loginError.password}</div>
+                      )}
           </label>
           <div className="flex items-center justify-between w-[90%]">
             <label className="flex flex-row-reverse items-center justify-center whitespace-nowrap text-[14px] -mt-1">

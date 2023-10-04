@@ -1,3 +1,5 @@
+/*eslint no-useless-escape: "off"*/
+
 import { useGlobalContext } from "../src/hooks/context";
 import FileInput from "../src/Components/Forms/SignUp/FormImage";
 import { NavLink } from "react-router-dom";
@@ -5,7 +7,11 @@ import { ImageWithLoading } from "../src/Components/ImageLoader";
 import EmailVerification from "../src/Components/Forms/SignUp/EmailVerification";
 import { useEffect } from "react";
 import {Oval} from 'react-loader-spinner'
+import { useState } from "react";
 //import {useState} from 'react'
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+
 function UserDetails() {
   const {
     userData,
@@ -17,7 +23,11 @@ function UserDetails() {
     setVerifyEmail,
     isLoading
   } = useGlobalContext();
+  const [showPassword, setShowPassword] = useState(false);
 
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   useEffect(() => {
     const storedVerifyEmail = localStorage.getItem("verifyEmail");
     if (storedVerifyEmail) {
@@ -25,10 +35,29 @@ function UserDetails() {
     }
   }, [setVerifyEmail]);
 
+  function isPasswordValid(password) {
+    // Regular expressions for password validation
+    const lowercaseRegex = /[a-z]/;
+    const uppercaseRegex = /[A-Z]/;
+    const specialSymbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+  
+    return (
+      lowercaseRegex.test(password) &&
+      uppercaseRegex.test(password) &&
+      specialSymbolRegex.test(password)
+    );
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     const updatedErrors = { ...error, [name]: "" };
-
+    if (name === 'password') {
+      if (!isPasswordValid(value)) {
+        updatedErrors.password =
+          "Password must  include at least one special symbol, one lowercase letter, and one uppercase letter.";
+          
+      }
+    }
     setUserData({
       ...userData,
       [name]: value,
@@ -146,17 +175,23 @@ function UserDetails() {
                       )}
                     </label>
 
-                    <label>
+                    <label className="relative">
                       Password
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         placeholder="***************"
                         name="password"
                         value={userData.password}
                         onChange={handleInputChange}
                       />
-                      {error && error.password && (
-                        <div className="text-red-500">{error.password}</div>
+                       <span
+                onClick={handlePasswordVisibility}
+                className="absolute top-12 right-8 flex items-center pr-4 cursor-pointer"
+              >
+                {!showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+                      {error  && (
+                        <div className="text-red-500">{error && error.password}</div>
                       )}
                     </label>
                     <FileInput

@@ -1,5 +1,6 @@
 import { useGlobalContext } from "../src/hooks/context";
 //import {useState} from 'react'
+//import { toast } from "react-hot-toast";
 import StoreImage from "../src/Components/Forms/SignUp/StoreImage";
 import { ImageWithLoading } from "../src/Components/ImageLoader";
 import { useEffect } from "react";
@@ -36,6 +37,11 @@ function StoreDetails() {
   const handleStoreInputChange = (e) => {
     const { name, value } = e.target;
     const updatedErrors = { ...storeError };
+
+    if (value.trim() !== '') {
+      updatedErrors[name] = '';
+    }
+  
     if (name === "email") {
       updatedErrors.email = validateEmail(value);
     }
@@ -48,7 +54,10 @@ function StoreDetails() {
     }));
 
     setStoreError(updatedErrors);
+
+    
   };
+
 
   useEffect(() => {
     const owner = localStorage.getItem("owner");
@@ -173,7 +182,7 @@ function StoreDetails() {
     value={selectedCategory}
     onChange={(e) => setSelectedCategory(e.target.value)}
   >
-    <option value="">Select a category</option>
+    <option value="" disabled>Select a category</option>
     {categories.map((item) => (
       <option key={item.category_id} value={item.category_id}>
         {item.category_name}

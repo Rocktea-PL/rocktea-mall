@@ -11,7 +11,7 @@ function Hero() {
           You Can Earn
           <br /> More With Ease
         </h1>
-        <p className='font-["Sora"] text-md  mt-5 mb-8 text-center lg:text-start w-full lg:w-[505px]'>
+        <p className='font-["Sora"] text-sm lg:text-md  mt-5 mb-8 text-center lg:text-start w-full lg:w-[505px]'>
         Unleash Earning Potential:
 Earn up to 250k Monthly Drop-shipping
         </p>
@@ -35,8 +35,8 @@ Earn up to 250k Monthly Drop-shipping
   <div className="hidden sm:block lg:hidden">
 <Counter numbers={numbers} interval={interval} />
 </div>
-<figure className="relative flex items-center justify-center z-10">
-        <div className="relative bg-[var(--deep-blue)] xxsm:w-[250px] xxsm:h-[350px] w-[300px] h-[400px]  sm:w-[400px] sm:h-[550px] mt-3 rounded-[2rem]"></div>
+<figure className="relative flex items-center justify-center mx-auto z-10">
+        <div className="relative bg-[var(--deep-blue)] xxsm:w-[250px] xxsm:h-[320px] w-[300px]  h-[380px]  sm:w-[380px] sm:h-[550px] mt-3 rounded-[2rem] max-md:-ml-4"></div>
         <img
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421644/rocktea-main-website/assets/receptionist_vbpllv.png"
           width={400}

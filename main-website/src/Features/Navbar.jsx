@@ -37,8 +37,8 @@ const Navbar = () => {
           <figure className="flex items-center mt-2 md:mt-0">
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421637/rocktea-main-website/assets/rocktea-logo_qlaflj.png"
-              width={180}
-              height={180}
+              width={130}
+              height={130}
               alt="logo"
             />
           </figure>
