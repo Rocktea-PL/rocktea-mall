@@ -5,15 +5,14 @@ function Footer() {
   return (
     <footer className="bg-[var(--deep-blue)] p-6 lg:p-10 flex  flex-col lg:items-center justify-between">
       <section className="flex flex-col xxsm:grid xxsm:!grid-cols-1  max-md:grid max-md:grid-cols-2 lg:flex-row lg:grid-cols-4 justify-between gap-10 lg:gap-20 text-[var(--white)] px-0">
-      <figure className="flex flex-col md:items-center justify-center">
-        <img src={RockteaLogo} width={180} height={180} alt="logo" />
-        <p className="text-[15px] mt-6 text-[var(--white)] lg:ml-6">
-          Office:No 9, office address
-          <br /> goes here lagos State,Nigeria
-        </p>
-      </figure>
+        <figure className="flex flex-col md:items-center justify-center">
+          <img src={RockteaLogo} width={180} height={180} alt="logo" />
+          <p className="text-[15px] mt-6 text-[var(--white)] lg:ml-6">
+            Office:No 9, office address
+            <br /> goes here lagos State,Nigeria
+          </p>
+        </figure>
 
-      
         <article className=" flex flex-col it gap-y-8">
           <h4 className="font-semibold text-[1rem] md:text-[1.2rem] border-b-[0.5px] border-b-solid border-b-gray-500 pb-3  lg:border-0">
             Links
@@ -63,8 +62,8 @@ function Footer() {
         </article>
       </section>
       <p className=" text-[12px] sm:text-sm mt-10 mx-auto mb-5 px-10 sm:px-0 text-white">
-        &copy;2023, 
-        <span className="text-orange font-semibold">RockTeaMall.com </span>{" "}, 
+        &copy;2023,
+        <span className="text-orange font-semibold">RockTeaMall.com </span> ,
         All Rights Reserved.
       </p>
     </footer>

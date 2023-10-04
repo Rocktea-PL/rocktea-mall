@@ -14,7 +14,6 @@ function Home() {
       <LogoAnimation />
       <Members />
       <Newsletter />
-      
     </div>
   );
 }

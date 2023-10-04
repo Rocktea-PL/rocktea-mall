@@ -1,7 +1,8 @@
 function Newsletter() {
-  
   return (
-    <section className={`bg-newsletter-big h-full  bg-cover bg-center bg-no-repeat text-[var(--white)] flex flex-col items-center justify-center p-12`}>
+    <section
+      className={`bg-newsletter-big h-full  bg-cover bg-center bg-no-repeat text-[var(--white)] flex flex-col items-center justify-center p-12`}
+    >
       <h2 className="text-[var(--white)] text-[30px] leading-tight md:text-[50px] font-semibold text-center">
         Subscribe to our Newsletter{" "}
       </h2>

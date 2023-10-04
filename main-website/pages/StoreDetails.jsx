@@ -6,7 +6,7 @@ import { ImageWithLoading } from "../src/Components/ImageLoader";
 import { useEffect } from "react";
 //import Select from 'react-select';
 //import 'react-select/dist/react-select.css';
-import {Oval} from 'react-loader-spinner'
+import { Oval } from "react-loader-spinner";
 import { useState } from "react";
 function StoreDetails() {
   const {
@@ -17,10 +17,10 @@ function StoreDetails() {
     setStoreError,
     isLoading,
     getCategories,
-    categories
+    categories,
   } = useGlobalContext();
   //const [emailError, setEmailError] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
   const emailIsValid = (email) => {
     // Regular expression for basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -38,10 +38,10 @@ function StoreDetails() {
     const { name, value } = e.target;
     const updatedErrors = { ...storeError };
 
-    if (value.trim() !== '') {
-      updatedErrors[name] = '';
+    if (value.trim() !== "") {
+      updatedErrors[name] = "";
     }
-  
+
     if (name === "email") {
       updatedErrors.email = validateEmail(value);
     }
@@ -50,14 +50,11 @@ function StoreDetails() {
     setStoreData((prevStoreData) => ({
       ...prevStoreData,
       [name]: value,
-      category: selectedCategory, 
+      category: selectedCategory,
     }));
 
     setStoreError(updatedErrors);
-
-    
   };
-
 
   useEffect(() => {
     const owner = localStorage.getItem("owner");
@@ -78,7 +75,7 @@ function StoreDetails() {
   useEffect(() => {
     getCategories();
   }, []);
-  console.log(storeData.category)
+  console.log(storeData.category);
   return (
     <section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 md:overflow-hidden">
       <figure className="hidden lg:max-w-[50%]   w-[570px] lg:block lg:h-screen  ">
@@ -175,22 +172,23 @@ function StoreDetails() {
                   </p>
                 )}
               </label>
-              <label >
-  Category
-  <select
-    name="category"
-    value={selectedCategory}
-    onChange={(e) => setSelectedCategory(e.target.value)}
-  >
-    <option value="" disabled>Select a category</option>
-    {categories.map((item) => (
-      <option key={item.category_id} value={item.category_id}>
-        {item.category_name}
-      </option>
-    ))}
-  </select>
-</label>
-
+              <label>
+                Category
+                <select
+                  name="category"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  <option value="" disabled>
+                    Select a category
+                  </option>
+                  {categories.map((item) => (
+                    <option key={item.category_id} value={item.category_id}>
+                      {item.category_name}
+                    </option>
+                  ))}
+                </select>
+              </label>
 
               <label>
                 Domain Name
@@ -230,26 +228,28 @@ function StoreDetails() {
               />
             </div>
             <div className="flex items-center justify-center ">
-            <button
-    className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-6"
-    onClick={handleStoreFormSubmit}
-    disabled={isLoading}  // Disable the button when loading
-  >
-    {isLoading ? <Oval
-  height={30}
-  width={30}
-  color="#fff"
-  wrapperStyle={{}}
-  wrapperClass=""
-  visible={true}
-  ariaLabel='oval-loading'
-  secondaryColor="#f6f6f6"
-  strokeWidth={7}
-  strokeWidthSecondary={7}
-
-/> : 'Continue'}
-  </button>
-             
+              <button
+                className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-6"
+                onClick={handleStoreFormSubmit}
+                disabled={isLoading} // Disable the button when loading
+              >
+                {isLoading ? (
+                  <Oval
+                    height={30}
+                    width={30}
+                    color="#fff"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="oval-loading"
+                    secondaryColor="#f6f6f6"
+                    strokeWidth={7}
+                    strokeWidthSecondary={7}
+                  />
+                ) : (
+                  "Continue"
+                )}
+              </button>
             </div>
           </form>
         </div>

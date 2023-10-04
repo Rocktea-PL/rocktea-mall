@@ -14,8 +14,15 @@ function HomeDetails() {
           <p className="text-[var(--yellow)] text-[15px]">Why RockTea Mall? </p>
           <h3>It’s the Perfect Side Hustle!</h3>
           <p className="mt-8 text-sm w-[300px] sm:w-full leading-[2] lg:leading-[2.5]">
-          RockTea Mall presents the perfect side hustle, characterized by our low entry barriers, personalized storefronts, profit management, and a nurturing community—rendering it the optimum choice for harmonizing your income with other responsibilities. With our state-of-the-art business monitoring system, we guarantee that even the least experienced store owner can proficiently oversee their enterprises through precise statistical insights and predictive analytics.
-Have a Wonderful Day!<br/> We’ve Got You Covered!
+            RockTea Mall presents the perfect side hustle, characterized by our
+            low entry barriers, personalized storefronts, profit management, and
+            a nurturing community—rendering it the optimum choice for
+            harmonizing your income with other responsibilities. With our
+            state-of-the-art business monitoring system, we guarantee that even
+            the least experienced store owner can proficiently oversee their
+            enterprises through precise statistical insights and predictive
+            analytics. Have a Wonderful Day!
+            <br /> We’ve Got You Covered!
           </p>
         </div>
       </article>
@@ -31,15 +38,13 @@ Have a Wonderful Day!<br/> We’ve Got You Covered!
         </figure>
         <div className="lg:max-w-[50%] ">
           <p className="text-[var(--yellow)] text-[15px]">Member motivation </p>
-          <h3>Over N30M paid to
-drop-shippers in 6 months.</h3>
+          <h3>Over N30M paid to drop-shippers in 6 months.</h3>
           <p className="mt-8 text-sm w-[300px] sm:w-full leading-[2] lg:leading-[2.5]">
-          In an impressive span of only six months, 
-          We’ve proudly paid out over N30 million in 
-earnings to our valued drop-shippers, 
-showcasing the incredible earning potential
-within our platform.<br/>
-“Work Hard! Earn Hard!” - Who said that?
+            In an impressive span of only six months, We’ve proudly paid out
+            over N30 million in earnings to our valued drop-shippers, showcasing
+            the incredible earning potential within our platform.
+            <br />
+            “Work Hard! Earn Hard!” - Who said that?
           </p>
         </div>
       </article>
@@ -57,7 +62,11 @@ within our platform.<br/>
           <p className="text-[var(--yellow)] text-[15px]">There’s more? </p>
           <h3>Our Community.</h3>
           <p className="mt-8 text-sm w-[300px] sm:w-full leading-[2] lg:leading-[2.5]">
-          Our Community at RockTea Mall is the heartbeat of our success, uniting entrepreneurs from all walks of life. We can’t be here without you, you’re our veins. To further establish that fact, we have created a community of our dedicated businesses. You can share your success story, ideas, advices and many more you name it.
+            Our Community at RockTea Mall is the heartbeat of our success,
+            uniting entrepreneurs from all walks of life. We can’t be here
+            without you, you’re our veins. To further establish that fact, we
+            have created a community of our dedicated businesses. You can share
+            your success story, ideas, advices and many more you name it.
           </p>
         </div>
       </article>

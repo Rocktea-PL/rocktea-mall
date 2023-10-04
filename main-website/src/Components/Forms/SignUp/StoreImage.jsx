@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 
 function StoreImage({ storeData, setStoreData, error, setError }) {
   const [selectedFile, setSelectedFile] = useState(null);
-  if (error && error.logo == 'The submitted data was not a file. Check the encoding type on the form.') {
+  if (
+    error &&
+    error.logo ==
+      "The submitted data was not a file. Check the encoding type on the form."
+  ) {
     setError((prevErrors) => ({
       ...prevErrors,
       logo: "",
@@ -43,7 +47,7 @@ function StoreImage({ storeData, setStoreData, error, setError }) {
         ...prevErrors,
         logo: "",
       }));
-  
+
       // ...
     }
 
@@ -60,8 +64,7 @@ function StoreImage({ storeData, setStoreData, error, setError }) {
       });
       return;
     }
-    
-   
+
     // Clear the error for the logo
     setError((prevErrors) => ({
       ...prevErrors,
@@ -73,7 +76,6 @@ function StoreImage({ storeData, setStoreData, error, setError }) {
       ...storeData,
       logo: file,
     });
-
   };
 
   const truncateFileName = (fileName, maxLength) => {
@@ -116,7 +118,9 @@ function StoreImage({ storeData, setStoreData, error, setError }) {
             Upload
           </button>
         </div>
-        {error && error.logo && <div className="text-red-500">{error.logo}</div>}
+        {error && error.logo && (
+          <div className="text-red-500">{error.logo}</div>
+        )}
       </label>
     </div>
   );

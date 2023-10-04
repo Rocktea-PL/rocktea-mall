@@ -1,5 +1,5 @@
 import Button from "../Button";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 function HowItWorks() {
   return (
     <>
@@ -26,7 +26,7 @@ function HowItWorks() {
               className="w-[100px] h-[100px] lg:w-[150px] lg:h-[150px]"
             />
             <p className="text-center text-sm lg:text-md lg:text-start">
-            Create your store with 3 simple steps
+              Create your store with 3 simple steps
             </p>
           </figure>
           <figure className="flex flex-col gap-y-3 items-center justify-center lg:items-start lg:justify-start mb-5">
@@ -36,7 +36,7 @@ function HowItWorks() {
               className="w-[100px] h-[100px] lg:w-[150px] lg:h-[150px]"
             />
             <p className="text-center text-sm lg:text-md lg:text-start">
-            Get customers to sign up on your store
+              Get customers to sign up on your store
             </p>
           </figure>
           <figure className="flex flex-col items-center justify-center lg:items-start lg:justify-start gap-y-3 mb-5">
@@ -46,15 +46,15 @@ function HowItWorks() {
               className="w-[100px] h-[100px] lg:w-[150px] lg:h-[150px]"
             />
             <p className="text-center text-sm lg:text-md justify-center">
-            They make purchase, you earn!
+              They make purchase, you earn!
             </p>
           </figure>
         </article>
       </section>
-      <Link to='/personal_details'>
-      <div className="flex items-center justify-center mt-2 mb-8">
-        <Button text="Get Started" />
-      </div>
+      <Link to="/personal_details">
+        <div className="flex items-center justify-center mt-2 mb-8">
+          <Button text="Get Started" />
+        </div>
       </Link>
     </>
   );

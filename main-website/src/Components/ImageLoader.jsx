@@ -9,7 +9,6 @@ export const ImageWithLoading = ({ src, alt }) => {
     setLoading(false);
   };
 
-  
   useEffect(() => {
     // Simulate content loading
     const timer = setTimeout(() => {

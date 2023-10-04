@@ -17,7 +17,7 @@ function LogoAnimation() {
 
   const mobileAnimateVariants = {
     animate: {
-      x: ['0%', '-100%'],
+      x: ["0%", "-100%"],
       transition: {
         x: {
           repeat: Infinity,
