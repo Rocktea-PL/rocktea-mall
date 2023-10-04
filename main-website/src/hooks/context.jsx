@@ -47,7 +47,7 @@ const AppProvider = ({ children }) => {
   const [loginError, setLoginError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [verifyEmail, setVerifyEmail] = useState(false);
-const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -114,17 +114,20 @@ const [categories, setCategories] = useState([])
       console.log(response.error);
       // Move to the next step
       // Save userData to localStorage
-    localStorage.setItem('userData', JSON.stringify(userData));
+      localStorage.setItem("userData", JSON.stringify(userData));
       toast.success("Registered Succesfully!");
-      
+
       setVerifyEmail(true);
       //cogoToast.success("Registered Succesfully!");
     } catch (error) {
-      setError(error);
-      toast.error("Registration Failed. Please check your information");
+      setError(error || error.response.data);
+      toast.error(
+        "Registration Failed. Please check your information" || { error },
+      );
       setVerifyEmail(false);
+      console.log(error.response.data);
       // cogoToast.error("Registration Failed. Please check your information");
-    }finally {
+    } finally {
       setIsLoading(false); // Set loading state to false
     }
   };
@@ -138,55 +141,58 @@ const [categories, setCategories] = useState([])
       // Handle successful login (e.g., store token, redirect user)
       console.log("Login successful:", response);
       console.log(response.user_data.id);
-     // Check if the user has completed store details registration
-    const hasCompletedStoreDetails = localStorage.getItem('hasCompletedStoreDetails');
-    
-    if (hasCompletedStoreDetails) {
-    window.open('https://rocktea-mall-product.vercel.app/dashboard','_self');
-    } else {
-      navigate('/store_details');
-    }
-    
-    const owner = response.user_data.id;
-    localStorage.setItem('owner', owner);
+      // Check if the user has completed store details registration
+      const hasCompletedStoreDetails = localStorage.getItem(
+        "hasCompletedStoreDetails",
+      );
+
+      if (hasCompletedStoreDetails) {
+        window.open(
+          "https://rocktea-mall-product.vercel.app/dashboard",
+          "_self",
+        );
+      } else {
+        navigate("/store_details");
+      }
+
+      const owner = response.user_data.id;
+      localStorage.setItem("owner", owner);
       setStoreData((prevStoreData) => ({
         ...prevStoreData,
         owner: owner,
       }));
-      
-      console.log('login owner:' , owner)
-      setTimeout(()=> {
+
+      console.log("login owner:", owner);
+      setTimeout(() => {
         handleStoreFormSubmit(e, owner);
-      },0)
+      }, 0);
       initiatePayment(owner);
 
       console.log("Owner set:", response.user_data.id);
       console.log("Updated storeData:", storeData);
-      navigate('/store_details');
+      navigate("/store_details");
       toast.success("Logged in Successfully");
-      
     } catch (error) {
-      setLoginError("Invalid credentials. Please try again."); // Handle login error
+      setLoginError(error); // Handle login error
       console.error("Login error:", error);
-      toast.error("Log in Failed. Check you Details");
+      toast.error("Invalid credentials. Please try again.", error);
       //cogoToast.success("Log in Failed. Check you Details");
-    }finally {
-      setIsLoading(false);  // Set loading state back to false after the request is complete
+    } finally {
+      setIsLoading(false); // Set loading state back to false after the request is complete
     }
   };
 
   // Function to handle registering store details
   const handleStoreFormSubmit = async (e, owner) => {
     e.preventDefault();
-    
+
     console.log("Owner in handleStoreFormSubmit:", owner);
     //storeData.owner= owner;
     owner = localStorage.getItem("owner");
-    if(!owner){
-      console.log('no owner  found', owner)
+    if (!owner) {
+      console.log("no owner  found", owner);
     }
 
-    
     storeData.owner = owner;
     console.log("Owner from localStorage:", owner);
     // Create a FormData object to send the form data including the image
@@ -211,9 +217,9 @@ const [categories, setCategories] = useState([])
       });
       console.log("Registration successful", response);
       // After successful store registration in handleStoreFormSubmit
-localStorage.setItem('hasCompletedStoreDetails', 'true');
+      localStorage.setItem("hasCompletedStoreDetails", "true");
       toast.success("Store Registered Successfully");
-        navigate('/make_payment')
+      navigate("/make_payment");
       // Move to the next step or handle completion as needed
       if (currentStep < 2) {
         setCurrentStep(currentStep + 1);
@@ -222,76 +228,89 @@ localStorage.setItem('hasCompletedStoreDetails', 'true');
         alert("You have completed the registration process.");
       }
     } catch (error) {
-      // Handle any errors here
       console.error("Error registering store details:", error);
-      toast.error('Error registering store details:Check you Details');
+      toast.error("Error registering store details:Check you Details");
       setStoreError(error);
-    }finally {
-      setIsLoading(false);  // Set loading state back to false after the request is complete
+      // Handle any errors here
+    } finally {
+      setIsLoading(false); // Set loading state back to false after the request is complete
     }
   };
 
-
-
-// Call the function to initiate the payment
-//initiatePayment();
-const initiatePayment = async (formData) => {
-  try {
-    // Check if formData is available
-    if (!formData) {
-      console.error('Owner information not found.');
-      return;
-    }
-
-    // Making an HTTP POST request to the backend to initiate the payment
-    const response = await axios.post('https://rocktea-mall-api-test.up.railway.app/mall/otp_payment/', formData);
-   
-    if (response.data && response.status === 200) {
-      const authorizationUrl = response.data.data.authorization_url;
-
-      // Open the payment page in a new tab
-      window.open(authorizationUrl, '_blank');
-
-      // Poll the verification endpoint for the payment status
-      pollPaymentVerification(response.data.data.reference);
-    } else {
-      throw new Error('Failed to initiate payment.');
-    }
-  } catch (error) {
-    console.error('Error initiating payment:', error.response ? error.response.data : error.message);
-  }
-};
-
-const pollPaymentVerification = async (paymentReference) => {
-  try {
-    // Poll the verification endpoint every 5 seconds
-    const interval = setInterval(async () => {
-      const verifyPayment = await axios.get(`https://rocktea-mall-api-test.up.railway.app/mall/verify?reference=${paymentReference}`);
-
-      if (verifyPayment.data.data.status === 'success') {
-        clearInterval(interval); // Stop polling
-        window.location.href ='https://rocktea-mall-product.vercel.app/dashboard';
-        console.log('Payment verification successful.');
-      } else if (verifyPayment.data.data.status === 'failed') {
-        clearInterval(interval); // Stop polling
-        alert('Payment verification failed. You have not made any payment yet.');
-        console.log('Payment verification failed.');
+  // Call the function to initiate the payment
+  //initiatePayment();
+  const initiatePayment = async (formData) => {
+    try {
+      // Check if formData is available
+      if (!formData) {
+        console.error("Owner information not found.");
+        return;
       }
-    }, 5000); // Poll every 5 seconds
-  } catch (error) {
-    console.error('Error verifying payment:', error.response ? error.response.data : error.message);
-  }
-};
 
+      // Making an HTTP POST request to the backend to initiate the payment
+      const response = await axios.post(
+        "https://rocktea-mall-api-test.up.railway.app/mall/otp_payment/",
+        formData,
+      );
 
-const getCategories = async () => {
-  try {
-    const response = await axios.get('https://rocktea-mall-api-test.up.railway.app/rocktea/categories/');
-    setCategories(response.data);
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-  }
-};
+      if (response.data && response.status === 200) {
+        const authorizationUrl = response.data.data.authorization_url;
+
+        // Open the payment page in a new tab
+        window.open(authorizationUrl, "_blank");
+
+        // Poll the verification endpoint for the payment status
+        pollPaymentVerification(response.data.data.reference);
+      } else {
+        throw new Error("Failed to initiate payment.");
+      }
+    } catch (error) {
+      console.error(
+        "Error initiating payment:",
+        error.response ? error.response.data : error.message,
+      );
+    }
+  };
+
+  const pollPaymentVerification = async (paymentReference) => {
+    try {
+      // Poll the verification endpoint every 5 seconds
+      const interval = setInterval(async () => {
+        const verifyPayment = await axios.get(
+          `https://rocktea-mall-api-test.up.railway.app/mall/verify?reference=${paymentReference}`,
+        );
+
+        if (verifyPayment.data.data.status === "success") {
+          clearInterval(interval); // Stop polling
+          window.location.href =
+            "https://rocktea-mall-product.vercel.app/dashboard";
+          console.log("Payment verification successful.");
+        } else if (verifyPayment.data.data.status === "failed") {
+          clearInterval(interval); // Stop polling
+          alert(
+            "Payment verification failed. You have not made any payment yet.",
+          );
+          console.log("Payment verification failed.");
+        }
+      }, 5000); // Poll every 5 seconds
+    } catch (error) {
+      console.error(
+        "Error verifying payment:",
+        error.response ? error.response.data : error.message,
+      );
+    }
+  };
+
+  const getCategories = async () => {
+    try {
+      const response = await axios.get(
+        "https://rocktea-mall-api-test.up.railway.app/rocktea/categories/",
+      );
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
 
   return (
     <AppContext.Provider
@@ -301,6 +320,7 @@ const getCategories = async () => {
         error,
         setError,
         setStoreError,
+
         storeError,
         userData,
         setUserData,
@@ -312,11 +332,12 @@ const getCategories = async () => {
         setCredentials,
         handleLoginFormSubmit,
         loginError,
+        setLoginError,
         //componentProps,
         isLoading,
         categories,
         getCategories,
-        initiatePayment
+        initiatePayment,
       }}
     >
       {children}

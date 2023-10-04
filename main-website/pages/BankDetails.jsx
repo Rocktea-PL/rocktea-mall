@@ -62,9 +62,8 @@ function BankDetails() {
             </div>
           </form>
           <div className="flex items-center justify-center ">
-
             <a
-            href='http://localhost:5173/dashboard'
+              href="http://localhost:5173/dashboard"
               className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg"
               onClick={handleFormSubmit}
             >

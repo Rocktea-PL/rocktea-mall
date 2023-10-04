@@ -25,8 +25,11 @@ export default {
         sm: '1rem',
         md:'1.5rem',
         lg:'2rem',
-        xl:'2.5rem,'
-      }
+        xl:'2.5rem,',
+      },
+      backgroundImage:{
+        'newsletter-big':'url("https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696399800/rocktea-main-website/assets/Newstter_Bg_Image_s5rqys.png")',
+      },
     },
   },
   plugins: [],

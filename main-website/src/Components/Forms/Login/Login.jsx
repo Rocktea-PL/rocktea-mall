@@ -1,19 +1,32 @@
 //import { useState } from "react";
 //import Button from "../../Button";
 import { NavLink } from "react-router-dom";
-import {Oval} from 'react-loader-spinner'
+import { Oval } from "react-loader-spinner";
 import { useGlobalContext } from "../../../hooks/context";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 function Login() {
-  const { credentials, setCredentials, isLoading,
-    handleLoginFormSubmit } =
-    useGlobalContext();
+  const {
+    credentials,
+    setCredentials,
+    isLoading,
+    loginError,
+    setLoginError,
+    handleLoginFormSubmit,
+  } = useGlobalContext();
+  const [showPassword, setShowPassword] = useState(false);
 
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    const updatedErrors = { ...loginError, [name]: "" };
     setCredentials({
       ...credentials,
       [name]: value,
     });
+    setLoginError(updatedErrors);
   };
 
   return (
@@ -42,16 +55,28 @@ function Login() {
               value={credentials.email}
               onChange={handleInputChange}
             />
+            {loginError && loginError.email && (
+              <div className="text-red-500">{loginError.email}</div>
+            )}
           </label>
-          <label>
+          <label className="relative">
             Password
             <input
-              type="password"
-              placeholder="*******"
+              type={showPassword ? "text" : "password"}
+              placeholder="***************"
               name="password"
               value={credentials.password}
               onChange={handleInputChange}
             />
+            <span
+              onClick={handlePasswordVisibility}
+              className="absolute top-12 right-8 flex items-center pr-4 cursor-pointer"
+            >
+              {!showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+            {loginError && loginError.password && (
+              <div className="text-red-500">{loginError.password}</div>
+            )}
           </label>
           <div className="flex items-center justify-between w-[90%]">
             <label className="flex flex-row-reverse items-center justify-center whitespace-nowrap text-[14px] -mt-1">
@@ -67,25 +92,28 @@ function Login() {
         </div>
 
         <div className="flex items-center justify-center mt-8">
-        <button
-    className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-6"
-    onClick={handleLoginFormSubmit}
-    disabled={isLoading}  // Disable the button when loading
-  >
-    {isLoading ? <Oval
-  height={30}
-  width={30}
-  color="#fff"
-  wrapperStyle={{}}
-  wrapperClass=""
-  visible={true}
-  ariaLabel='oval-loading'
-  secondaryColor="#f6f6f6"
-  strokeWidth={7}
-  strokeWidthSecondary={7}
-
-/> : 'Sign In'}
-  </button>
+          <button
+            className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-6"
+            onClick={handleLoginFormSubmit}
+            disabled={isLoading} // Disable the button when loading
+          >
+            {isLoading ? (
+              <Oval
+                height={30}
+                width={30}
+                color="#fff"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="oval-loading"
+                secondaryColor="#f6f6f6"
+                strokeWidth={7}
+                strokeWidthSecondary={7}
+              />
+            ) : (
+              "Sign In"
+            )}
+          </button>
         </div>
         <p className="text-[15px] text-center mt-5">
           Do not have an account?{" "}
