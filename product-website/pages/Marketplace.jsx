@@ -20,7 +20,7 @@ export default function Marketplace() {
   return (
     <div className="mt-20">
     <div className="bg-market bg-no-repeat bg-cover bg-center h-[300px] mb-10 ">
- <h2 className="  lg:text-start text-[4rem] text-white lg:pl-10  pt-[4rem] font-semibold leading-tight">Welcome To <br /> Market Place</h2>
+ <h2 className="text-center  lg:text-start text-[3rem] sm:text-[4rem] text-white lg:pl-10  pt-[4rem] font-semibold leading-tight">Welcome To <br /> Market Place</h2>
     </div>
     <form action="" className='flex items-center justify-between border border-green border-solid rounded-[10px] h-[65px] w-[50%] mx-auto pl-7 pr-3 bg-white my-6' >
             <input type="search" placeholder="Type to search the market place" className=" bg-transparent border-0 outline-0 w-[90%]" />
