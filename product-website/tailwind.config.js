@@ -18,9 +18,20 @@ export default {
       },
       colors:{
         orange:'#ffa500',
+        gold:'#C99C00',
+      },
+      fontSize:{
+        xsm:'0.8rem',
+        sm: '1rem',
+        md:'1.5rem',
+        lg:'2rem',
+        xl:'2.5rem,',
       },
       boxShadow:{
         percentShadow:'0px 4px 4px 0px rgba(0, 0, 0, 0.25);'
+      },
+      backgroundImage:{
+        'market':'url("https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696399801/rocktea-main-website/assets/About_Us_2_rnw8se.png")'
       }
     },
   },

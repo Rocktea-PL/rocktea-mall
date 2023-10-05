@@ -50,13 +50,29 @@ const product = [
     price: 1200,
     oldPrice:1500
   },
+  {
+    id: 7,
+    image:'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728340/rocktea-product-website/assets/PRoduct_image_3_trm1dr.png',
+    
+    name: "Pepsi",
+    price: 1200,
+    oldPrice:1500
+  },
+  {
+    id: 8,
+    image:'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728349/rocktea-product-website/assets/Rectangle_35_5_msfzqc.png',
+    
+    name: "Pepsi",
+    price: 1200,
+    oldPrice:1500
+  },
 ];
 
 function Products() {
   return (
     <section className=" mt-3 pt-2 pb-5  rounded-lg flex flex-col items-center justify-center mb-10 overflow-x-hidden">
       <div className="relative w-full mt-5">
-        <h2 className="lg:text-center font-semibold text-lg  lg:text-2xl">Daily Groceries</h2>
+        <h2 className="lg:text-center font-semibold text-md">Daily Groceries</h2>
         <span
           className="absolute top-0 lg:top-3 right-5 text-right flex items-center gap-2 text-[var(--orange)] cursor-pointer"
           onClick={() => alert("yesss")}
@@ -84,14 +100,14 @@ function Products() {
         </article>
 
         <div className="relative w-full mt-5">
-        <h2 className="lg:text-center font-semibold text-lg  lg:text-2xl"> Back To School Groceries</h2>
+        <h2 className="lg:text-center font-semibold text-md"> Back To School Groceries</h2>
         <span
           className="absolute top-0 lg:top-3 right-5 text-right flex items-center gap-2 text-[var(--orange)] cursor-pointer"
           onClick={() => alert("yesss")}
         >
           See All <FaAngleRight />
         </span>
-        <article className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <article className="grid grid-cols-2  md:grid-cols-4  gap-4">
           {product.map((item) => (
             <ProductCard
             key={item.id}
@@ -106,14 +122,14 @@ function Products() {
         
         </div>
         <div className="relative w-full mt-5">
-        <h2 className="lg:text-center font-semibold text-lg  lg:text-2xl"> Top Products</h2>
+        <h2 className="lg:text-center font-semibold text-md  lg:text-md"> Top Products</h2>
         <span
           className="absolute top-0 lg:top-3 right-5 text-right flex items-center gap-2 text-[var(--orange)] cursor-pointer"
           onClick={() => alert("yesss")}
         >
           See All <FaAngleRight />
         </span>
-        <article className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <article className="grid grid-cols-2 md:grid-cols-4  gap-4">
           {product.map((item) => (
             <ProductCard
             key={item.id}
@@ -128,14 +144,14 @@ function Products() {
         
         </div>
         <div className="relative w-full mt-5">
-        <h2 className="lg:text-center font-semibold text-lg  lg:text-2xl">Limited Stock</h2>
+        <h2 className="lg:text-center font-semibold text-md  lg:text-md">Limited Stock</h2>
         <span
           className="absolute top-0 lg:top-3 right-5 text-right flex items-center gap-2 text-[var(--orange)] cursor-pointer"
           onClick={() => alert("yesss")}
         >
           See All <FaAngleRight />
         </span>
-        <article className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <article className="grid grid-cols-2  md:grid-cols-4  gap-4">
           {product.map((item) => (
             <ProductCard
             key={item.id}
@@ -151,14 +167,14 @@ function Products() {
         </div>
 
         <div className="relative w-full mt-5">
-        <h2 className=" font-semibold text-lg  lg:text-2xl">People Also Viewed</h2>
+        <h2 className=" font-semibold text-md  lg:text-2xl">People Also Viewed</h2>
         <span
           className="absolute top-0 lg:top-3 right-5 text-right flex items-center gap-2 text-[var(--orange)] cursor-pointer"
           onClick={() => alert("yesss")}
         >
           See All <FaAngleRight />
         </span>
-        <article className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <article className="grid grid-cols-2  md:grid-cols-4 gap-4">
           {product.map((item) => (
             <ProductCard
             key={item.id}

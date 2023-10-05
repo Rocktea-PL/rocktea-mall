@@ -47,6 +47,22 @@ export const product = [
       price: 1200,
       oldPrice:1500
     },
+    {
+      id: 7,
+      image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728342/rocktea-product-website/assets/PRoduct_image_2_vmlxvo.png',
+     
+      name: "Pepsi",
+      price: 1200,
+      oldPrice:1500
+    },
+    {
+      id: 8,
+      image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728343/rocktea-product-website/assets/PRoduct_image_1_grycft.png',
+      
+      name: "Pepsi",
+      price: 1200,
+      oldPrice:1500
+    },
   ];
 
   export const categories =[
@@ -73,3 +89,37 @@ export const product = [
       ]
     },
   ]
+
+  export const category = [
+    {
+      id: 1,
+      image:'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728360/rocktea-product-website/assets/Rectangle_35_rdtaox.png',
+      name: "Processed Food",
+    },
+    {
+      id: 1,
+      image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728356/rocktea-product-website/assets/Rectangle_35_1_abtt0z.png',
+      name: "Soft Drinks",
+    },
+    {
+      id: 1,
+      image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728354/rocktea-product-website/assets/Rectangle_35_2_dndm8o.png',
+      name: "Wine",
+    },
+    {
+      id: 1,
+      image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728351/rocktea-product-website/assets/Rectangle_35_3_mi82zb.png',
+      name: "Beverages",
+    },
+    {
+      id: 1,
+      image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728350/rocktea-product-website/assets/Rectangle_35_4_hwyzor.png',
+      name: "Grains & Cereals",
+    },
+    {
+      id: 1,
+      image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728349/rocktea-product-website/assets/Rectangle_35_5_msfzqc.png',
+      name: "Diary Products",
+    }
+    
+  ];

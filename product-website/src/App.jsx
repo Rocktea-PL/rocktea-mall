@@ -11,6 +11,7 @@ import Logout from "../pages/Logout";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Dashboard from "../pages/Dashboard";
+import Marketplace from "../pages/Marketplace";
 
 function App() {
   const router = createBrowserRouter([
@@ -53,6 +54,10 @@ function App() {
         {
           path: "/dashboard",
           element: <Dashboard />,
+        },
+        {
+          path: "/marketplace",
+          element: <Marketplace />,
         },
         {
           path: "/search:query",
