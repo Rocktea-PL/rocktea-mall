@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { FiUpload } from "react-icons/fi";
 function StoreImage({ storeData, setStoreData, error, setError }) {
   const [selectedFile, setSelectedFile] = useState(null);
   if (
@@ -87,17 +87,17 @@ function StoreImage({ storeData, setStoreData, error, setError }) {
   };
 
   return (
-    <div className="flex flex-col justify-start space-y-4 w-full">
-      <label className="relative cursor-pointer text-black py-2 rounded-lg">
+    <div className="flex flex-col md:col-span-2  justify-start space-y-4 w-full">
+      <label className="relative cursor-pointer text-black  rounded-lg md:col-span-2">
         <span className="absolute top-0 left-0 right-0 bottom-0 opacity-0 cursor-pointer"></span>
-        <span className="">Store Image</span>
+        <span className="">Store Logo</span>
         <input
           type="file"
           name="profile_image"
           className="hidden"
           onChange={handleFileChange}
         />
-        <div className="flex items-center justify-between bg-[var(--white)] border border-solid border-[var(--input-border)] w-[90%] h-10 rounded-lg pl-4 mt-3 space-x-2">
+        <div className="flex items-center justify-between bg-[var(--white)] border border-solid border-[var(--input-border)] w-full h-10 rounded-lg pl-4 mt-3 space-x-2">
           <div className="outline-none">
             <span className="truncate">
               {selectedFile
@@ -106,7 +106,7 @@ function StoreImage({ storeData, setStoreData, error, setError }) {
             </span>
           </div>
           <button
-            className="bg-[var(--yellow)] text-black h-10 py-1 px-4 rounded-lg text-sm"
+            className=" text-black h-10 py-1 px-4 rounded-lg text-sm"
             type="button"
             onClick={() => {
               const fileInput = document.querySelector('input[type="file"]');
@@ -115,7 +115,7 @@ function StoreImage({ storeData, setStoreData, error, setError }) {
               }
             }}
           >
-            Upload
+            <FiUpload />
           </button>
         </div>
         {error && error.logo && (

@@ -20,7 +20,7 @@ export const ImageWithLoading = ({ src, alt }) => {
   }, []);
   return (
     <SkeletonTheme color="#f0f0f0">
-      <div className="image-container relative m-auto">
+      <div className=" w-full  h-screen overflow-hidden">
         {loading && (
           <Skeleton height={1000} width={500} count={1} className="m-auto" />
         )}
@@ -31,7 +31,7 @@ export const ImageWithLoading = ({ src, alt }) => {
           onLoad={handleImageLoad}
           loading="lazy"
           style={{ display: loading ? "none" : "block" }}
-          className=" h-auto object-cover"
+          className="overflow-hidden h-screen w-full object-cover"
         />
       </div>
     </SkeletonTheme>

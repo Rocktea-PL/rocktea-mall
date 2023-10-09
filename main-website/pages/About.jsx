@@ -2,10 +2,37 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import Partners from "../src/Components/Partners";
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 function About() {
   const [loading, setLoading] = useState(true);
-
+  const sliderSettings = {
+    // removes default buttons
+    dots: false,
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: false,
+    autoplay: true,
+    speed: 5000,
+    autoplaySpeed: 5000,
+    cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
   useEffect(() => {
     // Simulate content loading
     const timer = setTimeout(() => {
@@ -16,7 +43,7 @@ function About() {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <section className="mt-[5rem] mb-20">
+    <section className="mt-[5rem] mb-20 overflow-x-hidden">
       <figure className="relative h-full lg:w-full">
         {loading ? (
           <Skeleton width={"100%"} height={300} />
@@ -30,14 +57,14 @@ function About() {
 
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696399801/rocktea-main-website/assets/About_Us_2_rnw8se.png"
-              className=" lg:hidden w-full h-full object-contain"
+              className=" lg:hidden w-full h-[250px] "
               alt="about hero"
             />
           </>
         )}
 
         <div className="text-white">
-          <h3 className="absolute left-[50%] lg:left-10 top-[50%] max-md:translate-x-[-50%] max-md:translate-y-[-50%] lg:top-[40%] text-white text-[3rem] lg:text-[5rem]">
+          <h3 className="absolute left-[50%] lg:left-10 top-[50%] max-md:translate-x-[-50%] max-md:translate-y-[-50%] lg:top-[40%] text-white text-[3rem] lg:text-[5rem] whitespace-nowrap">
             About us
           </h3>
           <p className=" hidden lg:block absolute left-10 top-[60%]">
@@ -45,8 +72,8 @@ function About() {
           </p>
         </div>
       </figure>
-      <article className="flex flex-col-reverse lg:flex-row items-center justify-center gap-y-10 lg:gap-20 mt-12 bg-white rounded-lg py-10 px-7">
-        <figure className="w-[300px] h-[300px]">
+      <article className="flex flex-col-reverse lg:flex-row items-center justify-center gap-y-10 lg:gap-20 mt-12 bg-white rounded-lg py-10 px-7  ">
+        <figure className=" w-[70%] md:w-[300px] md:h-[300px]">
           {loading ? (
             <Skeleton width={300} height={300} />
           ) : (
@@ -62,12 +89,12 @@ function About() {
             {loading ? (
               <Skeleton width={16} height={1.5} />
             ) : (
-              <span className="relative  after:absolute after:content-[''] after:w-16 after:h-[1.5px]  after:bg-[var(--deep-blue)] after:top-[50%] mr-14"></span>
+              <span className="relative  after:absolute after:content-[''] after:w-16 xxsm:after:w-14 after:h-[1.5px]  after:bg-[var(--deep-blue)] after:top-[50%] mr-14"></span>
             )}
             {loading ? (
               <Skeleton width={200} height={40} />
             ) : (
-              <h3 className="text-3xl">What are we here for?</h3>
+              <h3 className="xxsm:text-[22px]">What are we here for?</h3>
             )}
           </div>
           {loading ? (
@@ -87,7 +114,7 @@ function About() {
       </article>
 
       <article className="flex flex-col-reverse lg:flex-row-reverse items-center justify-center gap-y-10 lg:gap-20 mt-12 bg-white rounded-lg py-10 px-7">
-        <figure className="w-[300px] h-[300px]">
+        <figure className=" w-[70%] md:w-[300px]   md:h-[300px]">
           {loading ? (
             <Skeleton width={300} height={300} />
           ) : (
@@ -103,12 +130,12 @@ function About() {
             {loading ? (
               <Skeleton width={16} height={1.5} />
             ) : (
-              <span className="relative  after:absolute after:content-[''] after:w-16 after:h-[1.5px]  after:bg-[var(--deep-blue)] after:top-[50%] mr-14"></span>
+              <span className="relative  after:absolute after:content-[''] after:w-16 xxsm:after:w-14 after:h-[1.5px]  after:bg-[var(--deep-blue)] after:top-[50%] mr-14"></span>
             )}
             {loading ? (
               <Skeleton width={200} height={40} />
             ) : (
-              <h3 className="text-3xl">Where are we going?</h3>
+              <h3 className="xxsm:text-[22px]">Where are we going?</h3>
             )}
           </div>
           {loading ? (
@@ -132,7 +159,7 @@ function About() {
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298696/rocktea-main-website/assets/dropshipping-icons.png"
               alt=""
-              className="w-full h-full"
+              className="w-[85%] h-full"
             />
           )}
         </figure>
@@ -143,7 +170,7 @@ function About() {
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298697/rocktea-main-website/assets/video-card.png"
               alt=""
-              className="w-full h-full"
+              className="w-[85%] h-full"
             />
           )}
         </figure>
@@ -157,23 +184,24 @@ function About() {
         {loading ? (
           <Skeleton width={500} height={400} />
         ) : (
-          <div className=" relative overflow-hidden bg-[var(--deep-blue)] flex flex-col items-center justify-center p-10 mt-10">
-            <h3 className="text-white text-[40px] mb-10 ">Why Choose Us</h3>
+          <div className=" relative overflow-hidden bg-[var(--deep-blue)]   p-10 mt-10">
+            <h3 className="text-white  mb-10 text-center">Why Choose Us</h3>
             <figure className=" hidden lg:block lg:absolute top-0 right-0 overflow-hidden w-[230px] h-auto">
               <img
                 src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298695/rocktea-main-website/assets/slant-wave.png"
                 alt=""
               />
             </figure>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 place-items-center justify-center gap-5 lg:mx-20 z-20">
-              <div className="flex flex-col items-center justify-center">
+            <Slider {...sliderSettings} className="relative z-20 mx-auto">
+              <div className="flex flex-col items-center justify-center mx-auto">
                 <img
                   src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695302268/rocktea-main-website/assets/Transport_cwpvjy.svg"
                   width={35}
                   height={35}
-                  alt=""
+                  alt="truck"
+                  className="mx-auto"
                 />
-                <h4 className="font-semibold text-xl text-white mt-5">
+                <h4 className="font-semibold text-xl text-white mt-5 text-center">
                   Superfast delivery
                 </h4>
                 <p className="text-[#CAC4D0] text-sm text-center mt-5">
@@ -185,9 +213,10 @@ function About() {
                   src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695302269/rocktea-main-website/assets/support_sbivdv.svg"
                   width={35}
                   height={35}
-                  alt=""
+                  alt="support"
+                  className="mx-auto"
                 />
-                <h4 className="font-semibold text-xl text-white mt-5">
+                <h4 className="font-semibold text-center text-xl text-white mt-5">
                   24/7 Support
                 </h4>
                 <p className="text-[#CAC4D0] text-sm text-center mt-5">
@@ -199,9 +228,10 @@ function About() {
                   src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695302269/rocktea-main-website/assets/Shopping_Bag_hg7dux.svg"
                   width={35}
                   height={35}
-                  alt=""
+                  alt="shopping"
+                  className="mx-auto"
                 />
-                <h4 className="font-semibold text-xl text-white mt-5">
+                <h4 className="font-semibold text-center text-xl text-white mt-5">
                   Easy to shop
                 </h4>
                 <p className="text-[#CAC4D0] text-sm text-center mt-5">
@@ -213,42 +243,48 @@ function About() {
                   src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695302268/rocktea-main-website/assets/Return_On_Investment_yvcshk.svg"
                   width={35}
                   height={35}
-                  alt=""
+                  alt="profit"
+                  className="mx-auto"
                 />
-                <h4 className="font-semibold text-xl text-white mt-5">
+                <h4 className="font-semibold text-center text-xl text-white mt-5">
                   Great profit margin
                 </h4>
                 <p className="text-[#CAC4D0] text-sm text-center mt-5">
                   Unlocking Your Path to Exceptional Profitability
                 </p>
               </div>
-            </div>
+            </Slider>
           </div>
         )}
       </article>
 
       <article className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 lg:gap-20  bg-white rounded-lg py-10 px-7 mt-10 mx-auto">
         <h3 className="text-[40px] text-black lg:mt-20">Our Team</h3>
-        <div className="grid grid-cols-2 lg:grid-cols-3 place-content-center items-center gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center items-center gap-5">
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298699/rocktea-main-website/assets/team.png"
             alt=""
+            className="w-[300px]"
           />
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298699/rocktea-main-website/assets/team.png"
             alt=""
+            className="w-[300px]"
           />
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298699/rocktea-main-website/assets/team.png"
             alt=""
+            className="w-[300px]"
           />
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298699/rocktea-main-website/assets/team.png"
             alt=""
+            className="w-[300px]"
           />
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298699/rocktea-main-website/assets/team.png"
             alt=""
+            className="w-[300px]"
           />
         </div>
       </article>

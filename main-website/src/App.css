@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=Montserrat:wght@200;300;400&family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@200;300;400;500;600;700&family=Sora:wght@200;300;400;500&family=Roboto:wght@100;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=Road+Rage&family=Montserrat:wght@200;300;400&family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@200;300;400;500;600;700&family=Sora:wght@200;300;400;500&family=Roboto:wght@100;300;400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -38,12 +38,12 @@
 
   h2{
     
-    @apply text-[30px]  md:text-[40px]  font-semibold text-[var(--deep-blue)] leading-[3.5rem] 
+    @apply text-[30px]  md:text-[35px]  font-semibold text-[var(--deep-blue)] leading-[3.5rem] 
   }
 
   h3{
     font-family: 'Poppins', sans-serif;
-    @apply text-[30px] md:text-[50px] font-semibold text-[var(--deep-blue)] leading-tight lg:leading-[3.5rem] 
+    @apply text-md sm:text-[30px] md:text-[40px] font-semibold text-[var(--deep-blue)] leading-tight lg:leading-[3.5rem] 
   }
 
   p{
@@ -51,10 +51,14 @@
     
   }
    section{
-    padding: 1rem 3rem;
+   
+    @apply max-w-[1300px] mx-auto big:max-w-[55%] py-4 px-5 md:px-12 
    
    }
 
+   .yippie {
+    font-family: 'Road Rage', cursive;
+   }
    
    form h2{
     font-family: 'Poppins',sans-serif;
@@ -65,7 +69,7 @@
     @apply flex flex-col text-sm mt-5
    }
    input,select{
-    @apply bg-[var(--white)] border border-solid border-[var(--input-border)] w-[90%] h-10 rounded-lg px-2 mt-3  outline-none
+    @apply bg-[var(--white)] border border-solid border-[var(--input-border)] w-[100%] h-10 rounded-lg px-2 mt-3  outline-none
    }
    input::placeholder{
     @apply text-gray-300
@@ -76,11 +80,12 @@
  
 
   .form {
-    @apply relative  bg-white border border-solid border-gray-200 w-[85%] sm:w-[400px] mx-auto   py-8 rounded-lg transition-all  px-5
+    @apply relative w-full lg:max-w-[50%] flex flex-col items-center justify-center m-auto   py-8 rounded-lg transition-all  px-5 h-full lg:overflow-y-auto
   }
 .form h2{
   @apply text-[25px]
 }
+
   .form h4 {
     @apply text-[16px] 
   }
@@ -100,8 +105,8 @@
 }
 
 /* Add the scrollbar styling here */
-.scrollable-container::-webkit-scrollbar {
-  width: 10px;
+::-webkit-scrollbar {
+  display: none;
   
   
   
