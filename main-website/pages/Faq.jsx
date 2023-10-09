@@ -27,12 +27,12 @@ function Faqs() {
       ) : (
         <>
           <div
-            className="bg-image"
+            className="bg-image h-[260px] md:h-[300px] lg:h-[330px]"
             style={{
               backgroundImage: `url(${FaqImg})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
-              height: "350px",
+              height: "",
               width: "100%",
             }}
           >

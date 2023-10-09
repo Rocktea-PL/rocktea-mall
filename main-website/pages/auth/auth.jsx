@@ -33,6 +33,9 @@ export const registerStore = async (storeData) => {
       `${API_URL}/rocktea/create/store/`,
       storeData,
     );
+    if (!response.ok) {
+      console.log("Something is wrong with your request");
+    }
     console.log(response.data);
     return response.data;
   } catch (error) {

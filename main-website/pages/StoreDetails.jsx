@@ -1,26 +1,33 @@
 import { useGlobalContext } from "../src/hooks/context";
 //import {useState} from 'react'
 //import { toast } from "react-hot-toast";
-import StoreImage from "../src/Components/Forms/SignUp/StoreImage";
+//import StoreImage from "../src/Components/Forms/SignUp/StoreImage";
 import { ImageWithLoading } from "../src/Components/ImageLoader";
-import { useEffect } from "react";
+//import { useEffect } from "react";
 //import Select from 'react-select';
 //import 'react-select/dist/react-select.css';
-import { Oval } from "react-loader-spinner";
-import { useState } from "react";
+//import { Oval } from "react-loader-spinner";
+//import { useState } from "react";
+import Store from "../src/Components/Forms/SignUp/Store";
+import Categories from "../src/Components/Forms/SignUp/Categories";
+import Otp from "../src/Components/Forms/SignUp/Otp";
+import { useEffect } from "react";
 function StoreDetails() {
   const {
-    handleStoreFormSubmit,
+    //handleStoreFormSubmit,
     storeData,
     setStoreData,
     storeError,
     setStoreError,
-    isLoading,
-    getCategories,
-    categories,
+    setCurrentStep,
+    //isLoading,
+    //getCategories,
+
+    currentStep,
   } = useGlobalContext();
+
   //const [emailError, setEmailError] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  //const [selectedCategory, setSelectedCategory] = useState("");
   const emailIsValid = (email) => {
     // Regular expression for basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -46,17 +53,22 @@ function StoreDetails() {
       updatedErrors.email = validateEmail(value);
     }
     // Add similar validation for other fields
-
-    setStoreData((prevStoreData) => ({
-      ...prevStoreData,
+    setStoreData({
+      ...storeData,
       [name]: value,
-      category: selectedCategory,
-    }));
+    });
 
     setStoreError(updatedErrors);
   };
 
   useEffect(() => {
+    const savedStep = localStorage.getItem("currentStep");
+    if (savedStep) {
+      setCurrentStep(parseInt(savedStep));
+    }
+  }, []); // Empty dependency array to run this effect only once on mount
+
+  /* useEffect(() => {
     const owner = localStorage.getItem("owner");
     if (owner) {
       setStoreData((prevStoreData) => ({
@@ -74,19 +86,42 @@ function StoreDetails() {
   console.log("storeDetails", storeData.owner);
   useEffect(() => {
     getCategories();
-  }, []);
-  console.log(storeData.category);
+  }, []);*/
+  // console.log(storeData.category);
+  const PageDisplay = () => {
+    if (currentStep === 0) {
+      return (
+        <Store
+          handleStoreInputChange={handleStoreInputChange}
+          storeError={storeError}
+          setStoreError={setStoreError}
+        />
+      );
+    } else if (currentStep === 1) {
+      return <Categories />;
+    } else {
+      return <Otp />;
+    }
+  };
   return (
-    <section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 md:overflow-hidden">
-      <figure className="hidden lg:max-w-[50%]   w-[570px] lg:block lg:h-screen  ">
+    <div className=" flex items-center gap-16 justify-center lg:justify-start lg:h-screen lg:overflow-hidden">
+      <div className="hidden w-full max-w-[45%] lg:flex ">
         <ImageWithLoading
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694961328/rocktea-main-website/assets/IMG_7813_mtdsgq.jpg"
           alt=""
-          className=" h-auto object-cover"
         />
-      </figure>
-      <div className="form">
-        <figure className="flex items-center justify-center mt-2  mb-6">
+      </div>
+      <div className="mt-10 lg-mt-0 lg:max-w-[50%] h-full overflow-auto">
+        <div className="relative px-10 md-px-2 flex items-center justify-start gap-2 mb-5">
+          <div className=" bg-gray-300 w-[130px] h-2 top-0 left-0 rounded-md"></div>
+          <h5 className=" flex items-center justify-center gap-1 font-semibold  text-sm bg-orange w-[30px] h-[30px] text-white rounded-full">
+            {" "}
+            {currentStep + 1}{" "}
+          </h5>
+        </div>
+        <div className="w-full ">{PageDisplay()}</div>
+
+        {/*<figure className="flex items-center justify-center mt-2  mb-6">
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421637/rocktea-main-website/assets/rocktea-logo_qlaflj.png"
             width={120}
@@ -252,9 +287,9 @@ function StoreDetails() {
               </button>
             </div>
           </form>
-        </div>
+                </div>*/}
       </div>
-    </section>
+    </div>
   );
 }
 

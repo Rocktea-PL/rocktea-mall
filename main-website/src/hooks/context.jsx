@@ -1,6 +1,6 @@
 // MyContext.js
 import { createContext, useContext, useState } from "react";
-import { loginUser, register, registerStore } from "../../pages/auth/auth";
+import { loginUser, register } from "../../pages/auth/auth";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
-
+  //const [accessToken, setAccessToken] = useState(null);
   // Define initial user data state
   const [userData, setUserData] = useState({
     // Define initial user data state
@@ -34,11 +34,7 @@ const AppProvider = ({ children }) => {
     email: "",
     TIN_number: "",
     year_of_establishment: "",
-    domain_name: "",
-    store_url: "",
     logo: "",
-    category: "",
-    owner: "",
 
     // Add more properties as needed
   });
@@ -140,22 +136,25 @@ const AppProvider = ({ children }) => {
       const response = await loginUser(credentials); // Call the login function
       // Handle successful login (e.g., store token, redirect user)
       console.log("Login successful:", response);
-      console.log(response.user_data.id);
+      //console.log(response.user_data.id);
       // Check if the user has completed store details registration
-      const hasCompletedStoreDetails = localStorage.getItem(
-        "hasCompletedStoreDetails",
-      );
-
-      if (hasCompletedStoreDetails) {
+      //const hasCompletedStoreDetails = localStorage.getItem(
+      //"hasCompletedStoreDetails",
+      //);
+      const token = response.access;
+      localStorage.setItem("accessToken", token);
+      // Store the access token in state and/or localStorage
+      //setAccessToken(token);
+      /*if (hasCompletedStoreDetails) {
         window.open(
           "https://rocktea-mall-product.vercel.app/dashboard",
           "_self",
         );
       } else {
         navigate("/store_details");
-      }
+      }*/
 
-      const owner = response.user_data.id;
+      /*const owner = response.user_data.id;
       localStorage.setItem("owner", owner);
       setStoreData((prevStoreData) => ({
         ...prevStoreData,
@@ -165,12 +164,12 @@ const AppProvider = ({ children }) => {
       console.log("login owner:", owner);
       setTimeout(() => {
         handleStoreFormSubmit(e, owner);
-      }, 0);
-      initiatePayment(owner);
+      }, 5000);*/
 
-      console.log("Owner set:", response.user_data.id);
+      //console.log("Owner set:", response.user_data.id);
       console.log("Updated storeData:", storeData);
       navigate("/store_details");
+
       toast.success("Logged in Successfully");
     } catch (error) {
       setLoginError(error); // Handle login error
@@ -183,54 +182,69 @@ const AppProvider = ({ children }) => {
   };
 
   // Function to handle registering store details
-  const handleStoreFormSubmit = async (e, owner) => {
+  const handleStoreFormSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Owner in handleStoreFormSubmit:", owner);
+    // console.log("Owner in handleStoreFormSubmit:", owner);
     //storeData.owner= owner;
-    owner = localStorage.getItem("owner");
-    if (!owner) {
-      console.log("no owner  found", owner);
-    }
+    // owner = localStorage.getItem("owner");
+    //if (!owner) {
+    //console.log("no owner  found", owner);
+    //}
+    const storedToken = localStorage.getItem("accessToken");
 
-    storeData.owner = owner;
-    console.log("Owner from localStorage:", owner);
+    //storeData.owner = owner;
+    //console.log("Owner from localStorage:", owner);
     // Create a FormData object to send the form data including the image
     const formData = new FormData();
     formData.append("name", storeData.name);
     formData.append("email", storeData.email);
     formData.append("TIN_number", storeData.TIN_number);
     formData.append("year_of_establishment", storeData.year_of_establishment);
-    formData.append("category", storeData.category);
-    formData.append("domain_name", storeData.domain_name);
-    formData.append("store_url", storeData.store_url);
+    //formData.append("category", storeData.category);
+    //formData.append("domain_name", storeData.domain_name);
+    //formData.append("store_url", storeData.store_url);
     formData.append("logo", storeData.logo);
-    formData.append("owner", storeData.owner);
-
+    //formData.append("owner", storeData.owner);
+    const headers = {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${storedToken}`, // Important for sending file data
+    };
+    const apiUrl =
+      "https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/";
     try {
       setIsLoading(true);
+      console.log("access token from local storage:", storedToken);
+      //console.log("access token from store onload:", accessToken);
       // Call the registerStore function from auth.js to register store details
-      const response = await registerStore(formData, {
-        headers: {
-          "Content-Type": "multipart/form-data", // Important for sending file data
-        },
-      });
-      console.log("Registration successful", response);
+      const response = await axios.post(apiUrl, formData, { headers });
+
+      console.log("access token from store:", storedToken);
+
+      console.log("Registration successful", response.data);
       // After successful store registration in handleStoreFormSubmit
-      localStorage.setItem("hasCompletedStoreDetails", "true");
+      //localStorage.setItem("hasCompletedStoreDetails", "true");
+      localStorage.setItem("owner", response.data.owner);
+      localStorage.setItem("storeId", response.data.id);
       toast.success("Store Registered Successfully");
-      navigate("/make_payment");
+      //navigate("/make_payment");
+
       // Move to the next step or handle completion as needed
-      if (currentStep < 2) {
-        setCurrentStep(currentStep + 1);
+      if (response.data && currentStep < 2) {
+        setCurrentStep((prevStep) => {
+          const newStep = prevStep + 1;
+          localStorage.setItem("currentStep", newStep);
+          return newStep;
+        });
       } else {
         // User has completed all steps, handle accordingly (e.g., redirect to dashboard)
         alert("You have completed the registration process.");
       }
     } catch (error) {
       console.error("Error registering store details:", error);
-      toast.error("Error registering store details:Check you Details");
-      setStoreError(error);
+      toast.error("Error registering store details: Check you Details");
+      setStoreError(error.response.data);
+      console.log(error.response.data);
       // Handle any errors here
     } finally {
       setIsLoading(false); // Set loading state back to false after the request is complete
@@ -240,6 +254,7 @@ const AppProvider = ({ children }) => {
   // Call the function to initiate the payment
   //initiatePayment();
   const initiatePayment = async (formData) => {
+    setIsLoading(true);
     try {
       // Check if formData is available
       if (!formData) {
@@ -254,6 +269,7 @@ const AppProvider = ({ children }) => {
       );
 
       if (response.data && response.status === 200) {
+        setIsLoading(false);
         const authorizationUrl = response.data.data.authorization_url;
 
         // Open the payment page in a new tab
@@ -281,7 +297,8 @@ const AppProvider = ({ children }) => {
         );
 
         if (verifyPayment.data.data.status === "success") {
-          clearInterval(interval); // Stop polling
+          clearInterval(interval);
+          // Stop polling
           window.location.href =
             "https://rocktea-mall-product.vercel.app/dashboard";
           console.log("Payment verification successful.");
@@ -312,6 +329,8 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  //getCategories()
+
   return (
     <AppContext.Provider
       value={{
@@ -320,7 +339,8 @@ const AppProvider = ({ children }) => {
         error,
         setError,
         setStoreError,
-
+        currentStep,
+        setCurrentStep,
         storeError,
         userData,
         setUserData,

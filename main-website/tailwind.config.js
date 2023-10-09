@@ -15,7 +15,8 @@ export default {
         'lg':'960px',
         'xl':'1200px',
         'xxl':'1400px',
-        'max-md': {'max': '767px'},
+        'max-md': {'max': '850px'},
+        'big': '1700px'
       },
       colors:{
         orange:'#ffa500',
@@ -27,6 +28,7 @@ export default {
         lg:'2rem',
         xl:'2.5rem,',
       },
+      
       backgroundImage:{
         'newsletter-big':'url("https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696399800/rocktea-main-website/assets/Newstter_Bg_Image_s5rqys.png")',
       },

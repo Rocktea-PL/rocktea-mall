@@ -1,7 +1,7 @@
 function HomeDetails() {
   return (
     <section className="mt-12">
-      <article className="flex flex-col items-center lg:flex-row lg:items-start justify-center gap-20 mb-20">
+      <article className="flex flex-col items-center lg:flex-row lg:items-start justify-center gap-y-5 lg:gap-20 mb-10 lg:mb-20">
         <figure>
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696084106/rocktea-main-website/assets/Side_hustle_s3kxyf.png"
@@ -13,7 +13,7 @@ function HomeDetails() {
         <div className="lg:max-w-[50%] text-center lg:text-start">
           <p className="text-[var(--yellow)] text-[15px]">Why RockTea Mall? </p>
           <h3>It’s the Perfect Side Hustle!</h3>
-          <p className="mt-8 text-sm w-[300px] sm:w-full leading-[2] lg:leading-[2.5]">
+          <p className="mt-5 text-start text-sm w-[300px] sm:w-full leading-[2] lg:leading-[2.5] xxsm:px-5">
             RockTea Mall presents the perfect side hustle, characterized by our
             low entry barriers, personalized storefronts, profit management, and
             a nurturing community—rendering it the optimum choice for
@@ -27,7 +27,7 @@ function HomeDetails() {
         </div>
       </article>
 
-      <article className="flex flex-col items-center  text-center  lg:text-start lg:flex-row-reverse lg:items-start justify-center gap-20 mb-20">
+      <article className="flex flex-col items-center  text-center  lg:text-start lg:flex-row-reverse lg:items-start justify-center gap-y-5 lg:gap-20 mb-10 lg:mb-20">
         <figure>
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696084108/rocktea-main-website/assets/Happy_User_3_jnhlsq.png"
@@ -37,9 +37,11 @@ function HomeDetails() {
           />
         </figure>
         <div className="lg:max-w-[50%] ">
-          <p className="text-[var(--yellow)] text-[15px]">Member motivation </p>
-          <h3>Over N30M paid to drop-shippers in 6 months.</h3>
-          <p className="mt-8 text-sm w-[300px] sm:w-full leading-[2] lg:leading-[2.5]">
+          <p className="text-[var(--yellow)] text-[15px] ">
+            Member motivation{" "}
+          </p>
+          <h3 className="">Over N30M paid to drop-shippers in 6 months.</h3>
+          <p className="mt-5 text-start text-sm w-[300px] sm:w-full leading-[2] lg:leading-[2.5] xxsm:px-3">
             In an impressive span of only six months, We’ve proudly paid out
             over N30 million in earnings to our valued drop-shippers, showcasing
             the incredible earning potential within our platform.
@@ -49,7 +51,7 @@ function HomeDetails() {
         </div>
       </article>
 
-      <article className="flex flex-col items-center   text-center lg:text-start lg:flex-row lg:items-start justify-center gap-20 mb-5">
+      <article className="flex flex-col items-center   text-center lg:text-start lg:flex-row lg:items-start justify-center gap-y-5 lg:gap-20 mb-5">
         <figure>
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696092257/rocktea-main-website/assets/Our_Community_tem21c.png"
@@ -61,7 +63,7 @@ function HomeDetails() {
         <div className="lg:max-w-[50%]">
           <p className="text-[var(--yellow)] text-[15px]">There’s more? </p>
           <h3>Our Community.</h3>
-          <p className="mt-8 text-sm w-[300px] sm:w-full leading-[2] lg:leading-[2.5]">
+          <p className="mt-5 text-start text-sm w-[300px] sm:w-full leading-[2] lg:leading-[2.5] xxsm:px-5">
             Our Community at RockTea Mall is the heartbeat of our success,
             uniting entrepreneurs from all walks of life. We can’t be here
             without you, you’re our veins. To further establish that fact, we

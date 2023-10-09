@@ -6,14 +6,14 @@ export default function Partners() {
   const sliderSettings = {
     // removes default buttons
     arrows: false,
-    slidesToShow: 6,
+    slidesToShow: 5,
     slidesToScroll: 1,
     infinite: true,
     autoplay: true,
     autoplaySpeed: 4000,
     responsive: [
       {
-        breakpoint: 768,
+        breakpoint: 960,
         settings: {
           slidesToShow: 3,
         },
@@ -22,7 +22,7 @@ export default function Partners() {
   };
   return (
     <div>
-      <h2 className="text-center mt-10 mb-8">Our Featured Brands</h2>
+      <h3 className="text-center mt-10 mb-8">Our Featured Brands</h3>
 
       <Slider {...sliderSettings}>
         {partners.map((logo) => (
@@ -30,7 +30,7 @@ export default function Partners() {
             <img
               src={logo.image}
               alt="partners"
-              className=" w-[150px] h-[100px] object-contain "
+              className="w-[80px]  md:w-[150px] h-[100px] object-contain "
             />
           </figure>
         ))}

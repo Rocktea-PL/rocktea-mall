@@ -3,9 +3,9 @@ import RockteaLogo from "../assets/rocktea-logo.png";
 
 function Footer() {
   return (
-    <footer className="bg-[var(--deep-blue)] p-6 lg:p-10 flex  flex-col lg:items-center justify-between">
-      <section className="flex flex-col xxsm:grid xxsm:!grid-cols-1  max-md:grid max-md:grid-cols-2 lg:flex-row lg:grid-cols-4 justify-between gap-10 lg:gap-20 text-[var(--white)] px-0">
-        <figure className="flex flex-col md:items-center justify-center">
+    <footer className="bg-[var(--deep-blue)] p-6 lg:p-10 flex  flex-col  lg:items-center justify-between">
+      <article className=" xxsm:grid xxsm:!grid-cols-1  grid grid-cols-2 lg:flex-row lg:grid-cols-4 justify-between gap-10 lg:gap-20 text-[var(--white)] px-0">
+        <figure className="flex flex-col items-center justify-center">
           <img src={RockteaLogo} width={180} height={180} alt="logo" />
           <p className="text-[15px] mt-6 text-[var(--white)] lg:ml-6">
             Office:No 9, office address
@@ -60,7 +60,7 @@ function Footer() {
             </li>
           </ul>
         </article>
-      </section>
+      </article>
       <p className=" text-[12px] sm:text-sm mt-10 mx-auto mb-5 px-10 sm:px-0 text-white">
         &copy;2023,
         <span className="text-orange font-semibold">RockTeaMall.com </span> ,

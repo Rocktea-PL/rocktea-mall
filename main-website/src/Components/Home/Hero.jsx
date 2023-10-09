@@ -5,14 +5,15 @@ function Hero() {
   const numbers = ["600+", "24 hrs"];
   const interval = 3000; // 3 seconds
   return (
-    <section className="mt-[3.5rem] lg:mt-[8rem] flex flex-col lg:flex-row justify-center gap-20 sm:gap-28 lg:gap-[10rem] ">
+    <section className="mt-[3.5rem] lg:mt-[8rem] flex flex-col lg:flex-row justify-between gap-20 sm:gap-28 ">
       <article className=" mt-10 ">
-        <h1 className="text-lg sm:text-[3rem] lg:text-[5rem] font-[900] text-[var(--deep-blue)] whitespace-nowrap text-center lg:text-start">
+        <h1 className="text-lg sm:text-[3.8rem] lg:text-[5rem] font-[900] text-[var(--deep-blue)] whitespace-nowrap text-center lg:text-start">
           You Can Earn
           <br /> More With Ease
         </h1>
-        <p className='font-["Sora"] text-sm lg:text-md  mt-5 mb-8 text-center lg:text-start w-full lg:w-[505px]'>
-          Unleash Earning Potential: Earn up to 250k Monthly Drop-shipping
+        <p className=" text-sm sm:text-md  mt-5 mb-8 text-center lg:text-start w-full ">
+          Unleash Earning Potential: <br /> Earn up to 250k Monthly
+          Drop-shipping
         </p>
         <div className="flex items-center justify-center gap-5 lg:justify-start ">
           <Link to="/personal_details">

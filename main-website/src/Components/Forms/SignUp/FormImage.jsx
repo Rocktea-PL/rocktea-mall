@@ -30,8 +30,8 @@ function FileInput({ userData, setUserData, error }) {
     }
    }*/
   return (
-    <div className="flex flex-col justify-start space-y-4 w-full ">
-      <label className="relative cursor-point text-black py-2 rounded-lg ">
+    <div className="flex flex-col col-span-2 justify-start space-y-4 w-full ">
+      <label className="relative  cursor-point text-black py-2 rounded-lg ">
         <span className="absolute top-0 left-0 right-0 bottom-0 opacity-0 cursor-pointer"></span>
         <span className="">Profile Image</span>
         <input
@@ -40,7 +40,7 @@ function FileInput({ userData, setUserData, error }) {
           className="hidden "
           onChange={handleFileChange}
         />
-        <div className="flex items-center justify-between bg-[var(--white)] border border-solid border-[var(--input-border)] w-[90%] h-10 rounded-lg pl-4 mt-3  space-x-2">
+        <div className="flex items-center justify-between bg-[var(--white)] border border-solid border-[var(--input-border)] w-full h-10 rounded-lg pl-4 mt-3  space-x-2">
           <div className=" outline-none ">
             <span className="truncate ">
               {selectedFile
