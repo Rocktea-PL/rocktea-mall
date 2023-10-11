@@ -49,7 +49,7 @@ plugins: {
 };
 
   return (
-    <section className="bg-white mt-5 lg:w-[65%] h-full px-5 py-5 shadow-lg rounded-xl ml-3">
+    <section className="bg-white mt-5  lg:w-[65%] h-full px-5 py-5 shadow-lg rounded-xl lg:ml-3">
       
         <div className='flex justify-between px-5'>
             <div>

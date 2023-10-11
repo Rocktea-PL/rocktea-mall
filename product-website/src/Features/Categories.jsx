@@ -67,9 +67,9 @@ const Categories = ({ closeModal }) => {
         <div className="w-[30%]  ">
           <h2 className="text-[1rem] font-medium my-6">Top Categories</h2>
           <div className="grid grid-cols-2 gap-2 mt-7">
-            {product.map((item) => (
+            {product.slice(0,6).map((item) => (
             <div key={item.id}>
-                <img src={item.image} alt="" className="h-[100px] rounded-lg" />
+                <img src={item.image} alt="" className="w-[100px] h-[100px] rounded-lg object-cover" />
             </div>
 
             ))}

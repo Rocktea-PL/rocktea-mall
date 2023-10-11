@@ -82,18 +82,18 @@ function ProductInStock() {
                 </div>
             </div>
 
-            <article className="mt-5">
+            <article className="mt-5 bg-white py-5 rounded-md">
             <div className="overflow-x-auto ">
-      <table className="min-w-full bg-white rounded-lg ">
+      <table className="min-w-full ">
         <thead className="">
-          <tr className="">
-          <th className="py-2">Status</th>
-            <th className="text-sm md:text-lg whitespace-nowrap py-2 ">Client Name</th>
-            <th className="text-sm md:text-lg whitespace-nowrap py-2">Tracking Id</th>
-            <th className="text-sm md:text-lg whitespace-nowrap py-2">Cost</th>
-            <th className="text-sm md:text-lg whitespace-nowrap py-2">Payment Status</th>
-            <th className="text-sm md:text-lg whitespace-nowrap py-2">Order Date</th>
-            <th className="text-sm md:text-lg whitespace-nowrap py-2">Delivery Status</th>
+          <tr className="mt-5">
+          <th className="py-2 px-4">Status</th>
+            <th className="text-sm px-4  whitespace-nowrap py-2 ">Client Name</th>
+            <th className="text-sm px-4   whitespace-nowrap py-2">Tracking Id</th>
+            <th className="text-sm px-4  whitespace-nowrap py-2">Cost</th>
+            <th className="text-sm px-4  whitespace-nowrap py-2">Payment Status</th>
+            <th className="text-sm px-4  whitespace-nowrap py-2">Order Date</th>
+            <th className="text-sm px-4  whitespace-nowrap py-2">Delivery Status</th>
           </tr>
         </thead>
         <tbody>
@@ -112,9 +112,13 @@ function ProductInStock() {
               </td>
               
               <td className="text-center p-2 text-sm md:text-[1rem]">{item.client}</td>
-              <td className="text-center p-2 text-sm md:text-[1rem]">{item.status}</td>
               <td className="text-center p-2 text-sm md:text-[1rem]">#{item.tracking}</td>
               <td className="text-center p-2 text-sm md:text-[1rem]">${item.price.toFixed(2)}</td>
+              <td className={`text-center border-2 border-solid w-[100px] capitalize rounded-lg p-2 text-sm md:text-[1rem] flex items-center justify-center mx-auto gap-5  ${
+  item.status === 'Pending'
+    ? ' border-red-500 my-2'
+    : ' border-green-700 my-2'
+}`}>{item.status}</td>
               <td className="text-center p-2 text-sm md:text-[1rem]">{item.date}</td>
 
               <td className={`text-center border-2 border-solid w-[100px] capitalize rounded-lg p-2 text-sm md:text-[1rem] flex items-center justify-center mx-auto gap-5  ${

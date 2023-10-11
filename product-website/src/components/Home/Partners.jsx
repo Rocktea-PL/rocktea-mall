@@ -30,7 +30,7 @@ export default function Partners() {
             <img
               src={logo.image}
               alt="partners"
-              className=" w-[120px] h-[80px] object-contain "
+              className="w-[80px] mb-5 lg:w-[120px] h-[80px] object-contain "
             />
           </figure>
         ))}

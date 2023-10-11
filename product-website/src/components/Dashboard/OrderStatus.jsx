@@ -80,18 +80,18 @@ function OrderStatus() {
                 </div>
             </div>
 
-            <article className="mt-5">
+            <article className="mt-5 bg-white py-5 rounded-md">
             <div className="overflow-x-auto ">
-      <table className="min-w-full bg-white rounded-lg">
+      <table className="min-w-full ">
         <thead className="">
-          <tr className="">
-          <th className="py-2">Status</th>
-            <th className="text-sm md:text-lg whitespace-nowrap py-2 ">Client Name</th>
-            <th className="text-sm md:text-lg whitespace-nowrap py-2">Tracking Id</th>
-            <th className="text-sm md:text-lg whitespace-nowrap py-2">Cost</th>
-            <th className="text-sm md:text-lg whitespace-nowrap py-2">Payment Status</th>
-            <th className="text-sm md:text-lg whitespace-nowrap py-2">Order Date</th>
-            <th className="text-sm md:text-lg whitespace-nowrap py-2">Delivery Status</th>
+          <tr className="mt-5">
+          <th className="py-2 px-4">Status</th>
+            <th className="text-sm px-4  whitespace-nowrap py-2 ">Client Name</th>
+            <th className="text-sm px-4   whitespace-nowrap py-2">Tracking Id</th>
+            <th className="text-sm px-4  whitespace-nowrap py-2">Cost</th>
+            <th className="text-sm px-4  whitespace-nowrap py-2">Payment Status</th>
+            <th className="text-sm px-4  whitespace-nowrap py-2">Order Date</th>
+            <th className="text-sm px-4  whitespace-nowrap py-2">Delivery Status</th>
           </tr>
         </thead>
         <tbody>

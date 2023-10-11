@@ -4,7 +4,7 @@ import AllProducts from "../src/components/Products/AllProducts";
 
 export default function Products() {
   return (
-    <main className="mt-[5rem] mx-5 md:mx-12 max-w-[1250px] ">
+    <main className="mt-[5rem] mx-auto max-w-[1250px] ">
       <Hero />
       <ProductFilter />
       <AllProducts />

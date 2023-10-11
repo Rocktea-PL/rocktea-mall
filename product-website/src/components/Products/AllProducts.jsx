@@ -3,6 +3,7 @@ import ProductCard from "../../Features/ProductCard";
 import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
 import { product } from "../constant/data";
+import { FaAngleRight } from "react-icons/fa";
 
 
 export default function AllProducts() {
@@ -15,7 +16,7 @@ export default function AllProducts() {
           Sort By <RxCaretDown className="text-2xl" />{" "}
         </h3>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full justify-between  overflow-hidden mt-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-x-5 lg:grid-cols-5 w-[98%] justify-center mx-auto  overflow-hidden mt-5">
         {product.map((item) => (
           <>
             <Link to="/products/details">
@@ -40,9 +41,15 @@ export default function AllProducts() {
         ))}
       </div>
       <Pagination />
-      <div className="mt-10">
-        <h2 className="lg:text-center font-semibold text-lg  lg:text-2xl">Recently Viewed</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 w-full justify-between  overflow-hidden mt-5">
+      <div className="relative mt-10 bg-white p-3">
+        <h2 className=" font-semibold text-md ">Recently Viewed</h2>
+        <span
+          className="absolute top-5 lg:top-5 right-5 text-right flex items-center gap-2 text-[var(--orange)] cursor-pointer"
+          onClick={() => alert("yesss")}
+        >
+          See All <FaAngleRight />
+        </span>
+        <div className="flex overflow-x-scroll gap-3 snap-mandatory  scroll-smooth ">
           {product.map((item) => (
             <>
               <ProductCard

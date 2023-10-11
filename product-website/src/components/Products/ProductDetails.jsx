@@ -18,7 +18,7 @@ const ProductDetails = () => {
     <section>
       <div className=" flex flex-col lg:flex-row  lg:space-x-10 lg:p-8">
         {/* Product Images */}
-        <div className="flex flex-col md:flex-row-reverse gap-y-5 md:gap-x-4 w-full md:max-w-[50%] md:max-h-[500px] items-center justify-center ">
+        <div className="flex flex-col lg:flex-row-reverse gap-y-5 lg:gap-x-4 w-full lg:max-w-[50%] lg:max-h-[500px] items-center justify-center ">
           {/* Main Image */}
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422697/rocktea-product-website/assets/ProductDet1_sathej.png"
@@ -26,22 +26,22 @@ const ProductDetails = () => {
             className=" w-[90%] lg:w-[70%] h-full"
           />
           {/* Additional Images */}
-          <div className="flex md:flex-col items-center justify-center space-x-3 md:space-y-3 w-full md:max-h-full ">
+          <div className="flex lg:flex-col items-center justify-center space-x-3 md:space-y-3 w-full lg:max-h-[80%] ">
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422697/rocktea-product-website/assets/ProductDet1_sathej.png"
               alt="Additional Product 1"
-              className=" object-cover w-[100px] lg:w-[90%] h-[80%]"
+              className=" object-cover w-[100px] lg:w-[70%] h-[50%]"
             />
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422698/rocktea-product-website/assets/ProductDet2_egpgdi.png"
               alt="Additional Product 2"
-              className=" object-cover w-[100px] lg:w-[90%] h-[80%]"
+              className=" object-cover w-[100px] lg:w-[70%] h-[50%]"
             />
 
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422699/rocktea-product-website/assets/ProductDet3_kgdxcf.png"
               alt="Additional Product 3"
-              className=" object-cover w-[100px] lg:w-[90%] h-[80%]"
+              className=" object-cover w-[100px] lg:w-[70%] h-[50%]"
             />
           </div>
         </div>
@@ -101,7 +101,7 @@ const ProductDetails = () => {
             <button className="bg-[var(--orange)] p-3 text-sm rounded-md mb-8">
               Add To Cart
             </button>
-            <h3 className="text-lg font-semibold border-b border-b-gray-300 pb-3">
+            <h3 className="text-md font-semibold border-b border-b-gray-300 pb-3">
               Product Details
             </h3>
             <p className="text-gray-600 my-5">
@@ -124,7 +124,7 @@ const ProductDetails = () => {
           </div>
 
           <div className=" ">
-            <h3 className="text-lg font-semibold border-b border-b-gray-300 pb-3">
+            <h3 className="text-md font-semibold border-b border-b-gray-300 pb-3">
               Specifications
             </h3>
             <ul className=" lg:pl-4 list-none flex flex-col gap-y-2 mt-5">
