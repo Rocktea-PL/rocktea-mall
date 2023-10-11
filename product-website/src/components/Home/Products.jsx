@@ -1,34 +1,47 @@
 //import React from 'react';
- // Adjust the import path accordingly
-import CategoryScroll from '../Products/categoryScroll';
-import { productsByCategory } from '../constant/productCategory';// Adjust the import path accordingly
+// Adjust the import path accordingly
+
+import ScrollProducts from "../Products/ScrollProducts";
+import { productsByCategory } from "../constant/productCategory"; // Adjust the import path accordingly
 
 const Products = () => {
   // Extract category names from the productsByCategory object
   const categories = Object.keys(productsByCategory);
 
   return (
-    <section className='mt-5'>
-      {categories.slice(0,3).map((category) => {
+    <section className="mt-5">
+      {categories.slice(0, 3).map((category) => {
         const categoryProducts = productsByCategory[category];
-        return <CategoryScroll key={category} categoryTitle={category} products={categoryProducts} />;
+        return (
+          <ScrollProducts
+            key={category}
+            categoryTitle={category}
+            products={categoryProducts}
+          />
+        );
       })}
       <article className="w-full h-full lg:h-[300px] my-10">
-          <img src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695733529/rocktea-product-website/assets/Product_ad_mzshyg.png" 
+        <img
+          src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695733529/rocktea-product-website/assets/Product_ad_mzshyg.png"
           className="w-full h-full object-cover rounded-lg"
-          alt="" />
-        </article>
-        {categories.map((category) => {
+          alt=""
+        />
+      </article>
+      {categories.map((category) => {
         const categoryProducts = productsByCategory[category];
-        return <CategoryScroll key={category} categoryTitle={category} products={categoryProducts} />;
+        return (
+          <ScrollProducts
+            key={category}
+            categoryTitle={category}
+            products={categoryProducts}
+          />
+        );
       })}
     </section>
   );
 };
 
 export default Products;
-
-
 
 /*import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import ProductCard from "../../Features/ProductCard";

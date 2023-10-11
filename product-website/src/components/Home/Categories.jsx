@@ -1,36 +1,40 @@
-
 const category = [
   {
     id: 1,
-    image:'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728360/rocktea-product-website/assets/Rectangle_35_rdtaox.png',
+    image:
+      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728360/rocktea-product-website/assets/Rectangle_35_rdtaox.png",
     name: "Processed Food",
   },
   {
     id: 1,
-    image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728356/rocktea-product-website/assets/Rectangle_35_1_abtt0z.png',
+    image:
+      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728356/rocktea-product-website/assets/Rectangle_35_1_abtt0z.png",
     name: "Soft Drinks",
   },
   {
     id: 1,
-    image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728354/rocktea-product-website/assets/Rectangle_35_2_dndm8o.png',
+    image:
+      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728354/rocktea-product-website/assets/Rectangle_35_2_dndm8o.png",
     name: "Wine",
   },
   {
     id: 1,
-    image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728351/rocktea-product-website/assets/Rectangle_35_3_mi82zb.png',
+    image:
+      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728351/rocktea-product-website/assets/Rectangle_35_3_mi82zb.png",
     name: "Beverages",
   },
   {
     id: 1,
-    image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728350/rocktea-product-website/assets/Rectangle_35_4_hwyzor.png',
+    image:
+      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728350/rocktea-product-website/assets/Rectangle_35_4_hwyzor.png",
     name: "Grains & Cereals",
   },
   {
     id: 1,
-    image: 'https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728349/rocktea-product-website/assets/Rectangle_35_5_msfzqc.png',
+    image:
+      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728349/rocktea-product-website/assets/Rectangle_35_5_msfzqc.png",
     name: "Diary Products",
-  }
-  
+  },
 ];
 
 function Categories() {
@@ -44,9 +48,15 @@ function Categories() {
             className="   rounded-lg w flex flex-col items-center justify-center "
           >
             <figure className="rounded-t-lg w-full  h-[150px]">
-              <img src={item.image} alt=""  className="w-full h-full rounded-t-lg object-cover" />
+              <img
+                src={item.image}
+                alt=""
+                className="w-full h-full rounded-t-lg object-cover"
+              />
             </figure>
-            <p className="mt-0 bg-white py-5 w-full text-center rounded-b-lg">{item.name}</p>
+            <p className="mt-0 bg-white py-5 w-full text-center rounded-b-lg">
+              {item.name}
+            </p>
           </div>
         ))}
       </article>

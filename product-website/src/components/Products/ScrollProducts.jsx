@@ -1,9 +1,8 @@
-import  { useRef, useState } from 'react';
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import ProductCard from '../../Features/ProductCard';
-import './index.css';
-
-const CategoryScroll = ({ categoryTitle, products }) => {
+import { useRef, useState } from "react";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import ProductCard from "../../Features/ProductCard";
+import "./index.css";
+export default function ScrollProducts({ categoryTitle, products }) {
   const scrollRef = useRef(null);
   //const [hovered, setHovered] = useState(false);
   const [scrollAtStart, setScrollAtStart] = useState(true);
@@ -45,7 +44,6 @@ const CategoryScroll = ({ categoryTitle, products }) => {
           <article
             className={`flex  overflow-x-scroll gap-2 scroll-smooth`}
             ref={scrollRef}
-            
             onScroll={handleScroll}
           >
             {products.map((item) => (
@@ -58,16 +56,24 @@ const CategoryScroll = ({ categoryTitle, products }) => {
               />
             ))}
           </article>
-          <button onClick={handlePrev} className={`absolute top-1/2 transform -translate-y-1/2 -left-2 z-50 bg-[rgba(0,0,0,0.5)] w-10 h-10 rounded-full text-md text-white flex items-center justify-center ${
-         !scrollAtStart ? '' : 'hidden' 
-      } transition-opacity duration-300`}><FaAngleLeft/></button>
-      <button onClick={handleNext}className={`absolute top-1/2 transform -translate-y-1/2 -right-2 z-50 bg-[rgba(0,0,0,0.5)] w-10 h-10 rounded-full  text-md text-white flex items-center justify-center ${
-          !scrollAtEnd ? '' : 'hidden'
-      } transition-opacity duration-300`}><FaAngleRight/></button>
+          <button
+            onClick={handlePrev}
+            className={`absolute top-1/2 transform -translate-y-1/2 -left-2 z-50 bg-[rgba(0,0,0,0.5)] w-10 h-10 rounded-full text-md text-white flex items-center justify-center ${
+              !scrollAtStart ? "" : "hidden"
+            } transition-opacity duration-300`}
+          >
+            <FaAngleLeft />
+          </button>
+          <button
+            onClick={handleNext}
+            className={`absolute top-1/2 transform -translate-y-1/2 -right-2 z-50 bg-[rgba(0,0,0,0.5)] w-10 h-10 rounded-full  text-md text-white flex items-center justify-center ${
+              !scrollAtEnd ? "" : "hidden"
+            } transition-opacity duration-300`}
+          >
+            <FaAngleRight />
+          </button>
         </div>
       </div>
     </div>
   );
-};
-
-export default CategoryScroll;
+}

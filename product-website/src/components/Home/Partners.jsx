@@ -22,7 +22,9 @@ export default function Partners() {
   };
   return (
     <div>
-      <h2 className="text-center mt-10 mb-8 text-md font-semibold">Our Featured Brands</h2>
+      <h2 className="text-center mt-10 mb-8 text-md font-semibold">
+        Our Featured Brands
+      </h2>
 
       <Slider {...sliderSettings}>
         {partners.map((logo) => (

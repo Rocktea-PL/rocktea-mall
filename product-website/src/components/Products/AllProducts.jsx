@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 import { product } from "../constant/data";
 import { FaAngleRight } from "react-icons/fa";
 
-
 export default function AllProducts() {
-  
   return (
     <section className="mt-5">
       <div className="flex items-center justify-between">
