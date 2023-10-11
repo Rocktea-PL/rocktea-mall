@@ -1,7 +1,7 @@
 export default function Hero() {
   return (
-    <section
-      className=" mt-[5rem]  h-full pb-8 pt-2  rounded-lg"
+    <main
+      className=" mt-[5rem]  h-full pb-8 pt-2 mx-2 rounded-lg"
       style={{
         backgroundImage: `url("https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422713/rocktea-product-website/assets/Hero-section_acvj8a.png")`,
         backgroundSize: "cover",
@@ -32,6 +32,6 @@ export default function Hero() {
           />
         </figure>
       </div>
-    </section>
+    </main>
   );
 }

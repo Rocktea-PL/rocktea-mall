@@ -2,32 +2,43 @@
 
 //import {Link} from 'react-router-dom'
 
-export default function MarketplaceCards({ id, image, price, name,oldPrice,openModal }) {
-    
+export default function MarketplaceCards({
+  id,
+  image,
+  price,
+  name,
+  oldPrice,
+  openModal,
+}) {
   return (
-
     <>
-     
-      <div 
-       key={id}
-       onClick={openModal}
-      className=" relative  hover:transition-all duration-300 ease-in-out   rounded-lg overflow-hidden  w-full mt-5 ">
+      <div
+        key={id}
+        onClick={openModal}
+        className=" relative  hover:transition-all duration-300 ease-in-out   rounded-lg overflow-hidden  w-full mt-5 "
+      >
         <span className="icon-bg"></span>
         <figure className="  w-full h-[200px] transition-all duration-300 ease-in-out flex items-center justify-center mx-auto ">
-          <img src={image} alt="" className="w-full h-full object-cover rounded-t-lg" />
+          <img
+            src={image}
+            alt=""
+            className="w-full h-full object-cover rounded-t-lg"
+          />
         </figure>
         <div className="block bg-white p-4 -mt-5 rounded-b-lg">
-          <p className="font-light whitespace-nowrap text-[1rem] mt-5">{name}</p>
+          <p className="font-light whitespace-nowrap text-[1rem] mt-5">
+            {name}
+          </p>
           <p className="font-semibold">₦{price}</p>
-          <strike className='text-gray-400 text-[12px]'>₦{oldPrice}</strike>
+          <strike className="text-gray-400 text-[12px]">₦{oldPrice}</strike>
           <div className="relative h-[0.6rem] w-full mt-3 border border-solid border-gray-200 rounded-md">
-      <div
-        className="absolute inset-0 bg-orange rounded-sm"
-        style={{ width: '50%' }}
-      ></div>
-    </div>
-    
-   {/*
+            <div
+              className="absolute inset-0 bg-orange rounded-sm"
+              style={{ width: "50%" }}
+            ></div>
+          </div>
+
+          {/*
    <div className="icons-container opacity-0 hover:opacity-100 absolute z-40 inset-0 flex items-center justify-between px-5 transition-opacity delay-200 duration-500 ease-in-out w-auto h-[50px]">
               <span className="text-xl font-bold text-orange bg-gray-100 rounded-md p-1" onClick={() => alert('it is working')}>
                 <HiOutlineHeart />
@@ -39,10 +50,9 @@ export default function MarketplaceCards({ id, image, price, name,oldPrice,openM
               <HiOutlineShoppingBag/>
               </span>
             </div>
-    */} 
+    */}
         </div>
       </div>
-      
     </>
   );
 }

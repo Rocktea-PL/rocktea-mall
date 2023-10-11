@@ -52,8 +52,8 @@ function Cart() {
             </div>
 
             <div className=" p-2 flex flex-col">
-              <p className="text-md uppercase tracking-wide">Pepsi (Can)</p>
-              <p className="text-lg font-semibold">₦12,300</p>
+              <p className="text-[20px] uppercase tracking-wide">Pepsi (Can)</p>
+              <p className="text-md font-semibold">₦12,300</p>
 
               <div className="flex items-center justify-center gap-5 max-w-[100px] py-2 rounded-md border border-solid border-[var(--orange)] mt-3">
                 <button className=" " onClick={handleDecrement}>
@@ -78,7 +78,7 @@ function Cart() {
         <div className="md:w-1/4 mb-10 ">
           <div className="bg-white p-4 w-full h-auto shadow rounded-md py-5 px-7">
             {/* Add your checkout elements here */}
-            <h3 className="text-lg font-semibold mb-2">Checkout</h3>
+            <h3 className="text-md font-semibold mb-2">Checkout</h3>
             <p className="my-2">Enter Promo Code</p>
             <div className="flex items-center border border-gray-300 rounded-md">
               <input

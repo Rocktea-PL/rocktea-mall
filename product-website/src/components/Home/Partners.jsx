@@ -22,7 +22,9 @@ export default function Partners() {
   };
   return (
     <div>
-      <h2 className="text-center mt-10 mb-8 text-md font-semibold">Our Featured Brands</h2>
+      <h2 className="text-center mt-10 mb-8 text-md font-semibold">
+        Our Featured Brands
+      </h2>
 
       <Slider {...sliderSettings}>
         {partners.map((logo) => (
@@ -30,7 +32,7 @@ export default function Partners() {
             <img
               src={logo.image}
               alt="partners"
-              className=" w-[120px] h-[80px] object-contain "
+              className="w-[80px] mb-5 lg:w-[120px] h-[80px] object-contain "
             />
           </figure>
         ))}

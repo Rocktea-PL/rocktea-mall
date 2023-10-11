@@ -71,24 +71,23 @@ const ProfileDropdown = () => {
           >
             {dropdown.map((item) => (
               <>
-               <Link to={item.link}>
-              <div
-                key={item.id}
-                className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 border-b border-b-solid border-b-black last:border-b-0"
-              >
-                <span>{item.icon}</span>
-               
-                  <button
-                    className="whitespace-nowrap"
-                    role="menuitem"
-                    onClick={IsLogOut}
+                <Link to={item.link}>
+                  <div
+                    key={item.id}
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 border-b border-b-solid border-b-black last:border-b-0"
                   >
-                    {item.title}
-                  </button>
-              
-              </div>
-              </Link>
-            </>
+                    <span>{item.icon}</span>
+
+                    <button
+                      className="whitespace-nowrap"
+                      role="menuitem"
+                      onClick={IsLogOut}
+                    >
+                      {item.title}
+                    </button>
+                  </div>
+                </Link>
+              </>
             ))}
           </div>
         </div>

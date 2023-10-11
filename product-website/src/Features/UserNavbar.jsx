@@ -28,15 +28,23 @@ const Navbar = () => {
     <header className="p-3 bg-white shadow-md fixed top-0 w-full z-[999]">
       <nav className="flex items-center justify-between px-4">
         <figure>
-          <img src='https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422691/rocktea-product-website/assets/logo_wvpiif.svg' alt="logo" width={50} height={50} />
+          <img
+            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422691/rocktea-product-website/assets/logo_wvpiif.svg"
+            alt="logo"
+            width={50}
+            height={50}
+          />
         </figure>
         <ul className="flex items-center justify-between gap-5">
           <li className="uppercase tracking-[1px]">
             {" "}
             <Link to="/">Home</Link>
           </li>
-          <li className="uppercase tracking-[1px] cursor-pointer" onClick={openModal}>
-           Categories
+          <li
+            className="uppercase tracking-[1px] cursor-pointer"
+            onClick={openModal}
+          >
+            Categories
           </li>
         </ul>
         <form action="" className="flex items-center gap-4">
