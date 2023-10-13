@@ -8,26 +8,26 @@ import toast from "react-hot-toast";
 const categoryImageMap = {
   "Men's Fashion":
     "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740801/rocktea-main-website/assets/man_2_u6sd5x.png",
-  Kids: "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740801/rocktea-main-website/assets/man_2_u6sd5x.png",
+  "Kids": "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740801/rocktea-main-website/assets/man_2_u6sd5x.png",
   "Women's Fashion":
     "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740801/rocktea-main-website/assets/dress_3_jdhogd.png",
   "Health & Beauty":
     "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740801/rocktea-main-website/assets/dress_3_jdhogd.png",
-  Electronics:
+  "Electronics":
     "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740800/rocktea-main-website/assets/electronics_1_vtekkt.png",
   "Home & Office":
     "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740800/rocktea-main-website/assets/electronics_1_vtekkt.png",
-  Groceries:
+  "Groceries":
     "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740800/rocktea-main-website/assets/healthy-drink_1_kcjvfk.png",
   "Mobile Accessories":
     "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740801/rocktea-main-website/assets/mobile-phone_1_wqqa7p.png",
   "Phone and Tablet":
     "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740801/rocktea-main-website/assets/mobile-phone_1_wqqa7p.png",
-  Sporting:
+  "Sporting":
     "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740800/rocktea-main-website/assets/sports_1_k0pqkf.png",
   "Video Games":
     "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740800/rocktea-main-website/assets/sports_1_k0pqkf.png",
-  Computing:
+  "Computing":
     "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696740801/rocktea-main-website/assets/mobile-phone_1_wqqa7p.png",
 };
 export default function Categories() {
@@ -89,26 +89,29 @@ export default function Categories() {
 
       <ul className="grid grid-cols-2 sm:grid-cols-3 gap-5 mt-10">
         {visibleCategories.map((category) => {
-          const categoryImage = categoryImageMap[category.category_name];
-
+          const categoryImage = categoryImageMap[category.name];
+      console.log(category.category)
           return (
             <li
-              key={category.category_id}
-              onClick={() => handleCategoryClick(category.category_id)}
+              key={category.id}
+              onClick={() => handleCategoryClick(category.id)}
               className={`border-2 border-black hover:border-orange flex flex-col items-center justify-center p-5 rounded-md ${
-                selectedCategoryId === category.category_id
+                selectedCategoryId === category.id
                   ? "border-orange"
                   : ""
               }`}
             >
               {categoryImage && (
+
                 <img
                   src={categoryImage}
                   className="xxsm:w-[70px] xxsm:h-[70px] w-[100px] h-[100px]"
-                  alt={category.category_name}
+                  alt={category.name}
+                  onLoad={() => console.log('Image loaded successfully')}
+                    onError={() => console.error('Error loading image')}
                 />
               )}
-              <p className="mt-3">{category.category_name}</p>
+              <p className="mt-3">{category.name}</p>
             </li>
           );
         })}

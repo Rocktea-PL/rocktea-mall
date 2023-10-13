@@ -11,7 +11,7 @@ import { ImageWithLoading } from "../src/Components/ImageLoader";
 import Store from "../src/Components/Forms/SignUp/Store";
 import Categories from "../src/Components/Forms/SignUp/Categories";
 import Otp from "../src/Components/Forms/SignUp/Otp";
-import { useEffect } from "react";
+//import { useEffect } from "react";
 function StoreDetails() {
   const {
     //handleStoreFormSubmit,
@@ -19,7 +19,7 @@ function StoreDetails() {
     setStoreData,
     storeError,
     setStoreError,
-    setCurrentStep,
+    //setCurrentStep,
     //isLoading,
     //getCategories,
 
@@ -52,6 +52,16 @@ function StoreDetails() {
     if (name === "email") {
       updatedErrors.email = validateEmail(value);
     }
+    
+    if (name === "domain_name") {
+      if (value.includes('.') || value.includes('.com')) {
+        updatedErrors.domain_name = 'Please remove \'.\' from the domain name.';
+          // Disable the input when "." is included
+      } else {
+        updatedErrors.domain_name = '';
+        e.target.disabled = false;  // Enable the input when "." is removed
+      }
+    }
     // Add similar validation for other fields
     setStoreData({
       ...storeData,
@@ -61,12 +71,12 @@ function StoreDetails() {
     setStoreError(updatedErrors);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     const savedStep = localStorage.getItem("currentStep");
     if (savedStep) {
       setCurrentStep(parseInt(savedStep));
     }
-  }, []); // Empty dependency array to run this effect only once on mount
+  }, []);*/ // Empty dependency array to run this effect only once on mount
 
   /* useEffect(() => {
     const owner = localStorage.getItem("owner");

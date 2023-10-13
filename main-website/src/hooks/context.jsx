@@ -34,6 +34,7 @@ const AppProvider = ({ children }) => {
     email: "",
     TIN_number: "",
     year_of_establishment: "",
+    domain_name:"" ,
     logo: "",
 
     // Add more properties as needed
@@ -134,41 +135,26 @@ const AppProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const response = await loginUser(credentials); // Call the login function
-      // Handle successful login (e.g., store token, redirect user)
+      
       console.log("Login successful:", response);
-      //console.log(response.user_data.id);
-      // Check if the user has completed store details registration
-      //const hasCompletedStoreDetails = localStorage.getItem(
-      //"hasCompletedStoreDetails",
-      //);
+      
       const token = response.access;
       localStorage.setItem("accessToken", token);
       // Store the access token in state and/or localStorage
       //setAccessToken(token);
-      /*if (hasCompletedStoreDetails) {
-        window.open(
+      if (response.user_data.has_store === false) {
+        navigate("/store_details");
+        
+
+      } else {
+       window.open(
           "https://rocktea-mall-product.vercel.app/dashboard",
           "_self",
         );
-      } else {
-        navigate("/store_details");
-      }*/
+      }
 
-      /*const owner = response.user_data.id;
-      localStorage.setItem("owner", owner);
-      setStoreData((prevStoreData) => ({
-        ...prevStoreData,
-        owner: owner,
-      }));
-
-      console.log("login owner:", owner);
-      setTimeout(() => {
-        handleStoreFormSubmit(e, owner);
-      }, 5000);*/
-
-      //console.log("Owner set:", response.user_data.id);
       console.log("Updated storeData:", storeData);
-      navigate("/store_details");
+      
 
       toast.success("Logged in Successfully");
     } catch (error) {
@@ -202,7 +188,7 @@ const AppProvider = ({ children }) => {
     formData.append("TIN_number", storeData.TIN_number);
     formData.append("year_of_establishment", storeData.year_of_establishment);
     //formData.append("category", storeData.category);
-    //formData.append("domain_name", storeData.domain_name);
+    formData.append("domain_name", storeData.domain_name);
     //formData.append("store_url", storeData.store_url);
     formData.append("logo", storeData.logo);
     //formData.append("owner", storeData.owner);

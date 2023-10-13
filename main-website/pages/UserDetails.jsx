@@ -1,5 +1,8 @@
 /*eslint no-useless-escape: "off"*/
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 
+//import { parsePhoneNumber } from 'libphonenumber-js';
 import { useGlobalContext } from "../src/hooks/context";
 import FileInput from "../src/Components/Forms/SignUp/FormImage";
 //import { NavLink } from "react-router-dom";
@@ -30,10 +33,14 @@ function UserDetails() {
   } = useGlobalContext();
   const [showPassword, setShowPassword] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
-
+  const [isTypingPassword, setIsTypingPassword] = useState(false);
   const handlePasswordValidation = (isValid) => {
     setIsPasswordValid(isValid);
   };
+  const handlePasswordTyping = () => {
+    setIsTypingPassword(true);
+  };
+
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -44,35 +51,38 @@ function UserDetails() {
     }
   }, [setVerifyEmail]);
 
-  /*function isPasswordValid(password) {
-    // Regular expressions for password validation
-    const lowercaseRegex = /[a-z]/;
-    const uppercaseRegex = /[A-Z]/;
-    const specialSymbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-
-    return (
-      lowercaseRegex.test(password) &&
-      uppercaseRegex.test(password) &&
-      specialSymbolRegex.test(password)
-    );
-  }*/
+  
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    const updatedErrors = { ...error, [name]: "" };
-    /*if (name === "password") {
-      if (!isPasswordValid(value)) {
-        updatedErrors.password =
-          "Password must  include at least one special symbol, one lowercase letter, and one uppercase letter.";
+    let updatedUserData = {};
+    let updatedErrors = { ...error };
+  
+    if (e && e.target) {
+      // Regular input change
+      const { name, value } = e.target;
+      updatedUserData = {
+        ...userData,
+        [name]: value,
+      };
+  
+      if (name === 'password') {
+        handlePasswordTyping(); // Update the typing status for password
       }
-    }*/
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
-
+  
+      // Add specific validations if needed
+    } else {
+      // Phone number input change
+      updatedUserData = {
+        ...userData,
+        contact: e, // e contains the phone number directly
+      };
+      updatedErrors.contact = ''; // Reset error for contact
+    }
+  
+    setUserData(updatedUserData);
     setError(updatedErrors);
   };
+  
 
   useEffect(() => {
     localStorage.setItem("verifyEmail", JSON.stringify(verifyEmail));
@@ -90,7 +100,7 @@ function UserDetails() {
               alt=""
             />
           </div>
-          <div className="form">
+          <div className= {`${!showPassword && 'lg:pt-[11rem]'} max-w-[85%] lg:w-[450px] mx-auto flex flex-col items-center justify-center py-8 transition-all  px-5 overflow-scroll h-full`}>
             <div className="mt-20 lg:mt-0">
               <h2 className="mt-0 text-center  lg:text-start text-black leading-[1.5rem] !text-[32px]">
                 Sign Up
@@ -104,7 +114,7 @@ function UserDetails() {
                 method="post"
                 encType="multipart/form-data"
               >
-                <div className="grid grid-cols-2 gap-x-5 w-full ">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5  ">
                   <label className="">
                     First Name
                     <input
@@ -131,7 +141,7 @@ function UserDetails() {
                       <div className="text-red-500">{error.last_name}</div>
                     )}
                   </label>
-                  <label className="flex flex-col col-span-2">
+                  <label className="flex flex-col md:col-span-2">
                     Email
                     <input
                       type="email"
@@ -145,21 +155,32 @@ function UserDetails() {
                     )}
                   </label>
 
-                  <label className="relative">
+                  <label className="relative ">
                     Phone Number
-                    <input
-                      type="tel"
-                      placeholder="+234123456789"
-                      name="contact"
-                      value={userData.contact}
-                      onChange={handleInputChange}
-                    />
+                    <PhoneInput
+                    defaultCountry="NG"
+                    international
+                    countryCallingCodeEditable={false}
+  className='country focus:border focus:border-solid focus:border-orange'
+             withCountryCallingCode
+         name='contact '
+           placeholder="Enter phone number"
+              value={userData.contact}
+  
+    onChange={handleInputChange}
+  />
                     {error && error.contact && (
                       <div className="text-red-500">{error.contact}</div>
                     )}
                   </label>
+                  <FileInput
+                    userData={userData}
+                    setUserData={setUserData}
+                    error={error}
+                    setError={setError}
+                  />
 
-                  <label className="relative">
+                  <label className="relative md:col-span-2">
                     Password
                     <input
                       type={showPassword ? "text" : "password"}
@@ -175,38 +196,10 @@ function UserDetails() {
                       {!showPassword ? <FaEyeSlash /> : <FaEye />}
                     </span>
                   </label>
-                  <FileInput
-                    userData={userData}
-                    setUserData={setUserData}
-                    error={error}
-                    setError={setError}
-                  />
+                 
+                  
                 </div>
-                <div className="flex items-center justify-center ">
-                  <button
-                    className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-10"
-                    onClick={handleFormSubmit}
-                    disabled={isLoading} // Disable the button when loading
-                  >
-                    {isLoading ? (
-                      <Oval
-                        height={30}
-                        width={30}
-                        color="#fff"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                        visible={true}
-                        ariaLabel="oval-loading"
-                        secondaryColor="#f6f6f6"
-                        strokeWidth={7}
-                        strokeWidthSecondary={7}
-                      />
-                    ) : (
-                      "Continue"
-                    )}
-                  </button>
-                </div>
-                {error && !isPasswordValid && (
+                {isTypingPassword &&error && !isPasswordValid && (
                   <PasswordChecklist
                     rules={["capital", "specialChar", "minLength", "number"]}
                     minLength={8}
@@ -220,7 +213,7 @@ function UserDetails() {
                         <FaTimesCircle className="text-red-600 text-[1.2rem] mt-1 mx-2" />
                       ),
                     }}
-                    className="block mt-0 p-0"
+                    className="block mx-auto w-full mt-1 p-0"
                     messages={{
                       minLength:
                         "The minimum length of the password should be 8.",
@@ -236,131 +229,9 @@ function UserDetails() {
                     onChange={handlePasswordValidation}
                   />
                 )}
-              </form>
-            </div>
-            {/*<div className=" ">
-              <figure className="flex items-center justify-center mt-2  mb-6">
-                <img
-                  src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421637/rocktea-main-website/assets/rocktea-logo_qlaflj.png"
-                  width={120}
-                  height={120}
-                  alt="logo"
-                />
-              </figure>
-
-              <h2 className="mt-0 text-center leading-[1.5rem]">
-                Become a Dropshipper
-              </h2>
-              <h4 className="text-center text-[var(--yellow)] mt-2 mb-7">
-                Users Profile
-              </h4>
-              <div className="scrollable-container">
-                <form
-                  action=""
-                  className="flex flex-col text-sm"
-                  method="post"
-                  encType="multipart/form-data"
-                >
-                  <div className="">
-                    <label className="">
-                      First Name
-                      <input
-                        type="text"
-                        placeholder="First name"
-                        name="first_name"
-                        value={userData.first_name}
-                        onChange={handleInputChange}
-                      />
-                      {error && error.first_name && (
-                        <div className="text-red-500">{error.first_name}</div>
-                      )}
-                    </label>
-                    <label className="">
-                      Last Name
-                      <input
-                        type="text"
-                        placeholder="Last name"
-                        name="last_name"
-                        value={userData.last_name}
-                        onChange={handleInputChange}
-                      />
-                      {error && error.last_name && (
-                        <div className="text-red-500">{error.last_name}</div>
-                      )}
-                    </label>
-                    <label className="flex flex-col">
-                      Email
-                      <input
-                        type="email"
-                        placeholder="example@mail.com"
-                        name="email"
-                        value={userData.email}
-                        onChange={handleInputChange}
-                      />
-                      {error && error.email && (
-                        <div className="text-red-500">{error.email}</div>
-                      )}
-                    </label>
-                    <label className="">
-                      UserName
-                      <input
-                        type="text"
-                        placeholder="Username"
-                        name="username"
-                        value={userData.username}
-                        onChange={handleInputChange}
-                      />
-                      {error && error.username && (
-                        <div className="text-red-500">{error.username}</div>
-                      )}
-                    </label>
-                    <label className="relative">
-                      Phone Number
-                      <input
-                        type="tel"
-                        placeholder="+234123456789"
-                        name="contact"
-                        value={userData.contact}
-                        onChange={handleInputChange}
-                      />
-                      {error && error.contact && (
-                        <div className="text-red-500">{error.contact}</div>
-                      )}
-                    </label>
-
-                    <label className="relative">
-                      Password
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        placeholder="***************"
-                        name="password"
-                        value={userData.password}
-                        onChange={handleInputChange}
-                      />
-                      <span
-                        onClick={handlePasswordVisibility}
-                        className="absolute top-12 right-8 flex items-center pr-4 cursor-pointer"
-                      >
-                        {!showPassword ? <FaEyeSlash /> : <FaEye />}
-                      </span>
-                      {error && (
-                        <div className="text-red-500">
-                          {error && error.password}
-                        </div>
-                      )}
-                    </label>
-                    <FileInput
-                      userData={userData}
-                      setUserData={setUserData}
-                      error={error}
-                      setError={setError}
-                    />
-                  </div>
-                </form>
-
                 <div className="flex items-center justify-center ">
                   <button
-                    className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg mt-6"
+                    className="flex items-center justify-center bg-[var(--yellow)] w-[150px] p-3 rounded-lg my-10"
                     onClick={handleFormSubmit}
                     disabled={isLoading} // Disable the button when loading
                   >
@@ -382,20 +253,10 @@ function UserDetails() {
                     )}
                   </button>
                 </div>
-                    </div>
+                
+              </form>
             </div>
-
-            <div className="flex items-center gap-2 justify-center text-center mt-5 mb-5">
-              <p className="text-[15px] text-center">
-                Already have an account?{" "}
-              </p>{" "}
-              <NavLink
-                to="/login"
-                style={{ color: "var(--deep-blue)", fontWeight: "bold" }}
-              >
-                Sign In
-              </NavLink>{" "}
-            </div>*/}
+            
           </div>
         </div>
       )}
