@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { FiUpload } from "react-icons/fi";
 function FileInput({ userData, setUserData, error }) {
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -30,8 +30,8 @@ function FileInput({ userData, setUserData, error }) {
     }
    }*/
   return (
-    <div className="flex flex-col col-span-2 justify-start space-y-4 w-full ">
-      <label className="relative  cursor-point text-black py-2 rounded-lg ">
+    <div className="flex flex-col  justify-start space-y-4 w-full ">
+      <label className="relative  cursor-point text-black rounded-lg ">
         <span className="absolute top-0 left-0 right-0 bottom-0 opacity-0 cursor-pointer"></span>
         <span className="">Profile Image</span>
         <input
@@ -44,12 +44,12 @@ function FileInput({ userData, setUserData, error }) {
           <div className=" outline-none ">
             <span className="truncate ">
               {selectedFile
-                ? truncateFileName(selectedFile.name, 20)
+                ? truncateFileName(selectedFile.name, 15)
                 : "No file selected"}
             </span>
           </div>
           <button
-            className="bg-[var(--yellow)] text-black h-10 py-1 px-4 rounded-lg text-sm"
+            className=" text-black px-3  text-sm"
             type="button"
             onClick={() => {
               // Add logic to trigger the file input when the button is clicked
@@ -59,7 +59,7 @@ function FileInput({ userData, setUserData, error }) {
               }
             }}
           >
-            Upload
+           <FiUpload />
           </button>
         </div>
         {error && error.profile_image && (

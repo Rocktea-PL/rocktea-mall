@@ -68,8 +68,19 @@
    label{
     @apply flex flex-col text-sm mt-5
    }
-   input,select{
+   input,select,.country{
     @apply bg-[var(--white)] border border-solid border-[var(--input-border)] w-[100%] h-10 rounded-lg px-2 mt-3  outline-none
+   }
+   .country input{
+    @apply bg-transparent border-0 border-solid border-[var(--input-border)] w-[100%] h-10 rounded-lg px-2 mt-0  outline-none
+   }
+  .country input:focus{
+    border: none;
+   }
+   
+   
+   input:focus{
+    border: 1px solid var(--yellow);
    }
    input::placeholder{
     @apply text-gray-300

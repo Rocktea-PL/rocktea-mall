@@ -87,7 +87,7 @@ function StoreImage({ storeData, setStoreData, error, setError }) {
   };
 
   return (
-    <div className="flex flex-col md:col-span-2  justify-start space-y-4 w-full">
+    <div className="flex flex-col  justify-start space-y-4 w-full">
       <label className="relative cursor-pointer text-black  rounded-lg md:col-span-2">
         <span className="absolute top-0 left-0 right-0 bottom-0 opacity-0 cursor-pointer"></span>
         <span className="">Store Logo</span>
@@ -101,7 +101,7 @@ function StoreImage({ storeData, setStoreData, error, setError }) {
           <div className="outline-none">
             <span className="truncate">
               {selectedFile
-                ? truncateFileName(selectedFile.name, 20)
+                ? truncateFileName(selectedFile.name, 15)
                 : "No file selected"}
             </span>
           </div>
