@@ -1,10 +1,14 @@
 import { useState } from "react";
-import MarketplaceCards from "../../../product-website/src/Features/MarketplaceCards";
-import MarketplaceModal from "../../../product-website/src/components/Modals/MarketplaceModal";
+import MarketplaceCards from '../../src/Dropshippers/Features/MarketplaceCards'
+import MarketplaceModal from '../../src/Dropshippers/components/Modals/MarketplaceModal'
+//import MarketplaceCards from "../../../product-website/src/Features/MarketplaceCards";
+//import MarketplaceModal from "../../../product-website/src/components/Modals/MarketplaceModal";
 //import ProductCard from "../src/Features/ProductCard"
-import ProductFilter from "../../../product-website/src/components/Products/FilterCards";
-import Pagination from "../../../product-website/src/components/Products/Pagination";
-import { product } from "../../../product-website/src/components/constant/data";
+//import ProductFilter from "../../../product-website/src/components/Products/FilterCards";
+import ProductFilter from '../../src/Dropshippers/components/Products/FilterCards'
+import Pagination from '../../src/Dropshippers/components/Products/Pagination' 
+import { product } from "../../src/Dropshippers/components/constant/data";
+//import { product } from "../../../product-website/src/components/constant/data";
 import { FaAngleRight } from "react-icons/fa";
 import Navbar from "../../src/Dropshippers/Features/Navbar";
 import Footer from "../../src/Dropshippers/Features/Footer";

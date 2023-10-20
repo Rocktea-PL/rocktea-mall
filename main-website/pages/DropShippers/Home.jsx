@@ -1,10 +1,13 @@
-import Categories from "../../../product-website/src/components/Home/Categories";
-import Hero from "../../../product-website/src/components/Home/Hero";
+
+import Categories from '../../src/Dropshippers/components/Home/Categories'
+//import Hero from "../../../product-website/src/components/Home/Hero";
 //import Partners from "../../../product-website/src/components/Home/Partners";
-import Products from "../../../product-website/src/components/Home/Products";
+import Hero from '../../src/Dropshippers/components/Home/Hero'
+//import AllProducts from "../../../product-website/src/components/Products/AllProducts";
+//import Products from '../../src/Dropshippers/components/Products/'
 import Footer from "../../src/Dropshippers/Features/Footer";
 import Navbar from "../../src/Dropshippers/Features/Navbar";
-
+import Products from '../../src/Dropshippers/components/Home/Products'
 ////import UserNavbar from "../../src/Dropshippers/Features/UserNavbar";
 //import { useAuthContext } from "../../src/hooks/AuthContext";
 //import ImageScroll from "../src/components/Products/categoryScroll";
@@ -17,7 +20,7 @@ export default function HomeStore() {
     <div className="max-w-[1250px] mx-auto">
       <Hero />
       <Categories />
-      <Products />
+     <Products />
      
     </div>
     <Footer />
