@@ -1,5 +1,5 @@
 
-import '../../../styles/dashboard.css'
+import '../../../styles/Dashboard.css'
 export default function Sidebar() {
   return (
     <div className="w-[30%] flex flex-col justify-between py-5 bg-white shadow-md h-screen px-3">
