@@ -1,4 +1,4 @@
-import { RxCaretDown } from "react-icons/rx";
+/*import { RxChevronDown} from "react-icons/rx";
 import ProductCard from "../../Features/ProductCard";
 import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
@@ -10,9 +10,9 @@ export default function AllProducts() {
     <section className="mt-5">
       <div className="flex items-center justify-between">
         <h3 className="font-semibold">Show Filter +</h3>
-        <h3 className="flex items-center justify-center gap-1 font-semibold">
-          Sort By <RxCaretDown className="text-2xl" />{" "}
-        </h3>
+       {/*  <h3 className="flex items-center justify-center gap-1 font-semibold">
+          Sort By <RxChevronDown className="text-2xl" />
+  </h3>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-x-5 lg:grid-cols-5 w-[98%] justify-center mx-auto  overflow-hidden mt-5">
         {product.map((item) => (
@@ -64,3 +64,4 @@ export default function AllProducts() {
     </section>
   );
 }
+*/

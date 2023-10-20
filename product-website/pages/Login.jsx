@@ -1,16 +1,36 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useStoreContext } from "../src/Hooks/UserAuthContext";
 
 function Login() {
+
+  const {
+    credentials,
+    setCredentials,
+    //isLoading,
+    error,
+    setError,
+    handleLoginUserSubmit
+  } = useStoreContext();
   const [showPassword, setShowPassword] = useState(false);
 
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const updatedErrors = { ...error };
+    setCredentials({
+      ...credentials,
+      [name]: value,
+    });
+    setError(updatedErrors);
+  };
+  
 
   return (
     <div className="logout flex items-center justify-center h-screen overflow-hidden">
-      <figure className="w-full hidden md:block h-full overflow-hidden max-w-[50%]">
+      <figure className="w-full hidden lg:block h-full overflow-hidden max-w-[50%]">
         <img
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694882647/rocktea-product-website/assets/image_109_wy4a6a.png"
           alt=""
@@ -46,12 +66,18 @@ function Login() {
           <form className="flex flex-col sm:w-[350px]">
             <input
               type="email"
+              name="email"
+              value={credentials.email}
+              onChange={handleInputChange}
               placeholder="Email"
               className=" border-2 border-solid border-[var(--form-border)] py-2 px-4 rounded  my-7 outline-none"
             />
             <div className="relative mb-4">
               <input
                 type={showPassword ? "text" : "password"}
+                name="password"
+                value={credentials.password}
+              onChange={handleInputChange}
                 placeholder="Password"
                 className=" border-2 border-solid border-[var(--form-border)] py-2 px-4 rounded w-full outline-none"
               />
@@ -73,7 +99,7 @@ function Login() {
                 Forgot password
               </a>
             </div>
-            <button className="bg-[var(--orange)] py-2 px-4 rounded mb-4 mt-3">
+            <button onClick={handleLoginUserSubmit} className="bg-[var(--orange)] py-2 px-4 rounded mb-4 mt-3">
               Sign In
             </button>
             <p>

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaAngleRight } from "react-icons/fa";
 import CommonProducts from "../src/components/Products/CommonProducts";
+import Footer from "../src/Features/Footer";
+import Navbar from "../src/Features/UserNavbar";
 function Cart() {
   const [quantity, setQuantity] = useState(1);
 
@@ -15,6 +17,8 @@ function Cart() {
     }
   };
   return (
+    <>
+    <Navbar />
     <section className="">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1 mb-4">
@@ -128,6 +132,8 @@ function Cart() {
         <CommonProducts />
       </div>
     </section>
+    <Footer />
+    </>
   );
 }
 

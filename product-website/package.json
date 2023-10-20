@@ -11,15 +11,22 @@
     "prettier": "prettier --write \"src/**/*.jsx\" \"pages/**/*.jsx\""
   },
   "dependencies": {
+    "axios": "^1.5.1",
     "chart.js": "^4.4.0",
+    "jwt-decode": "^3.1.2",
     "paystack": "^2.0.1",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^4.10.1",
+    "react-loader-spinner": "^5.4.5",
+    "react-password-checklist": "^1.4.3",
     "react-paystack": "^4.0.3",
+    "react-phone-number-input": "^3.3.7",
     "react-router-dom": "^6.15.0",
     "react-slick": "^0.29.0",
+    "react-spinner": "^0.2.7",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {

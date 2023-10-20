@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sidebar-list li{
+    font-size: 1.3rem;
+    @apply text-blue
+   
+}
+.sidebar-list li.active{
+    
+    @apply bg-blue w-[85%] relative text-white px-5 py-2 rounded-md
+}
