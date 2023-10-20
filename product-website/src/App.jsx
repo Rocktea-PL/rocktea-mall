@@ -10,8 +10,8 @@ import Checkout from "../pages/Checkout";
 import Logout from "../pages/Logout";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
-import Dashboard from "../pages/Dashboard";
-import Marketplace from "../pages/Marketplace";
+
+
 
 function App() {
   const router = createBrowserRouter([
@@ -20,7 +20,7 @@ function App() {
       element: <Layout />,
       children: [
         {
-          path: "/",
+          path: "/store",
           element: <Home />,
         },
         {
@@ -48,17 +48,10 @@ function App() {
           element: <Login />,
         },
         {
-          path: "/register",
+          path: "/register/:store_id",
           element: <Signup />,
         },
-        {
-          path: "/dashboard",
-          element: <Dashboard />,
-        },
-        {
-          path: "/marketplace",
-          element: <Marketplace />,
-        },
+        
         {
           path: "/search:query",
           element: <Search />,
@@ -69,7 +62,9 @@ function App() {
 
   return (
     <>
+    
       <RouterProvider router={router} />
+      
     </>
   );
 }

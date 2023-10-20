@@ -1,6 +1,6 @@
 // MyContext.js
 import { createContext, useContext, useState } from "react";
-import { loginUser, register } from "../../pages/auth/auth";
+import {  register } from "../../pages/auth/auth";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -9,9 +9,9 @@ import axios from "axios";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const navigate = useNavigate();
+ const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
-  //const [accessToken, setAccessToken] = useState(null);
+  //const [user, setUser] = useState(null);
   // Define initial user data state
   const [userData, setUserData] = useState({
     // Define initial user data state
@@ -24,10 +24,10 @@ const AppProvider = ({ children }) => {
     profile_image: "",
   });
 
-  const [credentials, setCredentials] = useState({
+  /*const [credentials, setCredentials] = useState({
     email: "",
     password: "",
-  });
+  });**/
 
   const [storeData, setStoreData] = useState({
     name: "",
@@ -78,19 +78,7 @@ const AppProvider = ({ children }) => {
       };
 
       // Send the email
-      emailjs
-        .send(
-          "service_5hulf9r",
-          "template_nk9rq5h",
-          emailParams,
-          "Sb11MyaNpQEgE-cBn",
-        )
-        .then((response) => {
-          console.log("Email sent:", response);
-        })
-        .catch((error) => {
-          console.error("Email sending failed:", error);
-        });
+      
 
       emailjs
         .send(
@@ -105,15 +93,16 @@ const AppProvider = ({ children }) => {
         .catch((error) => {
           console.error("Email sending failed:", error);
         });
+        
       // Handle successful registration
       // For now, let's just log the user data
       console.log("Registration successful", userData);
       console.log(response.error);
       // Move to the next step
       // Save userData to localStorage
-      localStorage.setItem("userData", JSON.stringify(userData));
+      
       toast.success("Registered Succesfully!");
-
+      navigate('verify_email')
       setVerifyEmail(true);
       //cogoToast.success("Registered Succesfully!");
     } catch (error) {
@@ -129,17 +118,18 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const handleLoginFormSubmit = async (e) => {
+ /* const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
 
     try {
       setIsLoading(true);
       const response = await loginUser(credentials); // Call the login function
-      
       console.log("Login successful:", response);
-      
       const token = response.access;
       localStorage.setItem("accessToken", token);
+      console.log('before user data', response.user_data.first_name)
+      const firstname = response.user_data.first_name
+      localStorage.setItem("userName", firstname);
       // Store the access token in state and/or localStorage
       //setAccessToken(token);
       if (response.user_data.has_store === false) {
@@ -147,15 +137,14 @@ const AppProvider = ({ children }) => {
         
 
       } else {
-       window.open(
-          "https://rocktea-mall-product.vercel.app/dashboard",
+        //https://rocktea-mall-product.vercel.app/dashboard
+       navigate(
+          "/dashboard",
           "_self",
         );
       }
-
+  console.log('user data', response.user_data.first_name)
       console.log("Updated storeData:", storeData);
-      
-
       toast.success("Logged in Successfully");
     } catch (error) {
       setLoginError(error); // Handle login error
@@ -166,21 +155,11 @@ const AppProvider = ({ children }) => {
       setIsLoading(false); // Set loading state back to false after the request is complete
     }
   };
-
+*/
   // Function to handle registering store details
   const handleStoreFormSubmit = async (e) => {
     e.preventDefault();
-
-    // console.log("Owner in handleStoreFormSubmit:", owner);
-    //storeData.owner= owner;
-    // owner = localStorage.getItem("owner");
-    //if (!owner) {
-    //console.log("no owner  found", owner);
-    //}
     const storedToken = localStorage.getItem("accessToken");
-
-    //storeData.owner = owner;
-    //console.log("Owner from localStorage:", owner);
     // Create a FormData object to send the form data including the image
     const formData = new FormData();
     formData.append("name", storeData.name);
@@ -212,6 +191,9 @@ const AppProvider = ({ children }) => {
       //localStorage.setItem("hasCompletedStoreDetails", "true");
       localStorage.setItem("owner", response.data.owner);
       localStorage.setItem("storeId", response.data.id);
+      localStorage.setItem("storeLogo", localStorage.setItem("storeData", JSON.stringify(response.data)));
+      const savedUserData = localStorage.getItem("storeData");
+      console.log('Data from localStorage', savedUserData)
       toast.success("Store Registered Successfully");
       //navigate("/make_payment");
 
@@ -281,12 +263,12 @@ const AppProvider = ({ children }) => {
         const verifyPayment = await axios.get(
           `https://rocktea-mall-api-test.up.railway.app/mall/verify?reference=${paymentReference}`,
         );
-
+        let store_id = localStorage.getItem('storeId')
         if (verifyPayment.data.data.status === "success") {
           clearInterval(interval);
           // Stop polling
-          window.location.href =
-            "https://rocktea-mall-product.vercel.app/dashboard";
+
+         navigate(`/dashboard/${store_id}`)
           console.log("Payment verification successful.");
         } else if (verifyPayment.data.data.status === "failed") {
           clearInterval(interval); // Stop polling
@@ -334,9 +316,10 @@ const AppProvider = ({ children }) => {
         storeData,
         verifyEmail,
         setVerifyEmail,
-        credentials,
-        setCredentials,
-        handleLoginFormSubmit,
+        
+        //credentials,
+        //setCredentials,
+        //handleLoginFormSubmit,
         loginError,
         setLoginError,
         //componentProps,

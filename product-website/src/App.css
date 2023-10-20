@@ -19,6 +19,9 @@ body {
   display: none;
 }
 
+.user-form input{
+margin-top: 0.7rem;
+}
 .arrow{
   padding-right: 10px;
   animation: row 2s linear infinite;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import {
@@ -8,7 +8,10 @@ import {
   RiLogoutCircleRLine,
   RiMapPinLine,
 } from "react-icons/ri";
+
+
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
+import { useStoreContext } from "../Hooks/UserAuthContext";
 const dropdown = [
   {
     id: 1,
@@ -34,33 +37,39 @@ const dropdown = [
     id: 5,
     title: "Log Out",
     icon: <RiLogoutCircleRLine />,
-    link: "/logout",
+    link: "/login",
   },
 ];
 
 const ProfileDropdown = () => {
+  const {logOut} = useStoreContext()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [logOut, setLogOut] = useState(false);
+  const [userName, setUserName] = useState('')
+  //const [logOut, setLogOut] = useState(false);
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
   const IsLogOut = () => {
-    setLogOut(!logOut);
-
+  
     if (dropdown.title === "Logout") {
-      setLogOut(true);
-    } else {
-      setLogOut(false);
-    }
+     logOut()
+    } 
   };
+
+  useEffect (() => {
+   const name = localStorage.getItem("user_name")
+   setUserName(name)
+  },[])
+
+  console.log(userName)
   return (
     <>
-      <span
-        className=" flex items-center justify-center gap-2  p-2 cursor-pointer"
+      <div
+        className=" flex items-center capitalize justify-center gap-[0.3rem]  p-2 cursor-pointer"
         onClick={toggleDropdown}
       >
-        <FaRegUser /> Daniel {isDropdownOpen ? <RxCaretUp /> : <RxCaretDown />}
-      </span>
+        <FaRegUser /> <span className="hidden md:block"> {userName} </span> {isDropdownOpen ? <RxCaretUp /> : <RxCaretDown />}
+      </div>
       {isDropdownOpen && (
         <div className="origin-top-right absolute -right-5 -bottom-[16.5rem] mt-2 w-[12rem] rounded-md shadow-lg bg-white  focus:outline-none">
           <div

@@ -1,10 +1,17 @@
 import { FaAngleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../src/Hooks/Context";
+import Navbar from "../src/Features/UserNavbar";
+import Footer from "../src/Features/Footer";
+
 //import {PaystackButton} from "react-paystack";
 function Checkout() {
   const { paymentInfo, setPaymentInfo } = useGlobalContext();
   return (
+    <>
+    <Navbar />
+    
+    
     <section className="px-5 mx-5">
       <div className="flex items-center gap-1 mb-4">
         <p className="flex items-center">
@@ -160,6 +167,8 @@ function Checkout() {
         </div>
       </article>
     </section>
+    <Footer />
+    </>
   );
 }
 
