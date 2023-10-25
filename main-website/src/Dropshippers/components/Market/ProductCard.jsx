@@ -1,15 +1,15 @@
 //import { useRef } from "react";
 //import { HiOutlineHeart, HiOutlineShoppingBag} from "react-icons/hi2";
 
-import { useState } from "react";
+//import { useState } from "react";
 
 
 export default function ProductCard({id,quantity, image, price, name,  openModal}) {
   const handleCardClick = () => {
     openModal(id);
   };
-  
-  const [currentQuantity, setCurrentQuantity] = useState(quantity);
+  const currentQuantity = quantity
+  //const [currentQuantity, setCurrentQuantity] = useState(quantity);
   
  
   // Calculate the percentage based on the currentQuantity
