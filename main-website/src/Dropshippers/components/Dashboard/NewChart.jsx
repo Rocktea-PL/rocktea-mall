@@ -48,7 +48,7 @@ const Chart = () => {
   };
 
   return (
-    <section className="bg-white mt-5 w-full   h-auto px-5 py-5  rounded-xl lg:ml-3">
+    <section className="bg-white mt-14 w-full   h-auto px-5 py-5  rounded-xl lg:ml-3">
       <div className="flex justify-between px-5">
         <div>
           <h2 className="text-md font-bold mt-4 -ml-5 leading-tight">Earning Overview</h2>

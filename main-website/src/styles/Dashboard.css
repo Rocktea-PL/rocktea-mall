@@ -3,11 +3,52 @@
 @tailwind utilities;
 
 .sidebar-list li{
-    font-size: 1.3rem;
-    @apply text-blue
+    font-size: 1.2rem;
+    @apply text-blue px-2
    
 }
-.sidebar-list li.active{
+.sidebar-list li .active{
     
-    @apply bg-blue w-[85%] relative text-white px-5 py-2 rounded-md
+    @apply bg-blue w-[90%] transition-all duration-500 ease-in-out relative text-white px-2 py-2 rounded-md
 }
+
+.sidebar-list li .active::after{
+    @apply content-[''] absolute w-2 transition-all duration-[5s] delay-200 ease-in-out rounded-sm h-7  top-[50%] translate-y-[-50%] -right-4 bg-blue
+}
+.sidebar-list li  {
+    @apply flex items-center gap-3
+}
+
+.order-table th,.table-content td {
+    @apply p-5 whitespace-nowrap
+}
+.table-content:nth-child(odd){
+    background-color: #F1F1F2;
+    
+   }
+   tbody:before {
+    content:"@";
+    display:block;
+    line-height:25px;
+    text-indent:-99999px;
+}
+
+  input[type="range"] {
+    
+     /* Set the background to white */
+    height: 4px; /* Adjust the height as desired */
+    -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+    appearance: none;
+  }
+  
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove the thumb for WebKit browsers */
+    appearance: none;
+    width: 16px; /* Adjust the width of the thumb */
+    height: 16px; /* Adjust the height of the thumb */
+    background: white; /* Set the color of the thumb */
+    border: 2px solid white; /* Add a border to the thumb */
+    border-radius: 50%; /* Make the thumb circular */
+    cursor: pointer;
+  }

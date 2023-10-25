@@ -1,33 +1,24 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeft,  } from "react-icons/fa";
-import axios from "axios";
+//import axios from "axios";
 //import { Step1, Step2 } from "../../src/Users/UserSignupForm";
 import { Oval } from "react-loader-spinner";
 //import { UserSignupForm } from "../../src/Users/UserSignupForm";
-import toast from "react-hot-toast";
+//import toast from "react-hot-toast";
 import { UserSignupForm } from "../src/components/Forms/UserSignupForm";
+import { useGlobalContext } from "../src/Hooks/Context";
 
 //import { useGlobalContext } from "../../src/hooks/context";
 function Signup() {
   const navigate = useNavigate();
   const {store_id} = useParams()
+  const {loading,formData,setFormData,error,setError,handleUserForm} = useGlobalContext()
   localStorage.setItem('storeId', store_id)
  // const [showAdditionalFields, setShowAdditionalFields] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   //const [step, setStep] = useState(1);
-  const [loading,setLoading] = useState(false)
-  const [error,setError] = useState(false)
-  const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    contact: "",
-    password: "",
-    profile_image: "",
-    associated_domain:""
-  });
-  
+ 
   //const [isFormValid, setIsFormValid] = useState(false);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,45 +30,6 @@ function Signup() {
     setError(updatedErrors);
   };
 
-  
-
-  const handleUserForm = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    
-      formData.associated_domain = store_id
-    try {
-      const headers = {
-        "Content-Type": "multipart/form-data",
-      };
-      // Call the API to register the user
-      const response = await axios.post(
-        "https://rocktea-mall-api-test.up.railway.app/rocktea/signup/user/",
-        formData,
-        { headers } 
-      );
-     
-      console.log('domain:', formData.associated_domain)
-      // Check if the API call was successful
-      if (response.status === 200 || response.data) {
-        console.log('Registration Successful', response.data)
-        
-        toast.success("Registration Successful");
-       // localStorage.setItem('store_id', )
-
-        navigate('/login')
-      } else {
-        console.error("API call failed");
-        // Handle API call failure here
-      }
-    } catch (error) {
-      console.error("API call failed", error.response.data);
-      setError(error.response.data)
-      // Handle API call failure here
-    }finally{
-      setLoading(false)
-    }
-  };
 
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);

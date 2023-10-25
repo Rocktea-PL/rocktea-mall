@@ -3,11 +3,13 @@
 import { Link } from "react-router-dom";
 
 export default function ProductCard({ id, image, price, name, oldPrice }) {
+ 
   return (
     <>
-      <Link to="/products/details">
+      <Link to={`/product_details/${id}`}>
+        
         <div
-          key={id}
+          
           className=" hover:scale-[1.01] hover:shadow-md bg-white  hover:transition-all duration-300 ease-in-out overflow-hidden w-[220px]  mt-5 "
         >
           <span className=""></span>

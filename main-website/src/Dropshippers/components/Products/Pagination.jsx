@@ -1,20 +1,19 @@
-import { useState } from "react";
+//import { useState } from "react";
 
-const Pagination = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 125;
-
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  
   const handlePreviousClick = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      onPageChange(currentPage - 1); // Call the onPageChange callback
     }
   };
 
   const handleNextClick = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      onPageChange(currentPage + 1); // Call the onPageChange callback
     }
   };
+
 
   const getPageNumbers = () => {
     const spread = 2; // Number of pages to spread on each side of the current page
@@ -51,7 +50,7 @@ const Pagination = () => {
       {getPageNumbers().map((pageNumber) => (
         <button
           key={pageNumber}
-          onClick={() => setCurrentPage(pageNumber)}
+          onClick={() => onPageChange(pageNumber)}
           className={`px-4 py-2 rounded-sm ${
             pageNumber === currentPage
               ? "bg-[var(--orange)] text-black"
@@ -65,7 +64,7 @@ const Pagination = () => {
         ---
       </span>
       <button
-        onClick={() => setCurrentPage(totalPages)}
+         onClick={() => onPageChange(totalPages)}
         className={`px-4 py-2 rounded-sm ${
           currentPage === totalPages
             ? "border border-solid border-[var(--orange)] text-black cursor-not-allowed"

@@ -10,7 +10,7 @@ const BarChart = () => {
         data: [3000, 2000, 2000, 1000, 5000, 3000], // Example data for withdrawn
         backgroundColor: "black",
         borderRadius: 6,
-        //barPercentage: 0.9, // Adjust this to control the width of the bars
+        
       },
       {
         label: "Earned",
@@ -18,13 +18,13 @@ const BarChart = () => {
         backgroundColor: "#ffa500",
 
         borderRadius: 6,
-        //barPercentage: 0.9, // Adjust this to control the width of the bars
+        
       },
     ],
   };
 
   const options = {
-    maintainAspectRatio: false, // Disable aspect ratio to make the chart fit the container
+    maintainAspectRatio: false, 
     scales: {
       x: {
         beginAtZero: true,

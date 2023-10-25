@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import {
@@ -42,9 +42,9 @@ const dropdown = [
 ];
 
 const ProfileDropdown = () => {
-  const {logOut} = useStoreContext()
+  const {logOut,userData} = useStoreContext()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [userName, setUserName] = useState('')
+  
   //const [logOut, setLogOut] = useState(false);
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -56,19 +56,15 @@ const ProfileDropdown = () => {
     } 
   };
 
-  useEffect (() => {
-   const name = localStorage.getItem("user_name")
-   setUserName(name)
-  },[])
-
-  console.log(userName)
+  
+ 
   return (
     <>
       <div
         className=" flex items-center capitalize justify-center gap-[0.3rem]  p-2 cursor-pointer"
         onClick={toggleDropdown}
       >
-        <FaRegUser /> <span className="hidden md:block"> {userName} </span> {isDropdownOpen ? <RxCaretUp /> : <RxCaretDown />}
+        <FaRegUser /> <span className="hidden md:block"> {userData.first_name} </span> {isDropdownOpen ? <RxCaretUp /> : <RxCaretDown />}
       </div>
       {isDropdownOpen && (
         <div className="origin-top-right absolute -right-5 -bottom-[16.5rem] mt-2 w-[12rem] rounded-md shadow-lg bg-white  focus:outline-none">

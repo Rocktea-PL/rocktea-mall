@@ -20,7 +20,7 @@ export const UserAuthProvider = ({ children }) => {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [store, setStore] = useState({});
-   // const [userData, setUserData] = useState({})
+   const [userData, setUserData] = useState({})
     const [isUser, setIsUser] = useState(false)
     const [credentials, setCredentials] = useState({
       email: "",
@@ -42,9 +42,9 @@ export const UserAuthProvider = ({ children }) => {
     localStorage.setItem("accessToken", usertoken);
         //setUserData(response.user_data);
         //console.log('before user data', response.user_data.first_name)
-        const userName = response.data.user_data.first_name
-        localStorage.setItem("user_name", userName);
-        console.log(userName)
+        const user_id = response.data.user_data.id
+        localStorage.setItem("user_id", user_id);
+        console.log(user_id)
         //localStorage.setItem("userData", JSON.stringify(response.user_data));
         // Store the access token in state and/or localStorage
         //setAccessToken(token);
@@ -95,11 +95,7 @@ export const UserAuthProvider = ({ children }) => {
         } 
       }
     };*/
-  
-    useEffect(() => {
-      //checkTokenExpiration();
-      getStoreDetails()
-    }, []);
+
 
     const getStoreDetails = async() => {
         const store_id = localStorage.getItem('storeId')
@@ -111,9 +107,25 @@ export const UserAuthProvider = ({ children }) => {
          console(error.response)
         }
       }
+      const getUserDetails = async() => {
+       const user_id = localStorage.getItem('user_id')
+        try {
+          const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/signup/user/${user_id}`)
+          console.log('user data',response.data)
+          setUserData(response.data)
+        }catch(error){
+         console.log(error.response)
+        }
+      }
       
+      useEffect(() => {
+        //checkTokenExpiration();
+        getStoreDetails()
+        getUserDetails();
+        
+      }, []);
   return (
-    <StoreContext.Provider value={{store,error,isLoading,isUser,handleLoginUserSubmit,credentials,setCredentials,setError,logOut}}>
+    <StoreContext.Provider value={{userData,store,error,isLoading,isUser,handleLoginUserSubmit,credentials,setCredentials,setError,logOut}}>
       {children}
     </StoreContext.Provider>
   );

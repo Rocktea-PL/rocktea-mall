@@ -1,25 +1,45 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import { FaWhatsapp, FaPhone } from "react-icons/fa";
-function Footer({storeData}) {
+function Footer() {
+  const [storeData, setStoreData] = useState(null)
+  useEffect(() => {
+    const savedUserData = localStorage.getItem("storeData");
+    if (savedUserData) {
+      setStoreData(JSON.parse(savedUserData));
+    }
+  }, []);
+  if (!storeData) {
+    // Handle when storeData is empty or null
+    return null;  // or display a message or loading indicator
+  }
+  
   return (
-    <footer className=" w-full flex flex-col lg:items-center  lg:justify-center  bg-[var(--footer-bg)] lg:p-10  text-white">
-      <section className="flex flex-col lg:flex-row  lg:justify-center gap-y-6 lg:gap-20">
+    <footer className=" w-full flex flex-col items-start lg:items-center  lg:justify-center p-5  bg-[var(--footer-bg)] lg:p-10  text-white">
+      <section className="flex flex-col  lg:flex-row  lg:justify-center gap-y-6 lg:gap-20">
         <figure className="flex flex-col gap-2">
-          <img
-            src={storeData?.logo || "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422691/rocktea-product-website/assets/logo_wvpiif.svg"}
-            alt=""
-            width={50}
-            height={50}
-            className="rounded-full"
-          />
-          <p>{storeData?.name || 'Ambode Mall'} </p>
+        {storeData.logo ? 
+ <img
+ src={storeData?.logo}
+ alt="logo"
+ width={50}
+ height={50}
+ className="rounded-full"
+ 
+/>
+: <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
+   {storeData.name.substring(0, 2)}
+</div>
+}
+    
           <p>84 Aso Villa, President lodge way, Abuja.</p>
         </figure>
         <article className="flex flex-col lg:flex-row  justify-between gap-y-10 lg:gap-20">
           <div>
-            <h3 className="border-b-[0.5px] border-b-solid border-b-gray-300 pb-2 lg:border-0">
+            <h3 className=" text-white border-b-[0.5px] border-b-solid border-b-gray-300 pb-2 lg:border-0">
               Follow Us
             </h3>
-            <ul className="flex flex-col gap-3 mt-3 text-gray-300">
+            <ul className="flex text-white flex-col gap-3 mt-3">
               <li>Facebook</li>
               <li>Whatsapp</li>
               <li>Instagram</li>
@@ -27,7 +47,7 @@ function Footer({storeData}) {
             </ul>
           </div>
           <div>
-            <h3 className="border-b-[0.5px] border-b-solid border-b-gray-300 pb-2 lg:border-0">
+            <h3 className="text-white  border-b-[0.5px] border-b-solid border-b-gray-300 pb-2 lg:border-0">
               Need help?
             </h3>
             <ul className="flex flex-col gap-3 mt-3 text-gray-300">
@@ -40,7 +60,7 @@ function Footer({storeData}) {
             </ul>
           </div>
           <div>
-            <h3 className="border-b-[0.5px] border-b-solid border-b-gray-300 pb-2 lg:border-0">
+            <h3 className=" text-white border-b-[0.5px] border-b-solid border-b-gray-300 pb-2 lg:border-0">
               Products
             </h3>
             <ul className="flex flex-col gap-3 mt-3 text-gray-300">

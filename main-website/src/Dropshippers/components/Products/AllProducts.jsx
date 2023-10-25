@@ -2,10 +2,12 @@ import { RxCaretDown } from "react-icons/rx";
 import ProductCard from "../../Features/ProductCard";
 import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
-import { product } from "../constant/data";
+//import { product } from "../constant/data";
 import { FaAngleRight } from "react-icons/fa";
+import { useProductContext } from "../../../hooks/ProductContext";
 
 export default function AllProducts() {
+  const {products} = useProductContext()
   return (
     <section className="mt-5">
       <div className="flex items-center justify-between">
@@ -15,7 +17,7 @@ export default function AllProducts() {
         </h3>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-x-5 lg:grid-cols-5 w-[98%] justify-center mx-auto  overflow-hidden mt-5">
-        {product.map((item) => (
+        {products.map((item) => (
           <>
             <Link to="/products/details">
               <ProductCard
@@ -48,7 +50,7 @@ export default function AllProducts() {
           See All <FaAngleRight />
         </span>
         <div className="flex overflow-x-scroll gap-3 snap-mandatory  scroll-smooth ">
-          {product.map((item) => (
+          {products.map((item) => (
             <>
               <ProductCard
                 name={item.name}
