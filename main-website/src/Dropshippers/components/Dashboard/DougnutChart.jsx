@@ -1,7 +1,7 @@
 
 import "chart.js/auto";
 import { Doughnut } from 'react-chartjs-2';
-import 'chartjs-plugin-datalabels'; // Import the datalabels plugin
+
 
 const DoughnutChart = () => {
  
