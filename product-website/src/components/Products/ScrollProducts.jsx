@@ -46,10 +46,11 @@ export default function ScrollProducts({ categoryTitle, products }) {
             ref={scrollRef}
             onScroll={handleScroll}
           >
-            {products.map((item) => (
+            {products.map((item,index) => (
               <ProductCard
-                key={item.id}
-                image={item.image}
+                key={index}
+                id={item.id}
+                image={item?.images[0].url}
                 name={item.name}
                 price={item.price}
                 oldPrice={item.oldPrice}

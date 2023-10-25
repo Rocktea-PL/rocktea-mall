@@ -1,22 +1,27 @@
 //import React from 'react';
 // Adjust the import path accordingly
 
+import { useUserProductContext } from "../../Hooks/UserProductContext";
 import ScrollProducts from "../Products/ScrollProducts";
-import { productsByCategory } from "../constant/productCategory"; // Adjust the import path accordingly
+//import { productsByCategory } from "../constant/productCategory"; // Adjust the import path accordingly
 
 const Products = () => {
+  const {products} = useUserProductContext()
   // Extract category names from the productsByCategory object
-  const categories = Object.keys(productsByCategory);
+  //const categories = Object.keys(productsByCategory);
 
   return (
-    <section className="mt-5">
-      {categories.slice(0, 3).map((category) => {
-        const categoryProducts = productsByCategory[category];
+    
+      <section className="mt-5">
+      {products.slice(0, 3).map((category) => {
+        //const categoryProducts = productsByCategory[category];
+        const categoryTitle = category.category.name
+        //console.log(categoryTitle)
         return (
           <ScrollProducts
-            key={category}
-            categoryTitle={category}
-            products={categoryProducts}
+            key={category.id}
+           products={products}
+           categoryTitle= {categoryTitle}
           />
         );
       })}
@@ -27,13 +32,15 @@ const Products = () => {
           alt=""
         />
       </article>
-      {categories.map((category) => {
-        const categoryProducts = productsByCategory[category];
+      {products.slice(0, 5).map((category) => {
+        //const categoryProducts = productsByCategory[category];
+        const categoryTitle = category.category.name
+        //console.log(categoryTitle)
         return (
           <ScrollProducts
-            key={category}
-            categoryTitle={category}
-            products={categoryProducts}
+            key={category.id}
+           products={products}
+           categoryTitle= {categoryTitle}
           />
         );
       })}

@@ -3,8 +3,8 @@ import { createContext, useContext, useState } from "react";
 import { loginUser } from "../../pages/auth/auth";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
+import { useEffect } from "react";
 const AuthContext = createContext();
 
 export const useAuthContext = () => {
@@ -12,11 +12,12 @@ export const useAuthContext = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+ const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
   const [loginError, setLoginError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState([]);
-  const [isAuthenticated,setIsAuthenticated] = useState(false)
+  const[ isAuthenticated,setIsAuthenticated] =useState(false)
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -30,28 +31,27 @@ export const AuthProvider = ({ children }) => {
       console.log("Login successful:", response);
       const token = response.access;
       localStorage.setItem("accessToken", token);
-      //setUserData(response.user_data);
-      //console.log('before user data', response.user_data.first_name)
-      //const firstName = response.user_data.first_name
-      //localStorage.setItem("firstName", firstName);
+      setAccessToken(token)
+      
       localStorage.setItem("userData", JSON.stringify(response.user_data));
-      // Store the access token in state and/or localStorage
-      //setAccessToken(token);
+      
       let store_id = localStorage.getItem('storeId')
-      if (response.user_data.has_store === false) {
-        navigate("/store_details");
-        
-
-      } else {
-        //https://rocktea-mall-product.vercel.app/dashboard
-       navigate(
+      if (response.user_data.has_store) {
+       
+        navigate(
           `/dashboard/${store_id}`
           
         );
-        setIsAuthenticated(true);
+        setIsAuthenticated(true)
+
+      } else {
+        //https://rocktea-mall-product.vercel.app/dashboard
+        navigate("/store_details");
+          
+        
+        //setIsAuthenticated(true);
       }
-  //console.log('user data', response.user_data.first_name)
-      //console.log("Updated storeData:", storeData);
+  
       toast.success("Logged in Successfully");
     } catch (error) {
       setLoginError(error); // Handle login error
@@ -63,44 +63,32 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    // Clear authentication-related data
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("userData");
-    setIsAuthenticated(false);
-    // Redirect to the login page
-    navigate("/signin");
+  const logOut = () => {
+    setAccessToken(null)
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('userData');
+   navigate('/signin')
+   setIsAuthenticated(false)
+    console.log('Log out successfull')
   };
-  const checkTokenExpiration = () => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      if (decodedToken.exp * 1000 < Date.now()) {
-        // Token has expired, clear user data and redirect to login
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("userData");
-       
-        setIsAuthenticated(false);
-        navigate("/signin");
-      } else {
-        // Token is valid, set user data and authentication status
-        const storedUserData = JSON.parse(localStorage.getItem("userData"));
-        if (storedUserData) {
-          setUserData(storedUserData);
-          
-          setIsAuthenticated(true);
-        }
-      }
-    }
-  };
-
-  
-
+ 
   useEffect(() => {
-    checkTokenExpiration();
-  }, []); 
+    if (accessToken) {
+      const decodedToken = jwtDecode(accessToken);
+      const storedUserData = JSON.parse(localStorage.getItem('userData'));
+      if (storedUserData) {
+        setUserData(storedUserData);
+        setIsAuthenticated(true)
+        
+      }
+      else if (decodedToken.exp * 1000 < Date.now()) {
+        // Token has expired, clear user data
+        logOut()
+      } 
+    }
+  }, []);
   return (
-    <AuthContext.Provider value={{logout,userData,setUserData,credentials,isAuthenticated,setCredentials, handleLoginFormSubmit, loginError, isLoading }}>
+    <AuthContext.Provider value={{accessToken,setIsAuthenticated,logOut,userData,setUserData,credentials,isAuthenticated,setCredentials, handleLoginFormSubmit, loginError, isLoading,setLoginError }}>
       {children}
     </AuthContext.Provider>
   );

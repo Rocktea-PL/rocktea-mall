@@ -1,105 +1,90 @@
 import { useState } from "react";
 import CommonProducts from "./CommonProducts";
-
+import {useParams} from 'react-router-dom'
+import axios from 'axios'
+import { useEffect } from "react";
+import Navbar from "../../Features/Navbar";
+import Footer from "../../Features/Footer";
 const ProductDetails = () => {
-  const [quantity, setQuantity] = useState(1);
+  const {id} = useParams()
+  const [productDet,setProductDet] = useState()
+ 
 
-  const handleIncrement = () => {
-    setQuantity(quantity + 1);
-  };
+  const getProductDetails =async () => {
+    try{
+      const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/products/${id}`)
+  //console.log(response.data)
+  setProductDet(response.data)
+  }catch(error){
+      console.error(error)
+  }
+  }
 
-  const handleDecrement = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
+  useEffect(() => {
+getProductDetails()
+  },[id])
+  
 
   return (
-    <section>
-      <div className=" flex flex-col lg:flex-row  lg:space-x-10 lg:p-8">
+    <>
+    <Navbar/>
+    <section className="mt-20 px-10 lg:px-0">
+      <div className=" flex flex-col lg:flex-row w-full  lg:space-x-20 lg:p-8">
         {/* Product Images */}
-        <div className="flex flex-col lg:flex-row-reverse gap-y-5 lg:gap-x-4 w-full lg:max-w-[50%] lg:max-h-[500px] items-center justify-center ">
+        <div className="flex flex-col lg:flex-row-reverse gap-y-3   w-full  lg:max-h-[500px] items-center justify-center lg:max-w-[50%]">
           {/* Main Image */}
           <img
-            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422697/rocktea-product-website/assets/ProductDet1_sathej.png"
+            src={productDet?.images[0].url}
             alt="Main Product"
-            className=" w-[90%] lg:w-[70%] h-full"
+            className=" w-[300px] h-[300px]  lg:w-[500px] lg:h-[400px] rounded-md object-cover  "
           />
           {/* Additional Images */}
-          <div className="flex lg:flex-col items-center justify-center space-x-3 md:space-y-3 w-full lg:max-h-[80%] ">
-            <img
-              src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422697/rocktea-product-website/assets/ProductDet1_sathej.png"
-              alt="Additional Product 1"
-              className=" object-cover w-[100px] lg:w-[70%] h-[50%]"
-            />
-            <img
-              src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422698/rocktea-product-website/assets/ProductDet2_egpgdi.png"
+          <div className="flex lg:flex-col items-center justify-center space-x-2 lg:space-y-2 w-full  ">
+          <img
+              src={productDet?.images[0].url}
               alt="Additional Product 2"
-              className=" object-cover w-[100px] lg:w-[70%] h-[50%]"
+              className=" object-cover w-[100px] h-[100px] "
             />
+            <img
+              src={productDet?.images[1].url}
+              alt="Additional Product 1"
+              className=" object-cover w-[100px] h-[100px] "
+            />
+           
 
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422699/rocktea-product-website/assets/ProductDet3_kgdxcf.png"
               alt="Additional Product 3"
-              className=" object-cover w-[100px] lg:w-[70%] h-[50%]"
+              className=" object-cover w-[100px] h-[100px]"
             />
           </div>
         </div>
 
         {/* Product Details */}
-        <div className="relative flex flex-col mt-[3rem] lg:mt-0 lg:max-w-[50%] ">
+        <div className="relative flex flex-col mt-[3rem] lg:mt-0  lg:max-w-[50%]">
           <h4 className="absolute top-[17%] right-3 text-sm">See Size Guide</h4>
-          <h2 className="text-xl font-semibold uppercase">Pepsi (Can)</h2>
-          <p className="font-bold my-2"> ₦12,300</p>
-          <p>Product S/N #34215</p>
-          <p className="text-gray-300 my-2">Instock</p>
+          <h2 className=" font-semibold uppercase text-md">{productDet?.name}</h2>
+          <p className="capitalize">Brand: {productDet?.brand?.name}</p>
+          <p className="font-bold my-2 text-lg"> ₦12,300</p>
+          <p>Product S/N {productDet?.sku}</p>
+          <p className="text-gray-300 my-2">{productDet?.is_available ? 'Instock' : <span className="text-red-500">Out of Stock</span>
+           }</p>
 
-          <div className="flex items-center justify-center gap-5 max-w-[100px] py-2 rounded-md border border-solid border-[var(--orange)]">
-            <button className=" " onClick={handleDecrement}>
-              -
-            </button>
-            <p>{quantity}</p>
-            <button className=" " onClick={handleIncrement}>
-              +
-            </button>
-          </div>
+          
 
           <div className="flex space-x-2 my-5">
             <button
               className="border border-solid border-[var(--orange)] rounded-md px-3 py-1"
               onClick={() => {}}
             >
-              S
+              {productDet?.sizes[0].name}
             </button>
-            <button
-              className="border border-solid border-[var(--orange)] rounded-md px-3 py-1"
-              onClick={() => {}}
-            >
-              M
-            </button>
-            <button
-              className="border border-solid border-[var(--orange)] rounded-md px-3 py-1"
-              onClick={() => {}}
-            >
-              L
-            </button>
-            <button
-              className="border border-solid border-[var(--orange)] rounded-md px-3 py-1"
-              onClick={() => {}}
-            >
-              XL
-            </button>
-            <button
-              className="border border-solid border-[var(--orange)] rounded-md px-3 py-1"
-              onClick={() => {}}
-            >
-              XXL
-            </button>
+            
           </div>
 
           <div className="mb-4">
-            <button className="bg-[var(--orange)] p-3 text-sm rounded-md mb-8">
-              Add To Cart
+            <button className="bg-red-600 text-white p-3 text-sm rounded-md mb-8">
+              Remove
             </button>
             <h3 className="text-md font-semibold border-b border-b-gray-300 pb-3">
               Product Details
@@ -129,14 +114,11 @@ const ProductDetails = () => {
             </h3>
             <ul className=" lg:pl-4 list-none flex flex-col gap-y-2 mt-5">
               <li className="font-semibold">
-                SKU: <span className="font-normal">PE952DV3HZ2TTNAFAMZ</span>{" "}
+                SKU: <span className="font-normal">{productDet?.sku}</span>{" "}
               </li>
+              
               <li className="font-semibold">
-                Shop Name:{" "}
-                <span className="font-normal"> D REAL FOOD STORE</span>{" "}
-              </li>
-              <li className="font-semibold">
-                Model: <span className="font-normal"> 50cl</span>{" "}
+                Quantity: <span className="font-normal"> {productDet?.quantity} units</span>{" "}
               </li>
               <li className="font-semibold">
                 Production Country: <span className="font-normal">Nigeria</span>{" "}
@@ -145,14 +127,7 @@ const ProductDetails = () => {
                 Weight (Kg): <span className="font-normal"> 0.3</span>{" "}
               </li>
               <li className="font-semibold">
-                Certifications:{" "}
-                <span className="font-normal">Eco Friendly</span>{" "}
-              </li>
-              <li className="font-semibold">
-                Color: <span className="font-normal">Black</span>
-              </li>
-              <li className="font-semibold">
-                Main Material:<span className="font-normal"> Plastic</span>
+                Color: <span className="font-normal">{productDet?.color}</span>
               </li>
               <li className="font-semibold">
                 {" "}
@@ -166,6 +141,8 @@ const ProductDetails = () => {
         <CommonProducts />
       </div>
     </section>
+    <Footer />
+    </>
   );
 };
 

@@ -17,9 +17,18 @@ import UserDetails from "../pages/Guest/UserDetails";
 import StoreDetails from "../pages/Guest/StoreDetails";
 import SignIn from "../pages/Guest/SignIn";
 import Notfound from "./Notfound";
-import { useAuthContext } from "./hooks/AuthContext";
+//import { useAuthContext } from "./hooks/AuthContext";
 //import NewDashboard from "../pages/DropShippers/NewDashboard";
 import DashboardHome from "../pages/DropShippers/Dashboard/Home";
+import Orders from "../pages/DropShippers/Dashboard/Orders";
+import Transactions from "../pages/DropShippers/Dashboard/Transactions";
+import ProtectedRoutes from "./routes/ProtectedRoutes";
+import { ProductProvider } from "./hooks/ProductContext";
+import SearchPage from "../pages/DropShippers/Search";
+//import { useEffect } from "react";
+//import jwtDecode from 'jwt-decode'
+//import { UserAuthProvider } from "../../product-website/src/Hooks/UserAuthContext";
+//import { useEffect } from "react";
 //import DropshippersLayout from "./routes/DropshipperLayout";
 //import Login from "./Public/Components/Forms/Login/Login";
 
@@ -27,33 +36,40 @@ import DashboardHome from "../pages/DropShippers/Dashboard/Home";
 
 
 function App() {
- const {isAuthenticated} = useAuthContext();
+ 
+  //console.log(accessToken)
+  
  // const dropshipper = true
   return (
     <div>
-    
+    <ProductProvider >
     <main >
      
     <Routes>
   <Route path='/' element= {<Home /> } errorElement={<h1>Error 404</h1>}/>
   <Route path='/verify_email' element= {<EmailVerification/> }/>
-  {isAuthenticated && <Route path='/store' element= {<HomeStore /> } errorElement={<h1>Error 404</h1>}/>}
-  {isAuthenticated && <Route path='/products' element= {<Products /> }/>}
-     {isAuthenticated && <Route path='/product_details' element= {<ProductDetails/> }/>}
-     {isAuthenticated &&  <Route path='/dashboard/:slug' element= {<Dashboard /> }/> }
-     {isAuthenticated && <Route path='/marketplace' element= {<Marketplace /> }/>  }
      <Route path='/about' element= {<About /> }/>
      <Route path='/faqs' element= {<Faqs/> }/>
      <Route path='/personal_details' element= {<UserDetails /> }/>
      <Route path='/store_details' element= {<StoreDetails /> }/>
      <Route path='/signin' element= {<SignIn/> }/>
-     <Route path='/dashboard' element= {<DashboardHome/> }/>
+     <Route element={<ProtectedRoutes />}>
+     <Route path='/store' element= {<HomeStore /> } errorElement={<h1>Error 404</h1>}/>
+   <Route path='/products' element= {<Products /> }/>
+      <Route path='/product_details/:id' element= {<ProductDetails/> }/>
+       <Route path='/dashboard' element= {<Dashboard /> }/> 
+      <Route path='/marketplace/:page' element= {<Marketplace /> }/>  
+       <Route path='/dashboard/:slug' element= {<DashboardHome/> }/> 
+      <Route path='/dashboard/orders' element= {<Orders/> }/> 
+     <Route path='/dashboard/transactions' element= {<Transactions/> }/>
+     <Route path='/search' element= {<SearchPage/> }/>
+     </Route>
      <Route path='/*' element ={<Notfound />}/>    
  
   </Routes>
  
       </main>
-   
+      </ProductProvider>
   
   
     </div>

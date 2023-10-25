@@ -1,12 +1,19 @@
-import { FaAngleRight } from "react-icons/fa";
+import { FaAngleRight, FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useGlobalContext } from "../src/Hooks/Context";
+//import { useGlobalContext } from "../src/Hooks/Context";
 import Navbar from "../src/Features/UserNavbar";
 import Footer from "../src/Features/Footer";
+import { useStoreContext } from "../src/Hooks/UserAuthContext";
+import { useNavigate } from "react-router-dom";
 
 //import {PaystackButton} from "react-paystack";
 function Checkout() {
-  const { paymentInfo, setPaymentInfo } = useGlobalContext();
+  const navigate = useNavigate()
+ // const { paymentInfo, setPaymentInfo} = useGlobalContext();
+  const {userData} = useStoreContext();
+ 
+    
+      
   return (
     <>
     <Navbar />
@@ -41,95 +48,50 @@ function Checkout() {
       </div>
       <hr className=" mb-5" />
       <article className="flex justify-between gap-x-16">
-        <div className="w-1/2">
-          <h3 className="font-semibold text-xl">Customer Information</h3>
+        <div className="w-1/2 ">
+          <div className=" relative py-7 px-5 rounded-md bg-white">
+          <span onClick={() => navigate('/profile')} className="absolute right-2 top-3 text-orange"><FaEdit /></span>
+          <h3 className="font-semibold text-xl mb-4">Customer Information</h3>
+          <hr />
           <form
             action=""
-            className="checkout-form grid grid-cols-2 gap-3 my-10"
+            
+            className=" checkout-form  grid gap-3 mt-5 mb-10"
           >
-            <input type="text" />
-            <input type="text" />
-            <input type="text" className="col-span-2" />
-            <input type="text" />
-            <input type="text" />
+            
+            <p className="capitalize font-semibold">First Name: {userData.first_name} </p>
+           <p className="capitalize font-semibold">Last Name: {userData.last_name} </p>
+           <p className="font-semibold">Email: {userData.email}</p> 
+            <p className="font-semibold">Contact: {userData.contact} </p>
+            
           </form>
-          <div>
+          </div>
+          <div className="relative mt-3 bg-white py-7 px-5 rounded-md ">
+          <span onClick={() => navigate('/profile')} className="absolute right-2 top-3 text-orange"><FaEdit /></span>
             <h3 className="font-semibold text-xl">Shipping Information</h3>
             <form
               action=""
+             
               className="checkout-form grid grid-cols-2 gap-3 my-10"
             >
-              <input type="text" className="col-span-2" />
-              <input type="text" />
-              <input type="text" />
-              <input type="text" className="col-span-2" />
+              <input type="text" value={userData.address} className="col-span-2"  />
+              
             </form>
           </div>
         </div>
 
         <div className="w-1/2">
-          <h3 className="font-semibold text-xl">Payment Information</h3>
-          <p className="text-sm text-red-500">
-            We do not accept payment on delivery{" "}
-          </p>
+        <h2 className="font-semibold text-xl bg-white py-4  px-3 rounded-md mb-5">Summary</h2>
+         
           <form action="" className="mb-3">
-            <div className="checkout-form grid grid-cols-2 gap-3 my-10">
-              <label htmlFor="cardNumber" className="col-span-2">
-                {" "}
-                Card Number
-                <input
-                  type="text"
-                  id="cardNumber"
-                  value={paymentInfo.cardNumber}
-                  onChange={(e) =>
-                    setPaymentInfo({
-                      ...paymentInfo,
-                      cardNumber: e.target.value,
-                    })
-                  }
-                />
-              </label>
-              <label htmlFor="expiryDate">
-                {" "}
-                Expiry Date
-                <input
-                  type="text"
-                  id="expiryDate"
-                  value={paymentInfo.expiryDate}
-                  onChange={(e) =>
-                    setPaymentInfo({
-                      ...paymentInfo,
-                      expiryDate: e.target.value,
-                    })
-                  }
-                />
-              </label>
-              <label htmlFor="cvv">
-                {" "}
-                CVV/CVC
-                <input
-                  type="text"
-                  id="cvv"
-                  value={paymentInfo.cvv}
-                  onChange={(e) =>
-                    setPaymentInfo({
-                      ...paymentInfo,
-                      cvv: e.target.value,
-                    })
-                  }
-                />
-              </label>
-            </div>
-            <div className="flex gap-2 mb-5">
-              <input type="checkbox" />
-              <label htmlFor="">Save card for future details</label>
-            </div>
+           
+            
             <div>
-              <h2>Summary</h2>
+              
               <div className="bg-white border boder-solid border-gray-500 p-4 w-full h-auto shadow rounded-xl py-5 px-7">
                 {/* Add your checkout elements here */}
 
-                <div className="flex flex-col text-left gap-y-3 ">
+                <div className="flex flex-col text-left gap-y-5 ">
                   <h3 className="flex items-start justify-between  text-center">
                     <span className="">Subtotal</span>
                     <span className="font-semibold flex-1 text-right mr-3">

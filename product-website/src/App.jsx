@@ -10,6 +10,8 @@ import Checkout from "../pages/Checkout";
 import Logout from "../pages/Logout";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
+import { UserProductProvider } from "./Hooks/UserProductContext";
+import Profile from "../pages/Profile/Profile";
 
 
 
@@ -28,7 +30,7 @@ function App() {
           element: <Products />,
         },
         {
-          path: "/products/details",
+          path: "/product_details/:id",
           element: <ProductDetails />,
         },
         {
@@ -56,14 +58,19 @@ function App() {
           path: "/search:query",
           element: <Search />,
         },
+        {
+          path: "/profile",
+          element: <Profile/>,
+        },
       ],
     },
   ]);
 
   return (
     <>
-    
+    <UserProductProvider>
       <RouterProvider router={router} />
+      </UserProductProvider>
       
     </>
   );

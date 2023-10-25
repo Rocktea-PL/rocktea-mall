@@ -11,10 +11,12 @@ import ProfileDropdown from "./Dropdown";
 import { Link, useNavigate } from "react-router-dom";
 import Categories from "./Categories";
 import { useState } from "react";
+import {useSelector} from 'react-redux'
 import { useStoreContext } from "../Hooks/UserAuthContext";
 import MobileNavbar from "./MobileNavbar";
 //import { FaRegUser } from 'react-icons/fa;
 const Navbar = () => {
+  const {totalQuantity} = useSelector((state) => state.cart)
   const navigate = useNavigate();
   const {store} = useStoreContext()
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +28,7 @@ const Navbar = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  console.log(store)
+  
   return (
     <header className="p-3 bg-white shadow-md fixed top-0 w-full z-[999]">
       <nav className="hidden lg:flex items-center justify-between px-5">
@@ -78,7 +80,7 @@ const Navbar = () => {
           >
             <HiOutlineShoppingBag />
             <p className="absolute bg-red-500 w-[15px] flex items-center justify-center rounded-full h-[15px] -top-1 right-0 z-10 text-[12px] text-white">
-              1
+              {totalQuantity}
             </p>
           </span>
           <ProfileDropdown />

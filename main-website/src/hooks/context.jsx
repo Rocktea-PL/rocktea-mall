@@ -11,7 +11,6 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
-  //const [user, setUser] = useState(null);
   // Define initial user data state
   const [userData, setUserData] = useState({
     // Define initial user data state
@@ -23,11 +22,6 @@ const AppProvider = ({ children }) => {
     password: "",
     profile_image: "",
   });
-
-  /*const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
-  });**/
 
   const [storeData, setStoreData] = useState({
     name: "",
@@ -118,44 +112,6 @@ const AppProvider = ({ children }) => {
     }
   };
 
- /* const handleLoginFormSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      setIsLoading(true);
-      const response = await loginUser(credentials); // Call the login function
-      console.log("Login successful:", response);
-      const token = response.access;
-      localStorage.setItem("accessToken", token);
-      console.log('before user data', response.user_data.first_name)
-      const firstname = response.user_data.first_name
-      localStorage.setItem("userName", firstname);
-      // Store the access token in state and/or localStorage
-      //setAccessToken(token);
-      if (response.user_data.has_store === false) {
-        navigate("/store_details");
-        
-
-      } else {
-        //https://rocktea-mall-product.vercel.app/dashboard
-       navigate(
-          "/dashboard",
-          "_self",
-        );
-      }
-  console.log('user data', response.user_data.first_name)
-      console.log("Updated storeData:", storeData);
-      toast.success("Logged in Successfully");
-    } catch (error) {
-      setLoginError(error); // Handle login error
-      console.error("Login error:", error);
-      toast.error("Invalid credentials. Please try again.", error);
-      //cogoToast.success("Log in Failed. Check you Details");
-    } finally {
-      setIsLoading(false); // Set loading state back to false after the request is complete
-    }
-  };
-*/
   // Function to handle registering store details
   const handleStoreFormSubmit = async (e) => {
     e.preventDefault();
@@ -317,9 +273,7 @@ const AppProvider = ({ children }) => {
         verifyEmail,
         setVerifyEmail,
         
-        //credentials,
-        //setCredentials,
-        //handleLoginFormSubmit,
+        
         loginError,
         setLoginError,
         //componentProps,

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { HiBars3BottomRight, HiXMark } from "react-icons/hi2";
 import Button from './Button'
-import { useAuthContext } from "../../hooks/AuthContext";
+
 const Navbar = () => {
-  const {isAuthenticated } = useAuthContext()
+  
   const path = useLocation();
 
   const navItems = [
@@ -52,7 +52,7 @@ const Navbar = () => {
         </div>
 
         {/* DESKTOP NAVIGATION ITEMS */}
-        <ul className=" hidden md:flex md:items-center md:justify-between md:pb-0 pb-12 absolute gap-8 md:static  md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9">
+        <ul className="nav-list hidden md:flex md:items-center md:justify-between md:pb-0 pb-12 absolute gap-8 md:static  md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9">
           {navItems.map((item) => (
             <li
               key={item.id}
@@ -66,18 +66,15 @@ const Navbar = () => {
         </ul>
 
         <div className="mt-5 md:mt-0 hidden md:flex items-center justify-between">
-          {isAuthenticated ? (
-            <Link to="/logout">
-            <Button text="Log Out" />
-          </Link>
-          ) : (<Link to="/signin">
+           
+         <Link to="/signin">
           <Button text="Sign In" />
-        </Link>)}
+        </Link>
         </div>
 
         {/* MOBILE NAVIGATION ITEMS */}
         <ul
-          className={`md:hidden  pb-12 absolute gap-8   md:z-auto z-[1] left-0 w-full  pl-9 transition-all duration-500 ease-in ${
+          className={` navlist md:hidden  pb-12 absolute gap-8   md:z-auto z-[1] left-0 w-full  pl-9 transition-all duration-500 ease-in ${
             open
               ? "top-[4.5rem] bg-white shadow-md border border-t-1 border-t-gray-200"
               : "top-[-350px] bg-white -z-1"

@@ -19,6 +19,8 @@ export default {
       colors:{
         orange:'#ffa500',
         gold:'#C99C00',
+        darkblue:'#002440',
+        lightgray:'#f9f9f9'
       },
       fontSize:{
         xsm:'0.8rem',

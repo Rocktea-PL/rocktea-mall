@@ -58,14 +58,14 @@
     @apply max-w-[1300px] mx-auto
   }
 }
-
+ 
 
 .yippie,.store-name {
     font-family: 'Road Rage', cursive;
    }
    
    .main-form h2{
-    font-family: 'Poppins',sans-serif;
+    font-family: 'Poppins', sans-serif;
     @apply text-[30px] text-center 
 
    }
@@ -95,7 +95,7 @@
  
 
   
-  .active{
+  .nav-list li .active{
     @apply text-[var(--yellow)] font-bold
     
 }

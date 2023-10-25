@@ -13,9 +13,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import {MobileNavbar} from "./MobileNavbar";
+//import {useSelector} from 'react-redux'
 //import { useGlobalContext } from "../../hooks/context";
 //import { FaRegUser } from 'react-icons/fa;
-const Navbar = () => {
+const Navbar = ({page}) => {
   
   //const navigate = useNavigate();
   //const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +24,9 @@ const Navbar = () => {
 
   const NavigateToUser = () => {
     let store_id = localStorage.getItem('storeId')
+    //http://localhost:5174/register/${store_id}
     window.open(`https://rocktea-mall-product.vercel.app/register/${store_id}`)
+    //https://rocktea-mall-product.vercel.app/register/${store_id}
   }
   useEffect(() => {
     const savedUserData = localStorage.getItem("storeData");
@@ -35,13 +38,13 @@ const Navbar = () => {
     // Handle when storeData is empty or null
     return null;  // or display a message or loading indicator
   }
-  console.log(storeData)
+  
   
   return (
     <header className="p-3 bg-white shadow-md fixed top-0 w-full z-[999]">
       <nav className="hidden lg:flex items-center justify-between px-4">
         <figure className="flex items-center justify-center gap-3">
-{!storeData.logo ? 
+{storeData.logo ? 
  <img
  src={storeData?.logo}
  alt="logo"
@@ -64,12 +67,12 @@ const Navbar = () => {
           </li>
           <li className="uppercase tracking-[1px]">
             {" "}
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to={`/dashboard/${storeData.id}`}>Dashboard</Link>
           </li>
           
           <li className="uppercase tracking-[1px]">
             {" "}
-            <Link to="/marketplace">Marketplace</Link>
+            <Link to={`/marketplace/${page}`}>Marketplace</Link>
           </li>
           <li className="uppercase tracking-[1px] cursor-pointer" onClick={NavigateToUser}>
             {" "}
