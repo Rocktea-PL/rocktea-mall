@@ -11,7 +11,7 @@ export const useUserProductContext = () => {
 export const UserProductProvider = ({ children }) => {
  const [products, setProducts] = useState([]);
  const [categoryname, setCategoryName] = useState();
- const [productPrices,setProductPrices] = useState([])
+ //const [productPrices,setProductPrices] = useState([])
  const getProducts = async() => {
  const category = localStorage.getItem('category_id')
     try{
@@ -72,7 +72,7 @@ export const UserProductProvider = ({ children }) => {
     getProductCategory()
  },[])
   return (
-    <UserProductContext.Provider value={{categoryname,productPrices,products,getProducts}}>
+    <UserProductContext.Provider value={{categoryname,products,getProducts}}>
       {children}
     </UserProductContext.Provider>
   );

@@ -5,12 +5,12 @@ import axios from "axios";
 //import { useDispatch, } from 'react-redux';
 import Footer from "../../Features/Footer";
 import Navbar from "../../Features/UserNavbar";
-import { useStoreContext } from "../../Hooks/UserAuthContext";
+//import { useStoreContext } from "../../Hooks/UserAuthContext";
 //import { cartActions } from "../../Redux/CartSlice";
 //import toast from "react-hot-toast";
 const ProductDetails = () => {
   const {id} = useParams()
-  const {userDetails} = useStoreContext()
+ // const {userDetails} = useStoreContext()
   //const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
  
