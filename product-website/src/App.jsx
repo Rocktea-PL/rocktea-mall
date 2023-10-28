@@ -1,28 +1,22 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import "./App.css";
-import Layout from "./routes/Layout";
-import Home from "../pages/Home";
-import Search from "../pages/Search";
-import Products from "../pages/Products";
-import ProductDetails from "./components/Products/ProductDetails";
-import Cart from "../pages/Cart";
-import Checkout from "../pages/Checkout";
-import Logout from "../pages/Logout";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
 import { UserProductProvider } from "./Hooks/UserProductContext";
-import Profile from "../pages/Profile/Profile";
+import { UserAuthProvider } from "./Hooks/UserAuthContext";
+import { AppProvider } from "./Hooks/Context";
+import Layout from "./routes/Layout";
+import { useEffect, useState } from "react";
+import Loader from "./Features/Loader";
 
 
 
 function App() {
-  const router = createBrowserRouter([
+  /*const router = createBrowserRouter([
     {
       path: "/",
       element: <Layout />,
       children: [
         {
-          path: "/store",
+          path: "/",
           element: <Home />,
         },
         {
@@ -41,10 +35,7 @@ function App() {
           path: "/checkout",
           element: <Checkout />,
         },
-        {
-          path: "/logout",
-          element: <Logout />,
-        },
+        
         {
           path: "/login",
           element: <Login />,
@@ -64,14 +55,30 @@ function App() {
         },
       ],
     },
-  ]);
+  ]);*/
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    // Simulate an asynchronous operation (e.g., fetching data or any setup)
+    // Replace this with your actual app initialization logic
+    setTimeout(() => {
+      setIsLoading(false); // Set isLoading to false once your app is ready
+    }, 2000); // Simulating a 2-second loading time
+  }, []);
   return (
     <>
+    <AppProvider>
+    <UserAuthProvider>
     <UserProductProvider>
-      <RouterProvider router={router} />
-      </UserProductProvider>
-      
+    {isLoading ? (
+      <Loader  />
+      ) : (
+      <Layout/>
+      )}
+  </UserProductProvider>
+  </UserAuthProvider>
+     
+    </AppProvider>  
     </>
   );
 }

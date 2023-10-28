@@ -50,7 +50,7 @@ export default function ScrollProducts({ categoryTitle, products }) {
               <ProductCard
                 key={index}
                 id={item.id}
-                image={item?.images[0].url}
+                image={item?.images[0]?.url}
                 name={item.name}
                 price={item.price}
                 oldPrice={item.oldPrice}

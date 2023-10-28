@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=Road+Rage&family=Signika:wght@300;400;500;600;700&family=Montserrat:wght@200;300;400&family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@200;300;400;500;600;700&family=Sora:wght@200;300;400;500&family=Roboto:wght@100;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=Road+Rage&family=Montserrat:wght@200;300;400&family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@200;300;400;500;600;700&family=Sora:wght@200;300;400;500&family=Roboto:wght@100;300;400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -25,16 +25,12 @@
     background-color: var(--main-body);
    color: var(--small-text);
  font-family: var(--family);
- --main-bg:#f6f6f6;
-    --product-bg:#f1f1f2;
-    --gold:#C99C00;
-    --footer-bg:#1E1E1E;
-    --orange:#ffa500;
-    --form-border:#79747E;
   }
   .partner img {
     filter: drop-shadow(0,0,0,0,gray);
   }
+  
+
   h1{
     font-family: 'Poppins', sans-serif; 
     @apply leading-[1.20];
@@ -54,25 +50,25 @@
     @apply  text-sm;
     
   }
-  section {
-    @apply max-w-[1300px] mx-auto
-  }
-}
- 
+   section{
+   
+    @apply max-w-[1300px] mx-auto big:max-w-[55%] py-4 px-5 md:px-12 
+   
+   }
 
-.yippie,.store-name {
+   .yippie {
     font-family: 'Road Rage', cursive;
    }
    
-   .main-form h2{
-    font-family: 'Poppins', sans-serif;
+   form h2{
+    font-family: 'Poppins',sans-serif;
     @apply text-[30px] text-center 
 
    }
-   .main-form label{
+   label{
     @apply flex flex-col text-sm mt-5
    }
-   .main-form input, .main-form select,.country{
+   input,select,.country{
     @apply bg-[var(--white)] border border-solid border-[var(--input-border)] w-[100%] h-10 rounded-lg px-2 mt-3  outline-none
    }
    .country input{
@@ -89,17 +85,28 @@
    input::placeholder{
     @apply text-gray-300
    }
-
+}
 
 @layer components {
  
 
-  
-  .nav-list li .active{
+  .form {
+    @apply relative w-full lg:max-w-[50%] flex flex-col items-center justify-center m-auto   py-8 rounded-lg transition-all  px-5 h-full lg:overflow-y-auto
+  }
+.form h2{
+  @apply text-[25px]
+}
+
+  .form h4 {
+    @apply text-[16px] 
+  }
+  .active{
     @apply text-[var(--yellow)] font-bold
     
 }
- 
+
+
+  
  
 }
 
@@ -168,245 +175,7 @@
   animation: wave-animation 1s infinite;
 }
 
-/* --------Dropshippers-------------*/
 
-
-
-
-
-.user-form input {
-    @apply mt-3
-}
-
-
-::-webkit-scrollbar{
-  display: none;
-}
-
-.arrow{
-  padding-right: 10px;
-  animation: row 2s linear infinite;
-}
-
-
-.checkout-form input{
-  border: 1px solid #a7a6a6 ;
-  border-radius: 3px;
-  height: 35px;
-}
-
-.checkout-form label{
- display: flex;
- flex-direction: column;
- gap: 10px 0;
-}
-@keyframes row{
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-
-  50% {
-    transform: translate(10px, 0);
-  }
-}
-
-.product-card:hover .add-to-cart-button {
- 
- opacity: 1;
-  transition: all 0.5s ease-in-out;
-}
-.add-to-cart-button {
- border-radius: 5px;
-  opacity: 0;
-  transition: all 0.8s ease-in-out;
-
-}
-
-.partner img{
-  object-fit: contain;
-  width: 100%;
-  filter: drop-shadow(0,0,0,0,gray);
-}
-
-.logout {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.90) 29.16%, #E6CCFF 121.77%);
-}
-
-.product-card:after{
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  margin: auto;
-  background: rgba(0,0,0, 0.8);
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  visibility: hidden;
-  z-index: 1;
-  overflow: hidden;
-
-  
-}
-
-.product-card:hover::after{
-  visibility: visible;
-}
-.product-card .icons-container {
-  opacity: 0;
-  transform: translateY(1000px);
-  z-index: 2; /* Initially hide the icons off-screen */
-}
-
-.product-card:hover .icons-container {
-  opacity: 1;
-  transform: translateY(120px); /* Slide up the icons on hover */
-  transition: opacity 0.3s, transform 0.3s; 
-  background: white;
-  z-index: 10;
-
-  /* Add transition for smooth animation */
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal {
-  position: relative;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  height: 80vh;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.modal-header h2 {
-  margin: 30px 0 0 0;
-}
-
-.close-button {
-  position: absolute;
-  top: 0;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.modal-content {
-  max-height: 100%;
-  width: 100%;
-  overflow-y: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  overflow-y: auto;
-   /* Adjust max height as needed */
-  position: relative; /* Ensure position relative for the scrollbar button */
-
-}
-
-.category-first {
-  grid-row: span 2;
-}
-.slick-dots li button{
-font-size: 10px!important;
-height:70%!important;
-width: 70%!important;
-background-color: #E6CCFF!important;
-border-radius: 50%;
-}
-
-.slick-dots li button:before
-    {
-      content: ''!important;
-    height:70%!important;
-    width: 70%!important;
-      font-size: 8px!important;
-        line-height: 10px;
-       background: var(--orange)!important;
-        width: 10px;
-        border-radius: 50%;
-        
-    }
-/*
-.modal-content::-webkit-scrollbar {
-  width: 10px;  Width of the scrollbar *
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-  background-color: gray;
-  border-radius: 10px;
-}
-
-.modal-content::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0);
-}
-/*Style for the FaAngleRight icon 
-.scroll-icon {
-  position: fixed;
-  right: 18%;
-  top: 50%;
-  transform: translateY(0%);
-  font-size: 20px;
-  color: white;
-  background-color: gray;
-  padding: 5px;
-  cursor: pointer;
-}*/
-/* CSS for checkboxes */
-.checkbox {
-  width: 20px;
-  height: 20px;
-  border: none;
-}
-
-.checkbox.unchecked {
-  appearance: none;
-  background-color: #F2F2F2;
-  border: none;
-  border-radius: 5px;
-  box-shadow:  2px 2px 0px rgba(0, 0, 0, 0.15);
-
-}
-
-.checkbox.checked {
-  background-color: black;
-  box-shadow: none;
-}
-
-.checkbox:checked {
-  background-color: black;
-}
-
-.checkbox:checked::after {
-  content: '✔';
-  color: white;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 
 

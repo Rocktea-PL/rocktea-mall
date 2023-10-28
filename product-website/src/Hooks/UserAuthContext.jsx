@@ -20,13 +20,18 @@ export const UserAuthProvider = ({ children }) => {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [store, setStore] = useState({});
+    const [storeUser, setStoreUser] = useState({});
    const [userData, setUserData] = useState({})
     const [isUser, setIsUser] = useState(false)
+    const [isStoreOwner, setIsStoreOwner] = useState(null)
+    const [storeId, setStoreId] = useState()
     const [credentials, setCredentials] = useState({
       email: "",
       password: "",
       
     });
+
+   
     const handleLoginUserSubmit = async (e) => {
       e.preventDefault();
       let store_id = localStorage.getItem('storeId')
@@ -43,6 +48,7 @@ export const UserAuthProvider = ({ children }) => {
         //setUserData(response.user_data);
         //console.log('before user data', response.user_data.first_name)
         const user_id = response.data.user_data.id
+        setIsUser(true);
         localStorage.setItem("user_id", user_id);
         console.log(user_id)
         //localStorage.setItem("userData", JSON.stringify(response.user_data));
@@ -52,14 +58,12 @@ export const UserAuthProvider = ({ children }) => {
         //console.log('login Successful',response.data)
           //https://rocktea-mall-product.vercel.app/dashboard
         navigate(
-            `/store`
-            
-          );
-          setIsUser(true);
+            `/`
+);
+          
 
         
-    //console.log('user data', response.user_data.first_name)
-        //console.log("Updated storeData:", storeData);
+    
         
         toast.success("Logged in Successfully");
         
@@ -81,7 +85,8 @@ export const UserAuthProvider = ({ children }) => {
       // Redirect to the login page
       navigate("/signin");
     };
-    /*const checkTokenExpiration = () => {
+
+   /* const checkTokenExpiration = () => {
       const token = localStorage.getItem("accessToken");
       if (token) {
         const decodedToken = jwtDecode(token);
@@ -94,38 +99,74 @@ export const UserAuthProvider = ({ children }) => {
           navigate("/login");
         } 
       }
-    };*/
-
+    };
+*/
 
     const getStoreDetails = async() => {
         const store_id = localStorage.getItem('storeId')
         try {
           const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/${store_id}`)
+          if (response.status === 404){
+            console.log('store does not exist')
+          }
           console.log(response.data)
+          let owner = response.data.owner
+      localStorage.setItem('owner', owner)
+      localStorage.setItem('category_id', response.data.category)
+   // console.log('store owner', store.owner)
           setStore(response.data)
         }catch(error){
-         console(error.response)
+         console.log(error.response)
         }
       }
+      const getStoreProfile = async() => {
+        const owner_id = localStorage.getItem('owner')
+        console.log('store owner id', owner_id)
+        try {
+          const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/storeowner/${owner_id}`)
+          if (response.status === 404){
+            console.log('store does not exist')
+          }
+          console.log(response.data)
+          localStorage.setItem('storeOwner', response.data.is_store_owner)
+          setStoreUser(response.data)
+        }catch(error){
+         console.log(error.response)
+        }
+       
+      }
+     
+      //console.log('store owner id', owner)
+      
+      //rocktea/storeowner
       const getUserDetails = async() => {
        const user_id = localStorage.getItem('user_id')
         try {
-          const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/signup/user/${user_id}`)
+          const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/signup/user/${user_id}/`)
           console.log('user data',response.data)
+         
           setUserData(response.data)
         }catch(error){
          console.log(error.response)
         }
       }
       
+     
       useEffect(() => {
         //checkTokenExpiration();
         getStoreDetails()
         getUserDetails();
+        getStoreProfile()
         
+      const store_id =  localStorage.getItem('storeId')
+      setStoreId(store_id)
+      const is_owner = localStorage.getItem('storeOwner')
+      setIsStoreOwner(is_owner)
       }, []);
+      
+  console.log(isStoreOwner)
   return (
-    <StoreContext.Provider value={{userData,store,error,isLoading,isUser,handleLoginUserSubmit,credentials,setCredentials,setError,logOut}}>
+    <StoreContext.Provider value={{isStoreOwner,storeUser,storeId,userData,store,error,isLoading,isUser,handleLoginUserSubmit,credentials,setCredentials,setError,logOut}}>
       {children}
     </StoreContext.Provider>
   );

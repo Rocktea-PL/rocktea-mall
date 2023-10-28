@@ -5,16 +5,47 @@ import axios from "axios";
 //import { useDispatch, } from 'react-redux';
 import Footer from "../../Features/Footer";
 import Navbar from "../../Features/UserNavbar";
+import { useStoreContext } from "../../Hooks/UserAuthContext";
 //import { cartActions } from "../../Redux/CartSlice";
 //import toast from "react-hot-toast";
 const ProductDetails = () => {
   const {id} = useParams()
+  const {userDetails} = useStoreContext()
   //const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
  
   const [productDet,setProductDet] = useState()
  
+/* Function to send a user order to the backend
+const sendUserOrder = async (orderData) => {
+  try {
+    const response = await axios.post('https://rocktea-mall-api-test.up.railway.app/order/buy', orderData);
+    console.log('Order placed:', response.data);
+    // Handle success (e.g., display a success message to the user)
+  } catch (error) {
+    console.error('Error placing order:', error.response);
+    // Handle errors (e.g., display an error message to the user)
+  }
+};
 
+// Example order data
+const orderData = {
+  customer_id:userDetails.id, // Replace with the actual customer ID
+  shipping_address: userDetails.address,
+  store: localStorage.getItem('storeId'),
+  products: [
+    {
+      product: '10b306b8-561b-4971-b3ba-b7f82a3a66ae', // Replace with the actual product ID
+      quantity: 2,
+      price: 10.99,
+    },
+    {
+      product: '10b306b8-561b-4971-b3ba-b7f82a3a66ae', // Replace with another product ID
+      quantity: 3,
+      price: 15.99,
+    },
+  ],
+};*/
   const getProductDetails =async () => {
     try{
       const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/products/${id}`)

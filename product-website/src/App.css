@@ -11,8 +11,7 @@
 }
 
 body {
-  background-color: var(--main-bg);
-  font-family: 'Poppins',sans-serif;
+  background-color:rgb(245, 245, 245,0.1);
 }
 
 ::-webkit-scrollbar{

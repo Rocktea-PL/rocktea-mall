@@ -11,16 +11,20 @@ import ProfileDropdown from "./Dropdown";
 import { Link, useNavigate } from "react-router-dom";
 import Categories from "./Categories";
 import { useState } from "react";
-import {useSelector} from 'react-redux'
+//import {useSelector} from 'react-redux'
 import { useStoreContext } from "../Hooks/UserAuthContext";
 import MobileNavbar from "./MobileNavbar";
 //import { FaRegUser } from 'react-icons/fa;
 const Navbar = () => {
-  const {totalQuantity} = useSelector((state) => state.cart)
+ // const {totalQuantity} = useSelector((state) => state.cart)
   const navigate = useNavigate();
   const {store} = useStoreContext()
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen(!isMobileNavOpen);
+  };
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -33,7 +37,7 @@ const Navbar = () => {
     <header className="p-3 bg-white shadow-md fixed top-0 w-full z-[999]">
       <nav className="hidden lg:flex items-center justify-between px-5">
       <div  className="">
-          {!store.logo ? 
+          {store.logo ? 
            <img
            src={store?.logo}
            alt="logo"
@@ -44,7 +48,7 @@ const Navbar = () => {
           />
           
           : <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
-             {store.name.substring(0, 2)}
+             {store.name?.slice(0,2)}
           </div>
 }
          </div>
@@ -80,7 +84,7 @@ const Navbar = () => {
           >
             <HiOutlineShoppingBag />
             <p className="absolute bg-red-500 w-[15px] flex items-center justify-center rounded-full h-[15px] -top-1 right-0 z-10 text-[12px] text-white">
-              {totalQuantity}
+              {'0'}
             </p>
           </span>
           <ProfileDropdown />
@@ -88,7 +92,8 @@ const Navbar = () => {
       </nav>
 
       <nav className="block lg:hidden ">
-        <MobileNavbar store={store} />
+        <MobileNavbar store={store} isOpen={isMobileNavOpen}
+        toggleMenu={toggleMobileNav} />
       </nav>
       {isModalOpen && <Categories closeModal={closeModal} />}
     </header>

@@ -1,8 +1,33 @@
 //import { useRef } from "react";
 //import { HiOutlineHeart, HiOutlineShoppingBag} from "react-icons/hi2";
+import axios from "axios";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function ProductCard({ id, image, price, name, oldPrice }) {
+  const handleGetProduct = () => {
+    //setSelectedId(id)
+  //  e.preventDefault()
+    const store_id = localStorage.getItem('storeId')
+      // Prepare the data for the POST request
+     
+      // Make the POST request
+      axios
+        .get(`https://rocktea-mall-api-test.up.railway.app/rocktea/marketplace/?store=${store_id}&product=${id}`)
+        .then((response) => {
+          // Handle the success response as needed
+          console.log('Product added:', response.data);
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error('Error getting product:', error.response);
+        });
+    
+  };
+  
+  useEffect(()=> {
+handleGetProduct()
+  },[])
   return (
     <>
      <Link to={`/product_details/${id}`}>

@@ -10,12 +10,12 @@ export  function UserSignupForm({formData,handleInputChange,showPassword,handleP
         <input
                   type="text"
                   name='first_name'
-                  value={formData.first_name}
+                  value={formData?.first_name}
                   onChange={handleInputChange}
                   placeholder="First Name"
                   className="border-2 border-solid border-[var(--form-border)] py-2 px-4 rounded w-full  outline-none"
                 />
-                {error && error.first_name && (
+                {error && error?.first_name && (
                       <div className="text-red-500">{error.first_name}</div>
                     )}
         </label>
@@ -25,12 +25,12 @@ export  function UserSignupForm({formData,handleInputChange,showPassword,handleP
                     <input
                     type="text"
                     name='last_name'
-                    value={formData.last_name}
+                    value={formData?.last_name}
                   onChange={handleInputChange}
                     placeholder="Last Name"
                     className="border-2 border-solid border-[var(--form-border)] py-2 px-4  rounded w-full outline-none"
                   />
-                   {error && error.last_name && (
+                   {error && error?.last_name && (
                       <div className="text-red-500">{error.first_name}</div>
                     )}
                     </label>
@@ -40,12 +40,12 @@ export  function UserSignupForm({formData,handleInputChange,showPassword,handleP
                     <input
                     type="email"
                     name='email'
-                    value={formData.email}
+                    value={formData?.email}
                   onChange={handleInputChange}
                     placeholder="Email"
                     className="border-2 border-solid border-[var(--form-border)] py-2 px-4 rounded w-full outline-none"
                   />
-                  {error && error.email && (
+                  {error && error?.email && (
                       <div className="text-red-500">{error.first_name}</div>
                     )}
                     </label>
@@ -54,7 +54,7 @@ export  function UserSignupForm({formData,handleInputChange,showPassword,handleP
              <input
           type="tel"
           name='contact'
-          value={formData.contact}
+          value={formData?.contact}
           onChange={handleInputChange}
           placeholder="Phone Number"
           className="border-2 border-solid border-[var(--form-border)] py-2 px-4   rounded w-full outline-none"
@@ -68,7 +68,7 @@ export  function UserSignupForm({formData,handleInputChange,showPassword,handleP
           <input
             type={showPassword ? "text" : "password"}
             name='password'
-            value={formData.password}
+            value={formData?.password}
           onChange={handleInputChange}
             placeholder="Password"
             className="border-2 border-solid border-[var(--form-border)] py-2 px-4 rounded w-full outline-none"
@@ -79,7 +79,7 @@ export  function UserSignupForm({formData,handleInputChange,showPassword,handleP
           >
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
-          {error && error.password && (
+          {error && error?.password && (
                       <div className="text-red-500 text-left">{error.first_name}</div>
                     )}
          
