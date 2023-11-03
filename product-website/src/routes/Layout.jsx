@@ -24,17 +24,8 @@ function Layout() {
   return (
     <main>
 
-
-    {storeUser.is_store_owner === true ? (
-      <>
-       <DropshipperLayout/>
-</>
-    ) : (
-      <>
-      <UserLayout />
-</>
-    )}
-   
+<DropshipperLayout/>
+    
   
    
     </main>
@@ -43,3 +34,9 @@ function Layout() {
 }
 
 export default Layout;
+/**storeUser.is_store_owner === true ? (
+      
+       <DropshipperLayout/>
+
+    ) :   <UserLayout />} 
+     */

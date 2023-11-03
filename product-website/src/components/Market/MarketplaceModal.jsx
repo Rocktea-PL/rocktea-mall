@@ -9,16 +9,16 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import {  useUserProductContext } from "../../Hooks/UserProductContext";
+import toast from "react-hot-toast";
 //import { useState } from "react";
 
 export default function MarketplaceModal({closeModal,products,productId }) {
   //const dispatch = useDispatch();
- 
-
-  
-  
+  const {getProductsPrice,price}= useUserProductContext()
  const [addPrice,setAddPrice] = useState(false)
- const [price,setPrice] = useState()
+ //const [price,setPrice] = useState()
+ const [selectedSize, setSelectedSize] = useState("");
  const [retailPrices, setRetailPrices] = useState({});
  //const [selectedId, setSelectedId] = useState(null);
   const selectedProduct = products.find((product) => product.id === productId);
@@ -42,26 +42,26 @@ export default function MarketplaceModal({closeModal,products,productId }) {
     autoplay: true,
     autoplaySpeed: 4000,
   };
-  const getProductsPrice = async() => {
+  /*const getProductsPrice = async() => {
  
     try{
         const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/product-variant/?product=${productId}`)
     console.log('prices',response.data)
    // setSelectedId(response.data.id)
-   // const filteredPrices = response.data.filter((item) => item.wholesale_price !== "");
-    //setPrice(filteredPrices);
-    setPrice(response.data)
+   const filteredPrices = response.data.find((item) => item.product !== productId);
+    setPrice(filteredPrices);
+    //setPrice(response.data)
     //setSelectedId(response.data.id)
     console.log('product id', response.data.id)
     }catch(error){
         console.error(error.response.data)
     }
    // updateProductPrices(id, response.data);
- }
+ }*/
 
   useEffect(()=>{
-    getProductsPrice()
-    handleGetProduct(productId)
+    getProductsPrice(productId)
+   // handleGetProduct()
   },[productId])
   
 
@@ -74,16 +74,6 @@ export default function MarketplaceModal({closeModal,products,productId }) {
   //const priceId=  price.map((item) => item.id)
  //console.log('id', selectedId)
 
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-   // handleGetProduct(productId)
-    return () => {
-      document.body.style.overflow = "auto";
-      
-    };
-  }, []);
-  
   const handleAddProduct = (e,id) => {
     //setSelectedId(id)
     e.preventDefault()
@@ -101,11 +91,14 @@ export default function MarketplaceModal({closeModal,products,productId }) {
         .then((response) => {
           // Handle the success response as needed
           console.log('Product added:', response.data);
+          toast.success('Profit added successfully')
           handleGetProduct()
+          closeModal()
         })
         .catch((error) => {
           // Handle errors
           console.error('Error adding product:', error.response);
+          toast.error(error.response.data)
         });
 
         
@@ -156,9 +149,17 @@ export default function MarketplaceModal({closeModal,products,productId }) {
     
     }
   };
+  
+  //const selectedPrice = price.find((item) => item.size === selectedSize);
+
+ // let prices = 8888888888.00
+  useEffect(() => {
+   // handleGetProductItems()
+  }, []);
+  
 
   return (
-    <div className="modal-overlay z-[9999]" onClick={handleOverlayClick}>
+    <div className="modal-overlay z-[99]" onClick={handleOverlayClick}>
       <div className="pt-8 bg-white rounded-lg relative w-[70%]  lg:w-[500px] flex flex-col   ">
         <button onClick={closeModal} className="close-button">
           &times;
@@ -198,54 +199,89 @@ export default function MarketplaceModal({closeModal,products,productId }) {
             SKU: <span className="text-gold font-semibold">{selectedProduct.sku}</span>
           </h4>
           {price?.length > 0 ? (
-          price.map((item) => (
-         <>
-         
-         <h4 key={item.id} className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
-              Size:{" "}
-              <span className="text-gold font-semibold">
-                {item.size}
-              </span>
-            </h4>
-            <h4 className=" text-sm font-medium flex items-center gap-5 mx-8 mt-1 ">
-            Price:{" "}
-            <span className="text-gold font-semibold text-center"> ₦ {item.wholesale_price}</span>
-          </h4>
-          <div className="flex items-center mx-auto justify-center mt-7 gap-5">
-            <button onClick={() => handleAddPrice(item.id)} className="bg-orange h-12 w-[150px] rounded-lg" >
-              Add Product
-            </button>
-            <button onClick={() => handleRemoveProduct(item.id)} className="border-[1.3px] border-orange h-12 w-[150px] rounded-lg">
-              Remove Product
-            </button>
-            
-          </div>
-          {addPrice && (
-            <div className=" transition-all duration-[10s] delay-200 ease-in-out mx-auto mt-5">
-            <h4 className="text-center text-[20px] text-blue font-semibold">Add Profit</h4>
-          <form action="" className="px-5 flex items-center justify-center mx-auto gap-3 mt-5">
+  <>
+  <div className="mx-8 flex items-center gap-3">
+    <h4 className="text-sm font-medium mt-1">Size:</h4>
+    <select
+      name="size"
+      id="size"
+      onChange={(e) => setSelectedSize(e.target.value)}
+      value={selectedSize}
+    >
+      {price.map((item) => (
+        <option key={item.id} value={item.size}>
+          {item.size}
+        </option>
+        
+      ))}
+    </select>
+  </div>
+  
+  
 
+  
+  </>
+) : (
+  <h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
+    Size: <span className="text-gold font-semibold">Not Available</span>
+  </h4>
+)}
+
+
+
+{price?.length > 0 ? (
+  
+  price
+    .filter((item) => !selectedSize || item.size === selectedSize)
+    .map((item) => (
+      <div key={item.id} className="">
+        
+        <h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
+          Base Price:{" "}
+          <span className="text-gold font-semibold text-center">
+            ₦  {item.wholesale_price.toLocaleString('en-US')}
+          </span>
+        </h4>
+        
+        <div className="flex items-center justify-center mt-7 mx-20 gap-10 ">
+          <button className='flex items-center justify-center mx-auto bg-orange h-12 w-[150px] rounded-lg' onClick={() => handleAddPrice(item.id)} >
+            Add  Product
+          </button>
+          <button className='flex items-center justify-center mx-auto border-[1.3px] border-orange h-12 w-[150px] rounded-lg' onClick={() => handleRemoveProduct(item.id)} >
+            Remove Product
+          </button>
+       
+        </div>
+        
+        {addPrice && (
+          <div className="transition-all duration-[10s] delay-200 ease-in-out mx-auto mt-5">
+            <h4 className="text-center text-[20px] text-blue font-semibold">Add Profit</h4>
+            <form action="" className="px-5 flex items-center justify-center mx-auto gap-3 mt-5">
               <label htmlFor="" className="flex items-center">
                 <span className="font-bold text-md px-3">₦</span>
-              <input type="number" name='retail_price' value={retailPrices[item.id] || ""}
-                        onChange={(e) =>
-                          setRetailPrices({
-                            ...retailPrices,
-                            [item.id]: e.target.value,
-                          })
-                        } className="border bg-white shadow-md border-gray-200 h-10 rounded px-5" />
+                <input
+                  type="number"
+                  name='retail_price'
+                  value={retailPrices[item.id] || ""}
+                  onChange={(e) => setRetailPrices({
+                    ...retailPrices,
+                    [item.id]: e.target.value,
+                  })}
+                  className="border bg-white shadow-md border-gray-200 h-10 rounded px-5"
+                />
               </label>
-              <button className="p-2 px-4 rounded-md bg-orange"  onClick={(e) => handleAddProduct(e,item.id)}>Go</button>
+              <button className="p-2 px-4 rounded-md bg-orange" onClick={(e) => handleAddProduct(e, item.id)}>Go</button>
             </form>
-            </div>
-          )}
-         </>
-            ))
-          ) : (
-            <h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
-              Size: <span className="text-gold font-semibold">Not Available</span>
-            </h4>
-          )}
+          </div>
+        )}
+      </div>
+    ))
+) : (
+  <h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
+    Size: <span className="text-gold font-semibold">Not Available</span>
+  </h4>
+)}
+
           
           
           

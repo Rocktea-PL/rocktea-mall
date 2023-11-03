@@ -16,13 +16,16 @@ import ProductTracker from "../../../src/components/Dashboard/ProductTracker";
 import ProfileCompletion from "../../../src/components/Dashboard/ProfileCompletion";
 import Sidebar from "../../../src/components/Dashboard/Sidebar";
 //import { useEffect } from "react";
+//import { useEffect } from "react";
 
 
 export default function DashboardHome() {
   const {storeId} = useParams()
   console.log ('store', storeId)
-  localStorage.setItem('storeId', storeId)
+  
  
+    localStorage.setItem('storeId', storeId)
+  
   return (
     <>
    

@@ -11,6 +11,7 @@ import BankDetails from "../pages/BankDetails";
 import Faqs from "../pages/Faq";
 import Otp from "../pages/Otp";
 import EmailVerification from "./Components/Forms/SignUp/EmailVerification";
+import Waiting from "../pages/Waiting";
 
 function App() {
   const router = createBrowserRouter([
@@ -41,6 +42,10 @@ function App() {
         {
           path: "/make_payment",
           element: <Otp />,
+        },
+        {
+          path: "/domain_creation",
+          element: <Waiting />,
         },
         {
           path: "/store_details",

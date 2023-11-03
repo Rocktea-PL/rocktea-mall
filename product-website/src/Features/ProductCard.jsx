@@ -1,36 +1,33 @@
 //import { useRef } from "react";
 //import { HiOutlineHeart, HiOutlineShoppingBag} from "react-icons/hi2";
-import axios from "axios";
-import { useEffect } from "react";
+//import axios from "axios";
+//import { useEffect } from "react";
 import { Link } from "react-router-dom";
+//import { useUserProductContext } from "../Hooks/UserProductContext";
 
-export default function ProductCard({ id, image, price, name, oldPrice }) {
-  const handleGetProduct = () => {
-    //setSelectedId(id)
-  //  e.preventDefault()
-    const store_id = localStorage.getItem('storeId')
-      // Prepare the data for the POST request
-     
-      // Make the POST request
-      axios
-        .get(`https://rocktea-mall-api-test.up.railway.app/rocktea/marketplace/?store=${store_id}&product=${id}`)
-        .then((response) => {
-          // Handle the success response as needed
-          console.log('Product added:', response.data);
-        })
-        .catch((error) => {
-          // Handle errors
-          console.error('Error getting product:', error.response);
-        });
-    
-  };
+export default function ProductCard({ image, price, name, oldPrice,quantity,productId }) {
+  const isImageAvailable = image && image.trim() !== '';
+ 
+  const currentQuantity = quantity
+  //const [currentQuantity, setCurrentQuantity] = useState(quantity);
   
-  useEffect(()=> {
-handleGetProduct()
-  },[])
+ 
+  // Calculate the percentage based on the currentQuantity
+  const percentage = (currentQuantity / quantity) * 100;
+  // Determine the CSS class and color based on the percentage
+  let progressBarClass = "bg-red-600"; // Default to red
+  if (percentage > 50) {
+    progressBarClass = "bg-green-500"; // Green for over 50%
+  } else if (percentage > 20) {
+    progressBarClass = "bg-orange"; // Orange for 15% to 50%
+  } else if (percentage === 0) {
+    progressBarClass = "bg-gray-400"; // Out of stock (0%)
+  }
+ console.log(progressBarClass)
   return (
     <>
-     <Link to={`/product_details/${id}`}>
+      {isImageAvailable ? (
+     <Link to={`/product_details/${productId}`}>
         <div
          
           className=" hover:scale-[1.01] hover:shadow-md bg-white  hover:transition-all duration-300 ease-in-out overflow-hidden w-[220px]  mt-5 "
@@ -72,7 +69,7 @@ handleGetProduct()
    */}
           </div>
         </div>
-      </Link>
+      </Link> ) : null}
     </>
   );
 }

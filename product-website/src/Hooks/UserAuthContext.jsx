@@ -155,11 +155,12 @@ export const UserAuthProvider = ({ children }) => {
       useEffect(() => {
         //checkTokenExpiration();
         getStoreDetails()
-        getUserDetails();
+      //  getUserDetails();
         getStoreProfile()
         
       const store_id =  localStorage.getItem('storeId')
       setStoreId(store_id)
+      console.log('store owner id' ,store_id)
       const is_owner = localStorage.getItem('storeOwner')
       setIsStoreOwner(is_owner)
       }, []);

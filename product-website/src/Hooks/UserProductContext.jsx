@@ -11,7 +11,11 @@ export const useUserProductContext = () => {
 export const UserProductProvider = ({ children }) => {
  const [products, setProducts] = useState([]);
  const [categoryname, setCategoryName] = useState();
+ const [price,setPrice] = useState()
+ const [allProducts, setAllProducts] = useState({})
+ const [loading, setLoading] = useState(false);
  //const [productPrices,setProductPrices] = useState([])
+ const [productIds, setProductIds] = useState([]); // Array to store product IDs
  const getProducts = async() => {
  const category = localStorage.getItem('category_id')
     try{
@@ -19,12 +23,13 @@ export const UserProductProvider = ({ children }) => {
     console.log(response.data)
     setProducts(response.data)
     //const productIds = response.data.map(item => item.id);
-    
+    const ids = response.data.map(item => item.id);
+      setProductIds(ids);
     }catch(error){
         console.error(error)
     }
  }
-
+console.log(productIds)
  const getProductCategory = async() => {
   const category = localStorage.getItem('category_id')
      try{
@@ -37,42 +42,53 @@ export const UserProductProvider = ({ children }) => {
          console.error(error)
      }
   }
+  
+  const getProductsPrice = async(productId) => {
  
- /*const updateProductPrices = (id, prices) => {
-  // Add or update the prices for a product with the given ID
-  setProductPrices((prevPrices) => {
-    const updatedPrices = [...prevPrices];
-    const index = updatedPrices.findIndex((price) => price.id === id);
-    if (index !== -1) {
-      updatedPrices[index].prices = prices;
-    } else {
-      updatedPrices.push({ id, prices });
+    try{
+        const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/product-variant/?product=${productId}`)
+    console.log('prices',response.data)
+   // const filteredPrices = response.data.find((item) => item.product !== productIds);
+    setPrice(response.data);
+        }catch(error){
+        console.error(error.response.data)
     }
-    return updatedPrices;
-  });
-};
-*/
-/* const getProductsPrice = async(id) => {
- 
-  try{
-      const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/product-variant/?product=${id}`)
-  console.log('prices',response.data)
- // const filteredPrices = response.data.filter((item) => item.wholesale_price !== "");
-  //setPrice(filteredPrices);
-  setPrice(response.data)
-  }catch(error){
-      console.error(error)
-  }
-}
+   // updateProductPrices(id, response.data);
+ }
 
- */
+ const handleGetProductItems = () => {
+  
+  const store_id = localStorage.getItem('storeId')
+    // Prepare the data for the POST request
+    setLoading(true)
+    // Make the POST request
+    axios
+      .get(`https://rocktea-mall-api-test.up.railway.app/rocktea/marketplace/?store=${store_id}`)
+      .then((response) => {
+        // Handle the success response as needed
+      console.log('Product:', response.data);
+        setAllProducts(response.data)
+        console.log('All Product:', allProducts);
+        setLoading(false)
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error('Error getting product:', error.response);
+      });
+  
+};
+useEffect(() => {
+ // handleGetProductItems()
+}, [loading]);
+  
  useEffect(() => {
     getProducts();
     //getProductsPrice()
     getProductCategory()
+   // handleGetProductItems()
  },[])
   return (
-    <UserProductContext.Provider value={{categoryname,products,getProducts}}>
+    <UserProductContext.Provider value={{loading,handleGetProductItems,setAllProducts,allProducts,price,getProductsPrice,categoryname,products,getProducts}}>
       {children}
     </UserProductContext.Provider>
   );

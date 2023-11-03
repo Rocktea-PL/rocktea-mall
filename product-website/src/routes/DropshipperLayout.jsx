@@ -2,7 +2,7 @@ import { Routes,Route  } from "react-router-dom";
 import Home from "../../pages/Home";
 
 import Products from "../../pages/Products";
-import ProductDetails from "../components/Products/ProductDetails";
+//import ProductDetails from "../components/Market/ProductDetails";
 import Marketplace from "../../pages/Dropshippers/Marketplace";
 import DashboardHome from "../../pages/Dropshippers/Dashboard/Home";
 import Orders from "../../pages/Dropshippers/Dashboard/Orders";
@@ -11,6 +11,8 @@ import SearchPage from "../../pages/Dropshippers/SearchPage";
 import Notfound from "../Notfound";
 
 import DropshipperNavbar from "../Features/DropshipperNavbar";
+import Profile from "../../pages/Dropshippers/Dashboard/Profile";
+import ProductDetails from "../components/Market/ProductDetails";
 
 //import Footer from "../Features/Footer";
 //import Navbar from "../Features/UserNavbar";
@@ -45,6 +47,7 @@ function DropshipperLayout() {
      <Route path='/dashboard/orders' element= {<Orders/> }/> 
     <Route path='/dashboard/transactions' element= {<Transactions/> }/>
     <Route path='/search' element= {<SearchPage/> }/>
+    <Route path='/dashboard/your_profile' element= {<Profile/> }/>
     <Route path='/*' element ={<Notfound />}/>    
 
 </Routes>

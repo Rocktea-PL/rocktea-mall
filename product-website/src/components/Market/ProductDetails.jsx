@@ -1,36 +1,54 @@
 import {  useState } from "react";
-import CommonProducts from "./CommonProducts";
+//import CommonProducts from "./CommonProducts";
 import {useParams} from 'react-router-dom'
 import axios from "axios";
 //import { useDispatch, } from 'react-redux';
 import Footer from "../../Features/Footer";
-import { useQuery } from "react-query";
+import CommonProducts from "../Products/CommonProducts";
 //import { useDispatch, useSelector } from "react-redux";
-//import { fetchProducts } from "../../Redux/ProductsSlice";
-
+import { useQuery } from "react-query";
+import SizeModal from "../Modals/SizeModal";
+//import ReactImageGallery from "react-image-gallery";
+//import Navbar from "../../Features/UserNavbar";
+//import { useStoreContext } from "../../Hooks/UserAuthContext";
+//import { cartActions } from "../../Redux/CartSlice";
+//import toast from "react-hot-toast";
 const ProductDetails = () => {
   const {id} = useParams()
-  ////const dispatch = useDispatch();
-  //const { data, status, error } = useSelector((state) => state.products);
  // const {userDetails} = useStoreContext()
   //const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(1);
+  //const [quantity, setQuantity] = useState(1);
+  
+  //const dispatch = useDispatch();
+  //const { data, status, error } = useSelector((state) => state.products);
+ // const {userDetails} = useStoreContext()
+ const [selectedSize, setSelectedSize] = useState(null);
+  const [variantData, setVariantData] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  //const dispatch = useDispatch();
+ // const [quantity, setQuantity] = useState(1);
  
   //const [productDet,setProductDet] = useState()
  
- //console.log('product data',data)
  
-  
+ 
+  console.log(selectedSize)
 
   // Define a function to fetch product details
   const fetchProductDetails = async () => {
     const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/?id=${id}`);
     return response.data[0];
   };
-
+  const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
   // Use React Query's useQuery to fetch product details
   const { data: productDet, status: productStatus,error } = useQuery(['product', id], fetchProductDetails, {
-    enabled: !!id, // Fetch only when 'id' is available
+    enabled: !!id,
+    refetchOnWindowFocus: false,
+      refetchOnmount: false,
+      refetchOnReconnect: false,
+      retry: false,
+    staleTime: twentyFourHoursInMs,// Fetch only when 'id' is available
   });
   if (productStatus === 'loading') {
     return <p>Loading...</p>;
@@ -39,58 +57,40 @@ const ProductDetails = () => {
   if (productStatus === 'error') {
     return <p>Error: {error}</p>;
   }
+  console.log('product data',productDet)
+  const fetchVariantData = async (size) => {
+    if (productDet && productDet.product_variants) {
+      // Use the API to fetch variant data for the selected size
+      try {
+      const store_id =  localStorage.getItem('storeId')
+        const response = await axios.get(
+          `https://rocktea-mall-api-test.up.railway.app/rocktea/store-variant/?product=${productDet.id}&size=${size}&store=${store_id}`
+        );
 
-  /*const getProductDetails =async () => {
-   // const store_id = localStorage.getItem('storeId');
-
-    try{
-      const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/?id=${id}`)
-  console.log(response.data)
-  setProductDet(response.data[0])
-  }catch(error){
-      console.error(error)
-  }
-  }*/
-
- // let variantId = productDet?.product_variants[0]?.id
-
-  
-  
- 
-
-
-  const handleIncrement = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const handleDecrement = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+        // Set the variant data
+        console.log(size)
+        setVariantData(response.data);
+        console.log('variant', response.data)
+        
+      } catch (error) {
+        console.error("Error fetching variant data:", error);
+      }
     }
   };
+  //fetchVariantData()
 
-  /*const addToCart = () => {
-    dispatch(cartActions.addItem({
-      id: id,
-      name: productDet.name,
-      price: productDet.newItemPrice,
-      img: productDet.images[0].url,
-      description: productDet.description,
-    })
-
-    )
-    // console.log(items.id)
-    toast.success('Added Succesfully')
-
-  }*/
-
+  const handleSizeClick = (size) => {
+    setSelectedSize(size);
+    setIsModalOpen(true);
+    fetchVariantData(size);
+  };
 
   return (
 
 
     <>
     
-    <section className="mt-20 px-10 lg:px-0 max-w-[1300px] m-auto">
+    <section className="relative mt-20 px-10 lg:px-0 max-w-[1300px] m-auto">
       <div className=" flex flex-col lg:flex-row w-full  lg:space-x-20 lg:p-8">
         {/* Product Images */}
         <div className="flex flex-col lg:flex-row-reverse gap-y-3   w-full  lg:max-h-[500px] items-center justify-center lg:max-w-[50%]">
@@ -124,27 +124,19 @@ const ProductDetails = () => {
           <p className="capitalize font-bold">Brand: <span className="font-medium">{productDet?.brand?.name}</span> </p>
           <p className="capitalize font-bold">Category: <span className="font-medium">{productDet?.subcategory?.name}</span> </p>
           <p className="capitalize font-bold">SKU: <span className="font-medium">{productDet?.sku}</span></p>
-          <p className="font-bold my-2 text-lg"> ₦12,300</p>
+          <p className="font-bold my-2 text-lg"> ₦12,300 {productDet?.product_variants[0]?.wholesale_price.toLocaleString('')}  </p>
          
           <p className="text-gray-300 my-2">{productDet?.is_available ? 'Instock' : <span className="text-red-500">Out of Stock</span>
            }</p>
 
-<div className="flex items-center justify-center gap-5 max-w-[100px] py-2 rounded-md border border-solid border-[var(--orange)]">
-            <button className=" " onClick={handleDecrement}>
-              -
-            </button>
-            <p>{quantity}</p>
-            <button className=" " onClick={handleIncrement}>
-              +
-            </button>
-          </div>
+
 
           <div className="flex space-x-2 my-5">
             {productDet?.product_variants.map((item,index) => (
               <button
               key={index}
               className="border border-solid border-[var(--orange)] rounded-md px-3 py-1"
-              onClick={() => {}}
+              onClick={() => handleSizeClick(item.size)}
             >
               {item?.size}
             </button>
@@ -153,8 +145,8 @@ const ProductDetails = () => {
           </div>
 
           <div className="mb-4">
-            <button className="bg-orange  p-3 text-sm rounded-md mb-8">
-             Add to Cart
+            <button className="bg-red-600 text-white p-3 text-sm rounded-md mb-8">
+             Remove Product
             </button>
             <h3 className="text-md font-semibold border-b border-b-gray-300 pb-3">
               Product Details
@@ -227,6 +219,13 @@ const ProductDetails = () => {
       </div>
     </section>
     <Footer />
+    {isModalOpen && (
+        <SizeModal
+          isOpen={isModalOpen}
+         onClose={() => setIsModalOpen(false)}
+         variantData={variantData}
+        />
+      )}
     </>
     
   );

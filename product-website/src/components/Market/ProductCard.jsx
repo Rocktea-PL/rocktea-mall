@@ -1,15 +1,16 @@
 
 
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 
-import axios from "axios";
+////import axios from "axios";
+//import { useUserProductContext } from "../../Hooks/UserProductContext";
 
 
 
 export default function ProductCard({id,quantity, image,  name,  openModal}) {
- //const {updateProductPrices } = useUserProductContext()
+ //const {price } = useUserProductContext()
  
-  const [price,setPrice] = useState()
+ // const [price,setPrice] = useState()
   const isImageAvailable = image && image.trim() !== '';
   const handleCardClick = () => {
     openModal(id);
@@ -30,29 +31,9 @@ export default function ProductCard({id,quantity, image,  name,  openModal}) {
     progressBarClass = "bg-gray-400"; // Out of stock (0%)
   }
  
- const getProductsPrice = async() => {
  
-    try{
-        const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/product-variant/?product=${id}`)
-    console.log('prices',response.data)
-   // const filteredPrices = response.data.filter((item) => item.wholesale_price !== "");
-    //setPrice(filteredPrices);
-    setPrice(response.data)
-    }catch(error){
-        console.error(error.response.data)
-    }
-   // updateProductPrices(id, response.data);
- }
 
-  useEffect(()=>{
-    getProductsPrice(id)
-  },[id])
-  
-
- const minimumPrice = price?.length > 0
-    ? Math.min(...price.map((item) => parseFloat(item?.wholesale_price || 0)))
-    : "0"
-    console.log(minimumPrice)
+ 
   return (
     <>
       
@@ -76,7 +57,7 @@ export default function ProductCard({id,quantity, image,  name,  openModal}) {
   <p className="font-light whitespace-nowrap truncate text-[1rem] mt-5">
     {name}
   </p>
-  <p className="font-semibold">₦ {minimumPrice}</p>
+ 
  
   <p className="text-[14px] opacity-[0.5]">{currentQuantity <= 0 ? 'Out of Stock' : <span>{currentQuantity} left</span> } </p>
   <div className={`relative h-[0.6rem] rounded  mt-1 border border-solid border-gray-200 `}>

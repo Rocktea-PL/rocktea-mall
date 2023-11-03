@@ -18,7 +18,7 @@ const DropshipperNavbar = ({page}) => {
   //const [isModalOpen, setIsModalOpen] = useState(false);
  
   return (
-    <header className="p-3 bg-white shadow-md fixed top-0 w-full z-[999]">
+    <header className="p-3 bg-white shadow-md fixed top-0 w-full z-[60]">
       <nav className="hidden lg:flex items-center justify-between px-4">
         <figure className="flex items-center justify-center gap-3">
 {store.logo ? 

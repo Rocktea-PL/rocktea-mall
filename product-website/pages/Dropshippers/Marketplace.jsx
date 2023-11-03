@@ -10,7 +10,7 @@ import { useUserProductContext } from "../../src/Hooks/UserProductContext";
 import MarketplaceModal from "../../src/components/Market/MarketplaceModal";
 import Products from "../../src/components/Market/Products";
 import DropshipperNavbar from "../../src/Features/DropshipperNavbar";
-import axios from "axios";
+//import axios from "axios";
 
 export default function Marketplace() {
   const { page } = useParams(); 
