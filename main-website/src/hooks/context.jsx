@@ -1,6 +1,6 @@
 // MyContext.js
 import { createContext, useContext, useState } from "react";
-import {  register } from "../../pages/auth/auth";
+import { loginUser, register } from "../../pages/auth/auth";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -9,9 +9,11 @@ import axios from "axios";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
- const navigate = useNavigate();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
+  //const [accessToken, setAccessToken] = useState(null);
   // Define initial user data state
+ //const  [storeId,setStoreId] = UseState()
   const [userData, setUserData] = useState({
     // Define initial user data state
     first_name: "",
@@ -21,6 +23,11 @@ const AppProvider = ({ children }) => {
     contact: "",
     password: "",
     profile_image: "",
+  });
+
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
   });
 
   const [storeData, setStoreData] = useState({
@@ -72,7 +79,19 @@ const AppProvider = ({ children }) => {
       };
 
       // Send the email
-      
+      emailjs
+        .send(
+          "service_5hulf9r",
+          "template_nk9rq5h",
+          emailParams,
+          "Sb11MyaNpQEgE-cBn",
+        )
+        .then((response) => {
+          console.log("Email sent:", response);
+        })
+        .catch((error) => {
+          console.error("Email sending failed:", error);
+        });
 
       emailjs
         .send(
@@ -87,17 +106,16 @@ const AppProvider = ({ children }) => {
         .catch((error) => {
           console.error("Email sending failed:", error);
         });
-        
       // Handle successful registration
       // For now, let's just log the user data
       console.log("Registration successful", userData);
       console.log(response.error);
       // Move to the next step
       // Save userData to localStorage
-      
+      localStorage.setItem("userData", JSON.stringify(userData));
       toast.success("Registered Succesfully!");
-      navigate('verify_email')
-      setVerifyEmail(true);
+
+      navigate('/email_verification')
       //cogoToast.success("Registered Succesfully!");
     } catch (error) {
       setError(error || error.response.data);
@@ -112,11 +130,53 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const handleLoginFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsLoading(true);
+      const response = await loginUser(credentials); // Call the login function
+      
+      console.log("Login successful:", response);
+      
+      const token = response.access;
+      localStorage.setItem("accessToken", token);
+     
+      let store_id = localStorage.getItem("id");
+     
+      if (response.user_data.has_store === false) {
+        navigate("/store_details");
+        
+//http://localhost:5174/dashboard/
+//https://users.yourockteamall.com
+      } else {
+       window.open(
+          `http://localhost:5174/dashboard/${store_id}`,
+          "_self",
+        );
+      }
+
+      console.log("Updated storeData:", storeData);
+      
+      
+      toast.success("Logged in Successfully");
+    } catch (error) {
+      setLoginError(error); // Handle login error
+      console.error("Login error:", error);
+      toast.error("Invalid credentials. Please try again.", error);
+      //cogoToast.success("Log in Failed. Check you Details");
+    } finally {
+      setIsLoading(false);
+       // Set loading state back to false after the request is complete
+    }
+  };
+
   // Function to handle registering store details
   const handleStoreFormSubmit = async (e) => {
     e.preventDefault();
+
+    
     const storedToken = localStorage.getItem("accessToken");
-    // Create a FormData object to send the form data including the image
     const formData = new FormData();
     formData.append("name", storeData.name);
     formData.append("email", storeData.email);
@@ -136,8 +196,6 @@ const AppProvider = ({ children }) => {
     try {
       setIsLoading(true);
       console.log("access token from local storage:", storedToken);
-      //console.log("access token from store onload:", accessToken);
-      // Call the registerStore function from auth.js to register store details
       const response = await axios.post(apiUrl, formData, { headers });
 
       console.log("access token from store:", storedToken);
@@ -146,10 +204,8 @@ const AppProvider = ({ children }) => {
       // After successful store registration in handleStoreFormSubmit
       //localStorage.setItem("hasCompletedStoreDetails", "true");
       localStorage.setItem("owner", response.data.owner);
-      localStorage.setItem("storeId", response.data.id);
-      localStorage.setItem("storeLogo", localStorage.setItem("storeData", JSON.stringify(response.data)));
-      const savedUserData = localStorage.getItem("storeData");
-      console.log('Data from localStorage', savedUserData)
+      localStorage.setItem("id", response.data.id);
+      //setStoreId(localStorage.setItem("id", response.data.id))
       toast.success("Store Registered Successfully");
       //navigate("/make_payment");
 
@@ -219,12 +275,13 @@ const AppProvider = ({ children }) => {
         const verifyPayment = await axios.get(
           `https://rocktea-mall-api-test.up.railway.app/mall/verify?reference=${paymentReference}`,
         );
-        let store_id = localStorage.getItem('storeId')
+
         if (verifyPayment.data.data.status === "success") {
           clearInterval(interval);
           // Stop polling
-
-         navigate(`/dashboard/${store_id}`)
+        const store_id = localStorage.getItem('id')
+          window.location.href =
+            `http://localhost:5174/dashboard/${store_id}`;
           console.log("Payment verification successful.");
         } else if (verifyPayment.data.data.status === "failed") {
           clearInterval(interval); // Stop polling
@@ -272,8 +329,9 @@ const AppProvider = ({ children }) => {
         storeData,
         verifyEmail,
         setVerifyEmail,
-        
-        
+        credentials,
+        setCredentials,
+        handleLoginFormSubmit,
         loginError,
         setLoginError,
         //componentProps,

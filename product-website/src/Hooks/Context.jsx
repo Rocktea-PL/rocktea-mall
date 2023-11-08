@@ -12,6 +12,7 @@ const AppProvider = ({ children }) => {
   //const test = "it is working";
   const [loading,setLoading] = useState(false)
   const [error,setError] = useState(false)
+  
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -63,6 +64,7 @@ const AppProvider = ({ children }) => {
   const handleUserForm = async (e) => {
     e.preventDefault()
     setLoading(true)
+    
    const store_id = localStorage.getItem('storeId')
       formData.associated_domain = store_id
     try {
@@ -80,7 +82,7 @@ const AppProvider = ({ children }) => {
       // Check if the API call was successful
       if (response.status === 200 || response.data) {
         console.log('Registration Successful', response.data)
-        
+        localStorage.setItem('user_id',response.data.id);
         toast.success("Registration Successful");
        // localStorage.setItem('store_id', )
 
@@ -127,12 +129,49 @@ const AppProvider = ({ children }) => {
     }
   };
   
+ 
+
+/* Function to send a user order to the backend
+const sendUserOrder = async (orderData) => {
+  try {
+    const response = await axios.post('https://rocktea-mall-api-test.up.railway.app/order/buy', orderData);
+    console.log('Order placed:', response.data);
+    // Handle success (e.g., display a success message to the user)
+  } catch (error) {
+    console.error('Error placing order:', error.response);
+    // Handle errors (e.g., display an error message to the user)
+  }
+};
+
+// Example order data
+const orderData = {
+  customer_id: 'cf9cacfa-a32a-4da8-b542-8a7c9fc3fbaf', // Replace with the actual customer ID
+  shipping_address: 'Datum Street, Fas State',
+  store: '6f24b2c7-08e5-4199-a1cb-2d9df35724aa',
+  products: [
+    {
+      product: '10b306b8-561b-4971-b3ba-b7f82a3a66ae', // Replace with the actual product ID
+      quantity: 2,
+      price: 10.99,
+    },
+    {
+      product: '10b306b8-561b-4971-b3ba-b7f82a3a66ae', // Replace with another product ID
+      quantity: 3,
+      price: 15.99,
+    },
+  ],
+};
+
+// Call the function to send the order
+sendUserOrder(orderData);'*/
+
   return (
     <AppContext.Provider
       value={{
       handleUserForm,
       loading,
       error,
+      formData,
       setFormData,
         paymentInfo,
         setPaymentInfo,

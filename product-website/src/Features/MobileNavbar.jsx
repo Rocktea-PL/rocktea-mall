@@ -1,15 +1,35 @@
 import {HiMiniBars3BottomLeft, HiOutlineShoppingBag} from 'react-icons/hi2'
 import ProfileDropdown from './Dropdown'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
 
-function MobileNavbar({store}) {
+function MobileNavbar({store,isOpen,  toggleMenu}) {
     const navigate = useNavigate()
     return (
         <div className='flex items-center !justify-between md:px-5'>
+          <span className='text-lg cursor-pointer relative z-[99]' onClick={toggleMenu}
+><HiMiniBars3BottomLeft/></span>
+<div className={`absolute top-[4.8rem] left-0 w-64 h-screen bg-white  transform ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      } transition-transform ease-in-out duration-300 z-[999]`}>
 
-            <span className='text-lg cursor-pointer'><HiMiniBars3BottomLeft/></span>
+
+<ul className="block bg-white py-4 px-5 border-r-2 border-r-gray-300">
+          <li className="uppercase tracking-[1px]">
+            {" "}
+            <Link to="/">Home</Link>
+          </li>
+          <li
+            className="uppercase tracking-[1px] cursor-pointer"
+           
+          >
+            Categories
+          </li>
+        </ul>
+</div>
+
+            
            <div  className="">
-          {!store.logo ? 
+          {store.logo ? 
            <img
            src={store?.logo}
            alt="logo"
@@ -20,7 +40,7 @@ function MobileNavbar({store}) {
           />
           
           : <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
-             {store.name.substring(0, 2)}
+             {store.name?.slice(0,2)}
           </div>
 }
          </div> 

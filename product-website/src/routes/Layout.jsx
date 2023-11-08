@@ -1,11 +1,15 @@
-import { Outlet,  } from "react-router-dom";
+
+import {  useStoreContext } from "../Hooks/UserAuthContext";
+import DropshipperLayout from "./DropshipperLayout";
+import UserLayout from "./UserLayout";
 
 //import Footer from "../Features/Footer";
 //import Navbar from "../Features/UserNavbar";
-import { UserAuthProvider } from "../Hooks/UserAuthContext";
-import { AppProvider } from "../Hooks/Context";
+////import { UserAuthProvider } from "../Hooks/UserAuthContext";
+//import { AppProvider } from "../Hooks/Context";
 
 function Layout() {
+  const {storeUser} = useStoreContext()
   //const location = useLocation();
   //let id = localStorage.getItem ('storeId')
 
@@ -18,13 +22,21 @@ function Layout() {
     location.pathname === "/logout";*/
 
   return (
-    <AppProvider>
-    <UserAuthProvider>
-      <Outlet />
-      </UserAuthProvider>
-      </AppProvider>
+    <main>
+
+<DropshipperLayout/>
+    
+  
    
+    </main>
+    
   );
 }
 
 export default Layout;
+/**storeUser.is_store_owner === true ? (
+      
+       <DropshipperLayout/>
+
+    ) :   <UserLayout />} 
+     */

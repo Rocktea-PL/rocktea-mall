@@ -1,16 +1,26 @@
 import { FaWhatsapp, FaPhone } from "react-icons/fa";
+import { useStoreContext } from "../Hooks/UserAuthContext";
 function Footer() {
+  const {store} = useStoreContext()
+ 
   return (
-    <footer className=" w-full flex flex-col lg:items-center  lg:justify-center  bg-[var(--footer-bg)] lg:p-10  text-white">
+    <footer className="  w-full flex flex-col lg:items-center  lg:justify-center  bg-[var(--footer-bg)] lg:p-10  text-white">
       <section className="flex flex-col lg:flex-row  lg:justify-center gap-y-6 lg:gap-20">
         <figure className="flex flex-col gap-2">
-          <img
-            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422691/rocktea-product-website/assets/logo_wvpiif.svg"
-            alt=""
-            width={50}
-            height={50}
+        {store.logo ? 
+           <img
+           src={store.logo}
+           alt="logo"
+           width={50}
+           height={50}
+           className="rounded-full"
+           
           />
-          <p>Ambode Mall </p>
+          
+          : <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
+             {store.name?.slice(0,2)}
+          </div>
+}
           <p>84 Aso Villa, President lodge way, Abuja.</p>
         </figure>
         <article className="flex flex-col lg:flex-row  justify-between gap-y-10 lg:gap-20">

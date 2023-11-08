@@ -1,11 +1,33 @@
 //import { useRef } from "react";
 //import { HiOutlineHeart, HiOutlineShoppingBag} from "react-icons/hi2";
+//import axios from "axios";
+//import { useEffect } from "react";
 import { Link } from "react-router-dom";
+//import { useUserProductContext } from "../Hooks/UserProductContext";
 
-export default function ProductCard({ id, image, price, name, oldPrice }) {
+export default function ProductCard({ image, price, name, oldPrice,quantity,productId }) {
+  const isImageAvailable = image && image.trim() !== '';
+ 
+  const currentQuantity = quantity
+  //const [currentQuantity, setCurrentQuantity] = useState(quantity);
+  
+ 
+  // Calculate the percentage based on the currentQuantity
+  const percentage = (currentQuantity / quantity) * 100;
+  // Determine the CSS class and color based on the percentage
+  let progressBarClass = "bg-red-600"; // Default to red
+  if (percentage > 50) {
+    progressBarClass = "bg-green-500"; // Green for over 50%
+  } else if (percentage > 20) {
+    progressBarClass = "bg-orange"; // Orange for 15% to 50%
+  } else if (percentage === 0) {
+    progressBarClass = "bg-gray-400"; // Out of stock (0%)
+  }
+ console.log(progressBarClass)
   return (
     <>
-     <Link to={`/product_details/${id}`}>
+      {isImageAvailable ? (
+     <Link to={`/product_details/${productId}`}>
         <div
          
           className=" hover:scale-[1.01] hover:shadow-md bg-white  hover:transition-all duration-300 ease-in-out overflow-hidden w-[220px]  mt-5 "
@@ -47,7 +69,7 @@ export default function ProductCard({ id, image, price, name, oldPrice }) {
    */}
           </div>
         </div>
-      </Link>
+      </Link> ) : null}
     </>
   );
 }

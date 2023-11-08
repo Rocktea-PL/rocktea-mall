@@ -20,7 +20,10 @@ export default {
         orange:'#ffa500',
         gold:'#C99C00',
         darkblue:'#002440',
-        lightgray:'#f9f9f9'
+        lightgray:'#f9f9f9',
+        blue:'#002440',
+        primary:'#fcfcfc',
+        dashblue:'#00508C'
       },
       fontSize:{
         xsm:'0.8rem',
@@ -33,7 +36,8 @@ export default {
         percentShadow:'0px 4px 4px 0px rgba(0, 0, 0, 0.25);'
       },
       backgroundImage:{
-        'market':'url("https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696399801/rocktea-main-website/assets/About_Us_2_rnw8se.png")'
+        'market':'url("https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696399801/rocktea-main-website/assets/About_Us_2_rnw8se.png")',
+        'range':'linear-gradient(96deg, #1C0132 0.73%, #3F034E 100%)'
       }
     },
   },
