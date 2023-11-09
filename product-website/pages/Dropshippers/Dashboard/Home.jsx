@@ -22,6 +22,7 @@ export default function DashboardHome() {
   const { storeId } = useParams();
   console.log("store", storeId);
 
+  
   localStorage.setItem("storeId", storeId);
 
   return (

@@ -13,6 +13,7 @@ import Notfound from "../Notfound";
 import DropshipperNavbar from "../Features/DropshipperNavbar";
 import Profile from "../../pages/Dropshippers/Dashboard/Profile";
 import ProductDetails from "../components/Market/ProductDetails";
+import { useEffect } from "react";
 
 //import Footer from "../Features/Footer";
 //import Navbar from "../Features/UserNavbar";
@@ -22,8 +23,10 @@ import ProductDetails from "../components/Market/ProductDetails";
 function DropshipperLayout() {
   //const {storeUser} = useStoreContext()
   //const location = useLocation();
-  //let id = localStorage.getItem ('storeId')
-
+ // let id = localStorage.getItem ('storeId')
+ useEffect(() => {
+  localStorage.getItem ('storeId')
+ },[])
   //console.log(id)
   // Check if the current location is the registration route
   /* const hideNavbar =

@@ -30,7 +30,12 @@ function UserLayout() {
     <main>
       {!hideNavbar && <Navbar />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={ <>
+          <ProtectedRoute>
+          <Home />
+          </ProtectedRoute>
+        </>
+       } />
         <Route
           path="/cart"
           element={
