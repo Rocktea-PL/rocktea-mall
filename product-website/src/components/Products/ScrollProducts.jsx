@@ -46,24 +46,26 @@ export default function ScrollProducts({ categoryTitle, products }) {
             ref={scrollRef}
             onScroll={handleScroll}
           >
-            {products.map((item,index) => {
-             // const combinedPrice = item.product.product_variant[0].wholesale_price+ item.product.store_variant[0].retail_price;
-             const combinedPrice = item.product.product_variant.reduce(
-              (totalPrice, productVariant) =>
-                totalPrice + productVariant.wholesale_price,
-              0
-            ) + item.product.store_variant[0].retail_price;
+            {products.map((item, index) => {
+              // const combinedPrice = item.product.product_variant[0].wholesale_price+ item.product.store_variant[0].retail_price;
+              const combinedPrice =
+                item.product.product_variant.reduce(
+                  (totalPrice, productVariant) =>
+                    totalPrice + productVariant.wholesale_price,
+                  0,
+                ) + item.product.store_variant[0].retail_price;
               return (
-              <ProductCard
-                key={index}
-                id={item?.id}
-                productId= {item?.product?.id}
-                image={item.product?.images[0]?.url}
-                name={item.product.name}
-                price={combinedPrice?.toLocaleString()} 
-                oldPrice={item.oldPrice}
-              />
-            )})}
+                <ProductCard
+                  key={index}
+                  id={item?.id}
+                  productId={item?.product?.id}
+                  image={item.product?.images[0]?.url}
+                  name={item.product.name}
+                  price={combinedPrice?.toLocaleString()}
+                  oldPrice={item.oldPrice}
+                />
+              );
+            })}
           </article>
           <button
             onClick={handlePrev}

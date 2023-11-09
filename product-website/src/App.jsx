@@ -4,7 +4,8 @@ import { UserAuthProvider } from "./Hooks/UserAuthContext";
 import { AppProvider } from "./Hooks/Context";
 import Layout from "./routes/Layout";
 import { useEffect, useState } from "react";
-import Loader from "./Features/Loader";
+//import Loader from "./Features/Loader";
+import GlobalLoader from "./Helpers/Loaders/GlobalLoader";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,12 +14,12 @@ function App() {
   useEffect(() => {
     setIsOnline(navigator.onLine);
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 
@@ -47,13 +48,16 @@ function App() {
           <UserProductProvider>
             {isOnline ? ( // Check the network status here
               isLoading ? (
-                <Loader />
+                <GlobalLoader />
               ) : (
                 <Layout />
               )
             ) : (
               <div>
-                <p>Your network connection is bad. Please check your network and try refreshing the page.</p>
+                <p>
+                  Your network connection is bad. Please check your network and
+                  try refreshing the page.
+                </p>
                 <button onClick={refreshPage}>Refresh</button>
               </div>
             )}

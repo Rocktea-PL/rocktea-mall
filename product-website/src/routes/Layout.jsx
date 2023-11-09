@@ -1,5 +1,4 @@
-
-import {  useStoreContext } from "../Hooks/UserAuthContext";
+import { useStoreContext } from "../Hooks/UserAuthContext";
 import DropshipperLayout from "./DropshipperLayout";
 import UserLayout from "./UserLayout";
 
@@ -9,27 +8,25 @@ import UserLayout from "./UserLayout";
 //import { AppProvider } from "../Hooks/Context";
 
 function Layout() {
-  const {storeUser} = useStoreContext()
+  const { storeUser } = useStoreContext();
   //const location = useLocation();
   //let id = localStorage.getItem ('storeId')
 
-
-//console.log(id)
+  //console.log(id)
   // Check if the current location is the registration route
- /* const hideNavbar =
+  /* const hideNavbar =
     location.pathname === '/register/:store_id' ||
     location.pathname === "/login" ||
     location.pathname === "/logout";*/
 
   return (
     <main>
+    { storeUser.is_store_owner === true ? (
+      
+      <DropshipperLayout/>
 
-<DropshipperLayout/>
-    
-  
-   
+   ) :   <UserLayout />} 
     </main>
-    
   );
 }
 

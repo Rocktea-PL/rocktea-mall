@@ -1,5 +1,5 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import '../../styles/Dashboard.css'
+import "../../styles/Dashboard.css";
 import ProfileCompletion from "./ProfileCompletion";
 const fakeData = [
   {
@@ -58,67 +58,59 @@ function OrderStatus() {
   };*/
   return (
     <section className="mt-5 w-full  -ml-1">
-        <ProfileCompletion />
-     <div className="overflow-x-auto">
+      <ProfileCompletion />
+      <div className="overflow-x-auto">
+        <table className="w-full border-spacing-7 border-collapse  ">
+          <tr className="order-table   bg-white mt-5 h-10">
+            <th>Name</th>
+            <th>Tracking ID</th>
+            <th>Cost</th>
+            <th>Payment</th>
+            <th>Date</th>
+            <th> Delivery</th>
+          </tr>
+          <tbody className="">
+            {fakeData.map((item) => (
+              <tr key={item.id} className="table-content   w-full bg-white">
+                <td className="text-center  text-sm md:text-[1rem] ">
+                  {item.client}
+                </td>
+                <td className="text-center  text-sm md:text-[1rem]">
+                  #{item.tracking}
+                </td>
+                <td className="text-center  text-sm md:text-[1rem]">
+                  N{item.price.toFixed(2)}
+                </td>
+                <td
+                  className={`text-center font-semibold  w-[100px] capitalize rounded-lg p-2 text-sm md:text-[1rem] flex items-center justify-center mx-auto gap-5  ${
+                    item.status === "Pending"
+                      ? " text-red-600 my-2 "
+                      : " text-green-700 my-2"
+                  }`}
+                >
+                  {item.status}
+                </td>
+                <td className="text-center p-2 text-sm md:text-[1rem]">
+                  {item.date}
+                </td>
 
-     
-<table className="w-full border-spacing-7 border-collapse  ">
-    <tr className="order-table   bg-white mt-5 h-10">
-        <th>Name</th>
-        <th>Tracking ID</th>
-        <th>Cost</th>
-        <th>Payment</th>
-        <th>Date</th>
-       <th> Delivery</th>
-    </tr>
-    <tbody className="">
-        {fakeData.map((item) => (
-            
-            <tr key ={item.id} className="table-content   w-full bg-white">
- 
-      
-      <td className="text-center  text-sm md:text-[1rem] ">
-                    {item.client}
-                  </td>
-                  <td className="text-center  text-sm md:text-[1rem]">
-                    #{item.tracking}
-                  </td>
-                  <td className="text-center  text-sm md:text-[1rem]">
-                    N{item.price.toFixed(2)}
-                  </td>
-                  <td
-                    className={`text-center font-semibold  w-[100px] capitalize rounded-lg p-2 text-sm md:text-[1rem] flex items-center justify-center mx-auto gap-5  ${
-                      item.status === "Pending"
-                        ? " text-red-600 my-2 "
-                        : " text-green-700 my-2"
-                    }`}
-                  >
-                    {item.status}
-                  </td>
-                  <td className="text-center p-2 text-sm md:text-[1rem]">
-                    {item.date}
-                  </td>
-
-                  <td
-                    className={`text-center font-semibold  w-[100px] capitalize rounded-lg p-2 text-sm md:text-[1rem] flex items-center justify-center mx-auto gap-5  ${
-                      item.deliveryStatus === "pending"
-                        ? " text-red-500 my-2"
-                        : item.deliveryStatus === "enroute"
-                        ? " text-yellow-400 my-2"
-                        : " text-green-700 my-2"
-                    }`}
-                  >
-                    {item.deliveryStatus}
-                  </td>
-     
-                  
-            </tr>
-        ))}
-    </tbody>
-</table>
-</div>
-<div className="bg-white flex items-end justify-end py-7  mt-5 p-5 rounded-lg">
-       
+                <td
+                  className={`text-center font-semibold  w-[100px] capitalize rounded-lg p-2 text-sm md:text-[1rem] flex items-center justify-center mx-auto gap-5  ${
+                    item.deliveryStatus === "pending"
+                      ? " text-red-500 my-2"
+                      : item.deliveryStatus === "enroute"
+                      ? " text-yellow-400 my-2"
+                      : " text-green-700 my-2"
+                  }`}
+                >
+                  {item.deliveryStatus}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="bg-white flex items-end justify-end py-7  mt-5 p-5 rounded-lg">
         <div className="flex items-end gap-x-4 justify-between">
           <span>1/10</span>
           <div className="flex items-center gap-x-3">
@@ -139,8 +131,8 @@ function OrderStatus() {
           </form>
         </div>
       </div>
-      
-{/*
+
+      {/*
 
 <td className=" p-2">
                     <div className="flex items-center justify-center">
@@ -233,7 +225,6 @@ function OrderStatus() {
       </article>
 
 */}
-      
     </section>
   );
 }

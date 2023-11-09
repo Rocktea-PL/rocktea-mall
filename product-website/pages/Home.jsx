@@ -9,15 +9,12 @@ import Products from "../src/components/Home/Products";
 export default function Home() {
   return (
     <>
-    
-   
-    <div className="max-w-[1250px] mx-auto">
-      <Hero />
-      <Categories />
-      <Products />
-      
-    </div>
-    <Footer />
+      <div className="max-w-[1250px] mx-auto">
+        <Hero />
+        <Categories />
+        <Products />
+      </div>
+      <Footer />
     </>
   );
 }

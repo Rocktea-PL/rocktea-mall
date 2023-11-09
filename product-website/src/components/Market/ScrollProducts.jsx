@@ -1,10 +1,10 @@
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import ProductCard from "./ProductCard";
 
 //import ProductCard from "../../Features/ProductCard";
 
-export default function ScrollProducts({ categoryTitle,openModal, products }) {
+export default function ScrollProducts({ categoryTitle, openModal, products }) {
   const scrollRef = useRef(null);
   //const [hovered, setHovered] = useState(false);
   const [scrollAtStart, setScrollAtStart] = useState(true);
@@ -32,7 +32,6 @@ export default function ScrollProducts({ categoryTitle,openModal, products }) {
     }
   };
 
-  
   return (
     <div className="">
       <div className="relative my-5 bg-white shadow-md z-[10] w-auto p-5">
@@ -49,13 +48,12 @@ export default function ScrollProducts({ categoryTitle,openModal, products }) {
             ref={scrollRef}
             onScroll={handleScroll}
           >
-            {products.map((item,index) => (
+            {products.map((item, index) => (
               <ProductCard
                 key={index}
                 id={item?.id}
                 image={item?.images[0]?.url}
                 name={item.name}
-               
                 quantity={item.quantity}
                 oldPrice={item.oldPrice}
                 openModal={openModal}

@@ -11,17 +11,25 @@ import ProfileDropdown from "./Dropdown";
 import { Link, useNavigate } from "react-router-dom";
 import Categories from "./Categories";
 import { useState } from "react";
-//import {useSelector} from 'react-redux'
+import { useSelector } from "react-redux";
+//import { useSelector } from 'react-redux';
+import { selectCartItems, } from "../Redux/CartSlice"; // Make sure the path is correct
+
 import { useStoreContext } from "../Hooks/UserAuthContext";
 import MobileNavbar from "./MobileNavbar";
+//import { useUserProductContext } from "../Hooks/UserProductContext";
 //import { FaRegUser } from 'react-icons/fa;
 const Navbar = () => {
- // const {totalQuantity} = useSelector((state) => state.cart)
+ // const  items   = useSelector((state) => state.cart.items)
+ const cartItems = useSelector(selectCartItems);
+ // const totalQuantity = useSelector(selectTotalQuantity); // Use the selector
   const navigate = useNavigate();
-  const {store} = useStoreContext()
+  const { store } = useStoreContext();
+  //const { cart } = useUserProductContext();
+  const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-
+  console.log(cartItems[0]?.cartQuantity)
   const toggleMobileNav = () => {
     setIsMobileNavOpen(!isMobileNavOpen);
   };
@@ -32,27 +40,30 @@ const Navbar = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  
+
+  const handleSearch = (query) => {
+    navigate(`/search?query=${query}`);
+  };
+
   return (
     <header className="p-3 bg-white shadow-md fixed top-0 w-full z-[999]">
       <nav className="hidden lg:flex items-center justify-between px-5">
-      <div  className="">
-          {store.logo ? 
-           <img
-           src={store?.logo}
-           alt="logo"
-           width={50}
-           height={50}
-           className="rounded-full"
-           
-          />
-          
-          : <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
-             {store.name?.slice(0,2)}
-          </div>
-}
-         </div>
-      
+        <div className="">
+          {store.logo ? (
+            <img
+              src={store?.logo}
+              alt="logo"
+              width={50}
+              height={50}
+              className="rounded-full"
+            />
+          ) : (
+            <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
+              {store.name?.slice(0, 2)}
+            </div>
+          )}
+        </div>
+
         <ul className="flex items-center justify-between gap-5">
           <li className="uppercase tracking-[1px]">
             {" "}
@@ -65,10 +76,15 @@ const Navbar = () => {
             Categories
           </li>
         </ul>
-        <form action="" className="flex items-center gap-4">
+        <form action=""  onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch(searchQuery);
+          }} className="flex items-center gap-4">
           <input
             type="search"
             placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="border border-solid border-[var(--orange)] p-2 rounded-lg outline-none"
           />
           <button className="flex items-center gap-2 bg-[var(--orange)] p-2  rounded-lg">
@@ -77,14 +93,13 @@ const Navbar = () => {
           </button>
         </form>
         <div className="relative flex items-center justify-between gap-3">
-          
           <span
             className=" relative p-2 z-0 text-[1.2rem] cursor-pointer"
             onClick={() => navigate("/cart")}
           >
             <HiOutlineShoppingBag />
             <p className="absolute bg-red-500 w-[15px] flex items-center justify-center rounded-full h-[15px] -top-1 right-0 z-10 text-[12px] text-white">
-              {'0'}
+             {cartItems[0]?.cartQuantity || '0'}
             </p>
           </span>
           <ProfileDropdown />
@@ -92,8 +107,11 @@ const Navbar = () => {
       </nav>
 
       <nav className="block lg:hidden ">
-        <MobileNavbar store={store} isOpen={isMobileNavOpen}
-        toggleMenu={toggleMobileNav} />
+        <MobileNavbar
+          store={store}
+          isOpen={isMobileNavOpen}
+          toggleMenu={toggleMobileNav}
+        />
       </nav>
       {isModalOpen && <Categories closeModal={closeModal} />}
     </header>

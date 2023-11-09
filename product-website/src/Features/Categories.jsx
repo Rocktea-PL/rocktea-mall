@@ -7,7 +7,7 @@ import { useUserProductContext } from "../Hooks/UserProductContext";
 
 const Categories = ({ closeModal }) => {
   // Categories and subcategories data
-const {categoryname} = useUserProductContext()
+  const { categoryname } = useUserProductContext();
   // Add more categories and subcategories as needed
 
   useEffect(() => {
@@ -41,7 +41,9 @@ const {categoryname} = useUserProductContext()
       <div className="modal flex items-center justify-between gap-16 ">
         <div className="w-[100%]">
           <div className="flex items-start justify-between gap-10">
-            <h2 className="text-[1.4rem] font-semibold my-6">{categoryname?.name}</h2>
+            <h2 className="text-[1.4rem] font-semibold my-6">
+              {categoryname?.name}
+            </h2>
             <button className="text-[1rem] font-medium my-6">View all</button>
             <button onClick={closeModal} className="close-button">
               &times;

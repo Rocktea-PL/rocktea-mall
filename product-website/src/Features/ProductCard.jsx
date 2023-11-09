@@ -5,13 +5,19 @@
 import { Link } from "react-router-dom";
 //import { useUserProductContext } from "../Hooks/UserProductContext";
 
-export default function ProductCard({ image, price, name, oldPrice,quantity,productId }) {
-  const isImageAvailable = image && image.trim() !== '';
- 
-  const currentQuantity = quantity
+export default function ProductCard({
+  image,
+  price,
+  name,
+  oldPrice,
+  quantity,
+  productId,
+}) {
+  const isImageAvailable = image && image.trim() !== "";
+
+  const currentQuantity = quantity;
   //const [currentQuantity, setCurrentQuantity] = useState(quantity);
-  
- 
+
   // Calculate the percentage based on the currentQuantity
   const percentage = (currentQuantity / quantity) * 100;
   // Determine the CSS class and color based on the percentage
@@ -23,37 +29,34 @@ export default function ProductCard({ image, price, name, oldPrice,quantity,prod
   } else if (percentage === 0) {
     progressBarClass = "bg-gray-400"; // Out of stock (0%)
   }
- console.log(progressBarClass)
+  console.log(progressBarClass)
   return (
     <>
       {isImageAvailable ? (
-     <Link to={`/product_details/${productId}`}>
-        <div
-         
-          className=" hover:scale-[1.01] hover:shadow-md bg-white  hover:transition-all duration-300 ease-in-out overflow-hidden w-[220px]  mt-5 "
-        >
-          <span className=""></span>
-          <figure className="w-full h-[200px] max-h-[200px] ">
-            <img
-              src={image}
-              alt="Image 1"
-              className="w-full h-full object-cover rounded-t-[0.2rem]"
-            />
-          </figure>
+        <Link to={`/product_details/${productId}`}>
+          <div className=" hover:scale-[1.01] hover:shadow-md bg-white  hover:transition-all duration-300 ease-in-out overflow-hidden w-[220px]  mt-5 ">
+            <span className=""></span>
+            <figure className="w-full h-[200px] max-h-[200px] ">
+              <img
+                src={image}
+                alt="Image 1"
+                className="w-full h-full object-cover rounded-t-[0.2rem]"
+              />
+            </figure>
 
-          <div className="block p-4 -mt-5 rounded-b-lg mx-auto">
-            <p className="font-light whitespace-nowrap truncate text-[1rem] mt-5">
-              {name}
-            </p>
-            <p className="font-semibold">₦{price}</p>
-            <strike className="text-gray-400 text-[12px]">₦{oldPrice}</strike>
-            <div className="relative h-[0.6rem] w-full mt-3 border border-solid border-gray-200 ">
-              <div
-                className="absolute inset-0 bg-orange rounded-sm"
-                style={{ width: "50%" }}
-              ></div>
-            </div>
-            {/*
+            <div className="block p-4 -mt-5 rounded-b-lg mx-auto">
+              <p className="font-light whitespace-nowrap truncate text-[1rem] mt-5">
+                {name}
+              </p>
+              <p className="font-semibold">₦ {price.toLocaleString()}</p>
+              <strike className="text-gray-400 text-[12px]">₦{oldPrice}</strike>
+              <div className="relative h-[0.6rem] w-full mt-3 border border-solid border-gray-200 ">
+                <div
+                  className="absolute inset-0 bg-orange rounded-sm"
+                  style={{ width: "50%" }}
+                ></div>
+              </div>
+              {/*
    <div className="icons-container opacity-0 hover:opacity-100 absolute z-40 inset-0 flex items-center justify-between px-5 transition-opacity delay-200 duration-500 ease-in-out w-auto h-[50px]">
               <span className="text-xl font-bold text-orange bg-gray-100 rounded-md p-1" onClick={() => alert('it is working')}>
                 <HiOutlineHeart />
@@ -67,9 +70,10 @@ export default function ProductCard({ image, price, name, oldPrice,quantity,prod
             </div>
    
    */}
+            </div>
           </div>
-        </div>
-      </Link> ) : null}
+        </Link>
+      ) : null}
     </>
   );
 }
