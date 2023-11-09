@@ -146,12 +146,12 @@ const AppProvider = ({ children }) => {
      
       if (response.user_data.has_store === false) {
         navigate("/store_details");
-        
+    //https://rocktea-mall-product.vercel.app    
 //http://localhost:5174/dashboard/
 //https://users.yourockteamall.com
       } else {
        window.open(
-          `https://rocktea-mall-product.vercel.app/dashboard/${store_id}`,
+          `http://localhost:5174/dashboard/${store_id}`,
           "_self",
         );
       }
