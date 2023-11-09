@@ -251,3 +251,6 @@ border-radius: 50%;
   justify-content: center;
 }
 
+.addCart-increase {
+  fill: radial-gradient(50% 50% at 50% 50%, rgba(217, 217, 217, 0.00) 0%, #E4E4E4 100%);
+}

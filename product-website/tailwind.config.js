@@ -14,7 +14,7 @@ export default {
         'lg':'960px',
         'xl':'1200px',
         'xxl':'1400px',
-        'max-md': {'max': '767px'},
+        'max-md': {'max': '800px'},
       },
       colors:{
         orange:'#ffa500',

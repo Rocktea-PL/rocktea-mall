@@ -279,9 +279,10 @@ const AppProvider = ({ children }) => {
         if (verifyPayment.data.data.status === "success") {
           clearInterval(interval);
           // Stop polling
-        const store_id = localStorage.getItem('id')
-          window.location.href =
-            `http://localhost:5174/dashboard/${store_id}`;
+        //const store_id = localStorage.getItem('id')
+        navigate('/domain_creation')
+          /*window.location.href =
+            `http://localhost:5174/dashboard/${store_id}`;*/
           console.log("Payment verification successful.");
         } else if (verifyPayment.data.data.status === "failed") {
           clearInterval(interval); // Stop polling

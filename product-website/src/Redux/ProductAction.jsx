@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
 // Define your action types
-export const FETCH_PRODUCT_PRICES_REQUEST = 'FETCH_PRODUCT_PRICES_REQUEST';
-export const FETCH_PRODUCT_PRICES_SUCCESS = 'FETCH_PRODUCT_PRICES_SUCCESS';
-export const FETCH_PRODUCT_PRICES_FAILURE = 'FETCH_PRODUCT_PRICES_FAILURE';
+export const FETCH_PRODUCT_PRICES_REQUEST = "FETCH_PRODUCT_PRICES_REQUEST";
+export const FETCH_PRODUCT_PRICES_SUCCESS = "FETCH_PRODUCT_PRICES_SUCCESS";
+export const FETCH_PRODUCT_PRICES_FAILURE = "FETCH_PRODUCT_PRICES_FAILURE";
 
 export const fetchProductPrices = (productId) => {
   return async (dispatch) => {
@@ -11,7 +11,7 @@ export const fetchProductPrices = (productId) => {
 
     try {
       const response = await axios.get(
-        `https://rocktea-mall-api-test.up.railway.app/rocktea/product-variant/?product=${productId}`
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/product-variant/?product=${productId}`,
       );
 
       dispatch({

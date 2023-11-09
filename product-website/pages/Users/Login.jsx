@@ -3,7 +3,6 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useStoreContext } from "../../src/Hooks/UserAuthContext";
 import { Oval } from "react-loader-spinner";
 function Login() {
-
   const {
     credentials,
     setCredentials,
@@ -11,7 +10,7 @@ function Login() {
     store,
     error,
     setError,
-    handleLoginUserSubmit
+    handleLoginUserSubmit,
   } = useStoreContext();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -27,7 +26,6 @@ function Login() {
     });
     setError(updatedErrors);
   };
-  
 
   return (
     <div className="logout flex items-center justify-center h-screen overflow-hidden">
@@ -40,25 +38,25 @@ function Login() {
       </figure>
       <div className="flex flex-col items-center justify-center mx-auto text-center w-full">
         <figure className="mx-auto flex  flex-col items-center justify-center">
-        {store.logo ? 
- <img
- src={store?.logo}
- alt="logo"
- width={50}
- height={50}
- className="w-[50px] h-[50px] rounded-full"
- 
-/>
-: <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
-   {store?.name?.substring(0, 2)}
-</div>
-}
+          {store.logo ? (
+            <img
+              src={store?.logo}
+              alt="logo"
+              width={50}
+              height={50}
+              className="w-[50px] h-[50px] rounded-full"
+            />
+          ) : (
+            <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
+              {store?.name?.substring(0, 2)}
+            </div>
+          )}
           <p className=" capitalize mt-4 font-bold text-[20px]">{store.name}</p>
         </figure>
-         
-       <div className="mt-8"> 
-       <p className="text-[18px] font-medium">Sign in to your account</p>
-            {/*<p className="text-xl mb-4">Continue</p>
+
+        <div className="mt-8">
+          <p className="text-[18px] font-medium">Sign in to your account</p>
+          {/*<p className="text-xl mb-4">Continue</p>
           <button className="border-2 border-solid border-[var(--form-border)]  py-3 px-5 rounded mb-4 flex items-center justify-center gap-7 mx-auto sm:w-[350px]">
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694884400/rocktea-product-website/assets/google.svg"
@@ -87,7 +85,7 @@ function Login() {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 value={credentials.password}
-              onChange={handleInputChange}
+                onChange={handleInputChange}
                 placeholder="Password"
                 className=" border-2 border-solid border-[var(--form-border)] py-2 px-4 rounded w-full outline-none"
               />
@@ -110,27 +108,27 @@ function Login() {
               </a>
             </div>
             <button
-          className="bg-orange flex items-center justify-center mx-auto py-2 px-4 rounded mb-4 mt-3 w-full"
-          onClick={handleLoginUserSubmit}
-          disabled={isLoading}
-        >
-         {isLoading ? (
-                      <Oval
-                        height={30}
-                        width={30}
-                        color="#fff"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                        visible={true}
-                        ariaLabel="oval-loading"
-                        secondaryColor="#f6f6f6"
-                        strokeWidth={7}
-                        strokeWidthSecondary={7}
-                      />
-                    ) : (
-                      "Submit"
-                    )}
-        </button>
+              className="bg-orange flex items-center justify-center mx-auto py-2 px-4 rounded mb-4 mt-3 w-full"
+              onClick={handleLoginUserSubmit}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <Oval
+                  height={30}
+                  width={30}
+                  color="#fff"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="oval-loading"
+                  secondaryColor="#f6f6f6"
+                  strokeWidth={7}
+                  strokeWidthSecondary={7}
+                />
+              ) : (
+                "Submit"
+              )}
+            </button>
             <p>
               Don’t have an account?{" "}
               <a href="/register" className="font-semibold">

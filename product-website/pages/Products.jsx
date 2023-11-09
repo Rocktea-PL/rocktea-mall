@@ -7,7 +7,6 @@ export default function Products() {
     <main className="mt-[5rem] mx-auto max-w-[1250px] ">
       <Hero />
       <ProductFilter />
-     
     </main>
   );
 }

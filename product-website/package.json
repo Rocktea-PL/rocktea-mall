@@ -15,7 +15,9 @@
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.5.1",
     "chart.js": "^4.4.0",
+    "js-cookie": "^3.0.5",
     "jwt-decode": "^3.1.2",
+    "lottie-react": "^2.4.0",
     "paystack": "^2.0.1",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
@@ -32,7 +34,10 @@
     "react-router-dom": "^6.15.0",
     "react-slick": "^0.29.0",
     "react-spinner": "^0.2.7",
-    "slick-carousel": "^1.8.1"
+    "redux-persist": "^4.10.2",
+    "redux-persist-transform-immutable": "^5.0.0",
+    "slick-carousel": "^1.8.1",
+    "swiper": "^11.0.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

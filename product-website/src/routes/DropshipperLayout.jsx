@@ -1,4 +1,4 @@
-import { Routes,Route  } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "../../pages/Home";
 
 import Products from "../../pages/Products";
@@ -24,37 +24,29 @@ function DropshipperLayout() {
   //const location = useLocation();
   //let id = localStorage.getItem ('storeId')
 
-
-//console.log(id)
+  //console.log(id)
   // Check if the current location is the registration route
- /* const hideNavbar =
+  /* const hideNavbar =
     location.pathname === '/register/:store_id' ||
     location.pathname === "/login" ||
     location.pathname === "/logout";*/
 
   return (
     <main>
-
-
-   
-       <DropshipperNavbar /> 
+      <DropshipperNavbar />
       <Routes>
-      <Route path='/' element= {<Home/> }/>
-     <Route path='/products' element= {<Products /> }/>
-     <Route path='/product_details/:id' element= {<ProductDetails/> }/>
-     <Route path='/marketplace/:page' element= {<Marketplace /> }/>  
-      <Route path='/dashboard/:storeId' element= {<DashboardHome/> }/> 
-     <Route path='/dashboard/orders' element= {<Orders/> }/> 
-    <Route path='/dashboard/transactions' element= {<Transactions/> }/>
-    <Route path='/search' element= {<SearchPage/> }/>
-    <Route path='/dashboard/your_profile' element= {<Profile/> }/>
-    <Route path='/*' element ={<Notfound />}/>    
-
-</Routes>
-
-   
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/product_details/:id" element={<ProductDetails />} />
+        <Route path="/marketplace/:page" element={<Marketplace />} />
+        <Route path="/dashboard/:storeId" element={<DashboardHome />} />
+        <Route path="/dashboard/orders" element={<Orders />} />
+        <Route path="/dashboard/transactions" element={<Transactions />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/dashboard/your_profile" element={<Profile />} />
+        <Route path="/*" element={<Notfound />} />
+      </Routes>
     </main>
-    
   );
 }
 

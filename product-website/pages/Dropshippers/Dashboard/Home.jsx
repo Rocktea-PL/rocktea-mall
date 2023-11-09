@@ -18,40 +18,30 @@ import Sidebar from "../../../src/components/Dashboard/Sidebar";
 //import { useEffect } from "react";
 //import { useEffect } from "react";
 
-
 export default function DashboardHome() {
-  const {storeId} = useParams()
-  console.log ('store', storeId)
-  
- 
-    localStorage.setItem('storeId', storeId)
-  
+  const { storeId } = useParams();
+  console.log("store", storeId);
+
+  localStorage.setItem("storeId", storeId);
+
   return (
     <>
-   
-    <main className="flex lg:justify-between gap-20 mt-20 w-full  mx-auto">
-     
-     <Sidebar   />
-  
-      
-    
-    <div className=" block lg:flex lg:relative lg:left-[320px] w-full lg:gap-x-10 lg:w-[80%] px-5">
-        <div className="lg:w-[65%]">
-            <ProfileCompletion />
-        <Cards />
-    <Chart />
-        </div>
-    
-    <div className="lg:w-[28%] lg:mt-5">
-<ProductTracker />
-<BestSelling/>
-    </div>
-    </div>
-    
-   </main>
+      <main className="flex lg:justify-between gap-20 mt-20 w-full  mx-auto">
+        <Sidebar />
 
-    
+        <div className=" block lg:flex lg:relative lg:left-[320px] w-full lg:gap-x-10 lg:w-[80%] px-5">
+          <div className="lg:w-[65%]">
+            <ProfileCompletion />
+            <Cards />
+            <Chart />
+          </div>
+
+          <div className="lg:w-[28%] lg:mt-5">
+            <ProductTracker />
+            <BestSelling />
+          </div>
+        </div>
+      </main>
     </>
-    
-  )
+  );
 }

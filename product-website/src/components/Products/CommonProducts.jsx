@@ -3,6 +3,7 @@ import ProductCard from "../../Features/ProductCard";
 import { product } from "../constant/data";
 
 function CommonProducts() {
+  //console.log(product)
   return (
     <div className="relative mt-10 bg-white p-3 lg:mx-5">
       <h2 className=" font-semibold text-md ">Customer Also Viewed</h2>
