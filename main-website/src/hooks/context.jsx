@@ -151,7 +151,7 @@ const AppProvider = ({ children }) => {
 //https://users.yourockteamall.com
       } else {
        window.open(
-          `http://localhost:5174/dashboard/${store_id}`,
+          `https://rocktea-mall-product.vercel.app/dashboard/${store_id}`,
           "_self",
         );
       }
