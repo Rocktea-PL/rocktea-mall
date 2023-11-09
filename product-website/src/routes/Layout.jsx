@@ -10,7 +10,7 @@ import UserLayout from "./UserLayout";
 function Layout() {
   const { storeUser } = useStoreContext();
   //const location = useLocation();
-  //let id = localStorage.getItem ('storeId')
+  let id = localStorage.getItem ('storeId')
 
   //console.log(id)
   // Check if the current location is the registration route
@@ -21,7 +21,7 @@ function Layout() {
 
   return (
     <main>
-    { storeUser.is_store_owner === true ? (
+    { storeUser.is_store_owner === true &&  id ? (
       
       <DropshipperLayout/>
 
