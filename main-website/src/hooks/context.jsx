@@ -142,16 +142,16 @@ const AppProvider = ({ children }) => {
       const token = response.access;
       localStorage.setItem("accessToken", token);
      
-      let store_id = localStorage.getItem("id");
-     
+      let store_id = response.user_data.store_id
+    // console.log(store_id)
       if (response.user_data.has_store === false) {
         navigate("/store_details");
     //https://rocktea-mall-product.vercel.app    
 //http://localhost:5174/dashboard/
 //https://users.yourockteamall.com
       } else {
-       window.open(
-          `https://rocktea-mall-product.vercel.app/dashboard/${store_id}`,
+      window.open(
+        `https://rocktea-mall-product.vercel.app/dashboard/${store_id}`,
           "_self",
         );
       }
