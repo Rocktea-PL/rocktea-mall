@@ -25,7 +25,7 @@ function DropshipperLayout() {
   //const location = useLocation();
  // let id = localStorage.getItem ('storeId')
  useEffect(() => {
-  localStorage.getItem ('storeId')
+  localStorage.getItem('storeId')
  },[])
   //console.log(id)
   // Check if the current location is the registration route
