@@ -1,7 +1,7 @@
 import { useStoreContext } from "../../../Hooks/UserAuthContext";
 
 export default function ProfileSide() {
-  const { storeUser } = useStoreContext();
+  const { storeUser,store } = useStoreContext();
   return (
     <div className="lg:w-[373px] h-[820px] relative bg-white rounded-xl shadow">
       <div className="left-[54px] top-[43px] absolute text-sky-950 text-2xl font-semibold font-['Poppins'] leading-tight">
@@ -37,6 +37,7 @@ export default function ProfileSide() {
       </div>
       <div className="left-[132px] top-[586px] absolute text-sky-950 text-2xl font-medium font-['Poppins']">
         Store URL
+        <a href={`https://rocktea-mall-product.vercel.app/register/${store.id}`}>Click to share link</a>
       </div>
       <div className="left-[110px] top-[705px] absolute text-sky-950 text-2xl font-medium font-['Poppins']">
         Social Media
