@@ -21,7 +21,7 @@ function Layout() {
 
   return (
     <main>
-    { !storeUser.is_store_owner === true &&  id ? (
+    { storeUser.is_store_owner === true &&  id ? (
       
       <DropshipperLayout/>
 
