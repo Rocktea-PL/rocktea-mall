@@ -1,7 +1,8 @@
 import { useStoreContext } from "../../../Hooks/UserAuthContext";
 
 function YourProfile() {
-  const { storeUser } = useStoreContext();
+  const { storeUser,store } = useStoreContext();
+ // console.log(store)
   return (
     <div>
       <div className="mt-4">
@@ -83,7 +84,7 @@ function YourProfile() {
             <div className="relative">
               <img
                 className=" w-[150px] h-[150px] object-cover rounded-full "
-                src={storeUser.profile_image}
+                src={store?.logo}
                 alt=""
               />
               <div className="absolute bottom-0 right-[8px]  bg-white opacity-[0.9] w-[50px] h-[50px] flex items-center justify-center  rounded-full   cursor-pointer border border-gray-300">
@@ -105,9 +106,9 @@ function YourProfile() {
             </div>
             <div>
               <h4 className="text-md font-semibold">
-                {storeUser.first_name} {storeUser.last_name}
+                {store.name}
               </h4>
-              <h4>{storeUser.email}</h4>
+              <h4>{store.email}</h4>
             </div>
           </div>
 

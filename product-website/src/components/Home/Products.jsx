@@ -9,7 +9,7 @@ import ScrollProducts from "../Products/ScrollProducts";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../Redux/ProductsSlice";
 //import axios from "axios";
-
+import { Oval } from "react-loader-spinner";
 const Products = () => {
   const dispatch = useDispatch();
   const { data, status, error } = useSelector((state) => state.products);
@@ -19,41 +19,29 @@ const Products = () => {
   }, []);
   //console.log(data)
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex items-center justify-center mx-auto mb-5">
+        <Oval
+                  height={40}
+                  width={50}
+                  color="#fff"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="oval-loading"
+                  secondaryColor="orange"
+                  strokeWidth={7}
+                  strokeWidthSecondary={7}
+                />
+      </div>
+    );
   }
   if (status === "failed") {
     return <p>Error: {error}</p>;
   }
 
   console.log();
-  // const {allProducts,setAllProducts,loading,handleGetProductItems} = useUserProductContext()
-  // const [loading, setLoading] = useState(true);
-
-  // const PRODUCT_QUERY_KEY = "products";
-
-  /*const store_id = localStorage.getItem('storeId');
-
-  const { data, status, error } = useQuery('products', async () => {
-
-    const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/marketplace/?store=${store_id}`)
-
-    return response.data
-
-  }, {
-    staleTime: 0, })
-  if (status === 'loading') {
-
-    return <p>Loading...</p>
-
-  }
-  if (status === 'error') {
-
-    return <p>Error: {error.message}</p>
- }
-console.log(data)
-  // Extract category names from the productsByCategory object
-  //const categories = Object.keys(productsByCategory);*/
-
+  
   if (data && data.results) {
     return (
       <section className="mt-5">
@@ -88,18 +76,7 @@ console.log(data)
             />
           );
         })}
-        {/*{allProducts.map((category) => {
-        //const categoryProducts = productsByCategory[category];
-        const categoryTitle = category.category.name
-        //console.log(categoryTitle)
-        return (
-          <ScrollProducts
-            key={category.results.id}
-            products={category.results}
-           categoryTitle= {categoryTitle}
-          />
-        );
-      })}*/}
+        
       </section>
     );
   }

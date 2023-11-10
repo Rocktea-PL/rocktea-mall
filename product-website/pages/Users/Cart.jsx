@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaAngleRight } from "react-icons/fa";
 import CommonProducts from "../../src/components/Products/CommonProducts";
 import Footer from "../../src/Features/Footer";
-import Navbar from "../../src/Features/UserNavbar";
+//import Navbar from "../../src/Features/UserNavbar";
 //import { useUserProductContext } from "../../src/Hooks/UserProductContext";
 import { useSelector } from "react-redux";
 import { selectCartItems,setRemoveItemFromCart,setDecreaseItemQuantity,setIncreaseItemQuantity } from "../../src/Redux/CartSlice";
@@ -53,7 +53,7 @@ console.log(cart)*/
 
   return (
     <>
-      <Navbar />
+      
       <section className="">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1 mb-4">
