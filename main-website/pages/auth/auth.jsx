@@ -1,5 +1,5 @@
 // auth.js
-import { toast } from "react-hot-toast";
+//import { toast } from "react-hot-toast";
 import axios from "axios";
 
 const API_URL = "https://rocktea-mall-api-test.up.railway.app";
@@ -16,11 +16,11 @@ export const register = async (userData) => {
     return response.data;
   } catch (error) {
     console.log(error.response.data);
-    if ({ error } || error.response.data.password) {
+    /*if ({ error } || error.response.data.password) {
       toast.error(
         "Password must include at least one special symbol, one lowercase letter, and one uppercase letter.",
       );
-    }
+    }*/
     throw error.response.data;
     // Handle registration errors here
   }

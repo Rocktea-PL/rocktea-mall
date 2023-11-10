@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 //import axios from "axios";
 //import { Step1, Step2 } from "../../src/Users/UserSignupForm";
@@ -14,10 +14,10 @@ import { useStoreContext } from "../../src/Hooks/UserAuthContext";
 function Signup() {
   const navigate = useNavigate();
   const { store } = useStoreContext();
-  //const {store_id} = useParams()
+  const {store_id} = useParams()
   const { loading, formData, setFormData, error, setError, handleUserForm } =
     useGlobalContext();
-  //// localStorage.setItem('storeId', store_id)
+   localStorage.setItem('storeUid', store_id)
   // const [showAdditionalFields, setShowAdditionalFields] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   //const [step, setStep] = useState(1);

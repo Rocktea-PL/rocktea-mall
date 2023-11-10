@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useStoreContext } from "../../src/Hooks/UserAuthContext";
 import { Oval } from "react-loader-spinner";
+import { Link } from "react-router-dom";
+
 function Login() {
   const {
     credentials,
@@ -12,6 +14,8 @@ function Login() {
     setError,
     handleLoginUserSubmit,
   } = useStoreContext();
+
+const store_id = localStorage.getItem('storeUid')
   const [showPassword, setShowPassword] = useState(false);
 
   const handlePasswordVisibility = () => {
@@ -131,9 +135,9 @@ function Login() {
             </button>
             <p>
               Don’t have an account?{" "}
-              <a href="/register" className="font-semibold">
+              <Link to={`/register/${store_id}`} className="font-semibold">
                 Sign Up
-              </a>
+              </Link>
             </p>
           </form>
         </div>

@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom'
 function Waiting() {
-    let store_id = localStorage.getItem('id')
+   // let store_id = localStorage.getItem('id')
     return (
         <div className="flex items-center gap-16 h-screen">
             <div className=" hidden lg:flex relative">
@@ -28,7 +28,7 @@ within the next 72hrs. </p>
 <Link to='/'>
 <button className="w-[200px] text-blue h-14 bg-orange rounded-lg">Home</button>
 </Link>
-<Link to={ `http://localhost:5174/dashboard/${store_id}`}>
+<Link to='/login'>
 <button className="w-[200px] text-blue h-14 bg-orange rounded-lg mt-5">Demo</button>
 </Link>
         </article>

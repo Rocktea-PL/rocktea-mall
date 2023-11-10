@@ -17,12 +17,12 @@ import Navbar from "../Features/UserNavbar";
 function UserLayout() {
   //const {storeUser} = useStoreContext()
   const location = useLocation();
-  //let id = localStorage.getItem ('storeId')
+  let id = localStorage.getItem ('storeUid')
 
   //console.log(id)
   // Check if the current location is the registration route
   const hideNavbar =
-    location.pathname === "/register" ||
+    location.pathname === `/register/${id}` ||
     location.pathname === "/login" ||
     location.pathname === "/logout";
 
@@ -53,7 +53,7 @@ function UserLayout() {
           }
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Signup />} />
+        <Route path="/register/:store_id" element={<Signup />} />
         <Route
           path="/profile"
           element={
