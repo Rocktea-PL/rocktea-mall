@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "../../styles/Dashboard.css";
 import { useStoreContext } from "../../Hooks/UserAuthContext";
 //import {FaUser} from 'react-icons/fa'
@@ -40,6 +40,7 @@ export default function Sidebar() {
       <div>
         <h4 className="text-blue text-[18px] px-3 mt-3">Settings</h4>
         <ul className="sidebar-list flex flex-col gap-y-3 mt-5">
+          <Link to='/dashboard/your_profile'>
           <li>
             <span>
               <svg
@@ -61,6 +62,8 @@ export default function Sidebar() {
             </span>
             Profile
           </li>
+          </Link>
+          
           <li>
             {" "}
             <span>
