@@ -1,5 +1,5 @@
 import { useStoreContext } from "../Hooks/UserAuthContext";
-import Notfound from "../Notfound";
+//import Notfound from "../Notfound";
 import DropshipperLayout from "./DropshipperLayout";
 import UserLayout from "./UserLayout";
 
@@ -26,7 +26,7 @@ function Layout() {
       <DropshipperLayout />
     ) : id && !storeUser.is_store_owner ? (
       <UserLayout />
-    ) : <Notfound />}
+    ) : <DropshipperLayout /> }
   </main>
   );
 }
