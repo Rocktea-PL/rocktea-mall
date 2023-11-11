@@ -1,4 +1,5 @@
 import { useStoreContext } from "../Hooks/UserAuthContext";
+import Notfound from "../Notfound";
 import DropshipperLayout from "./DropshipperLayout";
 import UserLayout from "./UserLayout";
 
@@ -8,7 +9,7 @@ import UserLayout from "./UserLayout";
 //import { AppProvider } from "../Hooks/Context";
 
 function Layout() {
-  const { storeUser } = useStoreContext();
+ const { storeUser } = useStoreContext();
   //const location = useLocation();
   let id = localStorage.getItem ('storeId')
 
@@ -21,12 +22,12 @@ function Layout() {
 
   return (
     <main>
-    { storeUser.is_store_owner === true &&  id ? (
-      
-      <DropshipperLayout/>
-
-   ) :   <UserLayout />} 
-    </main>
+    {id && storeUser.is_store_owner ? (
+      <DropshipperLayout />
+    ) : id && !storeUser.is_store_owner ? (
+      <UserLayout />
+    ) : <Notfound />}
+  </main>
   );
 }
 

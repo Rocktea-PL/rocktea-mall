@@ -166,7 +166,7 @@ export const UserAuthProvider = ({ children }) => {
     setIsStoreOwner(is_owner);
   }, []);
 
-  console.log(isStoreOwner);
+  console.log('storeee', storeId);
   return (
     <StoreContext.Provider
       value={{
