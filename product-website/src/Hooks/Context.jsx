@@ -64,7 +64,7 @@ const AppProvider = ({ children }) => {
     e.preventDefault();
     setLoading(true);
 
-    const store_id = localStorage.getItem("storeUid");
+    const store_id = localStorage.getItem("storeId");
     formData.associated_domain = store_id;
     try {
       const headers = {

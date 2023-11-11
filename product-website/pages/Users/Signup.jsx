@@ -15,9 +15,10 @@ function Signup() {
   const navigate = useNavigate();
   const { store } = useStoreContext();
   const {store_id} = useParams()
+  console.log('register id', store_id)
   const { loading, formData, setFormData, error, setError, handleUserForm } =
     useGlobalContext();
-   localStorage.setItem('storeUid', store_id)
+   localStorage.setItem('storeId', store_id)
   // const [showAdditionalFields, setShowAdditionalFields] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   //const [step, setStep] = useState(1);
