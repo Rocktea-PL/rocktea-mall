@@ -38,7 +38,7 @@ export default function ProfileSide() {
       </div>
       <div className="left-[132px] top-[586px] absolute text-sky-950 text-2xl font-medium font-['Poppins']">
         Store URL <br />
-        <a href={`http://localhost:5174/register/${store_id}`} rel="noreferrer noopener" target="_blank" >Click to share link</a>
+        <a href={`https://rocktea-mall-product.vercel.app/register/${store_id}`} rel="noreferrer noopener" target="_blank" >Click to share link</a>
       </div>
       <div className="left-[110px] top-[705px] absolute text-sky-950 text-2xl font-medium font-['Poppins']">
         Social Media
