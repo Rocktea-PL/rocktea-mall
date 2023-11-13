@@ -28,9 +28,9 @@ console.log(price)
   // Define a function to fetch product details
   const fetchProductDetails = async () => {
     const response = await axios.get(
-      `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/?id=${id}`,
+      `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${id}`,
     );
-    return response.data[0];
+    return response.data.product_data;
   };
   const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
   // Use React Query's useQuery to fetch product details

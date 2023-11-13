@@ -8,7 +8,7 @@ import "../../../src/styles/profile.css";
 
 export default function Profile() {
   return (
-    <div className="bg-gray-50">
+    <div className="">
       <Navbar />
       <section className="flex   gap-3 items-start  max-w-[1300px] mx-auto mb-5">
         <ProfileSidebar />

@@ -6,7 +6,7 @@
 //import ProductTracker from "../../../src/Dropshippers/components/Dashboard/ProductTracker";
 //import ProfileCompletion from "../../../src/Dropshippers/components/Dashboard/ProfileCompletion";
 //import Sidebar from "../../../src/Dropshippers/components/Dashboard/Sidebar";
-import { useParams } from "react-router-dom";
+//import { useParams } from "react-router-dom";
 //import Footer from "../../../src/Features/Footer";
 //import Navbar from "../../../src/Features/UserNavbar";
 import BestSelling from "../../../src/components/Dashboard/BestSelling";
@@ -16,16 +16,19 @@ import ProductTracker from "../../../src/components/Dashboard/ProductTracker";
 import ProfileCompletion from "../../../src/components/Dashboard/ProfileCompletion";
 import Sidebar from "../../../src/components/Dashboard/Sidebar";
 //import { useEffect } from "react";
-import { useEffect } from "react";
+//import { useEffect } from "react";
+//import { useUserRoleContext } from "../../../src/Hooks/getRoleContext";
 
 export default function DashboardHome() {
-  const { storeId } = useParams();
-  
+ /* const { storeId } = useParams();
+ // const { setRole } = useUserRoleContext();
   useEffect(() => {
     localStorage.setItem("storeId", storeId);
+    localStorage.setItem('userRole', 'dropshipper');
+   // setRole('dropshipper');
     console.log("store stuff", storeId);
    },[])
-  
+  */
 
   return (
     <>

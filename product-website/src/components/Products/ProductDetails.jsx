@@ -1,36 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Footer from "../../Features/Footer";
 import CommonProducts from "../Products/CommonProducts";
 import { useDispatch } from "react-redux";
-import { useQuery } from "react-query";
+//import { useQuery } from "react-query";
 //import SizeModal from "../Modals/SizeModal";
 
 import {
-  addToCart,
+  addToCart, setGetTotalAmount,
  
   
 } from "../../Redux/CartSlice";
 import toast from "react-hot-toast";
 import Thumbnails from "../../Helpers/Thumbnails";
-import {  useUserProductContext } from "../../Hooks/UserProductContext";
+//import {  useUserProductContext } from "../../Hooks/UserProductContext";
 //import { useUserProductContext } from "../../Hooks/UserProductContext";
 //import toast from "react-hot-toast";
-const ProductDetails = () => {
-  const { id } = useParams();
+const UserProductDetails = () => {
+  const { productId } = useParams();
   const dispatch = useDispatch();
-  const {price} = useUserProductContext()
-  
-  const [selectedPrice, setSelectedPrice] = useState(null);
+  //const {price} = useUserProductContext()
+  const [productDet,setProductDet] =useState() 
+  //const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
-  const [variantData, setVariantData] = useState([]);
+  const [variantData, setVariantData] = useState();
  // const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(selectedSize);
-console.log(price)
+ // console.log(selectedSize);
+//console.log(price)
   // Define a function to fetch product details
-  const fetchProductDetails = async () => {
+  /*const fetchProductDetails = async () => {
     const response = await axios.get(
       `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/?id=${id}`,
     );
@@ -58,12 +58,12 @@ console.log(price)
     return <p>Error: {error}</p>;
   }
   console.log("product data", productDet);
-  let Total;
-  const fetchVariantData = async (size) => {
+ // let Total;
+ /* const fetchVariantData = async (size) => {
     if (productDet && productDet.product_variants) {
       // Use the API to fetch variant data for the selected size
       try {
-        const store_id = localStorage.getItem("storeId");
+        const store_id = localStorage.getItem("storeUid");
         const response = await axios.get(
           `https://rocktea-mall-api-test.up.railway.app/rocktea/store-variant/?product=${productDet.id}&size=${size}&store=${store_id}`,
         );
@@ -81,38 +81,92 @@ console.log(price)
       }
     }
   };
+*/
+const fetchProductDetails = async () => {
+  try {
+    const response = await axios.get(
+      `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${productId}`
+    );
+    console.log(response.data)
+    const product =  response.data.product_data;
+   
+    setProductDet(product)
+  } catch (error) {
+    console.error("Error fetching product details:", error);
+    throw error;
+  }
+};
 
- 
+const variant = productDet?.product_variants.map((item) => item.id)
+
+const fetchProductvariants = async (variantId) => {
+  const store_id = localStorage.getItem("storeUid");
+  try {
+    const response = await axios.get(
+      `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${productId}?variant=${variantId}&store=${store_id}`
+    );
+    console.log(response.data)
+    const product =  response.data;
+   
+    setVariantData(product)
+  } catch (error) {
+    console.error("Error fetching product details:", error);
+    throw error;
+  }
+};
+
+useEffect(() => {
+  fetchProductDetails()
+  
+},[])
   //fetchVariantData()
 
+  //rocktea/product-details/e97c9489-110b-497f-b06f-71432fe8f5b4?variant=3&store=ce2208cf-6f56-4d28-b9c5-ac76f06e69db
 
+  //const variant = productDet?.product_variants.map((item) => item.id)
   
-  const handleAddToCart = (product) => {
-    if (productDet) {
-      // Update the quantity in the Redux store
-    //  let item = { ...product, quantity: 1 };
+  console.log(variant)
+  /*const handleAddToCart = (product) => {
+    if (!selectedSize) {
+     toast.error('Please select a size before adding to cart.');
+      return;
+    }
+    if (variantData ) {
+     
       dispatch(addToCart(product));
   
-      // console.log("Product", product);
-      //const updatedCart = [...cartItems,quantity];
-     // localStorage.setItem("cart", JSON.stringify(product));
-      //toast.success("Item Added Successfully");
+      
     } else {
       toast.error("Product details are not available.");
     }
   };
+  */
+
+  const handleAddToCart = (productDet, selectedSize) => {
+    if (!selectedSize) {
+       toast.error("Please select a size before adding to cart.");
+       return;
+    }
+ 
+    if (variantData) {
+       dispatch(addToCart({ product: productDet, selectedSize }));
+       dispatch(setGetTotalAmount()); 
+    } else {
+       toast.error("Product details are not available.");
+    }
+ };
+ 
   
   
-  
-  const handleSizeClick = (size,price) => {
+  const handleSizeClick = (size,price,variantId) => {
     setSelectedSize(size);
    // setIsModalOpen(true);
-    fetchVariantData(size);
-    setSelectedPrice(price);
+   fetchProductvariants(variantId)
+    //setSelectedPrice(price);
   };
-  
-
-  console.log(productDet.product_variants[0].wholesale_price)
+  console.log(selectedSize)
+console.log(productDet)
+ // console.log(productDet.product_variants[0].wholesale_price)
   return (
     <>
       <section className="relative mt-20 px-10 lg:px-0 max-w-[1300px] m-auto">
@@ -146,8 +200,8 @@ console.log(price)
             </p>
             <p className="font-bold my-2 text-lg">
              
-              ₦{" "}
-              {selectedSize ?  parseFloat(selectedPrice).toLocaleString() : parseFloat(productDet.product_variants[0].wholesale_price).toLocaleString()}
+              ₦ {" "}
+             
             </p>
 
             <p className="text-gray-300 my-2">
@@ -163,7 +217,7 @@ console.log(price)
                 <button
                   key={index}
                   className={ `border border-solid border-[var(--orange)] rounded-md px-3 py-1 ${item.size === selectedSize && 'bg-orange '}`}
-                  onClick={() => handleSizeClick(item.size,item.wholesale_price)}
+                  onClick={() => handleSizeClick(item.size,item.wholesale_price,item.id)}
                 >
                   {item?.size}
                 </button>
@@ -172,8 +226,9 @@ console.log(price)
             <div className="flex items-center  gap-5">
              
              <button
-               onClick={() => handleAddToCart(productDet,selectedPrice)}
-               className="bg-orange  p-3 text-sm rounded-md "
+               onClick={() => handleAddToCart(variantData,selectedSize)}
+               className={`${!selectedSize ? 'bg-orange opacity-60' : 'bg-orange '}  p-3 text-sm rounded-md`}
+              disabled={!selectedSize}
              >
                Add to Cart
              </button>
@@ -264,7 +319,7 @@ console.log(price)
   );
 };
 
-export default ProductDetails;
+export default UserProductDetails;
 
 /**
  *  {isModalOpen && (

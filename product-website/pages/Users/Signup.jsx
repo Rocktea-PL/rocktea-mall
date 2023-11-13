@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 //import axios from "axios";
@@ -9,16 +9,26 @@ import { Oval } from "react-loader-spinner";
 import { UserSignupForm } from "../../src/components/Forms/UserSignupForm";
 import { useGlobalContext } from "../../src/Hooks/Context";
 import { useStoreContext } from "../../src/Hooks/UserAuthContext";
+//import { useUserRoleContext } from "../../src/Hooks/getRoleContext";
 
 //import { useGlobalContext } from "../../src/hooks/context";
 function Signup() {
   const navigate = useNavigate();
   const { store } = useStoreContext();
   const {store_id} = useParams()
+ // const { setRole } = useUserRoleContext();
   console.log('register id', store_id)
   const { loading, formData, setFormData, error, setError, handleUserForm } =
     useGlobalContext();
-   localStorage.setItem('storeId', store_id)
+    useEffect(() => {
+      // Set store_id in local storage when the component mounts
+      localStorage.setItem("storeUid", store_id);
+      //setRole('user');
+     localStorage.setItem('userRole', 'user');
+      console.log('rendered')
+      console.log("user store stuff", store_id);
+    }, []);
+    console.log(store_id)
   // const [showAdditionalFields, setShowAdditionalFields] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   //const [step, setStep] = useState(1);

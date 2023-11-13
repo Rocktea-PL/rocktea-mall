@@ -1,5 +1,5 @@
 //import Footer from "../../../src/Features/Footer";
-import Navbar from "../../../src/Features/UserNavbar";
+//import Navbar from "../../../src/Features/UserNavbar";
 import Cards from "../../../src/components/Dashboard/Cards";
 import Chart from "../../../src/components/Dashboard/NewChart";
 import ProfileCompletion from "../../../src/components/Dashboard/ProfileCompletion";
@@ -9,7 +9,7 @@ import Transaction from "../../../src/components/Dashboard/Transaction";
 export default function Transactions() {
   return (
     <>
-      <Navbar />
+    
       <main className="flex mt-20 ">
         <Sidebar />
 

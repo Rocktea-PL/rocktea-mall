@@ -16,6 +16,7 @@ const dropdown = [
     id: 1,
     title: "Settings",
     icon: <RiSettings4Fill />,
+    link:'/profile'
   },
   {
     id: 2,
@@ -43,7 +44,7 @@ const dropdown = [
 const ProfileDropdown = () => {
   const { logOut, userData } = useStoreContext();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const userAccess = localStorage.getItem("accessToken");
+  //const userAccess = localStorage.getItem("accessToken");
   //const [logOut, setLogOut] = useState(false);
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -68,7 +69,7 @@ const ProfileDropdown = () => {
       </div>
       {isDropdownOpen && (
         <>
-          {userAccess ? (
+          
             <div
               className="origin-top-right py-3 absolute -right-5 top-12 mt-2 w-[12rem] rounded-md shadow-lg bg-white  focus:outline-none"
               role="menu"
@@ -96,7 +97,15 @@ const ProfileDropdown = () => {
                 </>
               ))}
             </div>
-          ) : (
+          
+        </>
+      )}
+    </>
+  );
+};
+
+export default ProfileDropdown;
+/** : (
             <div
               className="origin-top-right py-3 absolute -right-5 top-12 mt-2 w-[12rem] rounded-md shadow-lg bg-white  focus:outline-none"
               role="menu"
@@ -120,11 +129,4 @@ const ProfileDropdown = () => {
                 </button>
               </Link>
             </div>
-          )}
-        </>
-      )}
-    </>
-  );
-};
-
-export default ProfileDropdown;
+          )} */

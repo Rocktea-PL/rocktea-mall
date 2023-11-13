@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import ProductCard from "../../Features/ProductCard";
 import "./index.css";
-export default function ScrollProducts({ categoryTitle, products }) {
+import { Link } from "react-router-dom";
+export default function ScrollProducts({ categoryTitle, products,subCategory }) {
   const scrollRef = useRef(null);
   //const [hovered, setHovered] = useState(false);
   const [scrollAtStart, setScrollAtStart] = useState(true);
@@ -30,16 +31,20 @@ export default function ScrollProducts({ categoryTitle, products }) {
     }
   };
 
+  //console.log('subcategory',subCategory)
+  const decodedSubCategory = decodeURIComponent(subCategory);
   return (
     <div className="">
       <div className="relative w-full mt-5 bg-white z-[10] p-5">
         <h2 className="font-semibold text-md lg:text-2xl">{categoryTitle}</h2>
+        <Link to={`/shop/${decodedSubCategory}`}>
         <span
           className="absolute top-5 lg:top-5 right-5 text-right flex items-center gap-2 text-[var(--orange)] cursor-pointer"
-          onClick={() => alert("yesss")}
+        
         >
           See All <FaAngleRight />
         </span>
+        </Link>
         <div className="relative">
           <article
             className={`flex  overflow-x-scroll gap-2 scroll-smooth`}

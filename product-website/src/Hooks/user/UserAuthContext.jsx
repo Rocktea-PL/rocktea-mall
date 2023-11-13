@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 const StoreContext = createContext();
 
-export const useStoreContext = () => {
+export const useStoreUserContext = () => {
   return useContext(StoreContext);
 };
 
@@ -32,7 +32,7 @@ export const UserAuthProvider = ({ children }) => {
 
   const handleLoginUserSubmit = async (e) => {
     e.preventDefault();
-    let store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+    let store_id = localStorage.getItem("storeUid");
 
     try {
       setIsLoading(true);
@@ -67,7 +67,7 @@ export const UserAuthProvider = ({ children }) => {
     } catch (error) {
       setError(error); // Handle login error
       console.error("Login error:", error);
-      toast.error("Invalid credentials. Please try again.", error.response.data.detail);
+      toast.error("Invalid credentials. Please try again.", error);
       //cogoToast.success("Log in Failed. Check you Details");
     } finally {
       setIsLoading(false); // Set loading state back to false after the request is complete
@@ -100,7 +100,7 @@ export const UserAuthProvider = ({ children }) => {
 */
 
   const getStoreDetails = async () => {
-    const store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+    const store_id = localStorage.getItem("storeUid");
     try {
       const response = await axios.get(
         `https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/${store_id}`,
@@ -159,14 +159,14 @@ export const UserAuthProvider = ({ children }) => {
     getUserDetails();
     getStoreProfile();
 
-    const store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+    const store_id = localStorage.getItem("storeUid");
     setStoreId(store_id);
     console.log("store owner id", store_id);
    // const is_owner = localStorage.getItem("storeOwner");
     ///setIsStoreOwner(is_owner);
   }, []);
 
-  
+  console.log('storeee', storeId);
   return (
     <StoreContext.Provider
       value={{

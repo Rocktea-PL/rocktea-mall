@@ -1,76 +1,147 @@
+import { IoIosCopy, IoIosShareAlt } from "react-icons/io";
 import { useStoreContext } from "../../../Hooks/UserAuthContext";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ProfileSide() {
   const { storeUser } = useStoreContext();
  const store_id = localStorage.getItem('storeId')
+ const [isLinkCopied, setIsLinkCopied] = useState(false);
+ const [profileCompletion, setProfileCompletion] = useState(0);
+
+  const storeUrl = `https://rocktea-mall-product.vercel.app/register/${store_id}`;
+
+  const copyLinkToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(storeUrl);
+      setIsLinkCopied(true);
+      toast.success('Link copied Successfully')
+    } catch (error) {
+      console.error('Error copying to clipboard', error);
+    }
+  };
+
+  const shareLink = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Check out my store !',
+        text: 'Explore amazing products in my store',
+        url: storeUrl,
+      })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.error('Error sharing', error));
+    } else {
+      // Fallback for browsers that do not support the Share API
+      console.log('Share API not supported');
+    }
+  };
+  useEffect(() => {
+    // Calculate the percentage of the profile completed
+    const calculateProfileCompletion = () => {
+      const totalFields = 4; // Update with the total number of profile fields
+      let filledFields = 0;
+
+      // Check each field and increment filledFields if it's filled
+      if (storeUser.profile_image) filledFields += 1;
+      // Add similar checks for other fields
+
+      const percentage = (filledFields / totalFields) * 100;
+      setProfileCompletion(percentage.toFixed(0));
+    };
+
+    calculateProfileCompletion();
+  }, [storeUser]);
   return (
-    <div className="lg:w-[373px] h-[820px] relative bg-white rounded-xl shadow">
-      <div className="left-[54px] top-[43px] absolute text-sky-950 text-2xl font-semibold font-['Poppins'] leading-tight">
+    <div className="lg:w-[373px] h-[820px] relative bg-white rounded-xl  px-16 py-5">
+       
+      <div className=" text-sky-950 text-[22px] my-5 font-semibold font-['Poppins'] leading-tight">
         Complete your profile
       </div>
-      <div className="left-[39px] top-[290px] absolute justify-start items-center gap-5 inline-flex">
-        <div className="px-[9px] py-[11px] flex-col justify-center items-center gap-2.5 inline-flex" />
-        <div className="text-sky-950 text-[22px] font-medium font-['Poppins']">
-          Personal Information
+      <div
+  className="flex items-center justify-center mx-auto mb-5"
+  style={{
+    width: "150px",
+    height: "150px",
+    borderRadius: "50%",
+    background: `
+      radial-gradient(closest-side, white 79%, transparent 80% 100%),
+      conic-gradient(orange ${profileCompletion}%, rgb(235, 235, 235) 0)
+    `,
+  }}
+>
+
+  <progress
+    value={profileCompletion}
+    min="0"
+    max="100"
+    style={{ visibility: "hidden", height: 0, width: 0 }}
+  >
+    {`${profileCompletion}%`}
+  </progress>
+
+  <div>
+    <p className="font-semibold capitalize">{`${profileCompletion}%`} <br/> complete</p>
+  </div>
+</div>
+      <article className="flex flex-col gap-y-10">
+      <div className="text-sky-950 text-[20px] whitespace-nowrap font-medium font-['Poppins'] flex items-center gap-x-2">
+        <span><svg xmlns="http://www.w3.org/2000/svg" width="28" height="23" viewBox="0 0 32 23" fill="none">
+  <path d="M2 9L10 19.5C11.3333 14.6667 17.2 4.4 30 2" stroke="#00AE00" strokeOpacity="0.85" strokeWidth="3" strokeLinecap="round"/>
+</svg></span> Personal Information
         </div>
-      </div>
-      <div className="left-[39px] top-[357px] absolute justify-start items-center gap-5 inline-flex">
-        <div className="px-[9px] py-[11px] flex-col justify-center items-center gap-2.5 inline-flex" />
-        <div className="text-sky-950 text-[22px] font-medium font-['Poppins']">
-          Store Details
+        <div className="text-sky-950 text-[20px] font-medium font-['Poppins'] flex items-center gap-x-2">
+        <span><svg xmlns="http://www.w3.org/2000/svg" width="28" height="23" viewBox="0 0 32 23" fill="none">
+  <path d="M2 9L10 19.5C11.3333 14.6667 17.2 4.4 30 2" stroke="#00AE00" strokeOpacity="0.85" strokeWidth="3" strokeLinecap="round"/>
+</svg></span> Store Details
         </div>
-      </div>
-      <div className="left-[39px] top-[424px] absolute justify-start items-center gap-7 inline-flex">
-        <div className="px-[9px] py-[11px] flex-col justify-center items-center gap-2.5 inline-flex">
-          <div className="w-5 h-[23.50px] relative"></div>
+        <div className="text-sky-950 text-[20px] font-medium font-['Poppins'] flex items-center gap-x-2">
+        <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="23" viewBox="0 0 24 27" fill="none">
+  <path d="M20.5 2.5C14.8333 12.5 7.2 23 2 25" stroke="#F81000" strokeWidth="3" strokeLinecap="round"/>
+  <path d="M5 2C10.6667 12 16.8 23.5 22 25.5" stroke="#F81000" strokeWidth="3" strokeLinecap="round"/>
+</svg></span> Bank Details
         </div>
-        <div className="text-sky-950 text-[22px] font-medium font-['Poppins']">
-          Bank Details
+        <div className="text-sky-950 text-[20px] font-medium font-['Poppins'] flex items-center gap-x-2">
+        <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="23" viewBox="0 0 24 27" fill="none">
+  <path d="M20.5 2.5C14.8333 12.5 7.2 23 2 25" stroke="#F81000" strokeWidth="3" strokeLinecap="round"/>
+  <path d="M5 2C10.6667 12 16.8 23.5 22 25.5" stroke="#F81000" strokeWidth="3" strokeLinecap="round"/>
+</svg></span> Social Media
         </div>
-      </div>
-      <div className="left-[39px] top-[497px] absolute justify-start items-center gap-7 inline-flex">
-        <div className="px-[9px] py-[11px] flex-col justify-center items-center gap-2.5 inline-flex">
-          <div className="w-5 h-[23.50px] relative"></div>
+        <div>
+        <div className="text-sky-950 text-[20px] mb-3 font-medium font-['Poppins'] flex  items-center gap-x-2">
+        Store Url
         </div>
-        <div className="text-sky-950 text-[22px] font-medium font-['Poppins']">
-          Social Media
+        <div className="flex items-center gap-2">
+          <p className="shadow-lg truncate p-2 border max-w-[70%] border-gray-300 rounded-md">
+            {storeUrl}
+          </p>
+          <IoIosCopy
+            className={`text-[20px] cursor-pointer ${
+              isLinkCopied ? 'text-green-500' : ''
+            }`}
+            onClick={copyLinkToClipboard}
+          />
+          <IoIosShareAlt
+            className="text-[20px] cursor-pointer"
+            onClick={shareLink}
+          />
         </div>
-      </div>
-      <div className="left-[132px] top-[586px] absolute text-sky-950 text-2xl font-medium font-['Poppins']">
-        Store URL <br />
-        <a href={`https://rocktea-mall-product.vercel.app/register/${store_id}`} rel="noreferrer noopener" target="_blank" >Click to share link</a>
-      </div>
-      <div className="left-[110px] top-[705px] absolute text-sky-950 text-2xl font-medium font-['Poppins']">
-        Social Media
-      </div>
-      <div className="left-[46px] top-[623px] absolute justify-start items-center gap-5 inline-flex">
+        </div>
         
-        <div className="w-8 h-8 relative" />
-        <div className="w-8 h-8 relative">
-          <div className="w-8 h-8 left-0 top-0 absolute"></div>
-        </div>
-      </div>
-      <div className="w-[203px] h-[204px] left-[86px] top-[86px] absolute">
+       
+      </article>
+    </div>
+  );
+}
+/**
+ * <div className="w-[203px] h-[204px] left-[86px] top-[86px] absolute">
         <img
           src={storeUser.profile_image}
           className="rounded-full w-[150px] h-[150px]"
           alt=""
         />
       </div>
-      <div className="left-[64px] top-[754px] absolute justify-start items-start gap-10 inline-flex">
-        <div className="w-8 h-8 relative">
-          <div className="w-8 h-8 left-0 top-0 absolute"></div>
-        </div>
-        <div className="w-8 h-8 relative">
-          <div className="w-8 h-8 left-0 top-0 absolute"></div>
-        </div>
-        <div className="w-8 h-8 relative">
-          <div className="w-8 h-8 left-0 top-0 absolute"></div>
-        </div>
-        <div className="w-8 h-8 relative">
-          <div className="w-8 h-8 left-[-0px] top-0 absolute"></div>
-        </div>
-      </div>
-    </div>
-  );
-}
+ * <div className="text-sky-950 text-[20px] font-medium font-['Poppins'] flex items-center gap-x-2">
+        <span><svg xmlns="http://www.w3.org/2000/svg" width="28" height="23" viewBox="0 0 32 23" fill="none">
+  <path d="M2 9L10 19.5C11.3333 14.6667 17.2 4.4 30 2" stroke="#00AE00" strokeOpacity="0.85" strokeWidth="3" strokeLinecap="round"/>
+</svg></span> Social Media
+        </div> */

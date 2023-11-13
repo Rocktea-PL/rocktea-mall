@@ -40,7 +40,7 @@ const Products = () => {
     return <p>Error: {error}</p>;
   }
 
-  console.log();
+  console.log(data.results);
   
   if (data && data.results) {
     return (
@@ -48,12 +48,14 @@ const Products = () => {
         {data?.results.map((category) => {
           //const categoryProducts = productsByCategory[category];
           const categoryTitle = category.product.category;
-          //console.log(categoryTitle)
+          const subCategory = category.product.subcategory;
+          console.log(subCategory)
           return (
             <ScrollProducts
               key={category.id}
               products={data.results}
               categoryTitle={categoryTitle}
+              subCategory={subCategory}
             />
           );
         })}
@@ -67,12 +69,14 @@ const Products = () => {
         {data.results.map((category) => {
           //const categoryProducts = productsByCategory[category];
           const categoryTitle = category.product.category;
+          const subCategory = category.product.subcategory;
           //console.log(categoryTitle)
           return (
             <ScrollProducts
               key={category.id}
               products={data.results}
               categoryTitle={categoryTitle}
+              subCategory={subCategory}
             />
           );
         })}

@@ -1,24 +1,31 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import "../../styles/Dashboard.css";
 import { useStoreContext } from "../../Hooks/UserAuthContext";
+import { RiListUnordered } from "react-icons/ri";
+import {BiTransferAlt } from "react-icons/bi";
+import { HiOutlineHome } from "react-icons/hi2";
 //import {FaUser} from 'react-icons/fa'
 export default function Sidebar() {
   const { storeId } = useStoreContext();
+  const pathname = useLocation()
   const sidebarItems = [
     {
       id: 1,
-      link: `/dashboard/${storeId}`,
+      link: `/dashboard?store_id=${storeId}`,
       title: "Home",
+      icon:<HiOutlineHome />
     },
     {
       id: 2,
       link: "/dashboard/transactions",
       title: "Transactions",
+      icon:<BiTransferAlt />
     },
     {
       id: 3,
       link: "/dashboard/orders",
       title: "Orders",
+      icon:<RiListUnordered />
     },
   ];
   return (
@@ -28,10 +35,11 @@ export default function Sidebar() {
 
         <ul className="sidebar-list flex flex-col gap-y-3 mt-5">
           {sidebarItems.map((items) => (
-            <li key={items.id}>
+            <li key={items.id} className="flex">
               {" "}
-              <NavLink key={items.id} activeClassName="active" to={items.link}>
-                {items.title}
+              <NavLink key={items.id} className={pathname === items.title ? 'active flex items-center gap-1' : 'flex items-center gap-1'} to={items.link} >
+             <span>{items.icon}</span>
+                <span>{items.title}</span>
               </NavLink>
             </li>
           ))}
