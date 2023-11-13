@@ -14,6 +14,8 @@ export default function Thumbnails({productDet}) {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [thumbsSwiperMobile, setThumbsSwiperMobile] = useState(null);
   return (
+
+    
     <div className='w-full'>
         
           
@@ -91,6 +93,7 @@ export default function Thumbnails({productDet}) {
               {productDet?.images?.length > 0 &&
                 productDet?.images.map((item, index) => (
                   <SwiperSlide key={index}>
+                    
                     <img
                       src={item?.url}
                       alt="Additional Product 2"
