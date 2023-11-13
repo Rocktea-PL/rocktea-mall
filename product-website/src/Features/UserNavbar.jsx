@@ -13,23 +13,24 @@ import Categories from "./Categories";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 //import { useSelector } from 'react-redux';
-import { selectCartItems, } from "../Redux/CartSlice"; // Make sure the path is correct
+import {selectTotalQuantity, } from "../Redux/CartSlice"; // Make sure the path is correct
 
 import { useStoreContext } from "../Hooks/UserAuthContext";
 import MobileNavbar from "./MobileNavbar";
 //import { useUserProductContext } from "../Hooks/UserProductContext";
 //import { FaRegUser } from 'react-icons/fa;
 const Navbar = () => {
- // const  items   = useSelector((state) => state.cart.items)
- const cartItems = useSelector(selectCartItems);
- // const totalQuantity = useSelector(selectTotalQuantity); // Use the selector
+ 
+ 
+ const cartTotalQuantity = useSelector(selectTotalQuantity);
+ 
   const navigate = useNavigate();
   const { store } = useStoreContext();
   //const { cart } = useUserProductContext();
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  console.log(cartItems[0]?.cartQuantity)
+  
   const toggleMobileNav = () => {
     setIsMobileNavOpen(!isMobileNavOpen);
   };
@@ -98,8 +99,8 @@ const Navbar = () => {
             onClick={() => navigate("/cart")}
           >
             <HiOutlineShoppingBag />
-            <p className="absolute bg-red-500 w-[15px] flex items-center justify-center rounded-full h-[15px] -top-1 right-0 z-10 text-[12px] text-white">
-             {cartItems[0]?.cartQuantity || '0'}
+            <p className="absolute bg-red-500 w-[15px] p-2 flex items-center justify-center rounded-full h-[15px] -top-1 right-0 z-10 text-[12px] text-white">
+             {cartTotalQuantity || '0'}
             </p>
           </span>
           <ProfileDropdown />

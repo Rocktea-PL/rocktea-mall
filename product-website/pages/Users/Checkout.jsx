@@ -8,17 +8,21 @@ import { useNavigate } from "react-router-dom";
 
 import {PaystackButton} from "react-paystack";
 import axios from "axios";
-import { selectCartItems,selectTotalAmount } from "../../src/Redux/CartSlice";
+import { selectCartItems } from "../../src/Redux/CartSlice";
 import { useSelector } from "react-redux";
+import { calculateEstimatedTotal, calculateTotal } from "../../src/Helpers/CartUtils";
 function Checkout() {
   const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
-  const total = useSelector(selectTotalAmount);
+  
+ const total = calculateTotal(cartItems);
+ const estimatedTotal = calculateEstimatedTotal(cartItems);
   // const { paymentInfo, setPaymentInfo} = useGlobalContext();
   const { userData,store } = useStoreContext();
   const publicKey = 'pk_test_87ac60396c1e2cca490d90abc08a418f08c9e970';
-  const amountInKobo =  100000; // Convert the price to kobo (Paystack requires amount in kobo)
- // const Base_Url = import.meta.env.VITE_APP_API_URL;
+ const estimatedTotalInNaira = estimatedTotal * 100;
+  console.log(estimatedTotalInNaira)
+  
   const onSuccess = (reference) => {
     // You can access the payment reference here (in the reference variable)
     console.log('Payment reference: ' + reference);
@@ -55,7 +59,7 @@ function Checkout() {
 
   const config = {
     email: userData.email,
-    amount: amountInKobo,
+    amount: estimatedTotalInNaira,
     publicKey,
     text: 'Pay Now',
     onSuccess,
@@ -65,26 +69,24 @@ function Checkout() {
     <>
       <section className="px-5 mx-5">
         <div className="flex items-center gap-1 mb-4">
+          <Link to='/'>
           <p className="flex items-center">
             Home
             <FaAngleRight />
           </p>
+          </Link>
+          <Link to='/'>
           <p className="flex items-center">
             Products
             <FaAngleRight />
           </p>
-          <p className="flex items-center">
-            Groceries
-            <FaAngleRight />
-          </p>
-          <p className="flex items-center">
-            Pepsi
-            <FaAngleRight />
-          </p>
-          <p className="flex items-center">
+         </Link>
+         <Link to='/cart'>
+         <p className="flex items-center">
             Cart
             <FaAngleRight />
           </p>
+          </Link>
           <p className="flex items-center">
             Checkout
             <FaAngleRight />
@@ -150,7 +152,7 @@ function Checkout() {
                     <h3 className="flex items-start justify-between  text-center">
                       <span className="">Subtotal</span>
                       <span className="font-semibold flex-1 text-right mr-3">
-                        {total}
+                      ₦ {total.toLocaleString()}
                       </span>
                     </h3>
                     <h3 className="flex items-start justify-between  ">
@@ -168,7 +170,7 @@ function Checkout() {
 
                     <h3 className="flex items-center justify-between ">
                       <span className="">Estimated Total</span>
-                      <span className="font-semibold">₦{total}</span>
+                      <span className="font-semibold">₦ {estimatedTotal.toLocaleString()}</span>
                     </h3>
                   </div>
 

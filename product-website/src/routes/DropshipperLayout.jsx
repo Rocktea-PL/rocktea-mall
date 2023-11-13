@@ -42,7 +42,7 @@ function DropshipperLayout() {
         <Route path="/products" element={<Products />} />
         <Route path="/product_details/:id" element={<ProductDetails />} />
         <Route path="/marketplace/:page" element={<Marketplace />} />
-        <Route path="/dashboard/:storeId" element={<DashboardHome />} />
+        <Route path="/dashboard" element={<DashboardHome />} />
         <Route path="/dashboard/orders" element={<Orders />} />
         <Route path="/dashboard/transactions" element={<Transactions />} />
         <Route path="/search" element={<SearchPage />} />

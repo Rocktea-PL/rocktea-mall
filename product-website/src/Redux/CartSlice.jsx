@@ -78,11 +78,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 const cartFromLocalStorage = localStorage.getItem("cart");
 const initialCartItems = cartFromLocalStorage ? JSON.parse(cartFromLocalStorage) : [];
-
+const totalCartQuantity =
+        localStorage.getItem("cartQuantity") !== null
+            ? JSON.parse(localStorage.getItem("cartQuantity"))
+            : 0;
 const initialState = {
   cartItems: initialCartItems,
   cartTotalAmount: 0,
-  cartTotalQuantity: 0,
+  cartTotalQuantity: totalCartQuantity,
 };
 
 // addToCart(Add one item for one product)
@@ -96,22 +99,28 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-  addToCart: (state, action) => {
-      const itemIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id
-      );
+ // In your cartSlice.js
+addToCart: (state, action) => {
+  const { product, selectedSize } = action.payload;
 
-      if (itemIndex >= 0) {
-        state.cartItems[itemIndex].cartQuantity += 1;
-        toast.success(`Item QTY Increased`);
-      } else {
-        // Declaring cartquantity for the first time
-        const temp = { ...action.payload, cartQuantity: 1 };
-        state.cartItems.push(temp);
-        toast.success(`${action.payload.name} added to Cart`);
-      }
-      localStorage.setItem("cart", JSON.stringify(state.cartItems));
-    },
+  // Check if the product is already in the cart
+  const existingItem = state.cartItems.find(
+     (item) => item.id === product.id && item.selectedSize === selectedSize
+  );
+
+  if (existingItem) {
+     // If the product is already in the cart with the same size, increment the quantity
+     existingItem.cartQuantity += 1;
+     toast.success(`Item QTY Increased`);
+  } else {
+     // If not, add a new item to the cart with the selected size
+     const newItem = { ...product, selectedSize, cartQuantity: 1 };
+     state.cartItems.push(newItem);
+     toast.success(`product added to Cart`);
+  }
+
+  localStorage.setItem("cart", JSON.stringify(state.cartItems));
+},
 
     setRemoveItemFromCart: (state, action) => {
       const removeItem = state.cartItems.filter(
@@ -151,14 +160,14 @@ const cartSlice = createSlice({
     },
 
     setGetTotalAmount: (state) => {
-      let { totalAmount, totalQuantity } = state.cartItems.reduce(
+      const { totalAmount, totalQuantity } = state.cartItems.reduce(
         (cartTotal, cartItem) => {
-          const { price, cartQuantity } = cartItem;
-          const totalPrice = price * cartQuantity;
-
+          const { wholesalePrice, retailPrice, cartQuantity } = cartItem;
+          const totalPrice = (wholesalePrice + retailPrice) * cartQuantity;
+      
           cartTotal.totalAmount += totalPrice;
           cartTotal.totalQuantity += cartQuantity;
-
+      
           return cartTotal;
         },
         {
@@ -166,12 +175,15 @@ const cartSlice = createSlice({
           totalQuantity: 0,
         }
       );
+      
 
       state.cartTotalAmount = totalAmount;
       state.cartTotalQuantity = totalQuantity;
+      localStorage.setItem('cartQuantity',totalQuantity)
     },
   },
 });
+
 
 export const {
   addToCart,

@@ -6,13 +6,16 @@ import Footer from "../../src/Features/Footer";
 //import Navbar from "../../src/Features/UserNavbar";
 //import { useUserProductContext } from "../../src/Hooks/UserProductContext";
 import { useSelector } from "react-redux";
-import { selectCartItems,setRemoveItemFromCart,setDecreaseItemQuantity,setIncreaseItemQuantity } from "../../src/Redux/CartSlice";
+import { selectCartItems,setRemoveItemFromCart,setDecreaseItemQuantity,setIncreaseItemQuantity,selectTotalQuantity } from "../../src/Redux/CartSlice";
 import { useDispatch } from "react-redux";
+import { calculateTotal, calculateEstimatedTotal } from '../../src/Helpers/CartUtils';
 function Cart() {
   const dispatch = useDispatch();
  const cartItems = useSelector(selectCartItems);
+ const cartTotalQuantity = useSelector(selectTotalQuantity);
   //const {setCart,cart} = useUserProductContext()
-  
+  const total = calculateTotal(cartItems);
+const estimatedTotal = calculateEstimatedTotal(cartItems);
 console.log('My Cart', cartItems)
   const handleIncrement = (product) => {
     const itemIndex = cartItems.findIndex((item) => item.id === product.id);
@@ -40,6 +43,7 @@ console.log('My Cart', cartItems)
       }
   
 
+  
  /* useEffect(() => {
     // Load the cart data from localStorage
     const storedCart = localStorage.getItem("cart");
@@ -50,6 +54,10 @@ console.log('My Cart', cartItems)
     }
   }, []);
 console.log(cart)*/
+
+
+
+
 
   return (
     <>
@@ -74,31 +82,41 @@ console.log(cart)*/
               <FaAngleRight />
             </p>
           </div>
-          <p>{cartItems[0].cartQuantity} Items</p>
+          <p>{cartTotalQuantity} Items</p>
         </div>
         <hr className=" mb-5" />
         <div className="flex flex-col lg:flex-row justify-center w-full gap-5">
           {/* Cart Items */}
-          <div className=" lg:w-3/4 w-full flex justify-between bg-white rounded-md  p-3 h-[150px]">
+          <div className=" lg:w-3/4 w-full flex flex-col ">
             {/* Cart Item 1 */}
             
               {cartItems.map((items,index) => {
+                const wholesalePrice = items.product_data.product_variants[0].wholesale_price;
+                const retailPrices = items.store_variants[0].retail_price;
+                
+                const wholesalePriceNumber = parseFloat(wholesalePrice);
+                const retailPricesNumbers = parseFloat(retailPrices)
+                
+                const totalWholesalePrice = wholesalePriceNumber;
+                const totalRetailPrice = retailPricesNumbers;
+                const totalPrice = totalWholesalePrice + totalRetailPrice;
+                
+                console.log('Total Wholesale Price:', totalWholesalePrice);
+                console.log('Total Retail Price:', totalRetailPrice);
+                console.log('Total Price (Wholesale + Retail):', totalPrice);
+                
                 return (
-                  <div key={index} className="flex items-start gap-3  w-full  !justify-between">
+                  <div key={index} className="flex bg-white mb-4 items-start gap-3  w-full rounded-md  p-3   !justify-between">
                     <div className="flex items-center justify-center gap-3">
                   <div  className="flex items-center justify-center w-[120px] h-[120px]">
-                <img
-                  src={items.images[0].url}
-                  alt="Product"
-                  className="object-cover h-full w-full rounded-md"
-                />
+               
               </div>
 
               <div className=" p-2 flex flex-col">
                 <p className="text-[20px] uppercase tracking-wide">
-                 {items.name}
+                 {items.product_data.name}
                 </p>
-                <p className="text-md font-semibold">₦12,300</p>
+                <p className="text-md font-semibold">₦{totalPrice.toLocaleString()}</p>
 
                 <div className="flex items-center justify-center gap-5 max-w-[100px] py-2 rounded-md border border-solid border-[var(--orange)] mt-3">
                   <button className=" " onClick={() => handleDecrement(items)}>
@@ -144,7 +162,7 @@ console.log(cart)*/
                 <h3 className="flex items-start justify-between  text-center">
                   <span className="">Subtotal</span>
                   <span className="font-semibold flex-1 text-right mr-3">
-                    ₦12,300
+                  {total.toLocaleString()}
                   </span>
                 </h3>
                 <h3 className="flex items-start justify-between  ">
@@ -162,7 +180,7 @@ console.log(cart)*/
                 <hr />
                 <h3 className="flex items-center justify-between ">
                   <span className="">Estimated Total</span>
-                  <span className="font-semibold">₦12,500</span>
+                  <span className="font-semibold">₦{estimatedTotal.toLocaleString()}</span>
                 </h3>
               </div>
               <Link to="/checkout">
@@ -184,3 +202,36 @@ console.log(cart)*/
 }
 
 export default Cart;
+/** <img
+                  src={items.images[0].url}
+                  alt="Product"
+                  className="object-cover h-full w-full rounded-md"
+
+                />
+                
+                ------ IMPORTANT---------
+                const selectedSize = "200 x 12"; // Replace this with the actual selected size
+
+const productVariant = response.data.product_data.product_variants.find(
+  variant => variant.size === selectedSize
+);
+
+if (productVariant) {
+  const wholesalePrice = parseFloat(productVariant.wholesale_price);
+  const retailPrices = response.data.store_variants
+    .filter(variant => variant.product_variant === productVariant.id)
+    .map(variant => parseFloat(variant.retail_price));
+
+  const totalWholesalePrice = wholesalePrice;
+  const totalRetailPrice = retailPrices.reduce((total, price) => total + price, 0);
+  const totalPrice = totalWholesalePrice + totalRetailPrice;
+
+  console.log('Total Wholesale Price:', totalWholesalePrice);
+  console.log('Total Retail Price:', totalRetailPrice);
+  console.log('Total Price (Wholesale + Retail):', totalPrice);
+} else {
+  console.log('Selected size not found.');
+}
+
+                
+                */

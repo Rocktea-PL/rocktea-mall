@@ -26,7 +26,7 @@ const DropshipperNavbar = ({ page }) => {
               alt="logo"
               width={50}
               height={50}
-              className="w-[50px] h-[50px] rounded-full"
+              className="w-[50px] h-[50px] "
             />
           ) : (
             <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
@@ -41,7 +41,7 @@ const DropshipperNavbar = ({ page }) => {
           </li>
           <li className="uppercase tracking-[1px]">
             {" "}
-            <Link to={`/dashboard/${store.id}`}>Dashboard</Link>
+            <Link to={`/dashboard?store_id=${store.id}`}>Dashboard</Link>
           </li>
 
           <li className="uppercase tracking-[1px]">

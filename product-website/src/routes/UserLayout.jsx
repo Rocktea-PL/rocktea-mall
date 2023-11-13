@@ -12,6 +12,7 @@ import Notfound from "../Notfound";
 import ProtectedRoute from "./ProtectedRoute";
 ////import {  useStoreContext } from "../Hooks/UserAuthContext";
 import Navbar from "../Features/UserNavbar";
+import SeeAll from "../../pages/SeeAll";
 //import DropshipperNavbar from "../Features/DropshipperNavbar";
 
 function UserLayout() {
@@ -63,7 +64,8 @@ function UserLayout() {
           }
         />
         <Route path="/products" element={<Products />} />
-        <Route path="/product_details/:id" element={<ProductDetails />} />
+        <Route path="/shop/:categoryName" element={< SeeAll/>} />
+        <Route path="/product_details/:productId" element={<ProductDetails />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/*" element={<Notfound />} />
       </Routes>

@@ -7,7 +7,7 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (_, thunkAPI) => {
     try {
-      const store_id = localStorage.getItem("storeId");
+      const store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
       const response = await axios.get(
         `https://rocktea-mall-api-test.up.railway.app/rocktea/marketplace/?store=${store_id}`,
       );

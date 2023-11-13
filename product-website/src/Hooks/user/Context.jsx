@@ -64,7 +64,7 @@ const AppProvider = ({ children }) => {
     e.preventDefault();
     setLoading(true);
 
-    const store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+    const store_id = localStorage.getItem("storeUid");
     formData.associated_domain = store_id;
     try {
       const headers = {
@@ -181,7 +181,7 @@ sendUserOrder(orderData);'*/
     </AppContext.Provider>
   );
 };
-export const useGlobalContext = () => {
+export const useGlobalUserContext = () => {
   return useContext(AppContext);
 };
 export { AppProvider, AppContext };
