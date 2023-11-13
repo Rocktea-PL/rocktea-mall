@@ -32,7 +32,7 @@ function App() {
           element: <Faqs />,
         },
         {
-          path: "/login",
+          path: "/signin",
           element: <SignIn />,
         },
         {
