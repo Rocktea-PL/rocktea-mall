@@ -28,7 +28,7 @@ within the next 72hrs. </p>
 <Link to='/'>
 <button className="w-[200px] text-blue h-14 bg-orange rounded-lg">Home</button>
 </Link>
-<Link to='/login'>
+<Link to='/signin'>
 <button className="w-[200px] text-blue h-14 bg-orange rounded-lg mt-5">Demo</button>
 </Link>
         </article>
