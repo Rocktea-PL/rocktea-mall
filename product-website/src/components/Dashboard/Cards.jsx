@@ -2,29 +2,26 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 export default function Cards() {
-
   const fetchProductCount = async () => {
-    const store_id = localStorage.getItem('storeId')
+    const store_id = localStorage.getItem("storeId");
     const response = await axios.get(
-      `https://rocktea-mall-api-test.up.railway.app/mall/count/?store=${store_id}`
+      `https://rocktea-mall-api-test.up.railway.app/mall/count/?store=${store_id}`,
     );
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   };
   const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
-  const { data:productCount, isLoading, isError } = useQuery(
-    "productCount",
-    fetchProductCount,
-    {
-     
-      refetchOnWindowFocus: false,
-      refetchOnmount: false,
-      refetchOnReconnect: false,
-      retry: false,
-      staleTime: twentyFourHoursInMs, // Fetch only when 'id' is available
-    }
-    
-  );
+  const {
+    data: productCount,
+    isLoading,
+    isError,
+  } = useQuery("productCount", fetchProductCount, {
+    refetchOnWindowFocus: false,
+    refetchOnmount: false,
+    refetchOnReconnect: false,
+    retry: false,
+    staleTime: twentyFourHoursInMs, // Fetch only when 'id' is available
+  });
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -34,9 +31,7 @@ export default function Cards() {
     return <p>Error loading product count</p>;
   }
 
-
-
-//console.log(data)
+  //console.log(data)
   return (
     <div className=" flex gap-2 flex-col md:flex-row">
       <article className="bg-white flex flex-col gap-y-5 lg:gap-y-0  py-3 px-5 shadow-md rounded-md w-full   gap-3">
@@ -46,8 +41,9 @@ export default function Cards() {
           </p>
 
           <div className="flex items-center gap-3 leading-tight mt-2">
-            <h3 className="font-bold  text-[1.4rem]">{productCount?.Orders} </h3>
-           
+            <h3 className="font-bold  text-[1.4rem]">
+              {productCount?.Orders}{" "}
+            </h3>
           </div>
           <p className="italic flex gap-x-2 text-[#017601] font-[300]">
             34%
@@ -76,7 +72,9 @@ export default function Cards() {
           </p>
 
           <div className="flex items-center gap-3 mt-2">
-            <h3 className="font-bold  text-[1.4rem]">{productCount?.Listed_Products}</h3>
+            <h3 className="font-bold  text-[1.4rem]">
+              {productCount?.Listed_Products}
+            </h3>
           </div>
           <p className="italic flex gap-x-2 text-[#017601] font-[300]">
             34%
@@ -104,7 +102,9 @@ export default function Cards() {
           </p>
 
           <div className="flex items-center gap-3 mt-2">
-            <h3 className="font-bold  text-[1.4rem]">{productCount?.Customers} </h3>
+            <h3 className="font-bold  text-[1.4rem]">
+              {productCount?.Customers}{" "}
+            </h3>
           </div>
           <p className="italic flex gap-x-2 text-[#017601] font-[300]">
             34%

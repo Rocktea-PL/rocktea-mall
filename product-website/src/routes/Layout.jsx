@@ -6,9 +6,10 @@ import UserLayout from "./UserLayout";
 import GlobalLoader from "../Helpers/Loaders/GlobalLoader";
 
 function Layout() {
-  
   const [loading, setLoading] = useState(false);
-  const [store_id, setStoreId] = useState(() => localStorage.getItem("storeId") || null);
+  const [store_id, setStoreId] = useState(
+    () => localStorage.getItem("storeId") || null,
+  );
 
   // Use the location hook to get the query parameters
   const location = useLocation();
@@ -16,7 +17,7 @@ function Layout() {
   const idFromQuery = queryParams.get("store_id");
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     // Check if the query parameter is present before updating state
     if (idFromQuery !== null) {
       setStoreId(idFromQuery);
@@ -32,16 +33,14 @@ function Layout() {
   }, [idFromQuery]);
 
   const getRoles = () => {
-  
-
     if (store_id) {
       return <DropshipperLayout />;
-    }else {
+    } else {
       return <UserLayout />;
-    }   
+    }
   };
 
-  return <main>{loading ? <GlobalLoader/> : getRoles()}</main>;
+  return <main>{loading ? <GlobalLoader /> : getRoles()}</main>;
 }
 
 export default Layout;

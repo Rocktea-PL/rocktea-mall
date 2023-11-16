@@ -8,10 +8,7 @@ export default function Profile() {
       <Sidebar />
 
       <div className=" block lg:relative lg:left-[320px] w-full lg:gap-x-10  px-5">
-       
-          <YourProfile />
-      
-        
+        <YourProfile />
       </div>
     </main>
   );

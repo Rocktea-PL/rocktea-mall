@@ -20,7 +20,7 @@ import Sidebar from "../../../src/components/Dashboard/Sidebar";
 //import { useUserRoleContext } from "../../../src/Hooks/getRoleContext";
 
 export default function DashboardHome() {
- /* const { storeId } = useParams();
+  /* const { storeId } = useParams();
  // const { setRole } = useUserRoleContext();
   useEffect(() => {
     localStorage.setItem("storeId", storeId);

@@ -10,7 +10,9 @@ import { ColorThemePicker } from "./Helpers/ColorTheme";
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isOnline, setIsOnline] = useState(true);
-  const [selectedTheme, setSelectedTheme] = useState(localStorage.getItem('selectedTheme') || '#f5f5f51a'); // Set the initial theme
+  const [selectedTheme, setSelectedTheme] = useState(
+    localStorage.getItem("selectedTheme") || "#f5f5f51a",
+  ); // Set the initial theme
 
   useEffect(() => {
     setIsOnline(navigator.onLine);
@@ -62,7 +64,15 @@ function App() {
               ) : (
                 <>
                   <ColorThemePicker
-                    themes={['#f5f5f51a', '#ffcccb', '#add8e6', '#90ee90', '#ffc0cb', '#dda0dd', '#000']}
+                    themes={[
+                      "#f5f5f51a",
+                      "#ffcccb",
+                      "#add8e6",
+                      "#90ee90",
+                      "#ffc0cb",
+                      "#dda0dd",
+                      "#000",
+                    ]}
                     onThemeChange={handleThemeChange}
                   />
                   <Layout />

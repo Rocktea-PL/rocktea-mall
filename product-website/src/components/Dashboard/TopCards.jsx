@@ -1,9 +1,5 @@
-
 function TopCards() {
-
- // const [productCount,setProductCount] = useState()
-
-  
+  // const [productCount,setProductCount] = useState()
 
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center justify-center lg:justify-between gap-5 pb-5">

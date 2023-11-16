@@ -7,11 +7,7 @@ import { useDispatch } from "react-redux";
 //import { useQuery } from "react-query";
 //import SizeModal from "../Modals/SizeModal";
 
-import {
-  addToCart, setGetTotalAmount,
- 
-  
-} from "../../Redux/CartSlice";
+import { addToCart, setGetTotalAmount } from "../../Redux/CartSlice";
 import toast from "react-hot-toast";
 import Thumbnails from "../../Helpers/Thumbnails";
 //import {  useUserProductContext } from "../../Hooks/UserProductContext";
@@ -21,14 +17,14 @@ const UserProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
   //const {price} = useUserProductContext()
-  const [productDet,setProductDet] =useState() 
+  const [productDet, setProductDet] = useState();
   //const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [variantData, setVariantData] = useState();
- // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
- // console.log(selectedSize);
-//console.log(price)
+  // console.log(selectedSize);
+  //console.log(price)
   // Define a function to fetch product details
   /*const fetchProductDetails = async () => {
     const response = await axios.get(
@@ -82,50 +78,49 @@ const UserProductDetails = () => {
     }
   };
 */
-const fetchProductDetails = async () => {
-  try {
-    const response = await axios.get(
-      `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${productId}`
-    );
-    console.log(response.data)
-    const product =  response.data.product_data;
-   
-    setProductDet(product)
-  } catch (error) {
-    console.error("Error fetching product details:", error);
-    throw error;
-  }
-};
+  const fetchProductDetails = async () => {
+    try {
+      const response = await axios.get(
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${productId}`,
+      );
+      console.log(response.data);
+      const product = response.data.product_data;
 
-const variant = productDet?.product_variants.map((item) => item.id)
+      setProductDet(product);
+    } catch (error) {
+      console.error("Error fetching product details:", error);
+      throw error;
+    }
+  };
 
-const fetchProductvariants = async (variantId) => {
-  const store_id = localStorage.getItem("storeUid");
-  try {
-    const response = await axios.get(
-      `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${productId}?variant=${variantId}&store=${store_id}`
-    );
-    console.log(response.data)
-    const product =  response.data;
-   
-    setVariantData(product)
-  } catch (error) {
-    console.error("Error fetching product details:", error);
-    throw error;
-  }
-};
+  const variant = productDet?.product_variants.map((item) => item.id);
 
-useEffect(() => {
-  fetchProductDetails()
-  
-},[])
+  const fetchProductvariants = async (variantId) => {
+    const store_id = localStorage.getItem("storeUid");
+    try {
+      const response = await axios.get(
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${productId}?variant=${variantId}&store=${store_id}`,
+      );
+      console.log(response.data);
+      const product = response.data;
+
+      setVariantData(product);
+    } catch (error) {
+      console.error("Error fetching product details:", error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    fetchProductDetails();
+  }, []);
   //fetchVariantData()
 
   //rocktea/product-details/e97c9489-110b-497f-b06f-71432fe8f5b4?variant=3&store=ce2208cf-6f56-4d28-b9c5-ac76f06e69db
 
   //const variant = productDet?.product_variants.map((item) => item.id)
-  
-  console.log(variant)
+
+  console.log(variant);
   /*const handleAddToCart = (product) => {
     if (!selectedSize) {
      toast.error('Please select a size before adding to cart.');
@@ -144,39 +139,36 @@ useEffect(() => {
 
   const handleAddToCart = (productDet, selectedSize) => {
     if (!selectedSize) {
-       toast.error("Please select a size before adding to cart.");
-       return;
+      toast.error("Please select a size before adding to cart.");
+      return;
     }
- 
+
     if (variantData) {
-       dispatch(addToCart({ product: productDet, selectedSize }));
-       dispatch(setGetTotalAmount()); 
+      dispatch(addToCart({ product: productDet, selectedSize }));
+      dispatch(setGetTotalAmount());
     } else {
-       toast.error("Product details are not available.");
+      toast.error("Product details are not available.");
     }
- };
- 
-  
-  
-  const handleSizeClick = (size,price,variantId) => {
+  };
+
+  const handleSizeClick = (size, price, variantId) => {
     setSelectedSize(size);
-   // setIsModalOpen(true);
-   fetchProductvariants(variantId)
+    // setIsModalOpen(true);
+    fetchProductvariants(variantId);
     //setSelectedPrice(price);
   };
-  console.log(selectedSize)
-console.log(productDet)
- // console.log(productDet.product_variants[0].wholesale_price)
+  console.log(selectedSize);
+  console.log(productDet);
+  // console.log(productDet.product_variants[0].wholesale_price)
   return (
     <>
       <section className="relative mt-20 px-10 lg:px-0 max-w-[1300px] m-auto">
         <div className=" flex flex-col lg:flex-row w-full  lg:space-x-20 lg:p-8">
           {/* Product Images */}
           <div className="lg:max-w-[50%]">
-          <Thumbnails productDet={productDet} />
+            <Thumbnails productDet={productDet} />
           </div>
-         
-          
+
           {/* Product Details */}
           <div className="relative flex flex-col mt-[3rem] lg:mt-0  lg:max-w-[50%]">
             <h4 className="absolute top-[17%] right-3 text-sm">
@@ -187,7 +179,9 @@ console.log(productDet)
             </h2>
             <p className="capitalize font-bold">
               Brand:
-              <span className="font-medium">{productDet?.brand?.name}</span>{" "}
+              <span className="font-medium">
+                {productDet?.brand?.name}
+              </span>{" "}
             </p>
             <p className="capitalize font-bold">
               Category:
@@ -198,11 +192,7 @@ console.log(productDet)
             <p className="capitalize font-bold">
               SKU: <span className="font-medium">{productDet?.sku}</span>
             </p>
-            <p className="font-bold my-2 text-lg">
-             
-              ₦ {" "}
-             
-            </p>
+            <p className="font-bold my-2 text-lg">₦ </p>
 
             <p className="text-gray-300 my-2">
               {productDet?.is_available ? (
@@ -211,34 +201,39 @@ console.log(productDet)
                 <span className="text-red-500">Out of Stock</span>
               )}
             </p>
-           
+
             <div className="flex space-x-2 my-5">
               {productDet?.product_variants.map((item, index) => (
                 <button
                   key={index}
-                  className={ `border border-solid border-[var(--orange)] rounded-md px-3 py-1 ${item.size === selectedSize && 'bg-orange '}`}
-                  onClick={() => handleSizeClick(item.size,item.wholesale_price,item.id)}
+                  className={`border border-solid border-[var(--orange)] rounded-md px-3 py-1 ${
+                    item.size === selectedSize && "bg-orange "
+                  }`}
+                  onClick={() =>
+                    handleSizeClick(item.size, item.wholesale_price, item.id)
+                  }
                 >
                   {item?.size}
                 </button>
               ))}
             </div>
             <div className="flex items-center  gap-5">
-             
-             <button
-               onClick={() => handleAddToCart(variantData,selectedSize)}
-               className={`${!selectedSize ? 'bg-orange opacity-60' : 'bg-orange '}  p-3 text-sm rounded-md`}
-              disabled={!selectedSize}
-             >
-               Add to Cart
-             </button>
-             <button
-               onClick={() => handleAddToCart(productDet)}
-               className="bg-orange  p-3 text-sm rounded-md "
-             >
-               Save Items
-             </button>
-           </div>
+              <button
+                onClick={() => handleAddToCart(variantData, selectedSize)}
+                className={`${
+                  !selectedSize ? "bg-orange opacity-60" : "bg-orange "
+                }  p-3 text-sm rounded-md`}
+                disabled={!selectedSize}
+              >
+                Add to Cart
+              </button>
+              <button
+                onClick={() => handleAddToCart(productDet)}
+                className="bg-orange  p-3 text-sm rounded-md "
+              >
+                Save Items
+              </button>
+            </div>
             <div className="mb-4 mt-10">
               <h3 className="text-md font-semibold border-b border-b-gray-300 pb-3">
                 Product Details
@@ -314,7 +309,6 @@ console.log(productDet)
         </div>
       </section>
       <Footer />
-     
     </>
   );
 };
