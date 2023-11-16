@@ -65,7 +65,7 @@ const Navbar = () => {
         </ul>
 
         <div className="mt-5 md:mt-0 hidden md:flex items-center justify-between">
-          <Link to="/login">
+          <Link to="/signin">
             <Button text="Sign In" />
           </Link>
         </div>
@@ -90,7 +90,7 @@ const Navbar = () => {
           ))}
 
           <div className="mt-5 md:mt-0">
-            <Link to="/login">
+            <Link to="/signin">
               <Button text="Sign In" />
             </Link>
           </div>

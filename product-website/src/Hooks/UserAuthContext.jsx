@@ -120,7 +120,7 @@ export const UserAuthProvider = ({ children }) => {
   };
   const getStoreProfile = async () => {
     const owner_id = localStorage.getItem("owner");
-    console.log("store owner id", owner_id);
+   
     try {
       const response = await axios.get(
         `https://rocktea-mall-api-test.up.railway.app/rocktea/storeowner/${owner_id}`,
@@ -129,7 +129,7 @@ export const UserAuthProvider = ({ children }) => {
         console.log("store does not exist");
       }
       console.log(response.data);
-      localStorage.setItem("storeOwner", response.data.is_store_owner);
+      localStorage.setItem("storeUserId", response.data.id);
       setStoreUser(response.data);
     } catch (error) {
       console.log(error.response);

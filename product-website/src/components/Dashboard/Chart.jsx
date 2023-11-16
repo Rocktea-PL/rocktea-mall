@@ -2,6 +2,8 @@ import "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
 const BarChart = () => {
+
+  
   const data = {
     labels: ["Jan", "Feb", "March", "April", "May", "June"],
     datasets: [

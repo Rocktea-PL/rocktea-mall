@@ -99,6 +99,63 @@ const AppProvider = ({ children }) => {
     }
   };
 
+
+  const updateStoreProfile = async (updatedProfileData) => {
+    setLoading(true); // Set loading to true when the update starts
+
+    try {
+      const storeUser_id = localStorage.getItem("storeUserId");
+      const response = await axios.patch(
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/storeowner/${storeUser_id}/`,
+        updatedProfileData,
+      );
+
+      // Check if the API call was successful
+      if (response.status === 200 || response.data) {
+        console.log("Profile updated", response.data);
+
+        toast.success("Profile updated successfully");
+        // Update the local user data if needed
+      } else {
+        console.error("API call failed");
+        // Handle API call failure here
+      }
+    } catch (error) {
+      console.error("API call failed", error.response.data);
+      setError(error.response.data);
+      // Handle API call failure here
+    } finally {
+      setLoading(false); // Set loading to false when the update is complete
+    }
+  };
+  const updateStoreDetailsProfile = async (updatedProfileData) => {
+    setLoading(true); // Set loading to true when the update starts
+
+    try {
+      const store_id = localStorage.getItem("storeId");
+      const response = await axios.patch(
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/${store_id}/`,
+        updatedProfileData,
+      );
+
+      // Check if the API call was successful
+      if (response.status === 200 || response.data) {
+        console.log("Profile updated", response.data);
+
+        toast.success("Profile updated successfully");
+        // Update the local user data if needed
+      } else {
+        console.error("API call failed");
+        // Handle API call failure here
+      }
+    } catch (error) {
+      console.error("API call failed", error.response.data);
+      setError(error.response.data);
+      // Handle API call failure here
+    } finally {
+      setLoading(false); // Set loading to false when the update is complete
+    }
+  };
   const updateProfile = async (updatedProfileData) => {
     setLoading(true); // Set loading to true when the update starts
 
@@ -175,6 +232,8 @@ sendUserOrder(orderData);'*/
         paystackOptions,
         setError,
         updateProfile,
+        updateStoreProfile,
+        updateStoreDetailsProfile
       }}
     >
       {children}

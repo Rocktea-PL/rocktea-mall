@@ -1,13 +1,13 @@
 import { IoIosCopy, IoIosShareAlt } from "react-icons/io";
-import { useStoreContext } from "../../../Hooks/UserAuthContext";
-import { useEffect, useState } from "react";
+//import { useStoreContext } from "../../../Hooks/UserAuthContext";
+import {  useState } from "react";
 import toast from "react-hot-toast";
 
-export default function ProfileSide() {
-  const { storeUser } = useStoreContext();
+export default function ProfileSide({profileCompletion}) {
+ // const { storeUser } = useStoreContext();
  const store_id = localStorage.getItem('storeId')
  const [isLinkCopied, setIsLinkCopied] = useState(false);
- const [profileCompletion, setProfileCompletion] = useState(0);
+ //const [profileCompletion, setProfileCompletion] = useState(0);
 
   const storeUrl = `https://rocktea-mall-product.vercel.app/register/${store_id}`;
 
@@ -35,22 +35,7 @@ export default function ProfileSide() {
       console.log('Share API not supported');
     }
   };
-  useEffect(() => {
-    // Calculate the percentage of the profile completed
-    const calculateProfileCompletion = () => {
-      const totalFields = 4; // Update with the total number of profile fields
-      let filledFields = 0;
-
-      // Check each field and increment filledFields if it's filled
-      if (storeUser.profile_image) filledFields += 1;
-      // Add similar checks for other fields
-
-      const percentage = (filledFields / totalFields) * 100;
-      setProfileCompletion(percentage.toFixed(0));
-    };
-
-    calculateProfileCompletion();
-  }, [storeUser]);
+  
   return (
     <div className="lg:w-[373px] h-[820px] relative bg-white rounded-xl  px-16 py-5">
        
@@ -58,7 +43,7 @@ export default function ProfileSide() {
         Complete your profile
       </div>
       <div
-  className="flex items-center justify-center mx-auto mb-5"
+  className="flex items-center justify-center text-center mx-auto mb-5"
   style={{
     width: "150px",
     height: "150px",
