@@ -6,23 +6,32 @@ import Footer from "../../src/Features/Footer";
 //import Navbar from "../../src/Features/UserNavbar";
 //import { useUserProductContext } from "../../src/Hooks/UserProductContext";
 import { useSelector } from "react-redux";
-import { selectCartItems,setRemoveItemFromCart,setDecreaseItemQuantity,setIncreaseItemQuantity,selectTotalQuantity } from "../../src/Redux/CartSlice";
+import {
+  selectCartItems,
+  setRemoveItemFromCart,
+  setDecreaseItemQuantity,
+  setIncreaseItemQuantity,
+  selectTotalQuantity,
+} from "../../src/Redux/CartSlice";
 import { useDispatch } from "react-redux";
-import { calculateTotal, calculateEstimatedTotal } from '../../src/Helpers/CartUtils';
+import {
+  calculateTotal,
+  calculateEstimatedTotal,
+} from "../../src/Helpers/CartUtils";
 function Cart() {
   const dispatch = useDispatch();
- const cartItems = useSelector(selectCartItems);
- const cartTotalQuantity = useSelector(selectTotalQuantity);
+  const cartItems = useSelector(selectCartItems);
+  const cartTotalQuantity = useSelector(selectTotalQuantity);
   //const {setCart,cart} = useUserProductContext()
   const total = calculateTotal(cartItems);
-const estimatedTotal = calculateEstimatedTotal(cartItems);
-console.log('My Cart', cartItems)
+  const estimatedTotal = calculateEstimatedTotal(cartItems);
+  console.log("My Cart", cartItems);
   const handleIncrement = (product) => {
     const itemIndex = cartItems.findIndex((item) => item.id === product.id);
     if (itemIndex >= 0) {
       dispatch(setIncreaseItemQuantity(cartItems[itemIndex]));
     }
-  // dispatch(setIncreaseItemQuantity(product))
+    // dispatch(setIncreaseItemQuantity(product))
   };
 
   const handleDecrement = (product) => {
@@ -30,21 +39,18 @@ console.log('My Cart', cartItems)
     if (itemIndex >= 0) {
       dispatch(setDecreaseItemQuantity(cartItems[itemIndex]));
     }
-   // dispatch(setDecreaseItemQuantity(product))
-    }
+    // dispatch(setDecreaseItemQuantity(product))
+  };
 
-    const handleRemoveProduct = () => {
-     
-      dispatch(setRemoveItemFromCart(cartItems[0].id));
-    
-      //  dispatch(setRemoveItemFromCart(product));
-      
-     // dispatch(setDecreaseItemQuantity(product))
-      }
-  
+  const handleRemoveProduct = () => {
+    dispatch(setRemoveItemFromCart(cartItems[0].id));
 
-  
- /* useEffect(() => {
+    //  dispatch(setRemoveItemFromCart(product));
+
+    // dispatch(setDecreaseItemQuantity(product))
+  };
+
+  /* useEffect(() => {
     // Load the cart data from localStorage
     const storedCart = localStorage.getItem("cart");
     if (storedCart) {
@@ -55,13 +61,8 @@ console.log('My Cart', cartItems)
   }, []);
 console.log(cart)*/
 
-
-
-
-
   return (
     <>
-      
       <section className="">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1 mb-4">
@@ -89,58 +90,70 @@ console.log(cart)*/
           {/* Cart Items */}
           <div className=" lg:w-3/4 w-full flex flex-col ">
             {/* Cart Item 1 */}
-            
-              {cartItems.map((items,index) => {
-                const wholesalePrice = items.product_data.product_variants[0].wholesale_price;
-                const retailPrices = items.store_variants[0].retail_price;
-                
-                const wholesalePriceNumber = parseFloat(wholesalePrice);
-                const retailPricesNumbers = parseFloat(retailPrices)
-                
-                const totalWholesalePrice = wholesalePriceNumber;
-                const totalRetailPrice = retailPricesNumbers;
-                const totalPrice = totalWholesalePrice + totalRetailPrice;
-                
-                console.log('Total Wholesale Price:', totalWholesalePrice);
-                console.log('Total Retail Price:', totalRetailPrice);
-                console.log('Total Price (Wholesale + Retail):', totalPrice);
-                
-                return (
-                  <div key={index} className="flex bg-white mb-4 items-start gap-3  w-full rounded-md  p-3   !justify-between">
-                    <div className="flex items-center justify-center gap-3">
-                  <div  className="flex items-center justify-center w-[120px] h-[120px]">
-               
-              </div>
 
-              <div className=" p-2 flex flex-col">
-                <p className="text-[20px] uppercase tracking-wide">
-                 {items.product_data.name}
-                </p>
-                <p className="text-md font-semibold">₦{totalPrice.toLocaleString()}</p>
+            {cartItems.map((items, index) => {
+              const wholesalePrice =
+                items.product_data.product_variants[0].wholesale_price;
+              const retailPrices = items.store_variants[0].retail_price;
 
-                <div className="flex items-center justify-center gap-5 max-w-[100px] py-2 rounded-md border border-solid border-[var(--orange)] mt-3">
-                  <button className=" " onClick={() => handleDecrement(items)}>
-                    -
-                  </button>
-                  <p>{cartItems[index].cartQuantity}</p>
-                  <button className=" " onClick={() => handleIncrement(items)}>
-                    +
-                  </button>
+              const wholesalePriceNumber = parseFloat(wholesalePrice);
+              const retailPricesNumbers = parseFloat(retailPrices);
+
+              const totalWholesalePrice = wholesalePriceNumber;
+              const totalRetailPrice = retailPricesNumbers;
+              const totalPrice = totalWholesalePrice + totalRetailPrice;
+
+              console.log("Total Wholesale Price:", totalWholesalePrice);
+              console.log("Total Retail Price:", totalRetailPrice);
+              console.log("Total Price (Wholesale + Retail):", totalPrice);
+
+              return (
+                <div
+                  key={index}
+                  className="flex bg-white mb-4 items-start gap-3  w-full rounded-md  p-3   !justify-between"
+                >
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="flex items-center justify-center w-[120px] h-[120px]"></div>
+
+                    <div className=" p-2 flex flex-col">
+                      <p className="text-[20px] uppercase tracking-wide">
+                        {items.product_data.name}
+                      </p>
+                      <p className="text-md font-semibold">
+                        ₦{totalPrice.toLocaleString()}
+                      </p>
+
+                      <div className="flex items-center justify-center gap-5 max-w-[100px] py-2 rounded-md border border-solid border-[var(--orange)] mt-3">
+                        <button
+                          className=" "
+                          onClick={() => handleDecrement(items)}
+                        >
+                          -
+                        </button>
+                        <p>{cartItems[index].cartQuantity}</p>
+                        <button
+                          className=" "
+                          onClick={() => handleIncrement(items)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-2">
+                    <button
+                      onClick={() => handleRemoveProduct()}
+                      className=" block bg-[var(--orange)] p-3 w-[150px] rounded-lg"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-              </div>
-              </div>
-              <div className="p-2">
-              <button onClick={() => handleRemoveProduct()} className=" block bg-[var(--orange)] p-3 w-[150px] rounded-lg">
-                Delete
-              </button>
-            </div>
-              </div>
-                )
-              })}
-            </div>
-           
-            {/* Repeat the above structure for other cart items */}
-        
+              );
+            })}
+          </div>
+
+          {/* Repeat the above structure for other cart items */}
 
           {/* Checkout */}
           <div className="lg:w-1/4 mb-10 ">
@@ -162,7 +175,7 @@ console.log(cart)*/
                 <h3 className="flex items-start justify-between  text-center">
                   <span className="">Subtotal</span>
                   <span className="font-semibold flex-1 text-right mr-3">
-                  {total.toLocaleString()}
+                    {total.toLocaleString()}
                   </span>
                 </h3>
                 <h3 className="flex items-start justify-between  ">
@@ -180,7 +193,9 @@ console.log(cart)*/
                 <hr />
                 <h3 className="flex items-center justify-between ">
                   <span className="">Estimated Total</span>
-                  <span className="font-semibold">₦{estimatedTotal.toLocaleString()}</span>
+                  <span className="font-semibold">
+                    ₦{estimatedTotal.toLocaleString()}
+                  </span>
                 </h3>
               </div>
               <Link to="/checkout">

@@ -162,15 +162,15 @@ export const UserAuthProvider = ({ children }) => {
     const store_id = localStorage.getItem("storeUid");
     setStoreId(store_id);
     console.log("store owner id", store_id);
-   // const is_owner = localStorage.getItem("storeOwner");
+    // const is_owner = localStorage.getItem("storeOwner");
     ///setIsStoreOwner(is_owner);
   }, []);
 
-  console.log('storeee', storeId);
+  console.log("storeee", storeId);
   return (
     <StoreContext.Provider
       value={{
-      //  isStoreOwner,
+        //  isStoreOwner,
         storeUser,
         storeId,
         userData,

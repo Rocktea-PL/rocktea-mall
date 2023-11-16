@@ -13,24 +13,22 @@ import Categories from "./Categories";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 //import { useSelector } from 'react-redux';
-import {selectTotalQuantity, } from "../Redux/CartSlice"; // Make sure the path is correct
+import { selectTotalQuantity } from "../Redux/CartSlice"; // Make sure the path is correct
 
 import { useStoreContext } from "../Hooks/UserAuthContext";
 import MobileNavbar from "./MobileNavbar";
 //import { useUserProductContext } from "../Hooks/UserProductContext";
 //import { FaRegUser } from 'react-icons/fa;
 const Navbar = () => {
- 
- 
- const cartTotalQuantity = useSelector(selectTotalQuantity);
- 
+  const cartTotalQuantity = useSelector(selectTotalQuantity);
+
   const navigate = useNavigate();
   const { store } = useStoreContext();
   //const { cart } = useUserProductContext();
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  
+
   const toggleMobileNav = () => {
     setIsMobileNavOpen(!isMobileNavOpen);
   };
@@ -56,7 +54,7 @@ const Navbar = () => {
               alt="logo"
               width={50}
               height={50}
-              className="rounded-full"
+              className=""
             />
           ) : (
             <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
@@ -77,10 +75,14 @@ const Navbar = () => {
             Categories
           </li>
         </ul>
-        <form action=""  onSubmit={(e) => {
+        <form
+          action=""
+          onSubmit={(e) => {
             e.preventDefault();
             handleSearch(searchQuery);
-          }} className="flex items-center gap-4">
+          }}
+          className="flex items-center gap-4"
+        >
           <input
             type="search"
             placeholder="Search"
@@ -100,7 +102,7 @@ const Navbar = () => {
           >
             <HiOutlineShoppingBag />
             <p className="absolute bg-red-500 w-[15px] p-2 flex items-center justify-center rounded-full h-[15px] -top-1 right-0 z-10 text-[12px] text-white">
-             {cartTotalQuantity || '0'}
+              {cartTotalQuantity || "0"}
             </p>
           </span>
           <ProfileDropdown />

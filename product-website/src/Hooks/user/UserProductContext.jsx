@@ -14,7 +14,11 @@ export const UserProductProvider = ({ children }) => {
   const [price, setPrice] = useState();
   const [allProducts, setAllProducts] = useState({});
   const [loading, setLoading] = useState(false);
-  const [cart,setCart] = useState(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [])
+  const [cart, setCart] = useState(
+    localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [],
+  );
   //const [productPrices,setProductPrices] = useState([])
   const [productIds, setProductIds] = useState([]); // Array to store product IDs
   const getProducts = async () => {
@@ -88,7 +92,7 @@ export const UserProductProvider = ({ children }) => {
 
   useEffect(() => {
     getProducts();
-    getProductsPrice()
+    getProductsPrice();
     getProductCategory();
     // handleGetProductItems()
   }, []);
@@ -105,7 +109,7 @@ export const UserProductProvider = ({ children }) => {
         products,
         getProducts,
         cart,
-        setCart
+        setCart,
       }}
     >
       {children}

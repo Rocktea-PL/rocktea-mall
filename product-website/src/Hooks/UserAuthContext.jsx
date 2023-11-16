@@ -32,7 +32,8 @@ export const UserAuthProvider = ({ children }) => {
 
   const handleLoginUserSubmit = async (e) => {
     e.preventDefault();
-    let store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+    let store_id =
+      localStorage.getItem("storeId") || localStorage.getItem("storeUid");
 
     try {
       setIsLoading(true);
@@ -67,7 +68,10 @@ export const UserAuthProvider = ({ children }) => {
     } catch (error) {
       setError(error); // Handle login error
       console.error("Login error:", error);
-      toast.error("Invalid credentials. Please try again.", error.response.data.detail);
+      toast.error(
+        "Invalid credentials. Please try again.",
+        error.response.data.detail,
+      );
       //cogoToast.success("Log in Failed. Check you Details");
     } finally {
       setIsLoading(false); // Set loading state back to false after the request is complete
@@ -100,7 +104,8 @@ export const UserAuthProvider = ({ children }) => {
 */
 
   const getStoreDetails = async () => {
-    const store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+    const store_id =
+      localStorage.getItem("storeId") || localStorage.getItem("storeUid");
     try {
       const response = await axios.get(
         `https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/${store_id}`,
@@ -120,7 +125,7 @@ export const UserAuthProvider = ({ children }) => {
   };
   const getStoreProfile = async () => {
     const owner_id = localStorage.getItem("owner");
-    console.log("store owner id", owner_id);
+
     try {
       const response = await axios.get(
         `https://rocktea-mall-api-test.up.railway.app/rocktea/storeowner/${owner_id}`,
@@ -129,7 +134,7 @@ export const UserAuthProvider = ({ children }) => {
         console.log("store does not exist");
       }
       console.log(response.data);
-      localStorage.setItem("storeOwner", response.data.is_store_owner);
+      localStorage.setItem("storeUserId", response.data.id);
       setStoreUser(response.data);
     } catch (error) {
       console.log(error.response);
@@ -159,18 +164,18 @@ export const UserAuthProvider = ({ children }) => {
     getUserDetails();
     getStoreProfile();
 
-    const store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+    const store_id =
+      localStorage.getItem("storeId") || localStorage.getItem("storeUid");
     setStoreId(store_id);
     console.log("store owner id", store_id);
-   // const is_owner = localStorage.getItem("storeOwner");
+    // const is_owner = localStorage.getItem("storeOwner");
     ///setIsStoreOwner(is_owner);
   }, []);
 
-  
   return (
     <StoreContext.Provider
       value={{
-      //  isStoreOwner,
+        //  isStoreOwner,
         storeUser,
         storeId,
         userData,

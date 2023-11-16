@@ -2,7 +2,7 @@ import { FaAngleLeft, FaAngleRight, FaStar } from "react-icons/fa";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-
+import {motion} from 'framer-motion'
 function Members() {
   const sliderSettings = {
     // removes default buttons
@@ -17,7 +17,20 @@ function Members() {
 cssEase: 'cubic-bezier(0.600, -0.280, 0.735, 0.045)'
   };
   return (
-    <section className="  mx-auto mb-0">
+
+    <motion.section
+    initial={{ opacity: 0 }}
+    whileInView={{
+      opacity: 1,
+     
+      transition: {
+        delay: 0.3,
+        duration: 1,
+        ease: "easeInOut",
+      },
+    }}
+    className="  mx-auto mb-0">
+   
       <h2 className=" text-md xsm:text-[40px] text-center my-10 font-semibold leading-tight">
         Hear From <span className="text-[var(--yellow)]">Our Members</span>
       </h2>
@@ -64,7 +77,7 @@ cssEase: 'cubic-bezier(0.600, -0.280, 0.735, 0.045)'
         
          
       </Slider>
-    </section>
+    </motion.section>
   );
 }
 
