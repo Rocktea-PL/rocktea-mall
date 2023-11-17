@@ -1,15 +1,13 @@
 // UserContext.js
-import { createContext, useContext, useState } from "react";
+import  { createContext, useContext, useState } from 'react';
 
 const UserRoleContext = createContext();
 
 export const UserRoleProvider = ({ children }) => {
-  const [userRole, setUserRole] = useState(
-    localStorage.getItem("userRole") || "dropshipper",
-  );
+  const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || 'dropshipper');
 
   const setRole = (newRole) => {
-    localStorage.setItem("userRole", newRole);
+    localStorage.setItem('userRole', newRole);
     setUserRole(newRole);
   };
 

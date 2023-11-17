@@ -29,7 +29,7 @@ export default function ProductCard({
   } else if (percentage === 0) {
     progressBarClass = "bg-gray-400"; // Out of stock (0%)
   }
-  // console.log(progressBarClass)
+ // console.log(progressBarClass)
   return (
     <>
       {isImageAvailable ? (
@@ -51,7 +51,7 @@ export default function ProductCard({
               <p className="font-semibold">₦ {price.toLocaleString()}</p>
               <strike className="text-gray-400 text-[12px]">₦{oldPrice}</strike>
               <div className="relative h-[0.6rem] w-full mt-3 border border-solid border-gray-200 ">
-                <div
+              <div
                   className={`absolute inset-0 rounded-sm ${progressBarClass}`}
                   style={{ width: `${percentage}%` }}
                 ></div>

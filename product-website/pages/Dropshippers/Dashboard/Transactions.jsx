@@ -9,6 +9,7 @@ import Transaction from "../../../src/components/Dashboard/Transaction";
 export default function Transactions() {
   return (
     <>
+    
       <main className="flex mt-20 ">
         <Sidebar />
 

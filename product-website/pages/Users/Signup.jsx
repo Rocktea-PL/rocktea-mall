@@ -15,20 +15,20 @@ import { useStoreContext } from "../../src/Hooks/UserAuthContext";
 function Signup() {
   const navigate = useNavigate();
   const { store } = useStoreContext();
-  const { store_id } = useParams();
-  // const { setRole } = useUserRoleContext();
-  console.log("register id", store_id);
+  const {store_id} = useParams()
+ // const { setRole } = useUserRoleContext();
+  console.log('register id', store_id)
   const { loading, formData, setFormData, error, setError, handleUserForm } =
     useGlobalContext();
-  useEffect(() => {
-    // Set store_id in local storage when the component mounts
-    localStorage.setItem("storeUid", store_id);
-    //setRole('user');
-    localStorage.setItem("userRole", "user");
-    console.log("rendered");
-    console.log("user store stuff", store_id);
-  }, []);
-  console.log(store_id);
+    useEffect(() => {
+      // Set store_id in local storage when the component mounts
+      localStorage.setItem("storeUid", store_id);
+      //setRole('user');
+     localStorage.setItem('userRole', 'user');
+      console.log('rendered')
+      console.log("user store stuff", store_id);
+    }, []);
+    console.log(store_id)
   // const [showAdditionalFields, setShowAdditionalFields] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   //const [step, setStep] = useState(1);

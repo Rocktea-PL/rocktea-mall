@@ -6,65 +6,62 @@ import Footer from "../../src/Features/Footer";
 import { useStoreContext } from "../../src/Hooks/UserAuthContext";
 import { useNavigate } from "react-router-dom";
 
-import { PaystackButton } from "react-paystack";
+import {PaystackButton} from "react-paystack";
 import axios from "axios";
 import { selectCartItems } from "../../src/Redux/CartSlice";
 import { useSelector } from "react-redux";
-import {
-  calculateEstimatedTotal,
-  calculateTotal,
-} from "../../src/Helpers/CartUtils";
+import { calculateEstimatedTotal, calculateTotal } from "../../src/Helpers/CartUtils";
 function Checkout() {
   const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
-
-  const total = calculateTotal(cartItems);
-  const estimatedTotal = calculateEstimatedTotal(cartItems);
+  
+ const total = calculateTotal(cartItems);
+ const estimatedTotal = calculateEstimatedTotal(cartItems);
   // const { paymentInfo, setPaymentInfo} = useGlobalContext();
-  const { userData, store } = useStoreContext();
-  const publicKey = "pk_test_87ac60396c1e2cca490d90abc08a418f08c9e970";
-  const estimatedTotalInNaira = estimatedTotal * 100;
-  console.log(estimatedTotalInNaira);
-
+  const { userData,store } = useStoreContext();
+  const publicKey = 'pk_test_87ac60396c1e2cca490d90abc08a418f08c9e970';
+ const estimatedTotalInNaira = estimatedTotal * 100;
+  console.log(estimatedTotalInNaira)
+  
   const onSuccess = (reference) => {
     // You can access the payment reference here (in the reference variable)
-    console.log("Payment reference: " + reference);
+    console.log('Payment reference: ' + reference);
     const productsInCart = cartItems.map((item) => ({
-      product: item.id, // Replace with the actual property name in your data
+      product: item.id,  // Replace with the actual property name in your data
       quantity: item.cartQuantity,
-      price: item.price, // Replace with the actual property name in your data
+      price: item.price,  // Replace with the actual property name in your data
     }));
-
-    // Prepare the data you want to send to the API
-    const data = {
-      products: productsInCart,
-      shipping_address: userData.address,
-      store: store.id,
-    };
+    
+  // Prepare the data you want to send to the API
+  const data = {
+    products: productsInCart,
+    shipping_address: userData.address,
+    store: store.id,
+  };
 
     // Make an HTTP POST request to your API
     axios
       .post(`https://rocktea-mall-api-test.up.railway.app/order/buy/`, data)
       .then((response) => {
         // Handle the API response if needed
-        console.log("APIresponse:", response.data);
+        console.log('APIresponse:', response.data);
       })
       .catch((error) => {
         // Handle any errors from the API request
-        console.error("API request error:", error);
+        console.error('API request error:', error);
       });
   };
 
   const onClose = () => {
     // Handle when the payment modal is closed.
-    console.log("Payment closed");
+    console.log('Payment closed');
   };
 
   const config = {
     email: userData.email,
     amount: estimatedTotalInNaira,
     publicKey,
-    text: "Pay Now",
+    text: 'Pay Now',
     onSuccess,
     onClose,
   };
@@ -72,23 +69,23 @@ function Checkout() {
     <>
       <section className="px-5 mx-5">
         <div className="flex items-center gap-1 mb-4">
-          <Link to="/">
-            <p className="flex items-center">
-              Home
-              <FaAngleRight />
-            </p>
+          <Link to='/'>
+          <p className="flex items-center">
+            Home
+            <FaAngleRight />
+          </p>
           </Link>
-          <Link to="/">
-            <p className="flex items-center">
-              Products
-              <FaAngleRight />
-            </p>
-          </Link>
-          <Link to="/cart">
-            <p className="flex items-center">
-              Cart
-              <FaAngleRight />
-            </p>
+          <Link to='/'>
+          <p className="flex items-center">
+            Products
+            <FaAngleRight />
+          </p>
+         </Link>
+         <Link to='/cart'>
+         <p className="flex items-center">
+            Cart
+            <FaAngleRight />
+          </p>
           </Link>
           <p className="flex items-center">
             Checkout
@@ -155,7 +152,7 @@ function Checkout() {
                     <h3 className="flex items-start justify-between  text-center">
                       <span className="">Subtotal</span>
                       <span className="font-semibold flex-1 text-right mr-3">
-                        ₦ {total.toLocaleString()}
+                      ₦ {total.toLocaleString()}
                       </span>
                     </h3>
                     <h3 className="flex items-start justify-between  ">
@@ -173,9 +170,7 @@ function Checkout() {
 
                     <h3 className="flex items-center justify-between ">
                       <span className="">Estimated Total</span>
-                      <span className="font-semibold">
-                        ₦ {estimatedTotal.toLocaleString()}
-                      </span>
+                      <span className="font-semibold">₦ {estimatedTotal.toLocaleString()}</span>
                     </h3>
                   </div>
 
@@ -183,7 +178,7 @@ function Checkout() {
                 </div>
                 <Link to="/checkout">
                   <button className="flex items-center justify-center mx-auto my-5 bg-[var(--orange)] rounded-md w-full h-12">
-                    <PaystackButton {...config} className="text-[17px]" />
+                  <PaystackButton {...config} className="text-[17px]"/>
                   </button>
                 </Link>
               </div>

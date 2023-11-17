@@ -1,6 +1,5 @@
 import Button from "../Button";
 import { Link } from "react-router-dom";
-import {motion} from 'framer-motion'
 function HowItWorks() {
   return (
     <>
@@ -10,41 +9,16 @@ function HowItWorks() {
           <h3 className=" text-[30px] md:text-[50px] font-semibold text-[var(--deep-blue)]">
             How It Works
           </h3>
-          <motion.figure
-      initial={{ opacity: 0, x:-200 }}
-      whileInView={{
-        opacity: 1,
-        x:0,
-        transition: {
-          delay: 0.3,
-          duration: 1,
-          ease: "easeInOut",
-        },
-      }}
-      className="mt-4 "
-    >
-          
+          <figure className="mt-4 ">
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421642/rocktea-main-website/assets/home2_kg7fxu.png"
               alt="home2 "
               className=" w-full h-full md:w-[500px] md:h-[600px] object-cover"
             />
-          </motion.figure>
+          </figure>
         </article>
-        <motion.article 
-      initial={{ opacity: 0}}
-      whileInView={{
-        opacity: 1,
-       
-        transition: {
-          delay: 0.3,
-          duration: 1,
-          ease: "easeInOut",
-        },
-      }}
-      className="flex flex-col items-center justify-center lg:items-start lg:justify-start gap-y-3 mb-5"
-    >
-       
+
+        <article className="lg:max-w-[50%] ml-5">
           <figure className="flex flex-col items-center justify-center lg:items-start lg:justify-start gap-y-3 mb-5">
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421625/rocktea-main-website/assets/01_auzc8m.svg"
@@ -75,7 +49,7 @@ function HowItWorks() {
               They make purchase, you earn!
             </p>
           </figure>
-        </motion.article>
+        </article>
       </section>
       <Link to="/personal_details">
         <div className="flex items-center justify-center mt-2 mb-8">
