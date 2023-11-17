@@ -35,7 +35,7 @@ function MobileNavbar({ store, isOpen, toggleMenu }) {
             alt="logo"
             width={50}
             height={50}
-            className=""
+            className="rounded-full"
           />
         ) : (
           <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">

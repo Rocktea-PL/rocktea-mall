@@ -23,10 +23,10 @@ import { useEffect } from "react";
 function DropshipperLayout() {
   //const {storeUser} = useStoreContext()
   //const location = useLocation();
-  // let id = localStorage.getItem ('storeId')
-  useEffect(() => {
-    localStorage.getItem("storeId");
-  }, []);
+ // let id = localStorage.getItem ('storeId')
+ useEffect(() => {
+  localStorage.getItem('storeId')
+ },[])
   //console.log(id)
   // Check if the current location is the registration route
   /* const hideNavbar =

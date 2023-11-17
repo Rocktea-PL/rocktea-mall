@@ -7,6 +7,7 @@ import Sidebar from "../../../src/components/Dashboard/Sidebar";
 export default function Orders() {
   return (
     <>
+      
       <main className="flex mt-20  ">
         <Sidebar />
         <div className=" block lg:flex flex-col lg:relative  lg:left-[320px] w-full lg:gap-x-10 lg:w-[75%] px-5">

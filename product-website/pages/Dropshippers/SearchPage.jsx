@@ -15,7 +15,7 @@ export default function SearchPage() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get("query") || "";
-  // const [selectedColor, setSelectedColor] = useState(""); // State for color filter
+ // const [selectedColor, setSelectedColor] = useState(""); // State for color filter
   //const [selectedPriceRange, setSelectedPriceRange] = useState(''); // State for price range filter
   // const [selectedSubcategory, setSelectedSubcategory] = useState(''); // State for subcategory filter
   //const [loading,setLoading] = useState(false
@@ -34,8 +34,8 @@ export default function SearchPage() {
 
       return filter;
     });*/
-  //console.log(selectedColor)
-  // }
+    //console.log(selectedColor)
+ // }
   /* if (selectedPriceRange) {
     const [minPrice, maxPrice] = selectedPriceRange.split('-');
     filteredProducts = filteredProducts.filter((product) =>
@@ -55,28 +55,31 @@ export default function SearchPage() {
     <div>
       <Navbar />
       <div className="flex items-center gap-1  mt-20 px-10 pb-5">
-        <p className="flex items-center">
-          Home
-          <FaAngleRight />
-        </p>
-        <p className="flex items-center">
-          Products
-          <FaAngleRight />
-        </p>
-        <p className="flex items-center capitalize">
-          {searchQuery}
-          <FaAngleRight />
-        </p>
-      </div>
-      <hr />
+            <p className="flex items-center">
+              Home
+              <FaAngleRight />
+            </p>
+            <p className="flex items-center">
+              Products
+              <FaAngleRight />
+            </p>
+            <p className="flex items-center capitalize">
+            {searchQuery}
+              <FaAngleRight />
+            </p>
+            
+          </div>
+          <hr />
       <section className=" gap-5 px-5 justify-center mx-auto  max-w-[1300px]">
+      
         <Search filteredProducts={filteredProducts} searchQuery={searchQuery} />
-        <CommonProducts />
+        <CommonProducts/>
       </section>
       <Footer />
     </div>
   );
 }
+
 
 /** <SearchSidebar
           selectedColor={selectedColor}

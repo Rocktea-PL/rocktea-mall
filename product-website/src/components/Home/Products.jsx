@@ -22,17 +22,17 @@ const Products = () => {
     return (
       <div className="flex items-center justify-center mx-auto mb-5">
         <Oval
-          height={40}
-          width={50}
-          color="#fff"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-          ariaLabel="oval-loading"
-          secondaryColor="orange"
-          strokeWidth={7}
-          strokeWidthSecondary={7}
-        />
+                  height={40}
+                  width={50}
+                  color="#fff"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="oval-loading"
+                  secondaryColor="orange"
+                  strokeWidth={7}
+                  strokeWidthSecondary={7}
+                />
       </div>
     );
   }
@@ -41,7 +41,7 @@ const Products = () => {
   }
 
   console.log(data.results);
-
+  
   if (data && data.results) {
     return (
       <section className="mt-5">
@@ -49,7 +49,7 @@ const Products = () => {
           //const categoryProducts = productsByCategory[category];
           const categoryTitle = category.product.category;
           const subCategory = category.product.subcategory;
-          console.log(subCategory);
+          console.log(subCategory)
           return (
             <ScrollProducts
               key={category.id}
@@ -80,6 +80,7 @@ const Products = () => {
             />
           );
         })}
+        
       </section>
     );
   }
