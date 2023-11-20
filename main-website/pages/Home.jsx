@@ -7,8 +7,8 @@ import Newsletter from "../src/Components/Home/Newsletter";
 
 function Home() {
   return (
-    <div className="relative">
-      <div className="hidden md:flex absolute -left-[2.5rem] -top-[12rem]  overflow-hidden z-[-1]">
+    <div className="relative overflow-x-hidden">
+      <div className="hidden md:flex absolute -left-[2.5rem] md:-top-[8rem] -top-[12rem]  overflow-hidden z-[-1]">
         <img
           width={350}
           height={350}

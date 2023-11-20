@@ -8,7 +8,15 @@ import store from "./Redux/store.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "react-hot-toast";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * (60 * 1000), //  5 mins
+      cacheTime: 10 * (60 * 1000), // 10 mins
+    },
+  },
+});
+//staleTime: 5 * (60 * 1000), cacheTime: 10 * (60 * 1000),
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>

@@ -9,7 +9,7 @@ import { useState } from "react";
 const DropshipperNavbar = ({ page }) => {
   const { store } = useStoreContext();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-
+  //console.log(store)
   const toggleMobileNav = () => {
     setIsMobileNavOpen(!isMobileNavOpen);
   };
@@ -20,7 +20,7 @@ const DropshipperNavbar = ({ page }) => {
     <header className="p-3 bg-white shadow-md fixed top-0 w-full z-[60]">
       <nav className="hidden lg:flex items-center justify-between px-4">
         <figure className="flex items-center justify-center gap-3">
-          {store.logo ? (
+          {store?.logo ? (
             <img
               src={store?.logo}
               alt="logo"
@@ -35,20 +35,19 @@ const DropshipperNavbar = ({ page }) => {
           )}
         </figure>
         <ul className="flex items-center justify-between gap-5">
-          <li className="uppercase tracking-[1px]">
+          <li className=" tracking-[1px]">
             {" "}
             <Link to="/">Products</Link>
           </li>
-          <li className="uppercase tracking-[1px]">
+          <li className=" tracking-[1px]">
             {" "}
-            <Link to={`/dashboard?store_id=${store.id}`}>Dashboard</Link>
+            <Link to={`/dashboard?store_id=${store?.id}`}>Dashboard</Link>
           </li>
 
-          <li className="uppercase tracking-[1px]">
+          <li className=" tracking-[1px]">
             {" "}
             <Link to={`/marketplace/${page}`}>Marketplace</Link>
           </li>
-          <li className="uppercase tracking-[1px] cursor-pointer"> User</li>
         </ul>
 
         <div className="relative flex items-center justify-between gap-3 mt-2">

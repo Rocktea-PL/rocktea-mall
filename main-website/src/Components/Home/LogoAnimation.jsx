@@ -29,7 +29,19 @@ function LogoAnimation() {
     },
   };
   return (
-    <div className="  relative bg-[var(--deep-blue)] p-10 pb-20 lg:pb-10 md:flex z-[9] overflow-hidden ">
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{
+        opacity: 1,
+
+        transition: {
+          delay: 0.3,
+          duration: 1,
+          ease: "easeInOut",
+        },
+      }}
+      className="  relative bg-[var(--deep-blue)] p-10 pb-20 lg:pb-10 md:flex z-[9] overflow-hidden "
+    >
       <article className="md:max-w-[50%] text-[var(--white)] lg:ml-28">
         <h2 className=" xxsm:text-[1.3rem]  xxsm:-ml-4 mx-auto sm:mb-8 lg:mb-0 text-md sm:text-[40px] lg:text-[50px] leading-[1.20] font-semibold md:w-[700px] text-center whitespace-nowrap tracking-[0.25rem] text-white">
           &quot;Products from the
@@ -69,7 +81,7 @@ function LogoAnimation() {
           className="shadow-2xl object-cover"
         />
       </motion.figure>
-    </div>
+    </motion.div>
   );
 }
 

@@ -59,7 +59,7 @@ function FileInput({ userData, setUserData, error }) {
               }
             }}
           >
-           <FiUpload />
+            <FiUpload />
           </button>
         </div>
         {error && error.profile_image && (

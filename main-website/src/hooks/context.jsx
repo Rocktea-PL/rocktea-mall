@@ -13,7 +13,7 @@ const AppProvider = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(0);
   //const [accessToken, setAccessToken] = useState(null);
   // Define initial user data state
- //const  [storeId,setStoreId] = UseState()
+  //const  [storeId,setStoreId] = UseState()
   const [userData, setUserData] = useState({
     // Define initial user data state
     first_name: "",
@@ -35,7 +35,7 @@ const AppProvider = ({ children }) => {
     email: "",
     TIN_number: "",
     year_of_establishment: "",
-    domain_name:"" ,
+    domain_name: "",
     logo: "",
 
     // Add more properties as needed
@@ -115,7 +115,7 @@ const AppProvider = ({ children }) => {
       localStorage.setItem("userData", JSON.stringify(userData));
       toast.success("Registered Succesfully!");
 
-      navigate('/email_verification')
+      navigate("/email_verification");
       //cogoToast.success("Registered Succesfully!");
     } catch (error) {
       setError(error || error.response.data);
@@ -136,29 +136,29 @@ const AppProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const response = await loginUser(credentials); // Call the login function
-      
+
       console.log("Login successful:", response);
-      
+
       const token = response.access;
       localStorage.setItem("accessToken", token);
-     
-      let store_id = response.user_data.store_id
-    // console.log(store_id)
+
+      let store_id = response.user_data.store_id;
+      // console.log(store_id)
       if (response.user_data.has_store === false) {
         navigate("/store_details");
-    //https://rocktea-mall-product.vercel.app    
-//http://localhost:5174/dashboard/
-//https://users.yourockteamall.com
+        //https://rocktea-mall-product.vercel.app
+        //`https://rocktea-mall-product.vercel.app/dashboard
+        //http://localhost:5174/dashboard/
+        //https://users.yourockteamall.com
       } else {
-      window.open(
-        `https://rocktea-mall-product.vercel.app/dashboard?store_id=${store_id}`,
-          "_self",
+        window.open(
+          `https://rocktea-mall-product.vercel.app/dashboard?store_id=${store_id}`,
+          "_blank",
         );
       }
 
       console.log("Updated storeData:", storeData);
-      
-      
+
       toast.success("Logged in Successfully");
     } catch (error) {
       setLoginError(error); // Handle login error
@@ -167,7 +167,7 @@ const AppProvider = ({ children }) => {
       //cogoToast.success("Log in Failed. Check you Details");
     } finally {
       setIsLoading(false);
-       // Set loading state back to false after the request is complete
+      // Set loading state back to false after the request is complete
     }
   };
 
@@ -175,7 +175,6 @@ const AppProvider = ({ children }) => {
   const handleStoreFormSubmit = async (e) => {
     e.preventDefault();
 
-    
     const storedToken = localStorage.getItem("accessToken");
     const formData = new FormData();
     formData.append("name", storeData.name);
@@ -279,8 +278,8 @@ const AppProvider = ({ children }) => {
         if (verifyPayment.data.data.status === "success") {
           clearInterval(interval);
           // Stop polling
-        //const store_id = localStorage.getItem('id')
-        navigate('/domain_creation')
+          //const store_id = localStorage.getItem('id')
+          navigate("/domain_creation");
           /*window.location.href =
             `http://localhost:5174/dashboard/${store_id}`;*/
           console.log("Payment verification successful.");

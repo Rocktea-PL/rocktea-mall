@@ -1,34 +1,26 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
-//import axios from "axios";
-//import { Step1, Step2 } from "../../src/Users/UserSignupForm";
 import { Oval } from "react-loader-spinner";
-//import { UserSignupForm } from "../../src/Users/UserSignupForm";
-//import toast from "react-hot-toast";
 import { UserSignupForm } from "../../src/components/Forms/UserSignupForm";
 import { useGlobalContext } from "../../src/Hooks/Context";
 import { useStoreContext } from "../../src/Hooks/UserAuthContext";
-//import { useUserRoleContext } from "../../src/Hooks/getRoleContext";
+import { Link, useNavigate } from "react-router-dom";
 
-//import { useGlobalContext } from "../../src/hooks/context";
 function Signup() {
   const navigate = useNavigate();
   const { store } = useStoreContext();
-  const {store_id} = useParams()
- // const { setRole } = useUserRoleContext();
-  console.log('register id', store_id)
+  const { store_id } = useParams();
+
   const { loading, formData, setFormData, error, setError, handleUserForm } =
     useGlobalContext();
-    useEffect(() => {
-      // Set store_id in local storage when the component mounts
-      localStorage.setItem("storeUid", store_id);
-      //setRole('user');
-     localStorage.setItem('userRole', 'user');
-      console.log('rendered')
-      console.log("user store stuff", store_id);
-    }, []);
-    console.log(store_id)
+  useEffect(() => {
+    // Set store_id in local storage when the component mounts
+    localStorage.setItem("storeUid", store_id);
+    //setRole('user');
+    localStorage.setItem("userRole", "user");
+  }, []);
+  //console.log(store_id);
   // const [showAdditionalFields, setShowAdditionalFields] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   //const [step, setStep] = useState(1);
@@ -58,8 +50,11 @@ function Signup() {
         />
       </figure>
       <div className="flex flex-col items-center justify-center mx-auto text-center w-full overflow-auto h-full lg:py-10">
-        <div className="flex items-center justify-start w-full mb-4 px-5">
-          <span className="cursor-pointer text-xl" onClick={() => navigate(-1)}>
+        <div
+          className="flex items-center justify-start w-full mb-4 px-5"
+          onClick={() => navigate(-1)}
+        >
+          <span className="cursor-pointer text-xl">
             <FaArrowLeft />
           </span>
         </div>
@@ -121,7 +116,12 @@ function Signup() {
             </button>
           </form>
         </div>
-
+        <p>
+          Don’t have an account?{" "}
+          <Link to={`/login`} className="font-semibold">
+            Login
+          </Link>
+        </p>
         <p className="w-[55%] text-sm mt-5">
           For further support, you may visit the Help Center or contact our
           customer service team

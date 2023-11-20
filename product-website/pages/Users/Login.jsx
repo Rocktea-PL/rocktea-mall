@@ -15,7 +15,7 @@ function Login() {
     handleLoginUserSubmit,
   } = useStoreContext();
 
-const store_id = localStorage.getItem('storeUid')
+  const store_id = localStorage.getItem("storeUid");
   const [showPassword, setShowPassword] = useState(false);
 
   const handlePasswordVisibility = () => {
