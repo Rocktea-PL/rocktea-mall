@@ -1,4 +1,5 @@
 // AuthContext.js
+// AuthContext.js
 import axios from "axios";
 //import jwtDecode from "jwt-decode";
 import { useEffect, useState } from "react";
@@ -9,6 +10,9 @@ import toast from "react-hot-toast";
 //import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
+
+//import { useQuery } from "react-query";
 const StoreContext = createContext();
 
 export const useStoreContext = () => {
@@ -24,7 +28,7 @@ export const UserAuthProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
   const [isUser, setIsUser] = useState(false);
   //const [isStoreOwner, setIsStoreOwner] = useState(null);
-  const [storeId, setStoreId] = useState();
+  let storeId = localStorage.getItem("storeId");
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -32,13 +36,18 @@ export const UserAuthProvider = ({ children }) => {
 
   const handleLoginUserSubmit = async (e) => {
     e.preventDefault();
-    let store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+    //let store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
 
     try {
       setIsLoading(true);
       const response = await axios.post(
         `https://rocktea-mall-api-test.up.railway.app/store/login/`,
         credentials,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
       ); // Call the login function
       console.log("Login worked:", response);
 
@@ -46,7 +55,7 @@ export const UserAuthProvider = ({ children }) => {
         secure: true,
         sameSite: "strict",
       });
-      console.log(store_id);
+      //console.log(store_id);
       const usertoken = response.access;
       localStorage.setItem("accessToken", usertoken);
       //setUserData(response.user_data);
@@ -54,7 +63,7 @@ export const UserAuthProvider = ({ children }) => {
       const user_id = response.data.user_data.id;
       setIsUser(true);
       localStorage.setItem("user_id", user_id);
-      console.log(user_id);
+      // console.log(user_id);
       //localStorage.setItem("userData", JSON.stringify(response.user_data));
       // Store the access token in state and/or localStorage
       //setAccessToken(token);
@@ -67,7 +76,10 @@ export const UserAuthProvider = ({ children }) => {
     } catch (error) {
       setError(error); // Handle login error
       console.error("Login error:", error);
-      toast.error("Invalid credentials. Please try again.", error.response.data.detail);
+      toast.error(
+        "Invalid credentials. Please try again.",
+        error.response.data.detail,
+      );
       //cogoToast.success("Log in Failed. Check you Details");
     } finally {
       setIsLoading(false); // Set loading state back to false after the request is complete
@@ -80,27 +92,28 @@ export const UserAuthProvider = ({ children }) => {
     localStorage.removeItem("userData");
     setIsUser(false);
     // Redirect to the login page
-    navigate("/signin");
+    navigate("/login");
   };
 
-  /* const checkTokenExpiration = () => {
-      const token = localStorage.getItem("accessToken");
-      if (token) {
-        const decodedToken = jwtDecode(token);
-        if (decodedToken.exp * 1000 < Date.now()) {
-          // Token has expired, clear user data and redirect to login
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("userData");
-         
-          setIsUser(false);
-          navigate("/login");
-        } 
+  const checkTokenExpiration = () => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      if (decodedToken.exp * 1000 < Date.now()) {
+        // Token has expired, clear user data and redirect to login
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("userData");
+
+        setIsUser(false);
+        navigate("/login");
       }
-    };
-*/
+    }
+  };
+
+  const store_id =
+    localStorage.getItem("storeId") || localStorage.getItem("storeUid");
 
   const getStoreDetails = async () => {
-    const store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
     try {
       const response = await axios.get(
         `https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/${store_id}`,
@@ -108,7 +121,7 @@ export const UserAuthProvider = ({ children }) => {
       if (response.status === 404) {
         console.log("store does not exist");
       }
-      console.log(response.data);
+      // console.log(response.data);
       let owner = response.data.owner;
       localStorage.setItem("owner", owner);
       localStorage.setItem("category_id", response.data.category);
@@ -118,9 +131,9 @@ export const UserAuthProvider = ({ children }) => {
       console.log(error.response);
     }
   };
+  const owner_id = localStorage.getItem("owner");
   const getStoreProfile = async () => {
-    const owner_id = localStorage.getItem("owner");
-    console.log("store owner id", owner_id);
+    // console.log("store owner id", owner_id);
     try {
       const response = await axios.get(
         `https://rocktea-mall-api-test.up.railway.app/rocktea/storeowner/${owner_id}`,
@@ -128,7 +141,7 @@ export const UserAuthProvider = ({ children }) => {
       if (response.status === 404) {
         console.log("store does not exist");
       }
-      console.log(response.data);
+      //console.log(response.data);
       localStorage.setItem("storeOwner", response.data.is_store_owner);
       setStoreUser(response.data);
     } catch (error) {
@@ -139,13 +152,13 @@ export const UserAuthProvider = ({ children }) => {
   //console.log('store owner id', owner)
 
   //rocktea/storeowner
+  const user_id = localStorage.getItem("user_id");
   const getUserDetails = async () => {
-    const user_id = localStorage.getItem("user_id");
     try {
       const response = await axios.get(
         `https://rocktea-mall-api-test.up.railway.app/rocktea/signup/user/${user_id}/`,
       );
-      console.log("user data", response.data);
+      // console.log("user data", response.data);
 
       setUserData(response.data);
     } catch (error) {
@@ -155,24 +168,25 @@ export const UserAuthProvider = ({ children }) => {
 
   useEffect(() => {
     //checkTokenExpiration();
-    getStoreDetails();
-    getUserDetails();
-    getStoreProfile();
+    if (store_id) {
+      getStoreDetails();
+    }
+    if (owner_id) {
+      getStoreProfile();
+    }
 
-    const store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
-    setStoreId(store_id);
-    console.log("store owner id", store_id);
-   // const is_owner = localStorage.getItem("storeOwner");
-    ///setIsStoreOwner(is_owner);
-  }, []);
+    if (user_id) {
+      getUserDetails();
+    }
+  }, [owner_id, user_id, store_id]);
 
-  
   return (
     <StoreContext.Provider
       value={{
-      //  isStoreOwner,
+        //  isStoreOwner,
         storeUser,
         storeId,
+        checkTokenExpiration,
         userData,
         store,
         error,

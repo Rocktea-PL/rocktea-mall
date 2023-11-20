@@ -1,5 +1,98 @@
 // AuthContext.js
+// AuthContext.js
 import { createContext, useContext, useState } from "react";
+import axios from "axios";
+import { useQuery } from "react-query";
+
+const UserProductContext = createContext();
+
+//const queryClient = new QueryClient();
+
+const apiUrlProducts = import.meta.env.VITE_API_URL_PRODUCTS;
+const apiUrlCategories = import.meta.env.VITE_API_URL_CATEGORIES;
+const apiUrlProductVariant = import.meta.env.VITE_API_URL_PRODUCT_VARIANT;
+const apiUrlMarketplace = import.meta.env.VITE_API_URL_MARKETPLACE;
+
+console.log(apiUrlProductVariant);
+export const useUserProductContext = () => {
+  return useContext(UserProductContext);
+};
+
+const fetchProducts = async (category) => {
+  const response = await axios.get(`${apiUrlProducts}?category=${category}`);
+  // console.log('data', response.data)
+  return response.data;
+};
+
+const fetchProductCategory = async (category) => {
+  const response = await axios.get(`${apiUrlCategories}${category}`);
+  return response.data;
+};
+
+const fetchProductsPrice = async (productId) => {
+  const response = await axios.get(
+    `${apiUrlProductVariant}?product=${productId}`,
+  );
+  console.log(`${apiUrlProductVariant}?product=${productId}`);
+  return response.data;
+};
+
+export const UserProductProvider = ({ children }) => {
+  const [allProducts, setAllProducts] = useState([]); // Assuming allProducts is a state you want to manage
+  //const [productIds, setProductIds] = useState([]);
+  const [cart, setCart] = useState(
+    localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [],
+  );
+
+  const { data: products, isLoading: productsLoading } = useQuery(
+    "products",
+    () => fetchProducts(localStorage.getItem("category_id")),
+    { enabled: true, staleTime: 5 * (60 * 1000), cacheTime: 10 * (60 * 1000) },
+  );
+  const { data: categoryName } = useQuery(
+    "categoryName",
+    () => fetchProductCategory(localStorage.getItem("category_id")),
+    { enabled: true, staleTime: 5 * (60 * 1000), cacheTime: 10 * (60 * 1000) },
+  );
+  // const { data: price, isLoading: priceLoading } = useQuery('productPrice', () => fetchProductsPrice());
+
+  const handleGetProductItems = async () => {
+    const store_id = localStorage.getItem("storeId");
+    try {
+      const response = await axios.get(
+        `${apiUrlMarketplace}?store=${store_id}`,
+      );
+      setAllProducts(response.data);
+    } catch (error) {
+      console.error("Error getting product:", error.response);
+    }
+  };
+  //console.log(products,)
+  return (
+    <UserProductContext.Provider
+      value={{
+        loading: productsLoading,
+        handleGetProductItems,
+        setAllProducts,
+        allProducts,
+
+        fetchProductsPrice,
+        categoryname: categoryName,
+        products,
+
+        cart,
+        setCart,
+      }}
+    >
+      {children}
+    </UserProductContext.Provider>
+  );
+};
+
+// AuthContext.js
+/*import { createContext, useContext, useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 const UserProductContext = createContext();
@@ -112,3 +205,4 @@ export const UserProductProvider = ({ children }) => {
     </UserProductContext.Provider>
   );
 };
+*/

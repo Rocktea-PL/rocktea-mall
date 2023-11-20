@@ -3,27 +3,30 @@ import { useGlobalContext } from "../../../hooks/context";
 import StoreImage from "./StoreImage";
 //import {MdDateRange} from 'react-icons/md'
 import { Oval } from "react-loader-spinner";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+//import DatePicker from 'react-datepicker';
+//import 'react-datepicker/dist/react-datepicker.css';
 //import { useState } from "react";
+
+import { DatePicker } from "antd";
+import { useState } from "react";
+//import "antd/dist/antd.css";
 function Store({ handleStoreInputChange, storeError, setStoreError }) {
   const { storeData, handleStoreFormSubmit, setStoreData, isLoading } =
     useGlobalContext();
-    
-    const handleDateChange = (date) => {
-      // Ensure date is a valid Date object or null
-      const formattedDate = date ? date.toISOString().split('T')[0] : null;
-     
-      handleStoreInputChange({
-        target: {
-          name: 'year_of_establishment',
-          value: formattedDate,
-        },
-       
-      });
-    };
-    
-    
+  const [isDatePickerFocused, setIsDatePickerFocused] = useState(false);
+
+  const handleDateChange = (date) => {
+    // Ensure date is a valid Date object or null
+    const formattedDate = date ? date.toISOString().split("T")[0] : null;
+
+    handleStoreInputChange({
+      target: {
+        name: "year_of_establishment",
+        value: formattedDate,
+      },
+    });
+  };
+
   return (
     <div className="px-5 md-px-2 ">
       <h2 className="text-black text-[1.3rem] md:text-lg leading-tight">
@@ -79,20 +82,18 @@ function Store({ handleStoreInputChange, storeError, setStoreError }) {
               <p className="text-red-500 text-sm">{storeError?.TIN_number}</p>
             )}
           </label>
-          <label htmlFor="domain_name" >
+          <label htmlFor="domain_name">
             Domain
             <div className="flex items-center country">
-            <input
-              type="text"
-              name="domain_name"
-              value={storeData?.domain_name }
-              placeholder="Domain"
-              onChange={handleStoreInputChange}
-              
-            />
-           <span className="border-l px-2 border-gray-600">.com.ng</span>
+              <input
+                type="text"
+                name="domain_name"
+                value={storeData?.domain_name}
+                placeholder="Domain"
+                onChange={handleStoreInputChange}
+              />
+              <span className="border-l px-2 border-gray-600">.com.ng</span>
             </div>
-            
             {storeError?.domain_name && (
               <p className="text-red-500 text-sm">{storeError?.domain_name}</p>
             )}
@@ -112,24 +113,28 @@ function Store({ handleStoreInputChange, storeError, setStoreError }) {
               </p>
             )}
             </label>*/}
-<label htmlFor="year_of_establishment" className="relative">
-        Year of Establishment 
-        <DatePicker
-          selected={storeData?.year_of_establishment ? new Date(storeData.year_of_establishment) : null}
-          onChange={handleDateChange}
-          dateFormat="yyyy-MM-dd"
-          className="cursor-pointer"
-          placeholderText="YYYY-MM-DD"
-      
-          
-        />
-        {storeError?.year_of_establishment && (
-          <p className="text-red-500 text-sm">
-            {storeError?.year_of_establishment}
-          </p>
-        )}
-       
-      </label>
+          <label htmlFor="year_of_establishment" className="relative">
+            Year of Establishment
+            <DatePicker
+              selected={
+                storeData?.year_of_establishment
+                  ? new Date(storeData.year_of_establishment)
+                  : null
+              }
+              onChange={handleDateChange}
+              onFocus={() => setIsDatePickerFocused(true)}
+              onBlur={() => setIsDatePickerFocused(false)}
+              status={isDatePickerFocused ? "warning" : ""}
+              className={` ant-input cursor-pointer mt-3 hover:border-orange  h-10  !bg-[var(--white)] `}
+              placeholder="YYYY-MM-DD"
+              popupClassName="!bg-red-700 "
+            />
+            {storeError?.year_of_establishment && (
+              <p className="text-red-500 text-sm">
+                {storeError?.year_of_establishment}
+              </p>
+            )}
+          </label>
           <StoreImage
             storeData={storeData}
             setStoreData={setStoreData}

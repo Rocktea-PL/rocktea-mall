@@ -52,14 +52,14 @@ function StoreDetails() {
     if (name === "email") {
       updatedErrors.email = validateEmail(value);
     }
-    
+
     if (name === "domain_name") {
-      if (value.includes('.') || value.includes('.com')) {
-        updatedErrors.domain_name = 'Please remove \'.\' from the domain name.';
-          // Disable the input when "." is included
+      if (value.includes(".") || value.includes(".com")) {
+        updatedErrors.domain_name = "Please remove '.' from the domain name.";
+        // Disable the input when "." is included
       } else {
-        updatedErrors.domain_name = '';
-        e.target.disabled = false;  // Enable the input when "." is removed
+        updatedErrors.domain_name = "";
+        e.target.disabled = false; // Enable the input when "." is removed
       }
     }
     // Add similar validation for other fields

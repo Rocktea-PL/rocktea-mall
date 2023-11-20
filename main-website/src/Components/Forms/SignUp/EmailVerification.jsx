@@ -10,10 +10,10 @@ function EmailVerification() {
   return (
     <div className=" lg:h-screen w-full flex flex-col md:flex-row items-center justify-center md:justify-start p-0 m-0 lg::overflow-hidden">
       <div className="hidden w-full max-w-[45%] lg:flex ">
-      <ImageWithLoading
-              src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1698349267/rocktea-main-website/assets/rocktea-signin-green_bzjy5h.jpg"
-              alt="rockteaBg-green"
-            />
+        <ImageWithLoading
+          src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1698349267/rocktea-main-website/assets/rocktea-signin-green_bzjy5h.jpg"
+          alt="rockteaBg-green"
+        />
       </div>
       <article className="flex  flex-col  mx-auto gap-y-10">
         <figure className="w-[80%] h-[300px] m-auto">

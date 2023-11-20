@@ -3,28 +3,38 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
 import { useEffect } from "react";
-//import { category } from "../constant/data";
-//import { FaAngleRight } from "react-icons/fa";
-//import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { useUserProductContext } from "../../Hooks/UserProductContext";
+
 import toast from "react-hot-toast";
+import { useQuery } from "react-query";
 //import { useState } from "react";
 
 export default function MarketplaceModal({ closeModal, products, productId }) {
-  //const dispatch = useDispatch();
-  const { getProductsPrice, price } = useUserProductContext();
   const [addPrice, setAddPrice] = useState(false);
   //const [price,setPrice] = useState()
   const [selectedSize, setSelectedSize] = useState("");
   const [retailPrices, setRetailPrices] = useState({});
   //const [selectedId, setSelectedId] = useState(null);
   const selectedProduct = products.find((product) => product.id === productId);
-  //const[priceInput,setPriceInput] = useState({
-  // retail_price:''
-  //})
+
+  const apiUrlProductVariant = import.meta.env.VITE_API_URL_PRODUCT_VARIANT;
+
+  const { data: price /*isLoading: priceLoading,error*/ } = useQuery(
+    ["productPrice", productId],
+    async () => {
+      const response = await axios.get(
+        `${apiUrlProductVariant}?product=${productId}`,
+      );
+      console.log("response", response.data);
+      return response.data;
+    },
+    {
+      staleTime: 60000, // 60 seconds
+    },
+  );
+
   const handleAddPrice = (id) => {
     setAddPrice((prevState) => ({
       ...prevState,
@@ -41,35 +51,10 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
     autoplay: true,
     autoplaySpeed: 4000,
   };
-  /*const getProductsPrice = async() => {
- 
-    try{
-        const response = await axios.get(`https://rocktea-mall-api-test.up.railway.app/rocktea/product-variant/?product=${productId}`)
-    console.log('prices',response.data)
-   // setSelectedId(response.data.id)
-   const filteredPrices = response.data.find((item) => item.product !== productId);
-    setPrice(filteredPrices);
-    //setPrice(response.data)
-    //setSelectedId(response.data.id)
-    console.log('product id', response.data.id)
-    }catch(error){
-        console.error(error.response.data)
-    }
-   // updateProductPrices(id, response.data);
- }*/
 
-  useEffect(() => {
-    getProductsPrice(productId);
-    // handleGetProduct()
-  }, [productId]);
-
-  //const selectedSize = products.map((product) => product.size);
-
-  /*const selectedSize=  price?.length > 0
-  ? price.map((item) => item.size)
-  : "Not Available"; */
-  //const priceId=  price.map((item) => item.id)
-  //console.log('id', selectedId)
+ // console.log(price);
+  //console.log(error)
+  console.log(productId);
 
   const handleAddProduct = (e, id) => {
     //setSelectedId(id)
@@ -126,7 +111,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
     // Make a DELETE request to remove the product
     axios
       .delete(
-        `https://rocktea-mall-api-test.up.railway.app/rocktea/store-variant/${productVariantId}`,
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/store-variant/${productVariantId}/`,
       )
       .then((response) => {
         // Handle the success response as needed
@@ -144,9 +129,6 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
     }
   };
 
-  //const selectedPrice = price.find((item) => item.size === selectedSize);
-
-  // let prices = 8888888888.00
   useEffect(() => {
     // handleGetProductItems()
   }, []);
@@ -160,7 +142,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
         <Slider {...sliderSettings}>
           {selectedProduct?.images.map((item, index) => (
             <div key={index} className={index === 0 ? "category-first" : ""}>
-              <Link to="/products_details">
+              <Link to={`/products_details/${selectedProduct.id}`}>
                 <figure className="w-[200px] h-[200px] block mx-auto">
                   <img
                     src={item?.url}
@@ -231,7 +213,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                   <h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
                     Base Price:{" "}
                     <span className="text-gold font-semibold text-center">
-                      ₦ {item.wholesale_price.toLocaleString("en-US")}
+                      ₦ {item.wholesale_price?.toLocaleString("en-US")}
                     </span>
                   </h4>
 

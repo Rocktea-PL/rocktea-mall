@@ -5,6 +5,7 @@ import Partners from "../src/Components/Partners";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { motion } from "framer-motion";
 function About() {
   const [loading, setLoading] = useState(true);
   const sliderSettings = {
@@ -77,9 +78,19 @@ function About() {
           {loading ? (
             <Skeleton width={300} height={300} />
           ) : (
-            <img
+            <motion.img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298697/rocktea-main-website/assets/Our_story_vmaky5.png"
               alt="our story"
+              initial={{ opacity: 0, x: -150 }}
+              whileInView={{
+                opacity: 1,
+                x: 1,
+                transition: {
+                  delay: 0.3,
+                  duration: 1,
+                  ease: "easeInOut",
+                },
+              }}
               className="w-full h-full object-cover"
             />
           )}
@@ -94,13 +105,39 @@ function About() {
             {loading ? (
               <Skeleton width={200} height={40} />
             ) : (
-              <h3 className="xxsm:text-[22px]">What are we here for?</h3>
+              <motion.h3
+                initial={{ opacity: 0 }}
+                whileInView={{
+                  opacity: 1,
+
+                  transition: {
+                    delay: 0.3,
+                    duration: 1,
+                    ease: "easeInOut",
+                  },
+                }}
+                className="xxsm:text-[22px]"
+              >
+                What are we here for?
+              </motion.h3>
             )}
           </div>
           {loading ? (
             <Skeleton count={3} />
           ) : (
-            <p className="mt-7">
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{
+                opacity: 1,
+
+                transition: {
+                  delay: 0.3,
+                  duration: 1,
+                  ease: "easeInOut",
+                },
+              }}
+              className="mt-7"
+            >
               Our mission is to empower businesses by providing them with a
               comprehensive and user-friendly platform that simplifies the
               entire Business to Business to Customers (B2B2C) drop-shipping
@@ -108,7 +145,7 @@ function About() {
               manufacturers, retailers and consumers can seamlessly collaborate,
               ensuring a smooth and satisfying buying experience for all
               stakeholders.
-            </p>
+            </motion.p>
           )}
         </div>
       </article>
@@ -118,9 +155,19 @@ function About() {
           {loading ? (
             <Skeleton width={300} height={300} />
           ) : (
-            <img
+            <motion.img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298697/rocktea-main-website/assets/vision.png"
               alt="our story"
+              initial={{ opacity: 0, x: 150 }}
+              whileInView={{
+                opacity: 1,
+                x: 1,
+                transition: {
+                  delay: 0.3,
+                  duration: 1,
+                  ease: "easeInOut",
+                },
+              }}
               className="w-full h-full object-cover"
             />
           )}
@@ -135,18 +182,44 @@ function About() {
             {loading ? (
               <Skeleton width={200} height={40} />
             ) : (
-              <h3 className="xxsm:text-[22px]">Where are we going?</h3>
+              <motion.h3
+                initial={{ opacity: 0 }}
+                whileInView={{
+                  opacity: 1,
+
+                  transition: {
+                    delay: 0.3,
+                    duration: 1,
+                    ease: "easeInOut",
+                  },
+                }}
+                className="xxsm:text-[22px]"
+              >
+                Where are we going?
+              </motion.h3>
             )}
           </div>
           {loading ? (
             <Skeleton count={3} />
           ) : (
-            <p className="mt-7">
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{
+                opacity: 1,
+
+                transition: {
+                  delay: 0.3,
+                  duration: 1,
+                  ease: "easeInOut",
+                },
+              }}
+              className="mt-7"
+            >
               We envision a world where online shopping is not just about buying
               products but about discovering exciting new items that enhance
               your lifestyle. We want to be your go-to destination for the
               latest trends, unique finds, and everyday essentials.
-            </p>
+            </motion.p>
           )}
         </div>
       </article>
@@ -156,9 +229,19 @@ function About() {
           {loading ? (
             <Skeleton width={500} height={300} />
           ) : (
-            <img
+            <motion.img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298696/rocktea-main-website/assets/dropshipping-icons.png"
-              alt=""
+              alt="our story"
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{
+                opacity: 1,
+                x: 1,
+                transition: {
+                  delay: 0.3,
+                  duration: 1,
+                  ease: "easeInOut",
+                },
+              }}
               className="w-[85%] h-full"
             />
           )}
@@ -184,7 +267,19 @@ function About() {
         {loading ? (
           <Skeleton width={500} height={400} />
         ) : (
-          <div className=" relative overflow-hidden bg-[var(--deep-blue)]   p-10 mt-10">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{
+              opacity: 1,
+
+              transition: {
+                delay: 0.3,
+                duration: 1,
+                ease: "easeInOut",
+              },
+            }}
+            className=" relative overflow-hidden bg-[var(--deep-blue)]   p-10 mt-10"
+          >
             <h3 className="text-white  mb-10 text-center">Why Choose Us</h3>
             <figure className=" hidden lg:block lg:absolute top-0 right-0 overflow-hidden w-[230px] h-auto">
               <img
@@ -254,11 +349,23 @@ function About() {
                 </p>
               </div>
             </Slider>
-          </div>
+          </motion.div>
         )}
       </article>
 
-      <article className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 lg:gap-20  bg-white rounded-lg py-10 px-7 mt-10 mx-auto">
+      <motion.article
+        initial={{ opacity: 0 }}
+        whileInView={{
+          opacity: 1,
+
+          transition: {
+            delay: 0.3,
+            duration: 1,
+            ease: "easeInOut",
+          },
+        }}
+        className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 lg:gap-20  bg-white rounded-lg py-10 px-7 mt-10 mx-auto"
+      >
         <h3 className="text-[40px] text-black lg:mt-20">Our Team</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center items-center gap-5">
           <img
@@ -287,7 +394,7 @@ function About() {
             className="w-[300px]"
           />
         </div>
-      </article>
+      </motion.article>
     </section>
   );
 }

@@ -24,47 +24,12 @@ const AppProvider = ({ children }) => {
     address: "",
   });
 
-  const [paymentInfo, setPaymentInfo] = useState({
-    cardNumber: "",
-    expiryDate: "",
-    cvv: "",
-    saveCard: false,
-  });
-
-  // Your Paystack public key
-  const publicKey = "pk_test_5ca0e75b73959e80a380bb38f601a565ff05e849";
-
-  const handlePaymentSuccess = (response) => {
-    // Payment was successful, you can update the UI accordingly
-    console.log("Payment successful", response);
-  };
-
-  // Customize your payment options
-  const paystackOptions = {
-    key: publicKey,
-    email: paymentInfo.email,
-    amount: 12500, // Amount in kobo (₦12,500)
-    currency: "NGN",
-    ref: "unique_transaction_reference", // You should generate a unique reference for each transaction
-    metadata: {
-      custom_fields: [
-        {
-          display_name: "Customer Name",
-          variable_name: "customer_name",
-          value: "John Doe", // Replace with the actual customer name
-        },
-      ],
-    },
-
-    callback: handlePaymentSuccess,
-    onClose: () => console.log("Payment closed"),
-  };
-
   const handleUserForm = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+    const store_id =
+      localStorage.getItem("storeId") || localStorage.getItem("storeUid");
     formData.associated_domain = store_id;
     try {
       const headers = {
@@ -128,40 +93,6 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  /* Function to send a user order to the backend
-const sendUserOrder = async (orderData) => {
-  try {
-    const response = await axios.post('https://rocktea-mall-api-test.up.railway.app/order/buy', orderData);
-    console.log('Order placed:', response.data);
-    // Handle success (e.g., display a success message to the user)
-  } catch (error) {
-    console.error('Error placing order:', error.response);
-    // Handle errors (e.g., display an error message to the user)
-  }
-};
-
-// Example order data
-const orderData = {
-  customer_id: 'cf9cacfa-a32a-4da8-b542-8a7c9fc3fbaf', // Replace with the actual customer ID
-  shipping_address: 'Datum Street, Fas State',
-  store: '6f24b2c7-08e5-4199-a1cb-2d9df35724aa',
-  products: [
-    {
-      product: '10b306b8-561b-4971-b3ba-b7f82a3a66ae', // Replace with the actual product ID
-      quantity: 2,
-      price: 10.99,
-    },
-    {
-      product: '10b306b8-561b-4971-b3ba-b7f82a3a66ae', // Replace with another product ID
-      quantity: 3,
-      price: 15.99,
-    },
-  ],
-};
-
-// Call the function to send the order
-sendUserOrder(orderData);'*/
-
   return (
     <AppContext.Provider
       value={{
@@ -170,9 +101,7 @@ sendUserOrder(orderData);'*/
         error,
         formData,
         setFormData,
-        paymentInfo,
-        setPaymentInfo,
-        paystackOptions,
+
         setError,
         updateProfile,
       }}

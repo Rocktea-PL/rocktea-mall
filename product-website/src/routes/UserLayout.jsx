@@ -18,7 +18,7 @@ import SeeAll from "../../pages/SeeAll";
 function UserLayout() {
   //const {storeUser} = useStoreContext()
   const location = useLocation();
-  let id = localStorage.getItem ('storeUid')
+  let id = localStorage.getItem("storeUid");
 
   //console.log(id)
   // Check if the current location is the registration route
@@ -31,12 +31,16 @@ function UserLayout() {
     <main>
       {!hideNavbar && <Navbar />}
       <Routes>
-        <Route path="/" element={ <>
-          <ProtectedRoute>
-          <Home />
-          </ProtectedRoute>
-        </>
-       } />
+        <Route
+          path="/"
+          element={
+            <>
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            </>
+          }
+        />
         <Route
           path="/cart"
           element={
@@ -64,8 +68,11 @@ function UserLayout() {
           }
         />
         <Route path="/products" element={<Products />} />
-        <Route path="/shop/:categoryName" element={< SeeAll/>} />
-        <Route path="/product_details/:productId" element={<ProductDetails />} />
+        <Route path="/shop/:categoryName" element={<SeeAll />} />
+        <Route
+          path="/product_details/:productId"
+          element={<ProductDetails />}
+        />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/*" element={<Notfound />} />
       </Routes>
