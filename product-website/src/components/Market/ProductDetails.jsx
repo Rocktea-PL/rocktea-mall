@@ -52,7 +52,7 @@ const ProductDetails = () => {
   if (productStatus === "error") {
     return <p>Error: {error}</p>;
   }
-  console.log("product data", productDet);
+  //console.log("product data", productDet);
   let Total;
   const fetchVariantData = async (size) => {
     if (productDet && productDet.product_variants) {
@@ -111,17 +111,17 @@ const ProductDetails = () => {
             </h2>
             <p className="capitalize font-bold">
               Brand:
-              <span className="font-medium">
-                {productDet?.brand?.name}
+              <span className="font-medium ml-2">
+                 {productDet?.brand?.name}
               </span>{" "}
             </p>
             <p className="capitalize font-bold">
               Category:
-              <span className="font-medium">
+              <span className="font-medium ml-2">
                 {productDet?.subcategory?.name}
               </span>
             </p>
-            <p className="capitalize font-bold">
+            <p className="capitalize font-bold ml-2">
               SKU: <span className="font-medium">{productDet?.sku}</span>
             </p>
             <p className="font-bold my-2 text-lg">
@@ -215,9 +215,9 @@ const ProductDetails = () => {
                       // console.log(color)
                       return (
                         <>
-                          <li key={index} className="font-semibold">
-                            Color: <span className="font-normal">{color}</span>
-                          </li>
+                          <li key={index} className="font-semibold flex items-center gap-2">
+          Color: <div className='flex items-center gap-2 w-5 h-5 rounded-sm' style={{ backgroundColor: color }}></div>
+        </li>
                         </>
                       );
                     })}

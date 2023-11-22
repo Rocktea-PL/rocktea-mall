@@ -7,7 +7,7 @@ import {
   HiOutlineMagnifyingGlass,
 } from "react-icons/hi2";
 //import { IoMdNotificationsOutline } from "react-icons/io";
-import ProfileDropdown from "./Dropdown";
+import ProfileDropdown from "./Dropshippers/Dropdown";
 import { Link, useNavigate } from "react-router-dom";
 import Categories from "./Categories";
 import { useState } from "react";

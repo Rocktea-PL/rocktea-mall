@@ -62,8 +62,8 @@ function Footer() {
         </article>
       </article>
       <p className=" text-[12px] sm:text-sm mt-10 mx-auto mb-5 px-10 sm:px-0 text-white">
-        &copy;2023,
-        <span className="text-orange font-semibold">RockTeaMall.com </span> ,
+        &copy;2023
+        <span className="text-orange font-semibold leading-[2]"> RockTeaMall </span> <br/>
         All Rights Reserved.
       </p>
     </footer>

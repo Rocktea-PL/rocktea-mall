@@ -38,7 +38,7 @@ export default function ProfileSide({ profileCompletion }) {
   };
 
   return (
-    <div className="lg:w-[373px] h-[820px] relative bg-white rounded-xl  px-16 py-5">
+    <div className="hidden lg:block lg:w-[373px] h-[820px] relative bg-white rounded-xl  px-16 py-5">
       <div className=" text-sky-950 text-[22px] my-5 font-semibold font-['Poppins'] leading-tight">
         Complete your profile
       </div>

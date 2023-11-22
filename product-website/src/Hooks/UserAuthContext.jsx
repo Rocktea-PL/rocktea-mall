@@ -86,29 +86,7 @@ export const UserAuthProvider = ({ children }) => {
     }
   };
 
-  const logOut = () => {
-    // Clear authentication-related data
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("userData");
-    setIsUser(false);
-    // Redirect to the login page
-    navigate("/login");
-  };
-
-  const checkTokenExpiration = () => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      if (decodedToken.exp * 1000 < Date.now()) {
-        // Token has expired, clear user data and redirect to login
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("userData");
-
-        setIsUser(false);
-        navigate("/login");
-      }
-    }
-  };
+ 
 
   const store_id =
     localStorage.getItem("storeId") || localStorage.getItem("storeUid");
@@ -142,6 +120,7 @@ export const UserAuthProvider = ({ children }) => {
         console.log("store does not exist");
       }
       //console.log(response.data);
+      localStorage.setItem("storeUserId", response.data.id);
       localStorage.setItem("storeOwner", response.data.is_store_owner);
       setStoreUser(response.data);
     } catch (error) {
@@ -165,7 +144,33 @@ export const UserAuthProvider = ({ children }) => {
       console.log(error.response);
     }
   };
+  const logOut = () => {
+    // Clear authentication-related data
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userData");
+    setIsUser(false);
+    // Redirect to the login page
+    navigate("/login");
+  };
 
+  const checkTokenExpiration = () => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      if (decodedToken.exp * 1000 < Date.now()) {
+        // Token has expired, clear user data and redirect to login
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("userData");
+
+        setIsUser(false);
+        navigate("/login");
+      }
+    }
+  };
+  const storeLogOut = () => {
+    localStorage.removeItem("storeId");
+    window.location.href = "http://localhost:5173/signin";
+  };
   useEffect(() => {
     //checkTokenExpiration();
     if (store_id) {
@@ -194,6 +199,7 @@ export const UserAuthProvider = ({ children }) => {
         isUser,
         handleLoginUserSubmit,
         credentials,
+        storeLogOut,
         setCredentials,
         setError,
         logOut,

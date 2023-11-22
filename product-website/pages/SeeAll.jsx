@@ -1,29 +1,41 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-
 import { useParams } from "react-router";
 import CommonProducts from "../src/components/Products/CommonProducts";
+import { useQuery } from "react-query";
 
 function SeeAll() {
   const { categoryName } = useParams();
-  const [allProducts, setAllProducts] = useState();
+  //const [allProducts, setAllProducts] = useState();
+  const store_id = localStorage.getItem("storeUid") || localStorage.getItem("storeId");
 
   const Data = async () => {
-    try {
-      const store_id = localStorage.getItem("storeUid");
-      const response = await axios.get(
-        `https://rocktea-mall-api-test.up.railway.app/rocktea/marketplace/?store=${store_id}`,
-      );
-      console.log(response.data.results);
-      setAllProducts(response.data.results);
-    } catch (error) {
-      throw new Error(error.message);
-    }
+    const response = await axios.get(
+      `https://rocktea-mall-api-test.up.railway.app/rocktea/marketplace/?store=${store_id}`,
+    );
+    return response.data.results;
   };
+  const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
+  // Use React Query's useQuery to fetch product details
+  const {
+    data: allProducts,
+    status: productStatus,
+    error,
+  } = useQuery(["product", store_id], Data, {
+    enabled: !!store_id,
+    refetchOnWindowFocus: false,
+    refetchOnmount: false,
+    refetchOnReconnect: false,
+    retry: false,
+    staleTime: twentyFourHoursInMs, 
+  });
+  if (productStatus === "loading") {
+    return <p>Loading...</p>;
+  }
 
-  useEffect(() => {
-    Data();
-  }, []);
+  if (productStatus === "error") {
+    return <p>Error: {error}</p>;
+  }
+  //console.log(allProducts)
 
   const filteredProducts =
     allProducts?.length > 0 &&

@@ -8,7 +8,7 @@ import ScrollProducts from "./ScrollProducts";
 ///import { useState } from 'react';
 
 const Products = ({ page, products, openModal, getProductPrice, price }) => {
-  let currentPage = parseInt(page, 10) || 1; // Parse the page parameter as an integer
+  let currentPage = page ? parseInt(page, 10) : 1; // Parse the page parameter as an integer
   const productsPerPage = 3; // Number of products per page
   const navigate = useNavigate(); // Get the history object to update the URL
 
@@ -17,13 +17,24 @@ const Products = ({ page, products, openModal, getProductPrice, price }) => {
   const endIndex = startIndex + productsPerPage;
   const onPageChange = (newPage) => {
     // Update the URL when the page changes
-    navigate(`/marketplace/${newPage}`);
+    navigate(`/marketplace?page=${newPage}`);
   };
 
   useEffect(() => {
-    // Update the URL when the page changes
-    navigate(`/marketplace/${currentPage}`);
-  }, [currentPage, navigate]);
+    const handlePopstate = () => {
+      if (page === undefined) {
+        currentPage = 1;
+        navigate(`/marketplace?page=${currentPage}`, { replace: true });
+      }
+    };
+    
+
+    window.addEventListener('popstate', handlePopstate);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopstate);
+    };
+  }, [currentPage, navigate,page]);
 
   return (
     <div className="mt-5">

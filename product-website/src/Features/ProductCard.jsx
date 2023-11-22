@@ -49,7 +49,7 @@ export default function ProductCard({
                 {name}
               </p>
               <p className="font-semibold">₦ {price.toLocaleString()}</p>
-              <strike className="text-gray-400 text-[12px]">₦{oldPrice}</strike>
+              <strike className="text-gray-400 text-[12px]">{oldPrice}</strike>
               <div className="relative h-[0.6rem] w-full mt-3 border border-solid border-gray-200 ">
                 <div
                   className={`absolute inset-0 rounded-sm ${progressBarClass}`}

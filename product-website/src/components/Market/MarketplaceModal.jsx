@@ -142,7 +142,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
         <Slider {...sliderSettings}>
           {selectedProduct?.images.map((item, index) => (
             <div key={index} className={index === 0 ? "category-first" : ""}>
-              <Link to={`/products_details/${selectedProduct.id}`}>
+              <Link to={`/product_details/${selectedProduct.id}`}>
                 <figure className="w-[200px] h-[200px] block mx-auto">
                   <img
                     src={item?.url}
@@ -217,7 +217,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                     </span>
                   </h4>
 
-                  <div className="flex items-center justify-center mt-7 mx-20 gap-10 ">
+                  <div className="flex items-center justify-center mt-7 lg:mx-20 gap-10 ">
                     <button
                       className="flex items-center justify-center mx-auto bg-orange h-12 w-[150px] rounded-lg"
                       onClick={() => handleAddPrice(item.id)}

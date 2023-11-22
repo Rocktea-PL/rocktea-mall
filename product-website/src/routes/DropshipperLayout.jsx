@@ -14,6 +14,8 @@ import DropshipperNavbar from "../Features/DropshipperNavbar";
 import Profile from "../../pages/Dropshippers/Dashboard/Profile";
 import ProductDetails from "../components/Market/ProductDetails";
 import { useEffect } from "react";
+import SeeAll from "../../pages/SeeAll";
+import { useLocation } from "react-router-dom/dist";
 
 //import Footer from "../Features/Footer";
 //import Navbar from "../Features/UserNavbar";
@@ -22,30 +24,30 @@ import { useEffect } from "react";
 
 function DropshipperLayout() {
   //const {storeUser} = useStoreContext()
-  //const location = useLocation();
+  const location = useLocation();
   // let id = localStorage.getItem ('storeId')
   useEffect(() => {
     localStorage.getItem("storeId");
   }, []);
   //console.log(id)
   // Check if the current location is the registration route
-  /* const hideNavbar =
-    location.pathname === '/register/:store_id' ||
-    location.pathname === "/login" ||
+   const hideNavbar = location.pathname === "/marketplace" 
+   /* location.pathname === "/login" ||
     location.pathname === "/logout";*/
 
   return (
     <main>
-      <DropshipperNavbar />
+     {!hideNavbar &&<DropshipperNavbar />} 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product_details/:id" element={<ProductDetails />} />
-        <Route path="/marketplace/:page" element={<Marketplace />} />
+        <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/dashboard" element={<DashboardHome />} />
         <Route path="/dashboard/orders" element={<Orders />} />
         <Route path="/dashboard/transactions" element={<Transactions />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/shop/:categoryName" element={<SeeAll />} />
         <Route path="/dashboard/your_profile" element={<Profile />} />
         <Route path="/*" element={<Notfound />} />
       </Routes>

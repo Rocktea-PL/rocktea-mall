@@ -5,7 +5,7 @@ import { AppProvider } from "./Hooks/Context";
 import Layout from "./routes/Layout";
 import { useEffect, useState } from "react";
 import GlobalLoader from "./Helpers/Loaders/GlobalLoader";
-import { ColorThemePicker } from "./Helpers/ColorTheme";
+//import { ColorThemePicker } from "./Helpers/ColorTheme";
 import { useLocation } from "react-router-dom/dist";
 
 function App() {
@@ -15,9 +15,9 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [isOnline, setIsOnline] = useState(true);
-  const [selectedTheme, setSelectedTheme] = useState(
-    localStorage.getItem("selectedTheme") || "#f5f5f51a",
-  ); // Set the initial theme
+  //const [selectedTheme, setSelectedTheme] = useState(
+  //  localStorage.getItem("selectedTheme") || "#f5f5f51a",
+  //); // Set the initial theme
   const [storeId, setStoreId] = useState(
     () => localStorage.getItem("storeId") || null,
   );
@@ -31,7 +31,7 @@ function App() {
       setStoreId(idFromQuery);
       localStorage.setItem("storeId", idFromQuery); // Set store_id to local storage
       setIsLoading(false);
-    }
+    } 
     const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 1000); // Adjust the duration as needed
@@ -69,14 +69,14 @@ function App() {
     window.location.reload();
   };
 
-  const handleThemeChange = (theme) => {
+  /*const handleThemeChange = (theme) => {
     setSelectedTheme(theme);
   };
-
+*/
   // Apply the theme on page load
-  useEffect(() => {
+ /* useEffect(() => {
     document.body.style.backgroundColor = selectedTheme;
-  }, [selectedTheme]);
+  }, [selectedTheme]);*/
 
   return (
     <>
@@ -88,7 +88,7 @@ function App() {
                 <GlobalLoader />
               ) : (
                 <>
-                  <ColorThemePicker
+                 {/* <ColorThemePicker
                     themes={[
                       "#f5f5f51a",
                       "#ffcccb",
@@ -99,7 +99,7 @@ function App() {
                       "#000",
                     ]}
                     onThemeChange={handleThemeChange}
-                  />
+                  />*/}
                   <Layout storeId={storeId} />
                 </>
               )

@@ -1,5 +1,5 @@
 import { HiMiniBars3BottomLeft, HiOutlineShoppingBag } from "react-icons/hi2";
-import ProfileDropdown from "./Dropdown";
+import ProfileDropdown from "./Dropshippers/Dropdown";
 import { useNavigate, Link } from "react-router-dom";
 
 function MobileNavbar({ store, isOpen, toggleMenu }) {
