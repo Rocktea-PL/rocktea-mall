@@ -112,7 +112,7 @@ const ProductDetails = () => {
             <p className="capitalize font-bold">
               Brand:
               <span className="font-medium ml-2">
-                 {productDet?.brand?.name}
+                {productDet?.brand?.name}
               </span>{" "}
             </p>
             <p className="capitalize font-bold">
@@ -215,9 +215,16 @@ const ProductDetails = () => {
                       // console.log(color)
                       return (
                         <>
-                          <li key={index} className="font-semibold flex items-center gap-2">
-          Color: <div className='flex items-center gap-2 w-5 h-5 rounded-sm' style={{ backgroundColor: color }}></div>
-        </li>
+                          <li
+                            key={index}
+                            className="font-semibold flex items-center gap-2"
+                          >
+                            Color:{" "}
+                            <div
+                              className="flex items-center gap-2 w-5 h-5 rounded-sm"
+                              style={{ backgroundColor: color }}
+                            ></div>
+                          </li>
                         </>
                       );
                     })}

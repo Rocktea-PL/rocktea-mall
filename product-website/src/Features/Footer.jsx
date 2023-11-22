@@ -64,7 +64,9 @@ function Footer() {
 
       <p className=" text-[12px] lg:text-sm mt-10 mx-auto mb-5 px-10 sm:px-0">
         &copy;2023, This website is a product of{" "}
-        <span className="text-[var(--orange)] font-semibold">RockTea Mall </span>{" "}
+        <span className="text-[var(--orange)] font-semibold">
+          RockTea Mall{" "}
+        </span>{" "}
         All Rights Reserved.
       </p>
     </footer>

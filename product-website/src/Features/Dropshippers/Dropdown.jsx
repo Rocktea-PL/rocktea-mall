@@ -49,7 +49,6 @@ const ProfileDropdown = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-  
 
   return (
     <>

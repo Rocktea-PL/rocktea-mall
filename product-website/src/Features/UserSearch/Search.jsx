@@ -1,7 +1,7 @@
 //import CommonProducts from "../components/Products/CommonProducts";
 import Searchfilter from "./Searchfilter";
 
-export default function Search({ filteredProducts, searchQuery,openModal }) {
+export default function Search({ filteredProducts, searchQuery, openModal }) {
   return (
     <section className=" rounded-lg p-3 max-w-[80%]  lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto -mt-10">
       <div>
@@ -18,17 +18,14 @@ export default function Search({ filteredProducts, searchQuery,openModal }) {
       {filteredProducts.length === 0 ? (
         <p>No products found </p>
       ) : (
-        <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-items-center gap-2 " >
+        <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-items-center gap-2 ">
           {filteredProducts.map((product) => {
             const isImageAvailable =
               product?.images[0]?.url && product?.images[0]?.url.trim() !== "";
             return (
               <div key={product.id} onClick={() => openModal(product.id)}>
                 {isImageAvailable && (
-                  <div
-                    
-                    className=" hover:scale-[1.01] hover:shadow-md bg-white  hover:transition-all duration-300 ease-in-out overflow-hidden w-[220px]  mt-5 "
-                  >
+                  <div className=" hover:scale-[1.01] hover:shadow-md bg-white  hover:transition-all duration-300 ease-in-out overflow-hidden w-[220px]  mt-5 ">
                     <span className=""></span>
                     <figure className="w-full h-[200px] max-h-[200px] ">
                       <img

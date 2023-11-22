@@ -14,8 +14,8 @@ function YourProfile() {
   const [updateData, setUpdateData] = useState({});
   const [updateStoreData, setUpdateStoreData] = useState({});
   const [filledFields, setFilledFields] = useState(0);
-  const [totalFields, setTotalFields] = useState(0)
-  const [selectedTheme, setSelectedTheme] = useState('');
+  const [totalFields, setTotalFields] = useState(0);
+  const [selectedTheme, setSelectedTheme] = useState("");
 
   useEffect(() => {
     // Populate the form fields with the initial data when userData changes
@@ -25,7 +25,6 @@ function YourProfile() {
       email: storeUser.email,
       contact: storeUser.contact,
       address: storeUser.address,
-      
     });
   }, [storeUser]);
 
@@ -40,25 +39,24 @@ function YourProfile() {
       whatsapp: store.whatsapp,
       instagram: store.instagram,
       twitter: store.twitter,
-      theme: store.theme
+      theme: store.theme,
     });
-   // console.log('facebook',updateStoreData.facebook)
+    // console.log('facebook',updateStoreData.facebook)
   }, [store]);
 
   const handleThemeChange = (theme) => {
-    
     setUpdateStoreData({
       ...updateStoreData,
       theme,
     });
-   setSelectedTheme(theme)
-   
-   console.log(theme)
-  }
+    setSelectedTheme(theme);
+
+    console.log(theme);
+  };
   useEffect(() => {
     // Count the total number of fields
     setTotalFields(
-      Object.keys(updateData).length + Object.keys(updateStoreData).length
+      Object.keys(updateData).length + Object.keys(updateStoreData).length,
     );
   }, [updateData, updateStoreData]);
 
@@ -76,12 +74,12 @@ function YourProfile() {
     e.preventDefault();
 
     updateStoreDetailsProfile(updateStoreData);
-  setUpdateStoreData(updateStoreData);
-  if(selectedTheme) {
-    setInterval(() => {
-      window.location.reload()
-     },1000)
-  }
+    setUpdateStoreData(updateStoreData);
+    if (selectedTheme) {
+      setInterval(() => {
+        window.location.reload();
+      }, 1000);
+    }
     //toast.success("Profile Updated successfully");
     // Save the updated data to local storage
     localStorage.setItem("storeStoreData", JSON.stringify(updateData));
@@ -290,7 +288,11 @@ function YourProfile() {
                     placeholder="Store Email"
                   />
                 </label>
-                <Theme store={store}  handleThemeChange={handleThemeChange} selectedTheme={selectedTheme} />
+                <Theme
+                  store={store}
+                  handleThemeChange={handleThemeChange}
+                  selectedTheme={selectedTheme}
+                />
                 <label htmlFor="">
                   Year Of Establishment
                   <input
@@ -306,9 +308,7 @@ function YourProfile() {
                     placeholder="year"
                   />
                 </label>
-                
-                  
-                
+
                 <label htmlFor="">
                   TIN
                   <input

@@ -31,7 +31,7 @@ function App() {
       setStoreId(idFromQuery);
       localStorage.setItem("storeId", idFromQuery); // Set store_id to local storage
       setIsLoading(false);
-    } 
+    }
     const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 1000); // Adjust the duration as needed
@@ -74,7 +74,7 @@ function App() {
   };
 */
   // Apply the theme on page load
- /* useEffect(() => {
+  /* useEffect(() => {
     document.body.style.backgroundColor = selectedTheme;
   }, [selectedTheme]);*/
 
@@ -88,7 +88,7 @@ function App() {
                 <GlobalLoader />
               ) : (
                 <>
-                 {/* <ColorThemePicker
+                  {/* <ColorThemePicker
                     themes={[
                       "#f5f5f51a",
                       "#ffcccb",

@@ -6,7 +6,7 @@ import { BiTransferAlt } from "react-icons/bi";
 import { HiOutlineHome } from "react-icons/hi2";
 //import {FaUser} from 'react-icons/fa'
 export default function Sidebar() {
-  const { storeId,storeLogOut } = useStoreContext();
+  const { storeId, storeLogOut } = useStoreContext();
   const pathname = useLocation();
   const sidebarItems = [
     {
@@ -29,7 +29,6 @@ export default function Sidebar() {
     },
   ];
 
-  
   return (
     <div className=" hidden lg:fixed top-10  w-[300px] mt-5 rounded-lg lg:flex flex-col justify-between pb-20 pt-10 bg-white shadow-md h-full mb-14 px-3 ">
       <div className="">

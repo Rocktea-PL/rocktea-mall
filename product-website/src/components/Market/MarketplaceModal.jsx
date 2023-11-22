@@ -52,7 +52,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
     autoplaySpeed: 4000,
   };
 
- // console.log(price);
+  // console.log(price);
   //console.log(error)
   console.log(productId);
 

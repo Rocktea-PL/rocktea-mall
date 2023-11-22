@@ -6,7 +6,8 @@ import { useQuery } from "react-query";
 function SeeAll() {
   const { categoryName } = useParams();
   //const [allProducts, setAllProducts] = useState();
-  const store_id = localStorage.getItem("storeUid") || localStorage.getItem("storeId");
+  const store_id =
+    localStorage.getItem("storeUid") || localStorage.getItem("storeId");
 
   const Data = async () => {
     const response = await axios.get(
@@ -26,7 +27,7 @@ function SeeAll() {
     refetchOnmount: false,
     refetchOnReconnect: false,
     retry: false,
-    staleTime: twentyFourHoursInMs, 
+    staleTime: twentyFourHoursInMs,
   });
   if (productStatus === "loading") {
     return <p>Loading...</p>;

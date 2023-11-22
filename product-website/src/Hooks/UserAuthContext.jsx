@@ -86,8 +86,6 @@ export const UserAuthProvider = ({ children }) => {
     }
   };
 
- 
-
   const store_id =
     localStorage.getItem("storeId") || localStorage.getItem("storeUid");
 

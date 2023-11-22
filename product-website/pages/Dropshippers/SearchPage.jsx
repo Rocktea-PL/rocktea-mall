@@ -68,7 +68,6 @@ export default function SearchPage() {
 
   return (
     <div>
-      
       <div className="flex items-center gap-1  mt-20 px-10 pb-5">
         <p className="flex items-center">
           Home
@@ -85,17 +84,21 @@ export default function SearchPage() {
       </div>
       <hr />
       <section className=" gap-5 px-5 justify-center mx-auto  max-w-[1300px]">
-        <Search openModal={openModal} filteredProducts={filteredProducts} searchQuery={searchQuery} />
+        <Search
+          openModal={openModal}
+          filteredProducts={filteredProducts}
+          searchQuery={searchQuery}
+        />
         <CommonProducts />
       </section>
       {isModalOpen && (
-          <MarketplaceModal
-            closeModal={closeModal}
-            setIsModalOpen={setIsModalOpen}
-            products={products}
-            productId={selectedProductId}
-          />
-        )}
+        <MarketplaceModal
+          closeModal={closeModal}
+          setIsModalOpen={setIsModalOpen}
+          products={products}
+          productId={selectedProductId}
+        />
+      )}
       <Footer />
     </div>
   );

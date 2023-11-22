@@ -18,7 +18,7 @@ const dropdown = [
     icon: <RiSettings4Fill />,
     link: "/dashboard/your_profile",
   },
-  
+
   {
     id: 2,
     title: "Log Out",
@@ -28,7 +28,7 @@ const dropdown = [
 ];
 
 const ProfileDropdown = () => {
-  const {  storeUser } = useStoreContext();
+  const { storeUser } = useStoreContext();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   //const userAccess = localStorage.getItem("accessToken");
   //const [logOut, setLogOut] = useState(false);
@@ -37,7 +37,7 @@ const ProfileDropdown = () => {
   };
   const IsLogOut = () => {
     if (dropdown.title === "Logout") {
-      window.location.href='https://rocktea-mall.vercel.app/signin'
+      window.location.href = "https://rocktea-mall.vercel.app/signin";
     }
   };
 

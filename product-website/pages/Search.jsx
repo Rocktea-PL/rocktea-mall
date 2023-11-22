@@ -53,7 +53,6 @@ export default function SearchPage() {
 
   return (
     <div>
-      
       <div className="flex items-center gap-1  mt-20 px-10 pb-5">
         <p className="flex items-center">
           Home

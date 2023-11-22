@@ -31,13 +31,13 @@ function DropshipperLayout() {
   }, []);
   //console.log(id)
   // Check if the current location is the registration route
-   const hideNavbar = location.pathname === "/marketplace" 
-   /* location.pathname === "/login" ||
+  const hideNavbar = location.pathname === "/marketplace";
+  /* location.pathname === "/login" ||
     location.pathname === "/logout";*/
 
   return (
     <main>
-     {!hideNavbar &&<DropshipperNavbar />} 
+      {!hideNavbar && <DropshipperNavbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />

@@ -27,14 +27,13 @@ const Products = ({ page, products, openModal, getProductPrice, price }) => {
         navigate(`/marketplace?page=${currentPage}`, { replace: true });
       }
     };
-    
 
-    window.addEventListener('popstate', handlePopstate);
+    window.addEventListener("popstate", handlePopstate);
 
     return () => {
-      window.removeEventListener('popstate', handlePopstate);
+      window.removeEventListener("popstate", handlePopstate);
     };
-  }, [currentPage, navigate,page]);
+  }, [currentPage, navigate, page]);
 
   return (
     <div className="mt-5">

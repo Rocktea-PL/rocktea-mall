@@ -21,9 +21,8 @@ const AppProvider = ({ children }) => {
     password: "",
     profile_image: "",
     associated_domain: "",
-    
+
     address: "",
-    
   });
 
   const handleUserForm = async (e) => {
@@ -70,7 +69,7 @@ const AppProvider = ({ children }) => {
 
     try {
       const storeUser_id = localStorage.getItem("storeUserId");
-      console.log('store',storeUser_id)
+      console.log("store", storeUser_id);
       const response = await axios.patch(
         `https://rocktea-mall-api-test.up.railway.app/rocktea/storeowner/${storeUser_id}/`,
         updatedProfileData,
@@ -108,7 +107,7 @@ const AppProvider = ({ children }) => {
       if (response.status === 200 || response.data) {
         console.log("Profile updated", response.data);
 
-       toast.success("Profile updated successfully");
+        toast.success("Profile updated successfully");
         // Update the local user data if needed
       } else {
         console.error("API call failed");
@@ -122,7 +121,7 @@ const AppProvider = ({ children }) => {
       setLoading(false); // Set loading to false when the update is complete
     }
   };
-  
+
   const updateProfile = async (updatedProfileData) => {
     setLoading(true); // Set loading to true when the update starts
 
@@ -160,8 +159,8 @@ const AppProvider = ({ children }) => {
         error,
         formData,
         setFormData,
-updateStoreProfile,
-updateStoreDetailsProfile,
+        updateStoreProfile,
+        updateStoreDetailsProfile,
         setError,
         updateProfile,
       }}

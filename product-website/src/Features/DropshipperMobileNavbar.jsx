@@ -1,7 +1,7 @@
 import {
   HiMiniBars3BottomLeft,
   HiOutlineHome,
- // HiOutlineShoppingBag,
+  // HiOutlineShoppingBag,
 } from "react-icons/hi2";
 //import ProfileDropdown from "./Dropdown";
 import { useNavigate, Link } from "react-router-dom";
@@ -147,7 +147,7 @@ function DropshipperMobileNavbar({ store, isOpen, page, toggleMenu }) {
           className=" relative p-2 z-0 text-[1.2rem] cursor-pointer"
           onClick={() => navigate("/cart")}
         >
-          <IoMdNotificationsOutline/>
+          <IoMdNotificationsOutline />
           <p className="absolute bg-red-500 w-[15px] flex items-center justify-center rounded-full h-[15px] -top-1 right-0 z-10 text-[12px] text-white">
             1
           </p>
