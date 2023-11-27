@@ -17,7 +17,7 @@ function HowItWorks() {
               x: 0,
               transition: {
                 delay: 0.3,
-                duration: 1,
+                duration: 0.7,
                 ease: "easeInOut",
               },
             }}
@@ -37,7 +37,7 @@ function HowItWorks() {
 
             transition: {
               delay: 0.3,
-              duration: 1,
+              duration: 0.8,
               ease: "easeInOut",
             },
           }}

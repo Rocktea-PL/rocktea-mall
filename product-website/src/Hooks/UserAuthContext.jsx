@@ -37,12 +37,15 @@ export const UserAuthProvider = ({ children }) => {
   const handleLoginUserSubmit = async (e) => {
     e.preventDefault();
     //let store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+    const formData = new FormData();
+    formData.append("email", credentials.email);
+    formData.append("password", credentials.password);
 
     try {
       setIsLoading(true);
       const response = await axios.post(
         `https://rocktea-mall-api-test.up.railway.app/store/login/`,
-        credentials,
+        formData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -60,17 +63,17 @@ export const UserAuthProvider = ({ children }) => {
       localStorage.setItem("accessToken", usertoken);
       //setUserData(response.user_data);
       //console.log('before user data', response.user_data.first_name)
-      const user_id = response.data.user_data.id;
+      const user_id = response?.data?.user_data?.id;
       setIsUser(true);
       localStorage.setItem("user_id", user_id);
       // console.log(user_id);
-      //localStorage.setItem("userData", JSON.stringify(response.user_data));
+      //localStorage.setItem("userData", response.data.access);
       // Store the access token in state and/or localStorage
       //setAccessToken(token);
       // let store_id = localStorage.getItem('storeId')
       //console.log('login Successful',response.data)
       //https://rocktea-mall-product.vercel.app/dashboard
-      navigate(`/`);
+      navigate("/");
 
       toast.success("Logged in Successfully");
     } catch (error) {
@@ -83,30 +86,6 @@ export const UserAuthProvider = ({ children }) => {
       //cogoToast.success("Log in Failed. Check you Details");
     } finally {
       setIsLoading(false); // Set loading state back to false after the request is complete
-    }
-  };
-
-  const logOut = () => {
-    // Clear authentication-related data
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("userData");
-    setIsUser(false);
-    // Redirect to the login page
-    navigate("/login");
-  };
-
-  const checkTokenExpiration = () => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      if (decodedToken.exp * 1000 < Date.now()) {
-        // Token has expired, clear user data and redirect to login
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("userData");
-
-        setIsUser(false);
-        navigate("/login");
-      }
     }
   };
 
@@ -142,6 +121,7 @@ export const UserAuthProvider = ({ children }) => {
         console.log("store does not exist");
       }
       //console.log(response.data);
+      localStorage.setItem("storeUserId", response.data.id);
       localStorage.setItem("storeOwner", response.data.is_store_owner);
       setStoreUser(response.data);
     } catch (error) {
@@ -165,7 +145,33 @@ export const UserAuthProvider = ({ children }) => {
       console.log(error.response);
     }
   };
+  const logOut = () => {
+    // Clear authentication-related data
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userData");
+    setIsUser(false);
+    // Redirect to the login page
+    navigate("/login");
+  };
 
+  const checkTokenExpiration = () => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      if (decodedToken.exp * 1000 < Date.now()) {
+        // Token has expired, clear user data and redirect to login
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("userData");
+
+        setIsUser(false);
+        navigate("/login");
+      }
+    }
+  };
+  const storeLogOut = () => {
+    localStorage.removeItem("storeId");
+    window.location.href = "http://localhost:5173/signin";
+  };
   useEffect(() => {
     //checkTokenExpiration();
     if (store_id) {
@@ -194,6 +200,7 @@ export const UserAuthProvider = ({ children }) => {
         isUser,
         handleLoginUserSubmit,
         credentials,
+        storeLogOut,
         setCredentials,
         setError,
         logOut,

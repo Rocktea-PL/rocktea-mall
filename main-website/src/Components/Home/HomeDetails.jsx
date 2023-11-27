@@ -10,14 +10,14 @@ function HomeDetails() {
             x: 0,
             transition: {
               delay: 0.3,
-              duration: 1,
+              duration: 0.8,
               ease: "easeInOut",
             },
           }}
           className="mt-4 "
         >
           <img
-            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696084106/rocktea-main-website/assets/Side_hustle_s3kxyf.png"
+            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1700830252/rocktea-main-website/assets/Money_income-amico_1_c8tjx1.svg"
             alt="home3"
             width={450}
             height={400}
@@ -29,8 +29,8 @@ function HomeDetails() {
             opacity: 1,
 
             transition: {
-              delay: 0.3,
-              duration: 1,
+              delay: 0.2,
+              duration: 0.8,
               ease: "easeInOut",
             },
           }}
@@ -60,17 +60,17 @@ function HomeDetails() {
             x: 0,
             transition: {
               delay: 0.3,
-              duration: 1,
+              duration: 0.8,
               ease: "easeInOut",
             },
           }}
-          className="mt-4 "
+          className="lg:-mt-20"
         >
           <img
-            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696084108/rocktea-main-website/assets/Happy_User_3_jnhlsq.png"
+            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1700830251/rocktea-main-website/assets/Div_Image_oa7hnt.svg"
             alt="home3"
-            width={450}
-            height={400}
+            width={500}
+            height={500}
           />
         </motion.figure>
         <motion.div
@@ -80,7 +80,7 @@ function HomeDetails() {
 
             transition: {
               delay: 0.3,
-              duration: 1,
+              duration: 0.8,
               ease: "easeInOut",
             },
           }}
@@ -108,17 +108,17 @@ function HomeDetails() {
             x: 0,
             transition: {
               delay: 0.3,
-              duration: 1,
+              duration: 0.8,
               ease: "easeInOut",
             },
           }}
-          className="mt-4 "
+          className=" lg:-mt-20"
         >
           <img
-            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696092257/rocktea-main-website/assets/Our_Community_tem21c.png"
+            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1700830252/rocktea-main-website/assets/Div_Image_1_o1oymx.svg"
             alt="home3"
-            width={450}
-            height={400}
+            width={500}
+            height={500}
           />
         </motion.figure>
         <motion.div
@@ -128,7 +128,7 @@ function HomeDetails() {
 
             transition: {
               delay: 0.3,
-              duration: 1,
+              duration: 0.8,
               ease: "easeInOut",
             },
           }}

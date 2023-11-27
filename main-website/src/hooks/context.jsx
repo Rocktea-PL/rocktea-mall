@@ -13,7 +13,7 @@ const AppProvider = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(0);
   //const [accessToken, setAccessToken] = useState(null);
   // Define initial user data state
-  //const  [storeId,setStoreId] = UseState()
+  // const  [user,setUser] = useState({})
   const [userData, setUserData] = useState({
     // Define initial user data state
     first_name: "",
@@ -46,6 +46,7 @@ const AppProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [verifyEmail, setVerifyEmail] = useState(false);
   const [categories, setCategories] = useState([]);
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -144,6 +145,9 @@ const AppProvider = ({ children }) => {
 
       let store_id = response.user_data.store_id;
       // console.log(store_id)
+      if (response.status === 400 || response.status === 401) {
+        console.log("error is bad");
+      }
       if (response.user_data.has_store === false) {
         navigate("/store_details");
         //https://rocktea-mall-product.vercel.app
@@ -153,7 +157,7 @@ const AppProvider = ({ children }) => {
       } else {
         window.open(
           `https://rocktea-mall-product.vercel.app/dashboard?store_id=${store_id}`,
-          "_blank",
+          "_self",
         );
       }
 
@@ -163,6 +167,7 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       setLoginError(error); // Handle login error
       console.error("Login error:", error);
+      console.error("Login status:", error.message);
       toast.error("Invalid credentials. Please try again.", error);
       //cogoToast.success("Log in Failed. Check you Details");
     } finally {

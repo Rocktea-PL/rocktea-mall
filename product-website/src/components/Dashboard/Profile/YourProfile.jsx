@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../../../Hooks/Context";
 import { useStoreContext } from "../../../Hooks/UserAuthContext";
-import toast from "react-hot-toast";
+//import toast from "react-hot-toast";
 import BankDetails from "./BankDetails";
 import ProfileSide from "./Profile-Side";
+import Theme from "./Theme";
 
 function YourProfile() {
   const { storeUser, store } = useStoreContext();
@@ -14,6 +15,7 @@ function YourProfile() {
   const [updateStoreData, setUpdateStoreData] = useState({});
   const [filledFields, setFilledFields] = useState(0);
   const [totalFields, setTotalFields] = useState(0);
+  const [selectedTheme, setSelectedTheme] = useState("");
 
   useEffect(() => {
     // Populate the form fields with the initial data when userData changes
@@ -24,37 +26,63 @@ function YourProfile() {
       contact: storeUser.contact,
       address: storeUser.address,
     });
+  }, [storeUser]);
 
+  useEffect(() => {
+    // Populate the form fields with the initial data when store changes
     setUpdateStoreData({
       name: store.name,
       email: store.email,
-
       year_of_establishment: store.year_of_establishment,
       TIN_number: store.TIN_number,
+      facebook: store.facebook,
+      whatsapp: store.whatsapp,
+      instagram: store.instagram,
+      twitter: store.twitter,
+      theme: store.theme,
     });
+    // console.log('facebook',updateStoreData.facebook)
+  }, [store]);
+
+  const handleThemeChange = (theme) => {
+    setUpdateStoreData({
+      ...updateStoreData,
+      theme,
+    });
+    setSelectedTheme(theme);
+
+    console.log(theme);
+  };
+  useEffect(() => {
     // Count the total number of fields
     setTotalFields(
       Object.keys(updateData).length + Object.keys(updateStoreData).length,
     );
-  }, [storeUser, store]);
+  }, [updateData, updateStoreData]);
+
   const handleProfileUpdate = (e) => {
     e.preventDefault();
 
     updateStoreProfile(updateData);
     setUpdateData(updateData);
-    toast.success("Profile Updated successfully");
+    //toast.success("Profile Updated successfully");
     // Save the updated data to local storage
-    localStorage.setItem("storeUserData", JSON.stringify(updateData));
+    localStorage.setItem("storeStoreProfile", JSON.stringify(updateData));
   };
 
   const handleStoreUpdate = (e) => {
     e.preventDefault();
 
-    updateStoreDetailsProfile(updateData);
-    setUpdateStoreData(updateData);
-    toast.success("Profile Updated successfully");
+    updateStoreDetailsProfile(updateStoreData);
+    setUpdateStoreData(updateStoreData);
+    if (selectedTheme) {
+      setInterval(() => {
+        window.location.reload();
+      }, 1000);
+    }
+    //toast.success("Profile Updated successfully");
     // Save the updated data to local storage
-    localStorage.setItem("storeUserData", JSON.stringify(updateData));
+    localStorage.setItem("storeStoreData", JSON.stringify(updateData));
   };
 
   useEffect(() => {
@@ -229,7 +257,7 @@ function YourProfile() {
 
           <form action="">
             <div className="bg-white mt-5 p-4 rounded-md">
-              <div className="grid lg:grid-cols-2 gap-x-5 px-5 profile-input">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 px-5 profile-input">
                 <label htmlFor="">
                   Store Name
                   <input
@@ -260,6 +288,11 @@ function YourProfile() {
                     placeholder="Store Email"
                   />
                 </label>
+                <Theme
+                  store={store}
+                  handleThemeChange={handleThemeChange}
+                  selectedTheme={selectedTheme}
+                />
                 <label htmlFor="">
                   Year Of Establishment
                   <input
@@ -275,6 +308,7 @@ function YourProfile() {
                     placeholder="year"
                   />
                 </label>
+
                 <label htmlFor="">
                   TIN
                   <input
@@ -325,61 +359,61 @@ function YourProfile() {
                 <label htmlFor="">
                   Facebook
                   <input
-                    type="text"
+                    type="url"
                     name="facebook"
-                    value={updateStoreData.name}
+                    value={updateStoreData.facebook}
                     onChange={(e) =>
                       setUpdateStoreData({
                         ...updateStoreData,
-                        name: e.target.value,
+                        facebook: e.target.value,
                       })
                     }
-                    placeholder="First Name"
+                    placeholder="https://facebook.com/yourusername"
                   />
                 </label>
                 <label htmlFor="">
                   Twitter
                   <input
-                    type="text"
+                    type="url"
                     name="twitter"
-                    value={updateStoreData.email}
+                    value={updateStoreData.twitter}
                     onChange={(e) =>
                       setUpdateStoreData({
                         ...updateStoreData,
-                        email: e.target.value,
+                        twitter: e.target.value,
                       })
                     }
-                    placeholder="Last Name"
+                    placeholder="https://twitter.com/yourusername"
                   />
                 </label>
                 <label htmlFor="">
                   Instagram
                   <input
-                    type="text"
-                    name="insta"
-                    value={updateStoreData.year_of_establishment}
+                    type="url"
+                    name="instagram"
+                    value={updateStoreData.instagram}
                     onChange={(e) =>
                       setUpdateStoreData({
                         ...updateStoreData,
-                        year_of_establishment: e.target.value,
+                        instagram: e.target.value,
                       })
                     }
-                    placeholder="Email"
+                    placeholder="https://instagram.com/yourusername/"
                   />
                 </label>
                 <label htmlFor="">
                   Whatsapp
                   <input
-                    type="text"
+                    type="url"
                     name="whatsapp"
-                    value={updateStoreData.TIN_number}
+                    value={updateStoreData.whatsapp}
                     onChange={(e) =>
                       setUpdateStoreData({
                         ...updateStoreData,
-                        TIN_number: e.target.value,
+                        whatsapp: e.target.value,
                       })
                     }
-                    placeholder="TIN"
+                    placeholder="https://wa.me/yournumber"
                   />
                 </label>
               </div>

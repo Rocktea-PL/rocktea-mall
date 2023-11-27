@@ -6,7 +6,7 @@ import { BiTransferAlt } from "react-icons/bi";
 import { HiOutlineHome } from "react-icons/hi2";
 //import {FaUser} from 'react-icons/fa'
 export default function Sidebar() {
-  const { storeId } = useStoreContext();
+  const { storeId, storeLogOut } = useStoreContext();
   const pathname = useLocation();
   const sidebarItems = [
     {
@@ -29,9 +29,6 @@ export default function Sidebar() {
     },
   ];
 
-  const LogOut = () => {
-    window.location.href = "http://localhost:5173/signin";
-  };
   return (
     <div className=" hidden lg:fixed top-10  w-[300px] mt-5 rounded-lg lg:flex flex-col justify-between pb-20 pt-10 bg-white shadow-md h-full mb-14 px-3 ">
       <div className="">
@@ -106,7 +103,7 @@ export default function Sidebar() {
             </span>
             Support
           </li>
-          <li className="!text-red-500 cursor-pointer" onClick={LogOut}>
+          <li className="!text-red-500 cursor-pointer" onClick={storeLogOut}>
             {" "}
             <span>
               <svg

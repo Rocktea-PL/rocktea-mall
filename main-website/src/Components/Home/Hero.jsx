@@ -13,7 +13,7 @@ function Hero() {
           opacity: 1,
           transition: {
             delay: 0.3,
-            duration: 1,
+            duration: 0.8,
             ease: "easeInOut",
           },
         }}
@@ -54,7 +54,7 @@ function Hero() {
             x: 0,
             transition: {
               delay: 0.3,
-              duration: 1,
+              duration: 0.8,
               ease: "easeInOut",
             },
           }}

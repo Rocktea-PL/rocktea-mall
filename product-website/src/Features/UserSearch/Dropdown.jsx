@@ -3,38 +3,24 @@ import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import {
   RiSettings4Fill,
-  RiListUnordered,
-  RiBookmarkLine,
+  //RiListUnordered,
+  //RiBookmarkLine,
   RiLogoutCircleRLine,
-  RiMapPinLine,
+  //RiMapPinLine,
 } from "react-icons/ri";
 
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
-import { useStoreContext } from "../Hooks/UserAuthContext";
+import { useStoreContext } from "../../Hooks/UserAuthContext";
 const dropdown = [
   {
     id: 1,
     title: "Settings",
     icon: <RiSettings4Fill />,
-    link: "/profile",
+    link: "/dashboard/your_profile",
   },
+
   {
     id: 2,
-    title: "Saved Items",
-    icon: <RiBookmarkLine />,
-  },
-  {
-    id: 3,
-    title: "Orders",
-    icon: <RiListUnordered />,
-  },
-  {
-    id: 4,
-    title: "Shipping Address",
-    icon: <RiMapPinLine />,
-  },
-  {
-    id: 5,
     title: "Log Out",
     icon: <RiLogoutCircleRLine />,
     link: "/login",
@@ -42,7 +28,7 @@ const dropdown = [
 ];
 
 const ProfileDropdown = () => {
-  const { logOut, userData } = useStoreContext();
+  const { storeUser } = useStoreContext();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   //const userAccess = localStorage.getItem("accessToken");
   //const [logOut, setLogOut] = useState(false);
@@ -51,7 +37,7 @@ const ProfileDropdown = () => {
   };
   const IsLogOut = () => {
     if (dropdown.title === "Logout") {
-      logOut();
+      window.location.href = "https://rocktea-mall.vercel.app/signin";
     }
   };
 
@@ -62,7 +48,7 @@ const ProfileDropdown = () => {
         onClick={toggleDropdown}
       >
         <FaRegUser />{" "}
-        <span className="hidden  md:block"> {userData.first_name} </span>{" "}
+        <span className="hidden  md:block"> {storeUser.first_name} </span>{" "}
         <span className="">
           {isDropdownOpen ? <RxCaretUp /> : <RxCaretDown />}
         </span>

@@ -1,13 +1,15 @@
 import { useLocation } from "react-router-dom";
 
 //import { useState } from "react";
-import Navbar from "../../src/Features/UserNavbar";
+//import Navbar from "../../src/Features/UserNavbar";
 //import SearchSidebar from "../../src/Features/SearchSidebar";
 import Search from "../../src/Features/Search";
 import Footer from "../../src/Features/Footer";
 import { useUserProductContext } from "../../src/Hooks/UserProductContext";
 import CommonProducts from "../../src/components/Products/CommonProducts";
 import { FaAngleRight } from "react-icons/fa";
+import MarketplaceModal from "../../src/components/Market/MarketplaceModal";
+import { useState } from "react";
 //import Searchfilter from "../../src/Features/Searchfilter";
 
 export default function SearchPage() {
@@ -23,7 +25,20 @@ export default function SearchPage() {
   let filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  //const [searchQuery, setSearchQuery] = useState("");
 
+  const openModal = (productId) => {
+    setIsModalOpen(true);
+    setSelectedProductId(productId);
+    //console.log('Clicked on product with ID:', productId);
+  };
+  const closeModal = () => {
+    console.log("Closing modal");
+    setIsModalOpen(false);
+    //setSelectedProductId(null);
+  };
   // Filter products based on selectedColor
   /*if (selectedColor) {
     filteredProducts = filteredProducts.filter((product) => {
@@ -53,7 +68,6 @@ export default function SearchPage() {
 
   return (
     <div>
-      <Navbar />
       <div className="flex items-center gap-1  mt-20 px-10 pb-5">
         <p className="flex items-center">
           Home
@@ -70,9 +84,21 @@ export default function SearchPage() {
       </div>
       <hr />
       <section className=" gap-5 px-5 justify-center mx-auto  max-w-[1300px]">
-        <Search filteredProducts={filteredProducts} searchQuery={searchQuery} />
+        <Search
+          openModal={openModal}
+          filteredProducts={filteredProducts}
+          searchQuery={searchQuery}
+        />
         <CommonProducts />
       </section>
+      {isModalOpen && (
+        <MarketplaceModal
+          closeModal={closeModal}
+          setIsModalOpen={setIsModalOpen}
+          products={products}
+          productId={selectedProductId}
+        />
+      )}
       <Footer />
     </div>
   );

@@ -3,33 +3,29 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Footer from "../../Features/Footer";
 import CommonProducts from "../Products/CommonProducts";
-//import { useDispatch } from "react-redux";
 import { useQuery } from "react-query";
-//import SizeModal from "../Modals/SizeModal";
-
-//import toast from "react-hot-toast";
 import Thumbnails from "../../Helpers/Thumbnails";
-import { useUserProductContext } from "../../Hooks/UserProductContext";
-//import { useUserProductContext } from "../../Hooks/UserProductContext";
-//import toast from "react-hot-toast";
+import { useProductPrices } from "../../Hooks/UseProductPrices";
+////mport { useUserProductContext } from "../../Hooks/UserProductContext";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 const ProductDetails = () => {
   const { id } = useParams();
-  //const dispatch = useDispatch();
-  const { price } = useUserProductContext();
+  const navigate = useNavigate();
+  //console.log(id)
+  const store_id = localStorage.getItem("storeId");
 
+  const { productPrices, isLoading } = useProductPrices(id);
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
-  const [variantData, setVariantData] = useState([]);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  //const [variantData, setVariantData] = useState([]);
 
-  console.log(selectedSize);
-  console.log(price);
-  // Define a function to fetch product details
   const fetchProductDetails = async () => {
     const response = await axios.get(
       `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${id}`,
     );
-    return response.data.product_data;
+    return response.data;
   };
   const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
   // Use React Query's useQuery to fetch product details
@@ -52,49 +48,35 @@ const ProductDetails = () => {
   if (productStatus === "error") {
     return <p>Error: {error}</p>;
   }
-  console.log("product data", productDet);
-  let Total;
-  const fetchVariantData = async (size) => {
-    if (productDet && productDet.product_variants) {
-      // Use the API to fetch variant data for the selected size
-      try {
-        const store_id = localStorage.getItem("storeId");
-        const response = await axios.get(
-          `https://rocktea-mall-api-test.up.railway.app/rocktea/store-variant/?product=${productDet.id}&size=${size}&store=${store_id}`,
-        );
+  //console.log("product data", productDet);
 
-        // Set the variant data
-        // console.log('product variant' ,response.data);
-        setVariantData(response.data);
-        console.log("variant", variantData);
-        if (
-          variantData?.product_variant[0].size ===
-          variantData?.store_variant[0]?.size
-        ) {
-          Total =
-            variantData?.product_variant[0]?.wholesale_price +
-            variantData?.store_variant[0]?.retail_price;
-          console.log("total", Total);
-        }
-      } catch (error) {
-        console.error("Error fetching variant data:", error);
-      }
-    }
-  };
-
+  // console.log(productDet)
   //fetchVariantData()
 
   const handleSizeClick = (size, price) => {
-    setSelectedSize(size);
-    // setIsModalOpen(true);
-    fetchVariantData(size);
+    setSelectedSize(size, price);
+
     setSelectedPrice(price);
   };
 
-  console.log(productDet.product_variants[0].wholesale_price);
+  //console.log(productPrices)
+  //)
+  const removeProduct = async () => {
+    try {
+      // Make a DELETE request to remove the product
+      await axios.delete(
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/marketplace/?product=${id}&store=${store_id}/`,
+      );
+      toast.success("Product Removed Successfully");
+      navigate("/");
+    } catch (error) {
+      console.error("Error removing product:", error);
+    }
+  };
+  //console.log(productDet.product_variants[0].wholesale_price);
   return (
     <>
-      <section className="relative mt-20 px-10 lg:px-0 max-w-[1300px] m-auto">
+      <section className="relative mt-20 px-10 lg:px-0 max-w-[1300px] m-auto bg-white rounded max-md:mx-10 pt-5">
         <div className=" flex flex-col lg:flex-row w-full  lg:space-x-20 lg:p-8">
           {/* Product Images */}
           <div className="lg:max-w-[50%]">
@@ -111,27 +93,32 @@ const ProductDetails = () => {
             </h2>
             <p className="capitalize font-bold">
               Brand:
-              <span className="font-medium">
+              <span className="font-medium ml-2">
                 {productDet?.brand?.name}
               </span>{" "}
             </p>
             <p className="capitalize font-bold">
               Category:
-              <span className="font-medium">
+              <span className="font-medium ml-2">
                 {productDet?.subcategory?.name}
               </span>
             </p>
-            <p className="capitalize font-bold">
+            <p className="capitalize font-bold ml-2">
               SKU: <span className="font-medium">{productDet?.sku}</span>
             </p>
-            <p className="font-bold my-2 text-lg">
-              ₦{" "}
-              {selectedSize
-                ? parseFloat(selectedPrice).toLocaleString()
-                : parseFloat(
-                    productDet.product_variants[0].wholesale_price,
-                  ).toLocaleString()}
-            </p>
+
+            {productPrices?.length > 0 && !isLoading ? (
+              <p className="font-bold my-2 text-lg">
+                ₦{" "}
+                {selectedSize
+                  ? selectedPrice
+                  : isLoading
+                  ? "Loading..."
+                  : productPrices[0]?.retail_price}{" "}
+              </p>
+            ) : (
+              <p>No price</p>
+            )}
 
             <p className="text-gray-300 my-2">
               {productDet?.is_available ? (
@@ -141,23 +128,32 @@ const ProductDetails = () => {
               )}
             </p>
 
-            <div className="flex space-x-2 my-5">
-              {productDet?.product_variants.map((item, index) => (
-                <button
-                  key={index}
-                  className={`border border-solid border-[var(--orange)] rounded-md px-3 py-1 ${
-                    item.size === selectedSize && "bg-orange "
-                  }`}
-                  onClick={() =>
-                    handleSizeClick(item.size, item.wholesale_price)
-                  }
-                >
-                  {item?.size}
-                </button>
-              ))}
-            </div>
+            {productPrices?.length > 0 && !isLoading ? (
+              productPrices.map((item, index) => {
+                return (
+                  <div key={index}>
+                    <button
+                      key={index}
+                      className={`border border-solid border-[var(--orange)] rounded-md px-3 flex items-center space-x-3 mb-4 py-1 ${
+                        item.size === selectedSize && "bg-orange "
+                      }`}
+                      onClick={() =>
+                        handleSizeClick(item.size, item.retail_price)
+                      }
+                    >
+                      {item?.size}
+                    </button>
+                  </div>
+                );
+              })
+            ) : (
+              <p>No product price found</p>
+            )}
             <div className="flex items-center  gap-5">
-              <button className="bg-red-600  p-3 text-sm rounded-md text-white ">
+              <button
+                className="bg-red-600  p-3 text-sm rounded-md text-white "
+                onClick={removeProduct}
+              >
                 Remove Product
               </button>
             </div>
@@ -165,14 +161,14 @@ const ProductDetails = () => {
               <h3 className="text-md font-semibold border-b border-b-gray-300 pb-3">
                 Product Details
               </h3>
-              <p className="text-gray-600 my-5">
+              <p className=" my-5">
                 Pepsi is a cool refreshing soft drink setting trends in Nigeria
                 youth pop culture. Pepsi is an internationally recognized cola
                 soft drink present in more than 200 countries worldwide. This
                 refreshing delicious drink will have you savoring every gulp{" "}
               </p>
 
-              <p className="text-gray-500">
+              <p className="">
                 A cool soft drink to keep you refreshed at home and on the go.
                 Pepsi is made with carbonated water, high fructose corn syrup,
                 caramel color,sugar, phosphoric acid, caffeine, citric acid, and
@@ -215,8 +211,15 @@ const ProductDetails = () => {
                       // console.log(color)
                       return (
                         <>
-                          <li key={index} className="font-semibold">
-                            Color: <span className="font-normal">{color}</span>
+                          <li
+                            key={index}
+                            className="font-semibold flex items-center gap-2"
+                          >
+                            Color:{" "}
+                            <div
+                              className="flex items-center gap-2 w-5 h-5 rounded-sm"
+                              style={{ backgroundColor: color }}
+                            ></div>
                           </li>
                         </>
                       );

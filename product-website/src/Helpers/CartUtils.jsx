@@ -2,12 +2,10 @@
 
 export const calculateTotal = (cartItems) => {
   return cartItems.reduce((total, item) => {
-    const wholesalePrice = parseFloat(
-      item.product_data.product_variants[0].wholesale_price,
-    );
-    const retailPrices = parseFloat(item.store_variants[0].retail_price);
-    const itemTotal = wholesalePrice + retailPrices;
-    const totalForItem = itemTotal * item.cartQuantity;
+    // Remove commas and convert to a number
+    const itemPrice = parseFloat(item.selectedPrice.replace(/,/g, ""));
+
+    const totalForItem = itemPrice * item.cartQuantity;
     return total + totalForItem;
   }, 0);
 };

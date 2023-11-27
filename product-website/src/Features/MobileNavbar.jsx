@@ -1,8 +1,8 @@
 import { HiMiniBars3BottomLeft, HiOutlineShoppingBag } from "react-icons/hi2";
-import ProfileDropdown from "./Dropdown";
+import ProfileDropdown from "./Dropshippers/Dropdown";
 import { useNavigate, Link } from "react-router-dom";
 
-function MobileNavbar({ store, isOpen, toggleMenu }) {
+function MobileNavbar({ store, isOpen, toggleMenu, quantity }) {
   const navigate = useNavigate();
   return (
     <div className="flex items-center !justify-between md:px-5">
@@ -50,7 +50,7 @@ function MobileNavbar({ store, isOpen, toggleMenu }) {
         >
           <HiOutlineShoppingBag />
           <p className="absolute bg-red-500 w-[15px] flex items-center justify-center rounded-full h-[15px] -top-1 right-0 z-10 text-[12px] text-white">
-            1
+            {quantity}
           </p>
         </span>
         <ProfileDropdown />

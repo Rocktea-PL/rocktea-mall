@@ -1,9 +1,9 @@
 import {
   HiMiniBars3BottomLeft,
   HiOutlineHome,
-  HiOutlineShoppingBag,
+  // HiOutlineShoppingBag,
 } from "react-icons/hi2";
-import ProfileDropdown from "./Dropdown";
+//import ProfileDropdown from "./Dropdown";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { FaAngleUp, FaHome, FaMinus } from "react-icons/fa";
@@ -11,6 +11,8 @@ import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom/dist";
 import { BiTransferAlt } from "react-icons/bi";
 import { RiListUnordered } from "react-icons/ri";
+import ProfileDropdown from "./UserSearch/Dropdown";
+import { IoMdNotificationsOutline } from "react-icons/io";
 function DropshipperMobileNavbar({ store, isOpen, page, toggleMenu }) {
   const navigate = useNavigate();
 
@@ -109,7 +111,7 @@ function DropshipperMobileNavbar({ store, isOpen, page, toggleMenu }) {
           </li>
 
           <li className=" tracking-[1px] ">
-            <Link to={`/marketplace/${page}`}>
+            <Link to={`/marketplace?page=${page || 1}`}>
               {" "}
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-x-2">
@@ -132,7 +134,7 @@ function DropshipperMobileNavbar({ store, isOpen, page, toggleMenu }) {
             alt="logo"
             width={50}
             height={50}
-            className="rounded-full"
+            className=""
           />
         ) : (
           <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
@@ -145,7 +147,7 @@ function DropshipperMobileNavbar({ store, isOpen, page, toggleMenu }) {
           className=" relative p-2 z-0 text-[1.2rem] cursor-pointer"
           onClick={() => navigate("/cart")}
         >
-          <HiOutlineShoppingBag />
+          <IoMdNotificationsOutline />
           <p className="absolute bg-red-500 w-[15px] flex items-center justify-center rounded-full h-[15px] -top-1 right-0 z-10 text-[12px] text-white">
             1
           </p>

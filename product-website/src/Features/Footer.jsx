@@ -13,7 +13,7 @@ function Footer() {
               alt="logo"
               width={50}
               height={50}
-              className="rounded-full"
+              className=""
             />
           ) : (
             <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
@@ -64,7 +64,9 @@ function Footer() {
 
       <p className=" text-[12px] lg:text-sm mt-10 mx-auto mb-5 px-10 sm:px-0">
         &copy;2023, This website is a product of{" "}
-        <span className="text-[var(--orange)] font-semibold">RockTea PL </span>{" "}
+        <span className="text-[var(--orange)] font-semibold">
+          RockTea Mall{" "}
+        </span>{" "}
         All Rights Reserved.
       </p>
     </footer>

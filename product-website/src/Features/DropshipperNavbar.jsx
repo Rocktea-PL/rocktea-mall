@@ -1,10 +1,11 @@
 import { IoMdNotificationsOutline } from "react-icons/io";
-import ProfileDropdown from "./Dropdown";
+//import ProfileDropdown from "./Dropdown";
 import { Link } from "react-router-dom";
 //import {MobileNavbar} from "./MobileNavbar";
 import { useStoreContext } from "../Hooks/UserAuthContext";
 import DropshipperMobileNavbar from "./DropshipperMobileNavbar";
 import { useState } from "react";
+import ProfileDropdown from "./UserSearch/Dropdown";
 
 const DropshipperNavbar = ({ page }) => {
   const { store } = useStoreContext();
@@ -46,7 +47,7 @@ const DropshipperNavbar = ({ page }) => {
 
           <li className=" tracking-[1px]">
             {" "}
-            <Link to={`/marketplace/${page}`}>Marketplace</Link>
+            <Link to={`/marketplace?page=${page || 1}`}>Marketplace</Link>
           </li>
         </ul>
 

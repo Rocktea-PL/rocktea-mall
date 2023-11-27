@@ -40,7 +40,7 @@ export default function Search({ filteredProducts, searchQuery, openModal }) {
                         {product.name}
                       </p>
                       <p>{product.color}</p>
-                      <p className="font-semibold"></p>
+                      <p className="font-semibold">₦{product.price}</p>
 
                       <div className="relative h-[0.6rem] w-full mt-3 border border-solid border-gray-200 ">
                         <div
