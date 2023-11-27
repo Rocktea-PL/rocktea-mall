@@ -87,7 +87,7 @@ function About() {
                 x: 1,
                 transition: {
                   delay: 0.3,
-                  duration: 1,
+                  duration: 0.8,
                   ease: "easeInOut",
                 },
               }}
@@ -112,7 +112,7 @@ function About() {
 
                   transition: {
                     delay: 0.3,
-                    duration: 1,
+                    duration: 0.8,
                     ease: "easeInOut",
                   },
                 }}
@@ -132,7 +132,7 @@ function About() {
 
                 transition: {
                   delay: 0.3,
-                  duration: 1,
+                  duration: 0.8,
                   ease: "easeInOut",
                 },
               }}
@@ -164,7 +164,7 @@ function About() {
                 x: 1,
                 transition: {
                   delay: 0.3,
-                  duration: 1,
+                  duration: 0.8,
                   ease: "easeInOut",
                 },
               }}
@@ -189,7 +189,7 @@ function About() {
 
                   transition: {
                     delay: 0.3,
-                    duration: 1,
+                    duration: 0.8,
                     ease: "easeInOut",
                   },
                 }}
@@ -209,7 +209,7 @@ function About() {
 
                 transition: {
                   delay: 0.3,
-                  duration: 1,
+                  duration: 0.8,
                   ease: "easeInOut",
                 },
               }}
@@ -238,7 +238,7 @@ function About() {
                 x: 1,
                 transition: {
                   delay: 0.3,
-                  duration: 1,
+                  duration: 0.8,
                   ease: "easeInOut",
                 },
               }}
@@ -274,7 +274,7 @@ function About() {
 
               transition: {
                 delay: 0.3,
-                duration: 1,
+                duration: 0.8,
                 ease: "easeInOut",
               },
             }}
@@ -360,7 +360,7 @@ function About() {
 
           transition: {
             delay: 0.3,
-            duration: 1,
+            duration: 0.8,
             ease: "easeInOut",
           },
         }}

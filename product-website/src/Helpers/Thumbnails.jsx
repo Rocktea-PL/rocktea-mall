@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 // import required modules
-import { FreeMode, Navigation, Thumbs, Autoplay } from "swiper/modules";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -27,12 +27,12 @@ export default function Thumbnails({ productDet }) {
           slidesPerView={1}
           spaceBetween={3}
           navigation={true}
-          Autoplay={true}
+          //autoplay={true}
           thumbs={{
             swiper:
               thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
           }}
-          modules={[FreeMode, Navigation, Thumbs, Autoplay]}
+          modules={[FreeMode, Navigation, Thumbs]}
           className="mySwiper h-[500px] "
         >
           {productDet?.images?.length > 0 &&
@@ -41,7 +41,7 @@ export default function Thumbnails({ productDet }) {
                 <img
                   src={item?.url}
                   alt="Additional Product 2"
-                  className="  rounded-md   "
+                  className="  object-cover w-[200px] h-[200px] block rounded-md  "
                 />
               </SwiperSlide>
             ))}
@@ -52,12 +52,12 @@ export default function Thumbnails({ productDet }) {
           loop={true}
           spaceBetween={2}
           slidesPerView={4}
-          Autoplay={true}
-          onAutoplayResume={true}
+          // autoplay={true}
+          //onAutoplayResume={true}
           freeMode={true}
           direction="vertical"
           watchSlidesProgress={true}
-          modules={[FreeMode, Navigation, Thumbs, Autoplay]}
+          modules={[FreeMode, Navigation, Thumbs]}
           className="mySwiper2 mt-4   flex !flex-col max-h-[300px]"
         >
           {productDet?.images?.length > 0 &&
@@ -66,7 +66,7 @@ export default function Thumbnails({ productDet }) {
                 <img
                   src={item?.url}
                   alt="Additional Product 2"
-                  className=" object-cover w-[300px] h-[300px] block rounded-md"
+                  className=" object-cover !rounded-md"
                 />
               </SwiperSlide>
             ))}
@@ -84,14 +84,14 @@ export default function Thumbnails({ productDet }) {
           slidesPerView={1}
           spaceBetween={3}
           navigation={true}
-          Autoplay={true}
+          // autoplay={true}
           thumbs={{
             swiper:
               thumbsSwiperMobile && !thumbsSwiperMobile.destroyed
                 ? thumbsSwiperMobile
                 : null,
           }}
-          modules={[FreeMode, Navigation, Thumbs, Autoplay]}
+          modules={[FreeMode, Navigation, Thumbs]}
           className="mySwiper h-[500px] "
         >
           {productDet?.images?.length > 0 &&
@@ -100,7 +100,7 @@ export default function Thumbnails({ productDet }) {
                 <img
                   src={item?.url}
                   alt="Additional Product 2"
-                  className="  rounded-md   "
+                  className=" lg:!w-[200px] lg:!h-[200px] rounded-md   "
                 />
               </SwiperSlide>
             ))}
@@ -111,11 +111,11 @@ export default function Thumbnails({ productDet }) {
           loop={true}
           spaceBetween={2}
           slidesPerView={4}
-          Autoplay={true}
+          // autoplay={true}
           freeMode={true}
           // direction="vertical"
           // watchSlidesProgress={true}
-          modules={[FreeMode, Navigation, Thumbs, Autoplay]}
+          modules={[FreeMode, Navigation, Thumbs]}
           className="mySwiper-mobile mt-4   flex !flex-col sm:max-w-[65%] max-h-[300px]"
         >
           {productDet?.images?.length > 0 &&

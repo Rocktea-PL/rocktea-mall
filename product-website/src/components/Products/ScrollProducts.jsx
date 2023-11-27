@@ -3,12 +3,14 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import ProductCard from "../../Features/ProductCard";
 import "./index.css";
 import { Link } from "react-router-dom";
+
 export default function ScrollProducts({
   categoryTitle,
   products,
   subCategory,
 }) {
   const scrollRef = useRef(null);
+
   //const [hovered, setHovered] = useState(false);
   const [scrollAtStart, setScrollAtStart] = useState(true);
   const [scrollAtEnd, setScrollAtEnd] = useState(false);
@@ -35,13 +37,15 @@ export default function ScrollProducts({
     }
   };
 
+  console.log(products);
   //console.log('subcategory',subCategory)
-  const decodedSubCategory = decodeURIComponent(subCategory);
+  const sanitizedCategoryName = subCategory.replace(/\s+/g, "-");
+  // const decodedSubCategory = decodeURIComponent(subCategory);
   return (
     <div className="">
       <div className="relative w-full mt-5 bg-white z-[10] p-5">
         <h2 className="font-semibold text-md lg:text-2xl">{categoryTitle}</h2>
-        <Link to={`/shop/${decodedSubCategory}`}>
+        <Link to={`/shop/${sanitizedCategoryName}`}>
           <span className="absolute top-5 lg:top-5 right-5 text-right flex items-center gap-2 text-[var(--orange)] cursor-pointer">
             See All <FaAngleRight />
           </span>
@@ -54,12 +58,12 @@ export default function ScrollProducts({
           >
             {products.map((item, index) => {
               // const combinedPrice = item.product.product_variant[0].wholesale_price+ item.product.store_variant[0].retail_price;
-              const combinedPrice =
-                item.product.product_variant.reduce(
+              /*  const combinedPrice =
+              item.product.product_variant.reduce(
                   (totalPrice, productVariant) =>
                     totalPrice + productVariant.wholesale_price,
                   0,
-                ) + item.product.store_variant[0].retail_price;
+                ) + item.product.store_variant[0].retail_price;*/
               return (
                 <ProductCard
                   key={index}
@@ -67,7 +71,7 @@ export default function ScrollProducts({
                   productId={item?.product?.id}
                   image={item.product?.images[0]?.url}
                   name={item.product.name}
-                  price={combinedPrice?.toLocaleString()}
+                  // price={combinedPrice?.toLocaleString()}
                   oldPrice={item.oldPrice}
                 />
               );

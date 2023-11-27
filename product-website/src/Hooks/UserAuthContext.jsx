@@ -37,12 +37,15 @@ export const UserAuthProvider = ({ children }) => {
   const handleLoginUserSubmit = async (e) => {
     e.preventDefault();
     //let store_id = localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+    const formData = new FormData();
+    formData.append("email", credentials.email);
+    formData.append("password", credentials.password);
 
     try {
       setIsLoading(true);
       const response = await axios.post(
         `https://rocktea-mall-api-test.up.railway.app/store/login/`,
-        credentials,
+        formData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -60,17 +63,17 @@ export const UserAuthProvider = ({ children }) => {
       localStorage.setItem("accessToken", usertoken);
       //setUserData(response.user_data);
       //console.log('before user data', response.user_data.first_name)
-      const user_id = response.data.user_data.id;
+      const user_id = response?.data?.user_data?.id;
       setIsUser(true);
       localStorage.setItem("user_id", user_id);
       // console.log(user_id);
-      //localStorage.setItem("userData", JSON.stringify(response.user_data));
+      //localStorage.setItem("userData", response.data.access);
       // Store the access token in state and/or localStorage
       //setAccessToken(token);
       // let store_id = localStorage.getItem('storeId')
       //console.log('login Successful',response.data)
       //https://rocktea-mall-product.vercel.app/dashboard
-      navigate(`/`);
+      navigate("/");
 
       toast.success("Logged in Successfully");
     } catch (error) {

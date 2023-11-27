@@ -12,6 +12,8 @@ import {
   setDecreaseItemQuantity,
   setIncreaseItemQuantity,
   selectTotalQuantity,
+  //setClearItems,
+  setGetTotalAmount,
 } from "../../src/Redux/CartSlice";
 import { useDispatch } from "react-redux";
 import {
@@ -30,6 +32,7 @@ function Cart() {
     const itemIndex = cartItems.findIndex((item) => item.id === product.id);
     if (itemIndex >= 0) {
       dispatch(setIncreaseItemQuantity(cartItems[itemIndex]));
+      dispatch(setGetTotalAmount());
     }
     // dispatch(setIncreaseItemQuantity(product))
   };
@@ -38,12 +41,13 @@ function Cart() {
     const itemIndex = cartItems.findIndex((item) => item.id === product.id);
     if (itemIndex >= 0) {
       dispatch(setDecreaseItemQuantity(cartItems[itemIndex]));
+      dispatch(setGetTotalAmount());
     }
     // dispatch(setDecreaseItemQuantity(product))
   };
 
-  const handleRemoveProduct = () => {
-    dispatch(setRemoveItemFromCart(cartItems[0].id));
+  const handleRemoveProduct = (id) => {
+    dispatch(setRemoveItemFromCart(id));
 
     //  dispatch(setRemoveItemFromCart(product));
 
@@ -83,7 +87,7 @@ console.log(cart)*/
               <FaAngleRight />
             </p>
           </div>
-          <p>{cartTotalQuantity} Items</p>
+          <p>{cartTotalQuantity || "0"} Items</p>
         </div>
         <hr className=" mb-5" />
         <div className="flex flex-col lg:flex-row justify-center w-full gap-5">
@@ -92,21 +96,6 @@ console.log(cart)*/
             {/* Cart Item 1 */}
 
             {cartItems.map((items, index) => {
-              const wholesalePrice =
-                items.product_data.product_variants[0].wholesale_price;
-              const retailPrices = items.store_variants[0].retail_price;
-
-              const wholesalePriceNumber = parseFloat(wholesalePrice);
-              const retailPricesNumbers = parseFloat(retailPrices);
-
-              const totalWholesalePrice = wholesalePriceNumber;
-              const totalRetailPrice = retailPricesNumbers;
-              const totalPrice = totalWholesalePrice + totalRetailPrice;
-
-              console.log("Total Wholesale Price:", totalWholesalePrice);
-              console.log("Total Retail Price:", totalRetailPrice);
-              console.log("Total Price (Wholesale + Retail):", totalPrice);
-
               return (
                 <div
                   key={index}
@@ -117,10 +106,10 @@ console.log(cart)*/
 
                     <div className=" p-2 flex flex-col">
                       <p className="text-[20px] uppercase tracking-wide">
-                        {items.product_data.name}
+                        {items.product.name}
                       </p>
                       <p className="text-md font-semibold">
-                        ₦{totalPrice.toLocaleString()}
+                        ₦ {items.selectedPrice}
                       </p>
 
                       <div className="flex items-center justify-center gap-5 max-w-[100px] py-2 rounded-md border border-solid border-[var(--orange)] mt-3">
@@ -130,7 +119,7 @@ console.log(cart)*/
                         >
                           -
                         </button>
-                        <p>{cartItems[index].cartQuantity}</p>
+                        <p>{items.cartQuantity}</p>
                         <button
                           className=" "
                           onClick={() => handleIncrement(items)}
@@ -142,7 +131,7 @@ console.log(cart)*/
                   </div>
                   <div className="p-2">
                     <button
-                      onClick={() => handleRemoveProduct()}
+                      onClick={() => handleRemoveProduct(items.product.id)}
                       className=" block bg-[var(--orange)] p-3 w-[150px] rounded-lg"
                     >
                       Delete
@@ -175,7 +164,7 @@ console.log(cart)*/
                 <h3 className="flex items-start justify-between  text-center">
                   <span className="">Subtotal</span>
                   <span className="font-semibold flex-1 text-right mr-3">
-                    {total.toLocaleString()}
+                    ₦ {total.toLocaleString()}
                   </span>
                 </h3>
                 <h3 className="flex items-start justify-between  ">
@@ -217,8 +206,11 @@ console.log(cart)*/
 }
 
 export default Cart;
+
 /** <img
-                  src={items.images[0].url}
+          
+{estimatedTotal.toLocaleString()}
+src={items.images[0].url}
                   alt="Product"
                   className="object-cover h-full w-full rounded-md"
 
@@ -248,5 +240,20 @@ if (productVariant) {
   console.log('Selected size not found.');
 }
 
+
+const wholesalePrice =
+                items.product_data.product_variants[0].wholesale_price;
+              const retailPrices = items.store_variants[0].retail_price;
+
+              const wholesalePriceNumber = parseFloat(wholesalePrice);
+              const retailPricesNumbers = parseFloat(retailPrices);
+
+              const totalWholesalePrice = wholesalePriceNumber;
+              const totalRetailPrice = retailPricesNumbers;
+              const totalPrice = totalWholesalePrice + totalRetailPrice;
+
+              console.log("Total Wholesale Price:", totalWholesalePrice);
+              console.log("Total Retail Price:", totalRetailPrice);
+              console.log("Total Price (Wholesale + Retail):", totalPrice);
                 
                 */

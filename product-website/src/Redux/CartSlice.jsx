@@ -74,15 +74,18 @@ export const {
 
 
 export default cartSlice.reducer;*/
+//import { useDispatch } from "react-redux";
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
+
+//const dispatch = useDispatch()
 const cartFromLocalStorage = localStorage.getItem("cart");
 const initialCartItems = cartFromLocalStorage
   ? JSON.parse(cartFromLocalStorage)
   : [];
 const totalCartQuantity =
   localStorage.getItem("cartQuantity") !== null
-    ? JSON.parse(localStorage.getItem("cartQuantity"))
+    ? parseInt(localStorage.getItem("cartQuantity"))
     : 0;
 const initialState = {
   cartItems: initialCartItems,
@@ -103,7 +106,7 @@ const cartSlice = createSlice({
   reducers: {
     // In your cartSlice.js
     addToCart: (state, action) => {
-      const { product, selectedSize } = action.payload;
+      const { product, selectedSize, selectedPrice } = action.payload;
 
       // Check if the product is already in the cart
       const existingItem = state.cartItems.find(
@@ -116,21 +119,40 @@ const cartSlice = createSlice({
         toast.success(`Item QTY Increased`);
       } else {
         // If not, add a new item to the cart with the selected size
-        const newItem = { ...product, selectedSize, cartQuantity: 1 };
-        state.cartItems.push(newItem);
+        // const newItem = { ...product, selectedSize,selectedPrice, cartQuantity: 1 };
+        //state.cartItems.push(newItem);
+        state.cartItems.push({
+          product,
+          selectedSize,
+          selectedPrice,
+          cartQuantity: 1,
+        });
         toast.success(`product added to Cart`);
       }
-
+      state.cartTotalAmount += selectedPrice;
       localStorage.setItem("cart", JSON.stringify(state.cartItems));
     },
 
     setRemoveItemFromCart: (state, action) => {
-      const removeItem = state.cartItems.filter(
-        (item) => item.id !== action.payload.id,
+      const removedItem = state.cartItems.find(
+        (item) => item.id === action.payload.id,
       );
-      state.cartItems = removeItem;
-      localStorage.setItem("cart", JSON.stringify(state.cartItems));
-      toast.success(`${action.payload.name} Removed From Cart`);
+
+      if (removedItem) {
+        const updatedCartItems = state.cartItems.filter(
+          (item) => item.id !== action.payload.id,
+        );
+
+        state.cartItems = updatedCartItems;
+
+        // Update cartTotalQuantity after removing the item
+        state.cartTotalQuantity -= removedItem.cartQuantity;
+
+        localStorage.setItem("cart", JSON.stringify(updatedCartItems));
+        localStorage.setItem("cartQuantity", state.cartTotalQuantity);
+
+        toast.success("Product Removed From Cart successfully");
+      }
     },
 
     setIncreaseItemQuantity: (state, action) => {
@@ -149,7 +171,7 @@ const cartSlice = createSlice({
         (item) => item.id === action.payload.id,
       );
 
-      if (state.cartItems[itemIndex].cartQuantity > 1) {
+      if (state.cartItems[itemIndex].cartQuantity > 0) {
         state.cartItems[itemIndex].cartQuantity -= 1;
         toast.success(`Item QTY Decreased`);
       }
@@ -158,17 +180,17 @@ const cartSlice = createSlice({
 
     setClearItems: (state) => {
       state.cartItems = [];
+      localStorage.removeItem("cart");
+      state.cartTotalQuantity = 0;
       toast.success(`Cart cleared`);
-      localStorage.setItem("cart", JSON.stringify(state.cartItems));
     },
 
     setGetTotalAmount: (state) => {
       const { totalAmount, totalQuantity } = state.cartItems.reduce(
         (cartTotal, cartItem) => {
-          const { wholesalePrice, retailPrice, cartQuantity } = cartItem;
-          const totalPrice = (wholesalePrice + retailPrice) * cartQuantity;
+          const { cartQuantity } = cartItem;
 
-          cartTotal.totalAmount += totalPrice;
+          cartTotal.totalAmount += cartItem.selectedPrice * cartQuantity;
           cartTotal.totalQuantity += cartQuantity;
 
           return cartTotal;

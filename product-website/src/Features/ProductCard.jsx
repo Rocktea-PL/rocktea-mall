@@ -4,15 +4,18 @@
 //import { useEffect } from "react";
 import { Link } from "react-router-dom";
 //import { useUserProductContext } from "../Hooks/UserProductContext";
+import { useProductPrices } from "../Hooks/UseProductPrices";
+//import { useUserProductContext } from "../Hooks/UserProductContext";
 
 export default function ProductCard({
   image,
-  price,
+
   name,
   oldPrice,
   quantity,
   productId,
 }) {
+  // const {fetchProductsPrice} = useUserProductContext()
   const isImageAvailable = image && image.trim() !== "";
 
   const currentQuantity = quantity;
@@ -29,7 +32,9 @@ export default function ProductCard({
   } else if (percentage === 0) {
     progressBarClass = "bg-gray-400"; // Out of stock (0%)
   }
-  // console.log(progressBarClass)
+  const { productPrices, isLoading } = useProductPrices(productId);
+  //console.log("prices", productPrices);
+
   return (
     <>
       {isImageAvailable ? (
@@ -48,7 +53,13 @@ export default function ProductCard({
               <p className="font-light whitespace-nowrap truncate text-[1rem] mt-5">
                 {name}
               </p>
-              <p className="font-semibold">₦ {price.toLocaleString()}</p>
+              {productPrices?.length > 0 && !isLoading ? (
+                <p className="font-semibold">
+                  ₦ {productPrices[0]?.retail_price}
+                </p>
+              ) : (
+                <p>Loading...</p>
+              )}
               <strike className="text-gray-400 text-[12px]">{oldPrice}</strike>
               <div className="relative h-[0.6rem] w-full mt-3 border border-solid border-gray-200 ">
                 <div

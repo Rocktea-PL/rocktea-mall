@@ -19,7 +19,7 @@ const ThemePicker = ({ handleThemeChange, store }) => {
   const handleThemes = () => {
     setSelectField(!selectField);
   };
-
+  //console.log(store.theme)
   return (
     <div className="lg:col-span-2 mb-4 cursor-pointer">
       <h2 className="font-semibold mb-2">Theme</h2>
@@ -27,7 +27,7 @@ const ThemePicker = ({ handleThemeChange, store }) => {
         className="border border-gray-300 rounded-[5px] h-10 flex items-center px-5 opacity-70"
         onClick={handleThemes}
       >
-        Click to pick a theme
+        {store.theme ? "Click to Change Theme" : "Click to pick a theme"}
       </div>
       <div>
         {selectField && (

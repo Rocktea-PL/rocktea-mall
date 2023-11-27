@@ -30,10 +30,8 @@ const fetchProductCategory = async (category) => {
 };
 
 const fetchProductsPrice = async (productId) => {
-  const response = await axios.get(
-    `${apiUrlProductVariant}?product=${productId}`,
-  );
-  console.log(`${apiUrlProductVariant}?product=${productId}`);
+  const response = await axios.get(`${apiUrlProductVariant}${productId}`);
+  //console.log(`${apiUrlProductVariant}?product=${productId}`);
   return response.data;
 };
 

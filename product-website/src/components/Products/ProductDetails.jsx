@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Footer from "../../Features/Footer";
@@ -10,27 +10,27 @@ import { useDispatch } from "react-redux";
 import { addToCart, setGetTotalAmount } from "../../Redux/CartSlice";
 import toast from "react-hot-toast";
 import Thumbnails from "../../Helpers/Thumbnails";
+import { useQuery } from "react-query";
+import { useProductPrices } from "../../Hooks/UseProductPrices";
 //import {  useUserProductContext } from "../../Hooks/UserProductContext";
 //import { useUserProductContext } from "../../Hooks/UserProductContext";
 //import toast from "react-hot-toast";
 const UserProductDetails = () => {
   const { productId } = useParams();
-  const dispatch = useDispatch();
-  //const {price} = useUserProductContext()
-  const [productDet, setProductDet] = useState();
-  //const [selectedPrice, setSelectedPrice] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [variantData, setVariantData] = useState();
-  // const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // console.log(selectedSize);
-  //console.log(price)
-  // Define a function to fetch product details
-  /*const fetchProductDetails = async () => {
+  const dispatch = useDispatch();
+  //console.log(id)
+
+  const { productPrices, isLoading } = useProductPrices(productId);
+  const [selectedPrice, setSelectedPrice] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+  //const [variantData, setVariantData] = useState([]);
+
+  const fetchProductDetails = async () => {
     const response = await axios.get(
-      `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/?id=${id}`,
+      `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${productId}`,
     );
-    return response.data[0];
+    return response.data;
   };
   const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
   // Use React Query's useQuery to fetch product details
@@ -38,8 +38,8 @@ const UserProductDetails = () => {
     data: productDet,
     status: productStatus,
     error,
-  } = useQuery(["product", id], fetchProductDetails, {
-    enabled: !!id,
+  } = useQuery(["product", productId], fetchProductDetails, {
+    enabled: !!productId,
     refetchOnWindowFocus: false,
     refetchOnmount: false,
     refetchOnReconnect: false,
@@ -53,116 +53,36 @@ const UserProductDetails = () => {
   if (productStatus === "error") {
     return <p>Error: {error}</p>;
   }
-  console.log("product data", productDet);
- // let Total;
- /* const fetchVariantData = async (size) => {
-    if (productDet && productDet.product_variants) {
-      // Use the API to fetch variant data for the selected size
-      try {
-        const store_id = localStorage.getItem("storeUid");
-        const response = await axios.get(
-          `https://rocktea-mall-api-test.up.railway.app/rocktea/store-variant/?product=${productDet.id}&size=${size}&store=${store_id}`,
-        );
+  //console.log("product data", productDet);
 
-        // Set the variant data
-       // console.log('product variant' ,response.data);
-       setVariantData(response.data);
-        console.log("variant", variantData);
-        if(variantData?.product_variant[0].size === variantData?.store_variant[0]?.size){
-          Total = variantData?.product_variant[0]?.wholesale_price + variantData?.store_variant[0]?.retail_price
-          console.log('total',Total)
-        }
-      } catch (error) {
-        console.error("Error fetching variant data:", error);
-      }
-    }
-  };
-*/
-  const fetchProductDetails = async () => {
-    try {
-      const response = await axios.get(
-        `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${productId}`,
-      );
-      console.log(response.data);
-      const product = response.data.product_data;
-
-      setProductDet(product);
-    } catch (error) {
-      console.error("Error fetching product details:", error);
-      throw error;
-    }
-  };
-
-  const variant = productDet?.product_variants.map((item) => item.id);
-
-  const fetchProductvariants = async (variantId) => {
-    const store_id = localStorage.getItem("storeUid");
-    try {
-      const response = await axios.get(
-        `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${productId}?variant=${variantId}&store=${store_id}`,
-      );
-      console.log(response.data);
-      const product = response.data;
-
-      setVariantData(product);
-    } catch (error) {
-      console.error("Error fetching product details:", error);
-      throw error;
-    }
-  };
-
-  useEffect(() => {
-    fetchProductDetails();
-  }, []);
+  // console.log(productDet)
   //fetchVariantData()
 
-  //rocktea/product-details/e97c9489-110b-497f-b06f-71432fe8f5b4?variant=3&store=ce2208cf-6f56-4d28-b9c5-ac76f06e69db
+  const handleSizeClick = (size, price) => {
+    setSelectedSize(size, price);
 
-  //const variant = productDet?.product_variants.map((item) => item.id)
-
-  console.log(variant);
-  /*const handleAddToCart = (product) => {
-    if (!selectedSize) {
-     toast.error('Please select a size before adding to cart.');
-      return;
-    }
-    if (variantData ) {
-     
-      dispatch(addToCart(product));
-  
-      
-    } else {
-      toast.error("Product details are not available.");
-    }
+    setSelectedPrice(price);
   };
-  */
 
-  const handleAddToCart = (productDet, selectedSize) => {
+  //console.log(productPrices)
+  //)
+
+  const handleAddToCart = (selectedPrice) => {
     if (!selectedSize) {
       toast.error("Please select a size before adding to cart.");
       return;
     }
 
-    if (variantData) {
-      dispatch(addToCart({ product: productDet, selectedSize }));
-      dispatch(setGetTotalAmount());
-    } else {
-      toast.error("Product details are not available.");
-    }
+    dispatch(addToCart({ product: productDet, selectedSize, selectedPrice }));
+    dispatch(setGetTotalAmount());
   };
 
-  const handleSizeClick = (size, price, variantId) => {
-    setSelectedSize(size);
-    // setIsModalOpen(true);
-    fetchProductvariants(variantId);
-    //setSelectedPrice(price);
-  };
-  console.log(selectedSize);
-  console.log(productDet);
+  //console.log(selectedPrice)
+
   // console.log(productDet.product_variants[0].wholesale_price)
   return (
     <>
-      <section className="relative mt-20 px-10 lg:px-0 max-w-[1300px] m-auto">
+      <section className="relative mt-20 px-10 lg:px-0 max-w-[1300px] m-auto bg-white rounded max-md:mx-10 pt-5">
         <div className=" flex flex-col lg:flex-row w-full  lg:space-x-20 lg:p-8">
           {/* Product Images */}
           <div className="lg:max-w-[50%]">
@@ -192,7 +112,18 @@ const UserProductDetails = () => {
             <p className="capitalize font-bold">
               SKU: <span className="font-medium">{productDet?.sku}</span>
             </p>
-            <p className="font-bold my-2 text-lg">₦ </p>
+            {productPrices?.length > 0 && !isLoading ? (
+              <p className="font-bold my-2 text-lg">
+                ₦{" "}
+                {selectedSize
+                  ? selectedPrice
+                  : isLoading
+                  ? "Loading..."
+                  : productPrices[0]?.retail_price}{" "}
+              </p>
+            ) : (
+              <p>No price</p>
+            )}
 
             <p className="text-gray-300 my-2">
               {productDet?.is_available ? (
@@ -202,24 +133,31 @@ const UserProductDetails = () => {
               )}
             </p>
 
-            <div className="flex space-x-2 my-5">
-              {productDet?.product_variants.map((item, index) => (
-                <button
-                  key={index}
-                  className={`border border-solid border-[var(--orange)] rounded-md px-3 py-1 ${
-                    item.size === selectedSize && "bg-orange "
-                  }`}
-                  onClick={() =>
-                    handleSizeClick(item.size, item.wholesale_price, item.id)
-                  }
-                >
-                  {item?.size}
-                </button>
-              ))}
-            </div>
+            {productPrices?.length > 0 && !isLoading ? (
+              productPrices.map((item, index) => {
+                return (
+                  <div key={index}>
+                    <button
+                      key={index}
+                      className={`border border-solid border-[var(--orange)] rounded-md px-3 flex items-center space-x-3 mb-4 py-1 ${
+                        item.size === selectedSize && "bg-orange "
+                      }`}
+                      onClick={() =>
+                        handleSizeClick(item.size, item.retail_price)
+                      }
+                    >
+                      {item?.size}
+                    </button>
+                  </div>
+                );
+              })
+            ) : (
+              <p>No product price found</p>
+            )}
+
             <div className="flex items-center  gap-5">
               <button
-                onClick={() => handleAddToCart(variantData, selectedSize)}
+                onClick={() => handleAddToCart(selectedPrice)}
                 className={`${
                   !selectedSize ? "bg-orange opacity-60" : "bg-orange "
                 }  p-3 text-sm rounded-md`}
@@ -281,20 +219,7 @@ const UserProductDetails = () => {
                 <li className="font-semibold">
                   Weight (Kg): <span className="font-normal"> 0.3</span>{" "}
                 </li>
-                <div className="flex  gap-1">
-                  {productDet?.product_variants[0]?.colors?.length > 0 &&
-                    productDet?.product_variants[0]?.colors.map((x, index) => {
-                      let color = x.toLowerCase();
-                      // console.log(color)
-                      return (
-                        <>
-                          <li key={index} className="font-semibold">
-                            Color: <span className="font-normal">{color}</span>
-                          </li>
-                        </>
-                      );
-                    })}
-                </div>
+                <div className="flex  gap-1"></div>
 
                 <li className="font-semibold">
                   {" "}

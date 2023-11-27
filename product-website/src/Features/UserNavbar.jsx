@@ -17,6 +17,7 @@ import { selectTotalQuantity } from "../Redux/CartSlice"; // Make sure the path 
 
 import { useStoreContext } from "../Hooks/UserAuthContext";
 import MobileNavbar from "./MobileNavbar";
+import { useEffect } from "react";
 //import { useUserProductContext } from "../Hooks/UserProductContext";
 //import { FaRegUser } from 'react-icons/fa;
 const Navbar = () => {
@@ -25,6 +26,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { store } = useStoreContext();
   //const { cart } = useUserProductContext();
+  const [quantity, setQuantity] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -43,6 +45,11 @@ const Navbar = () => {
   const handleSearch = (query) => {
     navigate(`/search?query=${query}`);
   };
+
+  useEffect(() => {
+    console.log("Cart Total Quantity changed:", cartTotalQuantity);
+    setQuantity(cartTotalQuantity);
+  }, [cartTotalQuantity]);
 
   return (
     <header className="p-3 bg-white shadow-md fixed top-0 w-full z-[999]">
@@ -102,7 +109,7 @@ const Navbar = () => {
           >
             <HiOutlineShoppingBag />
             <p className="absolute bg-red-500 w-[15px] p-2 flex items-center justify-center rounded-full h-[15px] -top-1 right-0 z-10 text-[12px] text-white">
-              {cartTotalQuantity || "0"}
+              {quantity}
             </p>
           </span>
           <ProfileDropdown />
@@ -114,6 +121,7 @@ const Navbar = () => {
           store={store}
           isOpen={isMobileNavOpen}
           toggleMenu={toggleMobileNav}
+          quantity={quantity}
         />
       </nav>
       {isModalOpen && <Categories closeModal={closeModal} />}
