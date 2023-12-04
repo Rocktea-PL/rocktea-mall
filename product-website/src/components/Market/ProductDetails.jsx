@@ -73,6 +73,7 @@ const ProductDetails = () => {
       console.error("Error removing product:", error);
     }
   };
+  console.log(productDet);
   //console.log(productDet.product_variants[0].wholesale_price);
   return (
     <>
@@ -85,9 +86,9 @@ const ProductDetails = () => {
 
           {/* Product Details */}
           <div className="relative flex flex-col mt-[3rem] lg:mt-0  lg:max-w-[50%]">
-            <h4 className="absolute top-[17%] right-3 text-sm">
+            {/**  <h4 className="absolute top-[17%] right-3 text-sm">
               See Size Guide
-            </h4>
+            </h4>*/}
             <h2 className=" font-semibold uppercase text-md">
               {productDet?.name}
             </h2>
@@ -103,7 +104,7 @@ const ProductDetails = () => {
                 {productDet?.subcategory?.name}
               </span>
             </p>
-            <p className="capitalize font-bold ml-2">
+            <p className="capitalize font-bold ">
               SKU: <span className="font-medium">{productDet?.sku}</span>
             </p>
 
@@ -127,28 +128,29 @@ const ProductDetails = () => {
                 <span className="text-red-500">Out of Stock</span>
               )}
             </p>
-
-            {productPrices?.length > 0 && !isLoading ? (
-              productPrices.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <button
-                      key={index}
-                      className={`border border-solid border-[var(--orange)] rounded-md px-3 flex items-center space-x-3 mb-4 py-1 ${
-                        item.size === selectedSize && "bg-orange "
-                      }`}
-                      onClick={() =>
-                        handleSizeClick(item.size, item.retail_price)
-                      }
-                    >
-                      {item?.size}
-                    </button>
-                  </div>
-                );
-              })
-            ) : (
-              <p>No product price found</p>
-            )}
+            <div className="flex items-center gap-x-3">
+              {productPrices?.length > 0 && !isLoading ? (
+                productPrices.map((item, index) => {
+                  return (
+                    <div key={index} className="flex">
+                      <button
+                        key={index}
+                        className={`border border-solid border-[var(--orange)] rounded-md px-3 flex items-center space-x-3 mb-4 py-1 ${
+                          item.size === selectedSize && "bg-orange "
+                        }`}
+                        onClick={() =>
+                          handleSizeClick(item.size, item.retail_price)
+                        }
+                      >
+                        {item?.size}
+                      </button>
+                    </div>
+                  );
+                })
+              ) : (
+                <p>No product price found</p>
+              )}
+            </div>
             <div className="flex items-center  gap-5">
               <button
                 className="bg-red-600  p-3 text-sm rounded-md text-white "
@@ -204,26 +206,37 @@ const ProductDetails = () => {
                 <li className="font-semibold">
                   Weight (Kg): <span className="font-normal"> 0.3</span>{" "}
                 </li>
-                <div className="flex  gap-1">
-                  {productDet?.product_variants[0]?.colors?.length > 0 &&
-                    productDet?.product_variants[0]?.colors.map((x, index) => {
-                      let color = x.toLowerCase();
-                      // console.log(color)
-                      return (
-                        <>
-                          <li
-                            key={index}
-                            className="font-semibold flex items-center gap-2"
-                          >
-                            Color:{" "}
-                            <div
-                              className="flex items-center gap-2 w-5 h-5 rounded-sm"
-                              style={{ backgroundColor: color }}
-                            ></div>
-                          </li>
-                        </>
+                <div className="flex items-center  gap-1">
+                  <h3 className="font-semibold">Color:</h3>
+                  {productPrices?.length > 0 && !isLoading ? (
+                    productPrices.map((item, index) => {
+                      // Use a Set to store unique colors
+                      const uniqueColors = new Set(
+                        item.colors.map((x) => x.toLowerCase()),
                       );
-                    })}
+                      //console.log(uniqueColors)
+                      return (
+                        <div key={index}>
+                          {Array.from(uniqueColors).map((color, colorIndex) => (
+                            <li
+                              key={colorIndex}
+                              className="font-semibold flex items-center gap-1"
+                            >
+                              <div
+                                className="flex items-center gap-1 w-5 h-5 rounded-sm"
+                                style={{ backgroundColor: color }}
+                              ></div>
+                            </li>
+                          ))}
+                        </div>
+                      );
+                    })
+                  ) : (
+                    // Render loading or empty state if productPrices is empty or still loading
+                    <p>
+                      {isLoading ? "Loading..." : "No colors for this product"}
+                    </p>
+                  )}
                 </div>
 
                 <li className="font-semibold">

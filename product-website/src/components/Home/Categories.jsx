@@ -40,7 +40,9 @@ const category = [
 function Categories() {
   return (
     <section className=" mt-5 pt-2 pb-5  rounded-lg ">
-      <h2 className="text-center font-semibold  text-2xl">Categories</h2>
+      <h2 className="text-center font-semibold  text-2xl bg-white h-14 flex items-center justify-center rounded-md">
+        Categories
+      </h2>
       <article className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-5">
         {category.map((item) => (
           <div

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useStoreContext } from "../Hooks/UserAuthContext";
 import DropshipperMobileNavbar from "./DropshipperMobileNavbar";
 import { useState } from "react";
-import ProfileDropdown from "./UserSearch/Dropdown";
+import ProfileDropdown from "./Dropshippers/Dropdown";
 
 const DropshipperNavbar = ({ page }) => {
   const { store } = useStoreContext();

@@ -67,7 +67,7 @@ const Chart = () => {
   };
 
   return (
-    <section className="bg-white mt-10 w-auto lg:w-full overflow-x-auto  h-auto px-5 py-5  rounded-xl lg:ml-3">
+    <section className="bg-white mt-10 w-[98%] lg:w-full overflow-x-auto mx-auto  h-auto px-5 py-5  rounded-xl ">
       <div className="flex justify-between px-5">
         <div>
           <h2 className="text-md font-bold mt-4 -ml-5 leading-tight">

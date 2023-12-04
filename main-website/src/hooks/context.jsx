@@ -1,6 +1,6 @@
 // MyContext.js
 import { createContext, useContext, useState } from "react";
-import { loginUser, register } from "../../pages/auth/auth";
+import { loginUser, register, registerService } from "../../pages/auth/auth";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +23,17 @@ const AppProvider = ({ children }) => {
     contact: "",
     password: "",
     profile_image: "",
+  });
+  const [serviceData, setServiceData] = useState({
+    // Define initial user data state
+    first_name: "",
+    last_name: "",
+    username: "",
+    email: "",
+    contact: "",
+    password: "",
+    profile_image: "",
+    type: "",
   });
 
   const [credentials, setCredentials] = useState({
@@ -131,6 +142,91 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const handleServiceFormSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    // Create a FormData object to send the form data including the image
+    const formData = new FormData();
+    formData.append("first_name", serviceData.first_name);
+    formData.append("last_name", serviceData.last_name);
+    formData.append("username", serviceData.username);
+    formData.append("email", serviceData.email);
+    formData.append("contact", serviceData.contact);
+    formData.append("password", serviceData.password);
+    formData.append("profile_image", serviceData.profile_image);
+    formData.append("type", serviceData.type);
+
+    try {
+      // Add logic here to submit userData to the server
+      // For example, you can call the register function from auth.js
+      const response = await registerService(formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Important for sending file data
+        },
+      });
+
+      // Send an email notification to the user using EmailJS
+      // Replace 'your_service_id', 'your_template_id', and 'your_user_id' with your actual EmailJS values
+      const emailParams = {
+        to_email: serviceData.email,
+        to_name: serviceData.first_name,
+
+        // User's email address
+        // Add any other template variables here
+      };
+
+      // Send the email
+      emailjs
+        .send(
+          "service_5hulf9r",
+          "template_nk9rq5h",
+          emailParams,
+          "Sb11MyaNpQEgE-cBn",
+        )
+        .then((response) => {
+          console.log("Email sent:", response);
+        })
+        .catch((error) => {
+          console.error("Email sending failed:", error);
+        });
+
+      emailjs
+        .send(
+          "service_5hulf9r",
+          "template_nxo03xr",
+          emailParams,
+          "Sb11MyaNpQEgE-cBn",
+        )
+        .then((response) => {
+          console.log("Email sent:", response);
+        })
+        .catch((error) => {
+          console.error("Email sending failed:", error);
+        });
+      // Handle successful registration
+      // For now, let's just log the user data
+      console.log("Registration successful", serviceData);
+      console.log(response.error);
+      // Move to the next step
+      // Save userData to localStorage
+      localStorage.setItem("serviceData", JSON.stringify(serviceData));
+      toast.success("Registered Succesfully!");
+
+      navigate("/email_verification");
+      //cogoToast.success("Registered Succesfully!");
+    } catch (error) {
+      setError(error || error.response.data);
+      toast.error(
+        "Registration Failed. Please check your information" || { error },
+      );
+      setVerifyEmail(false);
+      console.log(error.response.data);
+      // cogoToast.error("Registration Failed. Please check your information");
+    } finally {
+      setIsLoading(false); // Set loading state to false
+    }
+  };
+
   const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -156,7 +252,14 @@ const AppProvider = ({ children }) => {
         //https://users.yourockteamall.com
       } else {
         window.open(
-          `https://rocktea-mall-product.vercel.app/dashboard?store_id=${store_id}`,
+          `http://localhost:5174/dashboard?store_id=${store_id}`,
+          "_self",
+        );
+      }
+
+      if (response.user_data.is_services) {
+        window.open(
+          `http://localhost:5174/services/dashboard?store_id=${response.user_data.id}`,
           "_self",
         );
       }
@@ -340,6 +443,9 @@ const AppProvider = ({ children }) => {
         loginError,
         setLoginError,
         //componentProps,
+        handleServiceFormSubmit,
+        setServiceData,
+        serviceData,
         isLoading,
         categories,
         getCategories,

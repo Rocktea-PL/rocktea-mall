@@ -1,8 +1,8 @@
 import "chart.js/auto";
-import { Doughnut } from "react-chartjs-2";
+//import { Doughnut } from "react-chartjs-2";
 
 const DoughnutChart = () => {
-  const data = {
+  /* const data = {
     labels: ["Paid", "Unpaid"],
     datasets: [
       {
@@ -26,7 +26,7 @@ const DoughnutChart = () => {
         },
       },
     },
-  };
+  };*/
 
   /**formatter: (value, context) => {
                 if (context.dataIndex === 0) {
@@ -35,15 +35,45 @@ const DoughnutChart = () => {
                 return ''; // Empty label for the gray segment
               }, */
   return (
-    <div className="w-[250px] h-[250px] relative">
+    <>
+      <div
+        className="flex items-center justify-center text-center mx-auto my-5"
+        style={{
+          width: "200px",
+          height: "200px",
+          borderRadius: "50%",
+          background: `
+      radial-gradient(closest-side, white 74%, transparent 75% 100%),
+      conic-gradient(orange 50%, rgb(235, 235, 235) 0)
+    `,
+        }}
+      >
+        <progress
+          value={50}
+          min="0"
+          max="100"
+          style={{ visibility: "hidden", height: 0, width: 0 }}
+        >
+          {`50%`}
+        </progress>
+
+        <div>
+          <p className="font-semibold capitalize">
+            ₦240,000 <br />
+            Total Payout
+          </p>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default DoughnutChart;
+/**<div className="w-[250px] h-[250px] relative">
       <Doughnut data={data} options={options} />
       <p className="absolute top-[45%] left-[80px] text-blue font-semibold text-[15px] z-0">
         {" "}
         N240,000 <br />
         Total Payout
       </p>
-    </div>
-  );
-};
-
-export default DoughnutChart;
+    </div> */

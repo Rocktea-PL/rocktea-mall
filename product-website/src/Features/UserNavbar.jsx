@@ -7,7 +7,7 @@ import {
   HiOutlineMagnifyingGlass,
 } from "react-icons/hi2";
 //import { IoMdNotificationsOutline } from "react-icons/io";
-import ProfileDropdown from "./Dropshippers/Dropdown";
+import ProfileDropdown from "./UserSearch/Dropdown";
 import { Link, useNavigate } from "react-router-dom";
 import Categories from "./Categories";
 import { useState } from "react";
@@ -122,8 +122,32 @@ const Navbar = () => {
           isOpen={isMobileNavOpen}
           toggleMenu={toggleMobileNav}
           quantity={quantity}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
         />
       </nav>
+      <div className="flex items-center justify-center mx-auto mt-5 mb-3 w-full lg:hidden">
+        <form
+          action=""
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch(searchQuery);
+          }}
+          className="flex items-center gap-4 "
+        >
+          <input
+            type="search"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="border border-solid border-[var(--orange)] p-2 rounded-lg outline-none"
+          />
+          <button className="flex items-center gap-2 bg-[var(--orange)] p-2  rounded-lg">
+            {" "}
+            <HiOutlineMagnifyingGlass /> Search{" "}
+          </button>
+        </form>
+      </div>
       {isModalOpen && <Categories closeModal={closeModal} />}
     </header>
   );

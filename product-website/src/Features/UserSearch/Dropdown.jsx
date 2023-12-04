@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import {
   RiSettings4Fill,
-  //RiListUnordered,
-  //RiBookmarkLine,
+  RiListUnordered,
+  RiBookmarkLine,
   RiLogoutCircleRLine,
-  //RiMapPinLine,
+  RiMapPinLine,
 } from "react-icons/ri";
 
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
@@ -16,11 +16,25 @@ const dropdown = [
     id: 1,
     title: "Settings",
     icon: <RiSettings4Fill />,
-    link: "/dashboard/your_profile",
+    link: "/profile",
   },
-
   {
     id: 2,
+    title: "Saved Items",
+    icon: <RiBookmarkLine />,
+  },
+  {
+    id: 3,
+    title: "Orders",
+    icon: <RiListUnordered />,
+  },
+  {
+    id: 4,
+    title: "Shipping Address",
+    icon: <RiMapPinLine />,
+  },
+  {
+    id: 5,
     title: "Log Out",
     icon: <RiLogoutCircleRLine />,
     link: "/login",
@@ -28,17 +42,12 @@ const dropdown = [
 ];
 
 const ProfileDropdown = () => {
-  const { storeUser } = useStoreContext();
+  const { logOut, userData } = useStoreContext();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   //const userAccess = localStorage.getItem("accessToken");
   //const [logOut, setLogOut] = useState(false);
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
-  };
-  const IsLogOut = () => {
-    if (dropdown.title === "Logout") {
-      window.location.href = "https://rocktea-mall.vercel.app/signin";
-    }
   };
 
   return (
@@ -48,7 +57,7 @@ const ProfileDropdown = () => {
         onClick={toggleDropdown}
       >
         <FaRegUser />{" "}
-        <span className="hidden  md:block"> {storeUser.first_name} </span>{" "}
+        <span className="hidden  md:block"> {userData.first_name} </span>{" "}
         <span className="">
           {isDropdownOpen ? <RxCaretUp /> : <RxCaretDown />}
         </span>
@@ -73,7 +82,7 @@ const ProfileDropdown = () => {
                     <button
                       className="whitespace-nowrap"
                       role="menuitem"
-                      onClick={IsLogOut}
+                      onClick={logOut}
                     >
                       {item.title}
                     </button>

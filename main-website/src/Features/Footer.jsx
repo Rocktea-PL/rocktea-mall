@@ -47,16 +47,37 @@ function Footer() {
               Facebook
             </li>
             <li className="flex items-center gap-2">
-              <FaInstagram />
-              Instagram
+              <a
+                href="https://instagram.com/rockteamall_?r=nametag"
+                rel="noreferrer"
+                target="_blank"
+                className="flex items-center gap-2"
+              >
+                <FaInstagram /> Instagram
+              </a>
             </li>
             <li className="flex items-center gap-2">
-              <FaTwitter />
-              Twitter
+              <a
+                href="https://twitter.com/rockteamall/status/1704136787960975760?s=48&t=4CIBUFhuNgFxp__1ERxg8Q"
+                rel="noreferrer"
+                target="_blank"
+                className="flex items-center gap-2"
+              >
+                <FaTwitter />
+                Twitter
+              </a>
             </li>
             <li className="flex items-center gap-2">
-              <FaLinkedin />
-              LinkedIn
+              <a
+                href="https://www.linkedin.com/in/rock-tea-pl-2677a0285?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                rel="noreferrer"
+                target="_blank"
+                className="flex items-center gap-2"
+              >
+                {" "}
+                <FaLinkedin />
+                LinkedIn
+              </a>
             </li>
           </ul>
         </article>
@@ -68,7 +89,7 @@ function Footer() {
           RockTeaMall{" "}
         </span>{" "}
         <br />
-        All Rights Reserved.
+        <span className="text-[0.85rem]">All Rights Reserved.</span>
       </p>
     </footer>
   );

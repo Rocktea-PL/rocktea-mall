@@ -11,7 +11,7 @@ import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom/dist";
 import { BiTransferAlt } from "react-icons/bi";
 import { RiListUnordered } from "react-icons/ri";
-import ProfileDropdown from "./UserSearch/Dropdown";
+import ProfileDropdown from "./Dropshippers/Dropdown";
 import { IoMdNotificationsOutline } from "react-icons/io";
 function DropshipperMobileNavbar({ store, isOpen, page, toggleMenu }) {
   const navigate = useNavigate();

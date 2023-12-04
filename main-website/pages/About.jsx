@@ -224,7 +224,7 @@ function About() {
         </div>
       </article>
 
-      <article className="flex flex-col lg:flex-row items-center justify-center gap-y-10 lg:gap-20 mt-12 bg-white rounded-lg py-10 lg:px-3 w-[350px] sm:w-full">
+      <article className="flex flex-col lg:flex-row items-center justify-center gap-y-10 lg:gap-20 mt-12 bg-white rounded-lg py-10 lg:px-3 w-full sm:w-full">
         <figure className="lg:max-w-[50%] w-full">
           {loading ? (
             <Skeleton width={500} height={300} />

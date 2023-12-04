@@ -12,6 +12,7 @@ import Faqs from "../pages/Faq";
 import Otp from "../pages/Otp";
 import EmailVerification from "./Components/Forms/SignUp/EmailVerification";
 import Waiting from "../pages/Waiting";
+import ServicesSignUp from "../pages/ServicesSignUp";
 
 function App() {
   const router = createBrowserRouter([
@@ -58,6 +59,10 @@ function App() {
         {
           path: "/bank_details",
           element: <BankDetails />,
+        },
+        {
+          path: "/services_details",
+          element: <ServicesSignUp />,
         },
       ],
     },

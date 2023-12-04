@@ -16,6 +16,7 @@ import ProductDetails from "../components/Market/ProductDetails";
 import { useEffect } from "react";
 import SeeAll from "../../pages/SeeAll";
 import { useLocation } from "react-router-dom/dist";
+import ServiceDashboardHome from "../../pages/Dropshippers/ServicesDashboard copy/Home";
 
 //import Footer from "../Features/Footer";
 //import Navbar from "../Features/UserNavbar";
@@ -44,11 +45,14 @@ function DropshipperLayout() {
         <Route path="/product_details/:id" element={<ProductDetails />} />
         <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/dashboard" element={<DashboardHome />} />
+        <Route path="/services/dashboard" element={<ServiceDashboardHome />} />
         <Route path="/dashboard/orders" element={<Orders />} />
         <Route path="/dashboard/transactions" element={<Transactions />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/shop/:categoryName" element={<SeeAll />} />
         <Route path="/dashboard/your_profile" element={<Profile />} />
+        <Route path="/dashboard/your_profile" element={<Profile />} />
+        <Route path="/services/dashboard/your_profile" element={<Profile />} />
         <Route path="/*" element={<Notfound />} />
       </Routes>
     </main>

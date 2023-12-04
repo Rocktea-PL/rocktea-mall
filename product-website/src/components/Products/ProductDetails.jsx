@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Footer from "../../Features/Footer";
 import CommonProducts from "../Products/CommonProducts";
-import { useDispatch } from "react-redux";
+import { useDispatch /* useSelector*/ } from "react-redux";
 //import { useQuery } from "react-query";
 //import SizeModal from "../Modals/SizeModal";
 
@@ -20,6 +20,7 @@ const UserProductDetails = () => {
 
   const dispatch = useDispatch();
   //console.log(id)
+  //const cartItems = useSelector((state) => state.cart.cartItems);
 
   const { productPrices, isLoading } = useProductPrices(productId);
   const [selectedPrice, setSelectedPrice] = useState(null);
@@ -67,7 +68,7 @@ const UserProductDetails = () => {
   //console.log(productPrices)
   //)
 
-  const handleAddToCart = (selectedPrice) => {
+  /* const handleAddToCart = (selectedPrice) => {
     if (!selectedSize) {
       toast.error("Please select a size before adding to cart.");
       return;
@@ -75,9 +76,59 @@ const UserProductDetails = () => {
 
     dispatch(addToCart({ product: productDet, selectedSize, selectedPrice }));
     dispatch(setGetTotalAmount());
+
+  };*/
+
+  const handleAddToCart = async (selectedPrice) => {
+    if (!selectedSize) {
+      toast.error("Please select a size before adding to cart.");
+      return;
+    }
+    const authToken = localStorage.getItem("accessToken");
+    try {
+      /*const existingProduct = cartItems.products.find(
+        (product) => product.id === productDet.id
+      );
+
+      const quantityToAdd = existingProduct ? existingProduct.cartQuantity + 1 : 1;
+console.log(quantityToAdd)*/
+      // Make a POST request to the cart API
+      const response = await axios.post(
+        "https://rocktea-mall-api-test.up.railway.app/rocktea/cart/",
+        {
+          product: productDet.id, // Assuming productDet has the product ID
+          quantity: 1, // You can set the quantity as needed
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        },
+      );
+      // Assuming the API response contains the updated cart information
+      const updatedCart = response.data;
+      console.log(updatedCart);
+      // Dispatch the action to update the Redux store
+      dispatch(
+        addToCart({
+          product: updatedCart.products,
+          selectedSize,
+          selectedPrice,
+        }),
+      );
+      dispatch(setGetTotalAmount());
+
+      toast.success("Product added to cart successfully.");
+    } catch (error) {
+      // Handle errors
+      console.error("Error adding product to cart:", error.response);
+      toast.error("Failed to add product to cart.");
+    }
   };
 
-  //console.log(selectedPrice)
+  // Rest of your component code...
+
+  // console.log(productDet)
 
   // console.log(productDet.product_variants[0].wholesale_price)
   return (
@@ -91,9 +142,9 @@ const UserProductDetails = () => {
 
           {/* Product Details */}
           <div className="relative flex flex-col mt-[3rem] lg:mt-0  lg:max-w-[50%]">
-            <h4 className="absolute top-[17%] right-3 text-sm">
+            {/**  <h4 className="absolute top-[17%] right-3 text-sm">
               See Size Guide
-            </h4>
+            </h4>*/}
             <h2 className=" font-semibold uppercase text-md">
               {productDet?.name}
             </h2>
@@ -133,27 +184,29 @@ const UserProductDetails = () => {
               )}
             </p>
 
-            {productPrices?.length > 0 && !isLoading ? (
-              productPrices.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <button
-                      key={index}
-                      className={`border border-solid border-[var(--orange)] rounded-md px-3 flex items-center space-x-3 mb-4 py-1 ${
-                        item.size === selectedSize && "bg-orange "
-                      }`}
-                      onClick={() =>
-                        handleSizeClick(item.size, item.retail_price)
-                      }
-                    >
-                      {item?.size}
-                    </button>
-                  </div>
-                );
-              })
-            ) : (
-              <p>No product price found</p>
-            )}
+            <div className="flex items-center gap-3">
+              {productPrices?.length > 0 && !isLoading ? (
+                productPrices.map((item, index) => {
+                  return (
+                    <div key={index} className="flex">
+                      <button
+                        key={index}
+                        className={`border border-solid border-[var(--orange)] rounded-md px-3 flex items-center space-x-3 mb-4 py-1 ${
+                          item.size === selectedSize && "bg-orange "
+                        }`}
+                        onClick={() =>
+                          handleSizeClick(item.size, item.retail_price)
+                        }
+                      >
+                        {item?.size}
+                      </button>
+                    </div>
+                  );
+                })
+              ) : (
+                <p>No product price found</p>
+              )}
+            </div>
 
             <div className="flex items-center  gap-5">
               <button
