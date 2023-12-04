@@ -43,8 +43,11 @@ function Footer() {
           </h4>
           <ul className="flex flex-col gap-y-4">
             <li className="flex items-center gap-2">
-              <FaFacebook />
-              Facebook
+            <a href="https://www.facebook.com/rockteapl?mibextid=LQQJ4d"
+             rel="noreferrer" target="_blank"
+             className="flex items-center gap-2"
+             >  <FaFacebook />
+              Facebook</a>
             </li>
             <li className="flex items-center gap-2">
               <a
