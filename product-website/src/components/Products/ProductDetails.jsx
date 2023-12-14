@@ -16,7 +16,7 @@ import { useQuery } from "react-query";
 import { useProductPrices } from "../../Hooks/UseProductPrices";
 import { FaHeart } from "react-icons/fa";
 import { useUserCartContext } from "../../Hooks/CartContext";
-
+/// handleIncrementQuantity,
 const UserProductDetails = () => {
   const { productId } = useParams();
   const {
@@ -28,36 +28,37 @@ const UserProductDetails = () => {
     selectedPrice,
     quantityInCart,
     setQuantityInCart,
-    handleDecrementQuantity,
-    handleIncrementQuantity,
+    // handleDecrementQuantity,
   } = useUserCartContext();
   const storeId = localStorage.getItem("storeUid");
   const authToken = localStorage.getItem("accessToken");
   const dispatch = useDispatch();
 
   const cartItems = useSelector(selectCartItems);
-
+  console.log(cartItems);
   const { productPrices, isLoading } = useProductPrices(productId);
   const [selectedColor, setSelectedColor] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [initialSizeSet, setInitialSizeSet] = useState(false);
-  const [counter, setCounter] = useState(
-    Object.keys(quantityInCart).length > 0,
-  );
+  //const [counter, setCounter] = useState(
+  // Object.keys(quantityInCart).length > 0,
+  // );
 
   //Effects for controling  states of the counter, cart item and sizes
   useEffect(() => {
-    setCounter(Object.keys(quantityInCart).length > 0);
+    //setCounter(Object.keys(quantityInCart).length > 0);
     // Update sessionStorage whenever quantityInCartBySize changes
     sessionStorage.setItem("quantityInCart", JSON.stringify(quantityInCart));
   }, [quantityInCart]);
 
+  console.log(productPrices);
   useEffect(() => {
     if (!initialSizeSet && productPrices.length > 0) {
-      const firstSize = productPrices[0].size;
-      const firstSizeId = productPrices[0].id;
-      const firstSizePrice = productPrices[0].retail_price;
-
+      const firstSize = productPrices[0]?.size;
+      const firstColor = productPrices[0]?.colors[0];
+      const firstSizeId = productPrices[0]?.id;
+      const firstSizePrice = productPrices[0]?.retail_price;
+      setSelectedColor(firstColor);
       setSelectedSize(firstSize);
       setSelectedSizeId(firstSizeId);
       setSelectedPrice(firstSizePrice);
@@ -161,13 +162,14 @@ const UserProductDetails = () => {
 
       toast.success("Product added to cart successfully.");
 
-      setCounter(true);
+      // setCounter(true);
     } catch (error) {
       // Handle errors
       console.error("Error adding product to cart:", error.response);
       toast.error("Failed to add product to cart.");
     }
   };
+
   console.log(selectedPrice);
   // console.log(productPrices)
 
@@ -188,21 +190,31 @@ const UserProductDetails = () => {
             <h2 className=" font-semibold uppercase text-md">
               {productDet?.name}
             </h2>
-            <p className="capitalize font-bold">
-              Brand:
-              <span className="font-medium">
-                {productDet?.brand?.name}
-              </span>{" "}
+            <div className="flex items-center gap-3 divide-x-2 divide-gray-300 mt-2">
+              <p className="capitalize font-bold pr-2">
+                Brand:
+                <span className="font-medium">
+                  {productDet?.brand?.name}
+                </span>{" "}
+              </p>
+              <p className="capitalize font-bold px-2">
+                Category:
+                <span className="font-medium">
+                  {productDet?.subcategory?.name}
+                </span>
+              </p>
+              <p className="capitalize font-bold px-2">
+                SKU: <span className="font-medium">{productDet?.sku}</span>
+              </p>
+            </div>
+            <p className="text-gray-400 my-1">
+              {productDet?.is_available ? (
+                "Instock"
+              ) : (
+                <span className="text-red-500">Out of Stock</span>
+              )}
             </p>
-            <p className="capitalize font-bold">
-              Category:
-              <span className="font-medium">
-                {productDet?.subcategory?.name}
-              </span>
-            </p>
-            <p className="capitalize font-bold">
-              SKU: <span className="font-medium">{productDet?.sku}</span>
-            </p>
+
             {productPrices?.length > 0 && !isLoading ? (
               <p className="font-bold my-2 text-lg">
                 ₦{" "}
@@ -215,14 +227,7 @@ const UserProductDetails = () => {
             ) : (
               <p>No price</p>
             )}
-
-            <p className="text-gray-300 my-2">
-              {productDet?.is_available ? (
-                "Instock"
-              ) : (
-                <span className="text-red-500">Out of Stock</span>
-              )}
-            </p>
+            <hr className="mb-3" />
 
             <div className="flex  items-center gap-3">
               {productPrices?.length > 0 && !isLoading ? (
@@ -255,6 +260,10 @@ const UserProductDetails = () => {
                             key={index}
                             className={`flex flex-col ${!color && "hidden"}`}
                           >
+                            {" "}
+                            <p className="font-semibold uppercase mb-2">
+                              Product Variants Available
+                            </p>
                             <li
                               key={index}
                               onClick={() =>
@@ -284,7 +293,7 @@ const UserProductDetails = () => {
                                 onClick={() => handleAddToCart(selectedPrice)}
                                 className={`${
                                   !selectedSize ||
-                                  (selectedColor && "bg-orange opacity-60")
+                                  (!selectedColor && "bg-orange opacity-60")
                                 }  p-3 text-sm rounded-md common`}
                                 disabled={!selectedSizeId}
                               >
@@ -307,76 +316,6 @@ const UserProductDetails = () => {
                 <p>No product price found</p>
               )}
             </div>
-
-            {cartItems
-              .filter((item) => Array.isArray(item.product)) // Check if item.product is an array
-              .filter((item) =>
-                item.product.some(
-                  (variant) => variant.product_variant === selectedSizeId,
-                ),
-              )
-              .map((item) => (
-                <div key={item.id}>
-                  {/* Assuming you want to show quantity buttons for the first matching variant */}
-                  {item.product.map((variant) => {
-                    if (variant.product_variant === selectedSizeId) {
-                      return (
-                        <div className="flex flex-col  gap-3" key={variant.id}>
-                          <div className="flex items-center gap-3 mt-3">
-                            <button
-                              onClick={() =>
-                                handleDecrementQuantity(variant.id)
-                              }
-                              className={`${
-                                !selectedSize ||
-                                (!selectedColor && "opacity-60")
-                              }  w-12 h-10 text-sm rounded-md common`}
-                              disabled={!selectedSizeId}
-                            >
-                              -
-                            </button>
-                            <p>{quantityInCart[selectedSizeId]}</p>
-                            <button
-                              onClick={() =>
-                                handleIncrementQuantity(variant.id)
-                              }
-                              className={`${
-                                !selectedSize ||
-                                (!selectedColor && "opacity-60")
-                              }  w-12 h-10 text-sm rounded-md common`}
-                              disabled={!selectedSizeId}
-                            >
-                              +
-                            </button>
-                          </div>
-
-                          {!counter && (
-                            <div className="flex items-center gap-4">
-                              <button
-                                onClick={() => handleAddToCart(selectedPrice)}
-                                className={`${
-                                  !selectedSize ||
-                                  (selectedColor && "bg-orange opacity-60")
-                                }  p-3 text-sm rounded-md common`}
-                                disabled={!selectedSizeId}
-                              >
-                                Add to Cart
-                              </button>
-                              <button
-                                onClick={() => handleAddToCart(productDet)}
-                                className="common px-5  py-3 text-sm rounded-md "
-                              >
-                                <FaHeart />
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    }
-                    return null;
-                  })}
-                </div>
-              ))}
 
             <div className="mb-4 mt-10">
               <h3 className="text-md font-semibold border-b border-b-gray-300 pb-3">
@@ -444,3 +383,74 @@ const UserProductDetails = () => {
 };
 
 export default UserProductDetails;
+/**
+  {cartItems
+              .filter((item) => Array.isArray(item.product)) // Check if item.product is an array
+              .filter((item) =>
+                item.product.some(
+                  (variant) => variant.product_variant === selectedSizeId,
+                ),
+              )
+              .map((item) => (
+                <div key={item.id}>
+                  {/* Assuming you want to show quantity buttons for the first matching variant *
+                  {item?.product.map((variant) => {
+                    if (variant.product_variant === selectedSizeId) {
+                      return (
+                        <div className="flex flex-col  gap-3" key={variant.id}>
+                          <div className="flex items-center gap-3 mt-3">
+                            <button
+                              onClick={() =>
+                                handleDecrementQuantity(variant.id)
+                              }
+                              className={`${
+                                !selectedSize ||
+                                (!selectedColor && "opacity-60")
+                              }  w-12 h-10 text-sm rounded-md common`}
+                              disabled={!selectedSizeId}
+                            >
+                              -
+                            </button>
+                            <p>{quantityInCart[selectedSizeId]}</p>
+                            <button
+                              onClick={() => handleAddToCart(selectedPrice)
+                              }
+                              className={`${
+                                !selectedSize ||
+                                (!selectedColor && "opacity-60")
+                              }  w-12 h-10 text-sm rounded-md common`}
+                              disabled={!selectedSizeId}
+                            >
+                              +
+                            </button>
+                          </div>
+
+                          
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+              ))}
+ 
+  {!counter && (
+                            <div className="flex items-center gap-4">
+                              <button
+                                onClick={() => handleAddToCart(selectedPrice)}
+                                className={`${
+                                  !selectedSize ||
+                                  (selectedColor && "bg-orange opacity-60")
+                                }  p-3 text-sm rounded-md common`}
+                                disabled={!selectedSizeId}
+                              >
+                                Add to Cart
+                              </button>
+                              <button
+                                onClick={() => handleAddToCart(productDet)}
+                                className="common px-5  py-3 text-sm rounded-md "
+                              >
+                                <FaHeart />
+                              </button>
+                            </div>
+                          )} */

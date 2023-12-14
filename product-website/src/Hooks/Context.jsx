@@ -59,6 +59,7 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       console.error("API call failed", error.response.data);
       setError(error.response.data);
+      toast.error("Error Registering. Please check your details again");
       // Handle API call failure here
     } finally {
       setLoading(false);
@@ -88,6 +89,9 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       console.error("API call failed", error.response.data);
       setError(error.response.data);
+      toast.error(
+        "Error Updating your information. Please check your details again",
+      );
       // Handle API call failure here
     } finally {
       setLoading(false); // Set loading to false when the update is complete
