@@ -1,0 +1,41 @@
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+   
+  
+    /* Center slide text vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+  }
+  
+  .swiper-slide {
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .mySwiper .swiper-slide img {
+  
+    height: 500px;
+   object-fit: cover;
+  }
+  
+  .mySwiper2 .swiper-slide img{
+   width: 200px;
+    height: 100px;
+    opacity: 0.8;
+  }
+
+  .mySwiper2 .swiper-slide-thumb-active {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mySwiper2 .swiper-slide-thumb-active img {
+    opacity: 1;
+    @apply border border-orange
+   
+  }
+  
+ 

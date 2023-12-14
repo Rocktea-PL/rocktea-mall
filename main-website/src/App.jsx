@@ -19,6 +19,8 @@ import Transactions from "../pages/ServicesDashboard copy/Transactions";
 import ServiceProfile from "../pages/ServicesDashboard copy/Profile";
 import ServiceDashboardHome from "../pages/ServicesDashboard copy/Home";
 import ServicesInfo from "../pages/ServicesInfo";
+import ServicesHomePage from "../pages/ServicesHomePage";
+import ServiceDetailsPage from "../pages/ServiceDetailsPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -73,6 +75,14 @@ function App() {
         {
           path: "/services_info",
           element: <ServicesInfo />,
+        },
+        {
+          path: "/services/home",
+          element: <ServicesHomePage />,
+        },
+        {
+          path: "/services/details",
+          element: <ServiceDetailsPage />,
         },
         {
           path: "/dashboard",
