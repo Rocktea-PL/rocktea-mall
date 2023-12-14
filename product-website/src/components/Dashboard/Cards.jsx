@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
+import { AiOutlineFall, AiOutlineRise } from "react-icons/ai";
 
 export default function Cards() {
   const fetchProductCount = async () => {
@@ -31,6 +32,15 @@ export default function Cards() {
     return <p>Error loading product count</p>;
   }
 
+  const totalOrders = productCount?.Orders || 0;
+  const orderPercentage = (totalOrders / 200) * 100;
+
+  const totalProducts = productCount?.Listed_Products || 0;
+  const productPercentage = (totalProducts / 1000) * 100;
+
+  const totalCustomers = productCount?.Customers || 0;
+  const customerPercentage = (totalCustomers / 100) * 100;
+
   //console.log(data)
   return (
     <div className=" flex gap-2 flex-col md:flex-row">
@@ -42,26 +52,25 @@ export default function Cards() {
 
           <div className="flex items-center gap-3 leading-tight mt-2">
             <h3 className="font-bold  text-[1.4rem]">
-              {productCount?.Orders}{" "}
+              {productCount?.Orders || 0}{" "}
             </h3>
           </div>
-          <p className="italic flex gap-x-2 text-[#017601] font-[300]">
-            34%
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="23"
-                height="14"
-                viewBox="0 0 23 14"
-                fill="none"
-              >
-                <path
-                  d="M1 12.5033C0.6258 12.5033 0.322451 12.8067 0.322451 13.1809C0.322451 13.5551 0.6258 13.8584 1 13.8584V12.5033ZM8.65085 13.1809V13.8584C8.81446 13.8584 8.97255 13.7992 9.09591 13.6917L8.65085 13.1809ZM11.7311 10.4975L11.2882 9.98472L11.2861 9.98658L11.7311 10.4975ZM22.2437 2.04937C22.271 1.67616 21.9905 1.35152 21.6173 1.32425L15.5356 0.879955C15.1624 0.852691 14.8378 1.13313 14.8105 1.50634C14.7832 1.87954 15.0637 2.20419 15.4369 2.23145L20.8429 2.62638L20.4479 8.03236C20.4207 8.40557 20.7011 8.73021 21.0743 8.75748C21.4475 8.78474 21.7722 8.5043 21.7994 8.1311L22.2437 2.04937ZM1 13.8584H8.65085V12.5033H1V13.8584ZM9.09591 13.6917L12.1762 11.0083L11.2861 9.98658L8.20579 12.67L9.09591 13.6917ZM12.174 11.0102L22.0109 2.51273L21.125 1.48727L11.2882 9.98472L12.174 11.0102Z"
-                  fill="#017601"
-                />
-              </svg>
-            </span>
-          </p>
+          <div
+            className={`italic flex gap-x-2 text-[#017601] font-[300] ${
+              orderPercentage < 100 && "text-red-500"
+            }`}
+          >
+            {orderPercentage}%
+            {orderPercentage < 100 ? (
+              <span className="text-red-600 text-md">
+                <AiOutlineFall />
+              </span>
+            ) : (
+              <span className="text-[#017601] text-md">
+                <AiOutlineRise />
+              </span>
+            )}
+          </div>
         </div>
       </article>
 
@@ -73,26 +82,25 @@ export default function Cards() {
 
           <div className="flex items-center gap-3 mt-2">
             <h3 className="font-bold  text-[1.4rem]">
-              {productCount?.Listed_Products}
+              {productCount?.Listed_Products || 0}
             </h3>
           </div>
-          <p className="italic flex gap-x-2 text-[#017601] font-[300]">
-            34%
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="23"
-                height="14"
-                viewBox="0 0 23 14"
-                fill="none"
-              >
-                <path
-                  d="M1 12.5033C0.6258 12.5033 0.322451 12.8067 0.322451 13.1809C0.322451 13.5551 0.6258 13.8584 1 13.8584V12.5033ZM8.65085 13.1809V13.8584C8.81446 13.8584 8.97255 13.7992 9.09591 13.6917L8.65085 13.1809ZM11.7311 10.4975L11.2882 9.98472L11.2861 9.98658L11.7311 10.4975ZM22.2437 2.04937C22.271 1.67616 21.9905 1.35152 21.6173 1.32425L15.5356 0.879955C15.1624 0.852691 14.8378 1.13313 14.8105 1.50634C14.7832 1.87954 15.0637 2.20419 15.4369 2.23145L20.8429 2.62638L20.4479 8.03236C20.4207 8.40557 20.7011 8.73021 21.0743 8.75748C21.4475 8.78474 21.7722 8.5043 21.7994 8.1311L22.2437 2.04937ZM1 13.8584H8.65085V12.5033H1V13.8584ZM9.09591 13.6917L12.1762 11.0083L11.2861 9.98658L8.20579 12.67L9.09591 13.6917ZM12.174 11.0102L22.0109 2.51273L21.125 1.48727L11.2882 9.98472L12.174 11.0102Z"
-                  fill="#017601"
-                />
-              </svg>
-            </span>
-          </p>
+          <div
+            className={`italic flex gap-x-2 text-[#017601] font-[300] ${
+              productPercentage < 100 && "text-red-500"
+            }`}
+          >
+            {productPercentage}%
+            {productPercentage < 100 ? (
+              <span className="text-red-600 text-md">
+                <AiOutlineFall />
+              </span>
+            ) : (
+              <span className="text-[#017601] text-md">
+                <AiOutlineRise />
+              </span>
+            )}
+          </div>
         </div>
       </article>
       <article className="bg-white flex flex-col gap-y-5 py-3 px-5 shadow-md rounded-md w-full   gap-3">
@@ -103,26 +111,25 @@ export default function Cards() {
 
           <div className="flex items-center gap-3 mt-2">
             <h3 className="font-bold  text-[1.4rem]">
-              {productCount?.Customers}{" "}
+              {productCount?.Customers || 0}{" "}
             </h3>
           </div>
-          <p className="italic flex gap-x-2 text-[#017601] font-[300]">
-            34%
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="23"
-                height="14"
-                viewBox="0 0 23 14"
-                fill="none"
-              >
-                <path
-                  d="M1 12.5033C0.6258 12.5033 0.322451 12.8067 0.322451 13.1809C0.322451 13.5551 0.6258 13.8584 1 13.8584V12.5033ZM8.65085 13.1809V13.8584C8.81446 13.8584 8.97255 13.7992 9.09591 13.6917L8.65085 13.1809ZM11.7311 10.4975L11.2882 9.98472L11.2861 9.98658L11.7311 10.4975ZM22.2437 2.04937C22.271 1.67616 21.9905 1.35152 21.6173 1.32425L15.5356 0.879955C15.1624 0.852691 14.8378 1.13313 14.8105 1.50634C14.7832 1.87954 15.0637 2.20419 15.4369 2.23145L20.8429 2.62638L20.4479 8.03236C20.4207 8.40557 20.7011 8.73021 21.0743 8.75748C21.4475 8.78474 21.7722 8.5043 21.7994 8.1311L22.2437 2.04937ZM1 13.8584H8.65085V12.5033H1V13.8584ZM9.09591 13.6917L12.1762 11.0083L11.2861 9.98658L8.20579 12.67L9.09591 13.6917ZM12.174 11.0102L22.0109 2.51273L21.125 1.48727L11.2882 9.98472L12.174 11.0102Z"
-                  fill="#017601"
-                />
-              </svg>
-            </span>
-          </p>
+          <div
+            className={`italic flex gap-x-2 text-[#017601] font-[300] ${
+              customerPercentage < 100 && "text-red-500"
+            }`}
+          >
+            {customerPercentage}%
+            {customerPercentage < 100 ? (
+              <span className="text-red-600 text-md">
+                <AiOutlineFall />
+              </span>
+            ) : (
+              <span className="text-[#017601] text-md">
+                <AiOutlineRise />
+              </span>
+            )}
+          </div>
         </div>
       </article>
     </div>

@@ -39,6 +39,7 @@ const Products = ({ page, products, openModal, getProductPrice, price }) => {
     <div className="mt-5">
       {products?.slice(startIndex, endIndex).map((category, index) => {
         const categoryTitle = category.category.name;
+        console.log(categoryTitle);
         return (
           <ScrollProducts
             key={index}

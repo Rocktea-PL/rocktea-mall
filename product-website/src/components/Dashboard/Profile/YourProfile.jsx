@@ -211,7 +211,7 @@ function YourProfile() {
               </div>
 
               <button
-                className="bg-orange h-12 w-[150px] rounded-md flex items-center justify-center mx-auto"
+                className="common h-12 w-[150px] rounded-md flex items-center justify-center mx-auto"
                 onClick={handleProfileUpdate}
               >
                 Save Changes
@@ -329,7 +329,7 @@ function YourProfile() {
 
             <button
               onClick={handleStoreUpdate}
-              className="bg-orange h-12 w-[150px] rounded-md flex items-center justify-center mx-auto"
+              className="common h-12 w-[150px] rounded-md flex items-center justify-center mx-auto"
             >
               Save Changes
             </button>
@@ -421,7 +421,7 @@ function YourProfile() {
 
             <button
               onClick={handleStoreUpdate}
-              className="bg-orange h-12 w-[150px] rounded-md flex items-center justify-center mx-auto"
+              className="common h-12 w-[150px] rounded-md flex items-center justify-center mx-auto"
             >
               Save Changes
             </button>

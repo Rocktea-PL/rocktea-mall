@@ -61,7 +61,7 @@ export default function Marketplace() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button className="bg-orange  w-[170px] h-[45px] flex items-center justify-center gap-2 rounded-[10px] p-2 ">
+          <button className="common  w-[170px] h-[45px] flex items-center justify-center gap-2 rounded-[10px] p-2 ">
             Search
           </button>
         </form>

@@ -190,20 +190,87 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
           <div>
             {price?.length > 0 && !selectedSize ? (
               <>
-                <div className="mx-8 flex items-center gap-x-3">
-                  <h4 className="text-sm font-medium">Size:</h4>
-                  <select
-                    name="size"
-                    id="size"
-                    onChange={(e) => setSelectedSize(e.target.value)}
-                    value={selectedSize}
-                  >
-                    {price.map((item) => (
-                      <option key={item.id} value={item.size}>
-                        {item.size}
-                      </option>
-                    ))}
-                  </select>
+                <div className=" flex flex-col gap-x-3">
+                  {price.map((item) => (
+                    <div key={item.id}>
+                      <div className="mx-8 flex items-center gap-x-3 -mt-3 mb-3">
+                        <h4 className="text-sm font-medium">Size:</h4>
+                        <select
+                          name="size"
+                          id="size"
+                          key={item.id}
+                          onChange={(e) => setSelectedSize(e.target.value)}
+                          value={selectedSize}
+                        >
+                          <option value={item.size}>
+                            {item.size ? item.size : "No Size Available"}
+                          </option>
+                        </select>
+                      </div>
+                      {!item.size && (
+                        <div>
+                          <h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
+                            Base Price:{" "}
+                            <span className="text-gold font-semibold text-center">
+                              ₦ {item?.wholesale_price?.toLocaleString("en-US")}
+                            </span>
+                          </h4>
+
+                          <div className="flex items-center justify-center mt-7 md:mx-20 gap-10 ">
+                            <button
+                              className="flex items-center justify-center mx-auto common h-12 w-[150px] rounded-lg"
+                              onClick={() => handleAddPrice(item.id)}
+                            >
+                              Add Product
+                            </button>
+                            <button
+                              className="flex items-center justify-center mx-auto border-[1.3px] border-orange h-12 w-[150px] rounded-lg"
+                              onClick={() => handleRemoveProduct(item.id)}
+                            >
+                              Remove Product
+                            </button>
+                          </div>
+
+                          {addPrice && (
+                            <div className="transition-all duration-[10s] delay-200 ease-in-out mx-auto mt-5">
+                              <h4 className="text-center text-[20px] text-blue font-semibold">
+                                Add Profit
+                              </h4>
+                              <form
+                                action=""
+                                className="px-5 flex items-center justify-center mx-auto gap-3 mt-5"
+                              >
+                                <label htmlFor="" className="flex items-center">
+                                  <span className="font-bold text-md px-3">
+                                    ₦
+                                  </span>
+                                  <input
+                                    type="number"
+                                    name="retail_price"
+                                    value={retailPrices[item.id] || ""}
+                                    onChange={(e) =>
+                                      setRetailPrices({
+                                        ...retailPrices,
+                                        [item.id]: e.target.value,
+                                      })
+                                    }
+                                    className="border bg-white shadow-md border-gray-200 h-10 rounded px-5"
+                                  />
+                                </label>
+                                <button
+                                  className="p-2 px-4 rounded-md common"
+                                  onClick={(e) => handleAddProduct(e, item.id)}
+                                  // disabled={selectedSizes.includes(selectedSize)}
+                                >
+                                  Go
+                                </button>
+                              </form>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </>
             ) : (
@@ -292,58 +359,3 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
     </div>
   );
 }
-/**<h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
-                      Base Price:{" "}
-                      <span className="text-gold font-semibold text-center">
-                        ₦ {item?.wholesale_price?.toLocaleString("en-US")}
-                      </span>
-                    </h4>
-
-                    <div className="flex items-center justify-center mt-7 md:mx-20 gap-10 ">
-                      <button
-                        className="flex items-center justify-center mx-auto bg-orange h-12 w-[150px] rounded-lg"
-                        onClick={() => handleAddPrice(item.id)}
-                      >
-                        Add Product
-                      </button>
-                      <button
-                        className="flex items-center justify-center mx-auto border-[1.3px] border-orange h-12 w-[150px] rounded-lg"
-                        onClick={() => handleRemoveProduct(item.id)}
-                      >
-                        Remove Product
-                      </button>
-                    </div>
-
-                    {addPrice && (
-                      <div className="transition-all duration-[10s] delay-200 ease-in-out mx-auto mt-5">
-                        <h4 className="text-center text-[20px] text-blue font-semibold">
-                          Add Profit
-                        </h4>
-                        <form
-                          action=""
-                          className="px-5 flex items-center justify-center mx-auto gap-3 mt-5"
-                        >
-                          <label htmlFor="" className="flex items-center">
-                            <span className="font-bold text-md px-3">₦</span>
-                            <input
-                              type="number"
-                              name="retail_price"
-                              value={retailPrices[item.id] || ""}
-                              onChange={(e) =>
-                                setRetailPrices({
-                                  ...retailPrices,
-                                  [item.id]: e.target.value,
-                                })
-                              }
-                              className="border bg-white shadow-md border-gray-200 h-10 rounded px-5"
-                            />
-                          </label>
-                          <button
-                            className="p-2 px-4 rounded-md bg-orange"
-                            onClick={(e) => handleAddProduct(e, item.id)}
-                          >
-                            Go
-                          </button>
-                        </form>
-                      </div>
-                    )} */

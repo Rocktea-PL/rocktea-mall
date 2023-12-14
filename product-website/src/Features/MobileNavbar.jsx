@@ -2,7 +2,7 @@ import { HiMiniBars3BottomLeft, HiOutlineShoppingBag } from "react-icons/hi2";
 import ProfileDropdown from "./UserSearch/Dropdown";
 import { useNavigate, Link } from "react-router-dom";
 
-function MobileNavbar({ store, isOpen, toggleMenu, quantity }) {
+function MobileNavbar({ store, isOpen, toggleMenu, totalQuantity }) {
   const navigate = useNavigate();
   return (
     <div className="flex items-center !justify-between md:px-5">
@@ -49,8 +49,8 @@ function MobileNavbar({ store, isOpen, toggleMenu, quantity }) {
           onClick={() => navigate("/cart")}
         >
           <HiOutlineShoppingBag />
-          <p className="absolute bg-red-500 w-[15px] flex items-center justify-center rounded-full h-[15px] -top-1 right-0 z-10 text-[12px] text-white">
-            {quantity}
+          <p className="absolute bg-red-500 w-[15px] p-[0.6rem]  flex items-center justify-center rounded-full h-[16px] -top-1 right-0 z-10 text-[12px] text-white">
+            {totalQuantity || 0}
           </p>
         </span>
         <ProfileDropdown />

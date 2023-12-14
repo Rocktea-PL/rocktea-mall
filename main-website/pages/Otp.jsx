@@ -8,13 +8,13 @@ function Otp() {
   //console.log(componentProps.email)
   const handlePaymentInitiation = () => {
     const owner = localStorage.getItem("owner"); // Get the owner from localStorage
-
-    if (!owner) {
+    const user = location.getItem("serviceId");
+    if (!owner || !user) {
       console.error("Owner information not found.");
       return;
     }
     const formData = new FormData();
-    formData.append("store_owner", owner);
+    formData.append("store_owner", owner) || formData.append("serviceId", user);
     initiatePayment(formData); // Pass the owner information to initiatePayment
   };
   return (

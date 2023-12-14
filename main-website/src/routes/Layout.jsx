@@ -13,7 +13,8 @@ function Layout() {
     location.pathname === "/services_details" ||
     location.pathname === "/make_payment" ||
     location.pathname === "/domain_creation" ||
-    location.pathname === "/signin";
+    location.pathname === "/signin" ||
+    location.pathname === "/services_info";
 
   return (
     <AppProvider>

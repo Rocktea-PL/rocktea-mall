@@ -15,6 +15,9 @@
   @apply bg-gray-50
 }*/
 
+.common{
+  @apply  text-white bg-black
+}
 ::-webkit-scrollbar{
   display: none;
 }

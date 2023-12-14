@@ -7,6 +7,7 @@ import { Oval } from "react-loader-spinner";
 import { useState } from "react";
 import PasswordChecklist from "react-password-checklist";
 //import {useState} from 'react'
+import ServiceImg from "../src/assets/services.svg";
 import {
   FaEye,
   FaEyeSlash,
@@ -92,10 +93,7 @@ function ServicesSignUp() {
     <>
       <div className=" flex items-center justify-center lg:justify-start lg:h-screen lg:overflow-hidden">
         <div className="hidden w-full max-w-[45%] lg:flex ">
-          <ImageWithLoading
-            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1698349267/rocktea-main-website/assets/rocktea-signin-green_bzjy5h.jpg"
-            alt="rockteaBg-green"
-          />
+          <ImageWithLoading src={ServiceImg} alt="service" />
         </div>
         <div
           className={`${
@@ -183,11 +181,11 @@ function ServicesSignUp() {
                 <label className="flex flex-col md:col-span-2">
                   What Services do you render
                   <select name="type" id="type" onChange={handleInputChange}>
-                    <option value="makeup">MakeUp Artist</option>
-                    <option value="plumbing">Plumbing</option>
-                    <option value="hairdressing">Hair Dressing</option>
-                    <option value="capentary">Carpentary</option>
-                    <option value="tailoring">Tailoring</option>
+                    <option value="Makeup Artist">MakeUp Artist</option>
+                    <option value="Fashion Designer">Fashion Designer</option>
+                    <option value="Personal Assistant">
+                      Personal Assistant
+                    </option>
                   </select>
                 </label>
 

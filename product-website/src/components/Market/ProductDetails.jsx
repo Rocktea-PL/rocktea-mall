@@ -132,10 +132,13 @@ const ProductDetails = () => {
               {productPrices?.length > 0 && !isLoading ? (
                 productPrices.map((item, index) => {
                   return (
-                    <div key={index} className="flex">
+                    <div
+                      key={index}
+                      className={`flex ${!item.size && "hidden"}`}
+                    >
                       <button
                         key={index}
-                        className={`border border-solid border-[var(--orange)] rounded-md px-3 flex items-center space-x-3 mb-4 py-1 ${
+                        className={`border border-solid  rounded-md px-3 flex items-center space-x-3 mb-4 py-1 ${
                           item.size === selectedSize && "bg-orange "
                         }`}
                         onClick={() =>
@@ -163,24 +166,7 @@ const ProductDetails = () => {
               <h3 className="text-md font-semibold border-b border-b-gray-300 pb-3">
                 Product Details
               </h3>
-              <p className=" my-5">
-                Pepsi is a cool refreshing soft drink setting trends in Nigeria
-                youth pop culture. Pepsi is an internationally recognized cola
-                soft drink present in more than 200 countries worldwide. This
-                refreshing delicious drink will have you savoring every gulp{" "}
-              </p>
-
-              <p className="">
-                A cool soft drink to keep you refreshed at home and on the go.
-                Pepsi is made with carbonated water, high fructose corn syrup,
-                caramel color,sugar, phosphoric acid, caffeine, citric acid, and
-                natural flavors. A refreshing drink that makes you come back for
-                more.Pepsi is a cool refreshing soft drink setting trends in
-                Nigeria youth pop culture. Pepsi is an internationally
-                recognized cola soft drink present in more than 200 countries
-                worldwide. This refreshing delicious drink will have you
-                savoring every gulp..
-              </p>
+              <p className=" my-5">{productDet?.description}</p>
             </div>
 
             <div className=" ">
@@ -241,7 +227,11 @@ const ProductDetails = () => {
 
                 <li className="font-semibold">
                   {" "}
-                  Shop Type:<span className="font-normal"> Groceries</span>
+                  Shop Type:
+                  <span className="font-normal">
+                    {" "}
+                    {productDet.subcategory.name}
+                  </span>
                 </li>
               </ul>
             </div>

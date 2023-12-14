@@ -51,6 +51,18 @@ const AppProvider = ({ children }) => {
 
     // Add more properties as needed
   });
+  const [serviceInfo, setServiceInfo] = useState({
+    name: "",
+    email: "",
+    contact: "",
+    years_of_experience: "",
+    business_photograph: "",
+    business_photograph2: "",
+    business_photograph3: "",
+    about: "",
+    user: localStorage.getItem("serviceId"),
+    // Add more properties as needed
+  });
   const [error, setError] = useState(null);
   const [storeError, setStoreError] = useState(null);
   const [loginError, setLoginError] = useState("");
@@ -206,9 +218,10 @@ const AppProvider = ({ children }) => {
       // Handle successful registration
       // For now, let's just log the user data
       console.log("Registration successful", serviceData);
-      console.log(response.error);
+      //console.log(response.error);
       // Move to the next step
       // Save userData to localStorage
+      localStorage.setItem("serviceUserId", response.data.id);
       localStorage.setItem("serviceData", JSON.stringify(serviceData));
       toast.success("Registered Succesfully!");
 
@@ -220,7 +233,7 @@ const AppProvider = ({ children }) => {
         "Registration Failed. Please check your information" || { error },
       );
       setVerifyEmail(false);
-      console.log(error.response.data);
+
       // cogoToast.error("Registration Failed. Please check your information");
     } finally {
       setIsLoading(false); // Set loading state to false
@@ -258,10 +271,7 @@ const AppProvider = ({ children }) => {
       }
 
       if (response.user_data.is_services) {
-        window.open(
-          `http://localhost:5174/services/dashboard?store_id=${response.user_data.id}`,
-          "_self",
-        );
+        navigate(`/dashboard?store_id=${response.user_data.id}`, "_self");
       }
 
       console.log("Updated storeData:", storeData);
@@ -276,6 +286,65 @@ const AppProvider = ({ children }) => {
     } finally {
       setIsLoading(false);
       // Set loading state back to false after the request is complete
+    }
+  };
+  const handleServiceInfoSubmit = async (e) => {
+    e.preventDefault();
+
+    const storedToken = localStorage.getItem("accessToken");
+    const formData = new FormData();
+    formData.append("name", serviceInfo.name);
+    formData.append("email", serviceInfo.email);
+    formData.append("contact", serviceInfo.contact);
+    formData.append("years_of_experience", serviceInfo.years_of_experience);
+    //formData.append("category", storeData.category);
+    formData.append("business_photograph", serviceInfo.business_photograph);
+    formData.append("business_photograph2", serviceInfo.business_photograph2);
+    formData.append("business_photograph3", serviceInfo.business_photograph3);
+    //formData.append("store_url", storeData.store_url);
+    formData.append("about", serviceInfo.about);
+    formData.append("user", serviceInfo.user);
+    const headers = {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${storedToken}`, // Important for sending file data
+    };
+    const apiUrl =
+      "https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/";
+    try {
+      setIsLoading(true);
+      console.log("access token from local storage:", storedToken);
+      const response = await axios.post(apiUrl, formData, { headers });
+
+      console.log("access token from store:", storedToken);
+
+      console.log("Registration successful", response.data);
+      // After successful store registration in handleStoreFormSubmit
+      //localStorage.setItem("hasCompletedStoreDetails", "true");
+      localStorage.setItem("serviceUser", response.data.owner);
+      localStorage.setItem("serviceId", response.data.id);
+      //setStoreId(localStorage.setItem("id", response.data.id))
+      toast.success("Store Registered Successfully");
+      //navigate("/make_payment");
+
+      // Move to the next step or handle completion as needed
+      if (response.data && currentStep < 2) {
+        setCurrentStep((prevStep) => {
+          const newStep = prevStep + 1;
+          localStorage.setItem("currentStep", newStep);
+          return newStep;
+        });
+      } else {
+        // User has completed all steps, handle accordingly (e.g., redirect to dashboard)
+        alert("You have completed the registration process.");
+      }
+    } catch (error) {
+      console.error("Error registering store details:", error);
+      toast.error("Error registering store details: Check you Details");
+      setStoreError(error.response.data);
+      console.log(error.response.data);
+      // Handle any errors here
+    } finally {
+      setIsLoading(false); // Set loading state back to false after the request is complete
     }
   };
 
@@ -378,16 +447,26 @@ const AppProvider = ({ children }) => {
   const pollPaymentVerification = async (paymentReference) => {
     try {
       // Poll the verification endpoint every 5 seconds
+      const store_id = localStorage.getItem("id");
+      const service_id = localStorage.getItem("serviceId");
       const interval = setInterval(async () => {
         const verifyPayment = await axios.get(
           `https://rocktea-mall-api-test.up.railway.app/mall/verify?reference=${paymentReference}`,
         );
 
-        if (verifyPayment.data.data.status === "success") {
+        if (verifyPayment.data.data.status === "success" && !store_id) {
           clearInterval(interval);
           // Stop polling
           //const store_id = localStorage.getItem('id')
           navigate("/domain_creation");
+          /*window.location.href =
+            `http://localhost:5174/dashboard/${store_id}`;*/
+          console.log("Payment verification successful.");
+        } else if (verifyPayment.data.data.status === "success" && service_id) {
+          clearInterval(interval);
+          // Stop polling
+          //const store_id = localStorage.getItem('id')
+          navigate("/dashboard");
           /*window.location.href =
             `http://localhost:5174/dashboard/${store_id}`;*/
           console.log("Payment verification successful.");
@@ -443,7 +522,10 @@ const AppProvider = ({ children }) => {
         loginError,
         setLoginError,
         //componentProps,
+        setServiceInfo,
+        serviceInfo,
         handleServiceFormSubmit,
+        handleServiceInfoSubmit,
         setServiceData,
         serviceData,
         isLoading,

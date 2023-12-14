@@ -11,12 +11,12 @@ import "../styles/swiper.css";
 import { useState } from "react";
 
 export default function Thumbnails({ productDet }) {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  // const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [thumbsSwiperMobile, setThumbsSwiperMobile] = useState(null);
   return (
     <div className="w-full">
-      <div className="hidden lg:flex flex-row-reverse gap-5  w-full justify-center ">
-        {/* Main Image */}
+      {/* <div className="hidden lg:flex flex-row-reverse gap-5  w-full justify-center ">
+        Main Image 
 
         <Swiper
           style={{
@@ -46,7 +46,7 @@ export default function Thumbnails({ productDet }) {
               </SwiperSlide>
             ))}
         </Swiper>
-        {/* Additional Images */}
+        {/* Additional Images 
         <Swiper
           onSwiper={setThumbsSwiper}
           loop={true}
@@ -71,8 +71,8 @@ export default function Thumbnails({ productDet }) {
               </SwiperSlide>
             ))}
         </Swiper>
-      </div>
-      <div className="block lg:hidden gap-x-5  w-full justify-center lg:max-w-[50%]">
+      </div>*/}
+      <div className="  max-w-[90%] ">
         {/* Main Image */}
 
         <Swiper
@@ -83,7 +83,7 @@ export default function Thumbnails({ productDet }) {
           loop={true}
           slidesPerView={1}
           spaceBetween={3}
-          navigation={true}
+          navigation={false}
           // autoplay={true}
           thumbs={{
             swiper:
@@ -100,7 +100,7 @@ export default function Thumbnails({ productDet }) {
                 <img
                   src={item?.url}
                   alt="Additional Product 2"
-                  className=" lg:!w-[200px] lg:!h-[200px] rounded-md   "
+                  className="  rounded-md   object-cover"
                 />
               </SwiperSlide>
             ))}
@@ -116,15 +116,18 @@ export default function Thumbnails({ productDet }) {
           // direction="vertical"
           // watchSlidesProgress={true}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper-mobile mt-4   flex !flex-col sm:max-w-[65%] max-h-[300px]"
+          className="mySwiper2 mt-4   flex !flex-col overflow-auto"
         >
           {productDet?.images?.length > 0 &&
             productDet?.images.map((item, index) => (
-              <SwiperSlide key={index} className="flex !flex-col">
+              <SwiperSlide
+                key={index}
+                className="flex flex-col items-center justify-center  "
+              >
                 <img
                   src={item?.url}
                   alt="Additional Product 2"
-                  className=" object-cover w-[100px] h-[100px] block rounded-md"
+                  className=" object-cover flex rounded-md"
                 />
               </SwiperSlide>
             ))}

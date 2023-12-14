@@ -116,7 +116,7 @@ const cartSlice = createSlice({
       if (existingItem) {
         // If the product is already in the cart with the same size, increment the quantity
         existingItem.cartQuantity += 1;
-        toast.success(`Item QTY Increased`);
+        //toast.success(`Item QTY Increased`);
       } else {
         // If not, add a new item to the cart with the selected size
         // const newItem = { ...product, selectedSize,selectedPrice, cartQuantity: 1 };
@@ -127,7 +127,7 @@ const cartSlice = createSlice({
           selectedPrice,
           cartQuantity: 1,
         });
-        toast.success(`product added to Cart`);
+        //toast.success(`product added to Cart`);
       }
       state.cartTotalAmount += selectedPrice;
       localStorage.setItem("cart", JSON.stringify(state.cartItems));
@@ -157,7 +157,7 @@ const cartSlice = createSlice({
 
     setIncreaseItemQuantity: (state, action) => {
       const itemIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id,
+        (item) => item.id === action.payload,
       );
 
       if (itemIndex >= 0) {

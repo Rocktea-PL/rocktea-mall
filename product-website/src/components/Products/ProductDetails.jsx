@@ -1,32 +1,71 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Footer from "../../Features/Footer";
 import CommonProducts from "../Products/CommonProducts";
-import { useDispatch /* useSelector*/ } from "react-redux";
-//import { useQuery } from "react-query";
-//import SizeModal from "../Modals/SizeModal";
-
-import { addToCart, setGetTotalAmount } from "../../Redux/CartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import SizeModal from "../Modals/SizeModal";
+import {
+  addToCart,
+  selectCartItems,
+  setGetTotalAmount,
+} from "../../Redux/CartSlice";
 import toast from "react-hot-toast";
 import Thumbnails from "../../Helpers/Thumbnails";
 import { useQuery } from "react-query";
 import { useProductPrices } from "../../Hooks/UseProductPrices";
-//import {  useUserProductContext } from "../../Hooks/UserProductContext";
-//import { useUserProductContext } from "../../Hooks/UserProductContext";
-//import toast from "react-hot-toast";
+import { FaHeart } from "react-icons/fa";
+import { useUserCartContext } from "../../Hooks/CartContext";
+
 const UserProductDetails = () => {
   const { productId } = useParams();
-
+  const {
+    selectedSize,
+    selectedSizeId,
+    setSelectedSize,
+    setSelectedSizeId,
+    setSelectedPrice,
+    selectedPrice,
+    quantityInCart,
+    setQuantityInCart,
+    handleDecrementQuantity,
+    handleIncrementQuantity,
+  } = useUserCartContext();
+  const storeId = localStorage.getItem("storeUid");
+  const authToken = localStorage.getItem("accessToken");
   const dispatch = useDispatch();
-  //console.log(id)
-  //const cartItems = useSelector((state) => state.cart.cartItems);
+
+  const cartItems = useSelector(selectCartItems);
 
   const { productPrices, isLoading } = useProductPrices(productId);
-  const [selectedPrice, setSelectedPrice] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
-  //const [variantData, setVariantData] = useState([]);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [initialSizeSet, setInitialSizeSet] = useState(false);
+  const [counter, setCounter] = useState(
+    Object.keys(quantityInCart).length > 0,
+  );
 
+  //Effects for controling  states of the counter, cart item and sizes
+  useEffect(() => {
+    setCounter(Object.keys(quantityInCart).length > 0);
+    // Update sessionStorage whenever quantityInCartBySize changes
+    sessionStorage.setItem("quantityInCart", JSON.stringify(quantityInCart));
+  }, [quantityInCart]);
+
+  useEffect(() => {
+    if (!initialSizeSet && productPrices.length > 0) {
+      const firstSize = productPrices[0].size;
+      const firstSizeId = productPrices[0].id;
+      const firstSizePrice = productPrices[0].retail_price;
+
+      setSelectedSize(firstSize);
+      setSelectedSizeId(firstSizeId);
+      setSelectedPrice(firstSizePrice);
+      setInitialSizeSet(true);
+    }
+  }, [initialSizeSet, productPrices]);
+
+  //Functions
   const fetchProductDetails = async () => {
     const response = await axios.get(
       `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${productId}`,
@@ -54,51 +93,47 @@ const UserProductDetails = () => {
   if (productStatus === "error") {
     return <p>Error: {error}</p>;
   }
-  //console.log("product data", productDet);
-
-  // console.log(productDet)
-  //fetchVariantData()
-
-  const handleSizeClick = (size, price) => {
+  const handleSizeClick = (size, price, id) => {
     setSelectedSize(size, price);
-
+    setSelectedSizeId(id);
+    //setIsModalOpen(true)
+    setInitialSizeSet(true);
     setSelectedPrice(price);
   };
 
-  //console.log(productPrices)
-  //)
-
-  /* const handleAddToCart = (selectedPrice) => {
-    if (!selectedSize) {
-      toast.error("Please select a size before adding to cart.");
-      return;
-    }
-
-    dispatch(addToCart({ product: productDet, selectedSize, selectedPrice }));
-    dispatch(setGetTotalAmount());
-
-  };*/
+  const handleColorClick = (color, price, id) => {
+    setSelectedColor(color, price);
+    setSelectedSizeId(id);
+    //setIsModalOpen(true)
+    setInitialSizeSet(true);
+    setSelectedPrice(price);
+  };
 
   const handleAddToCart = async (selectedPrice) => {
-    if (!selectedSize) {
+    if (!selectedSizeId) {
       toast.error("Please select a size before adding to cart.");
       return;
     }
-    const authToken = localStorage.getItem("accessToken");
-    try {
-      /*const existingProduct = cartItems.products.find(
-        (product) => product.id === productDet.id
-      );
 
-      const quantityToAdd = existingProduct ? existingProduct.cartQuantity + 1 : 1;
-console.log(quantityToAdd)*/
+    try {
       // Make a POST request to the cart API
+      const quantityToAdd = 1;
+      const stringWithComma = selectedPrice;
+      const prices = parseInt(stringWithComma.replace(/,/g, ""), 10);
       const response = await axios.post(
         "https://rocktea-mall-api-test.up.railway.app/rocktea/cart/",
         {
-          product: productDet.id, // Assuming productDet has the product ID
-          quantity: 1, // You can set the quantity as needed
+          store: storeId,
+          products: [
+            {
+              id: productDet.id, // Assuming productDet has the product ID
+              quantity: quantityToAdd,
+              variant: selectedSizeId,
+              price: prices,
+            },
+          ],
         },
+
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -106,31 +141,36 @@ console.log(quantityToAdd)*/
         },
       );
       // Assuming the API response contains the updated cart information
-      const updatedCart = response.data;
+      const updatedCart = response.data.items;
       console.log(updatedCart);
+      //setCart(updatedCart);
+
       // Dispatch the action to update the Redux store
       dispatch(
         addToCart({
-          product: updatedCart.products,
+          product: updatedCart,
           selectedSize,
           selectedPrice,
         }),
       );
       dispatch(setGetTotalAmount());
+      setQuantityInCart((prevQuantities) => ({
+        ...prevQuantities,
+        [selectedSizeId]: (prevQuantities[selectedSizeId] || 0) + 1,
+      }));
 
       toast.success("Product added to cart successfully.");
+
+      setCounter(true);
     } catch (error) {
       // Handle errors
       console.error("Error adding product to cart:", error.response);
       toast.error("Failed to add product to cart.");
     }
   };
+  console.log(selectedPrice);
+  // console.log(productPrices)
 
-  // Rest of your component code...
-
-  // console.log(productDet)
-
-  // console.log(productDet.product_variants[0].wholesale_price)
   return (
     <>
       <section className="relative mt-20 px-10 lg:px-0 max-w-[1300px] m-auto bg-white rounded max-md:mx-10 pt-5">
@@ -184,23 +224,83 @@ console.log(quantityToAdd)*/
               )}
             </p>
 
-            <div className="flex items-center gap-3">
+            <div className="flex  items-center gap-3">
               {productPrices?.length > 0 && !isLoading ? (
                 productPrices.map((item, index) => {
                   return (
-                    <div key={index} className="flex">
-                      <button
-                        key={index}
-                        className={`border border-solid border-[var(--orange)] rounded-md px-3 flex items-center space-x-3 mb-4 py-1 ${
-                          item.size === selectedSize && "bg-orange "
-                        }`}
-                        onClick={() =>
-                          handleSizeClick(item.size, item.retail_price)
-                        }
-                      >
-                        {item?.size}
-                      </button>
-                    </div>
+                    <>
+                      {item.size ? (
+                        <div
+                          key={index}
+                          className={`flex flex-col ${!item.size && "hidden"}`}
+                        >
+                          <button
+                            className={`border border-solid border-orange rounded-md px-3 !flex items-center space-x-3 mb-4 py-1 ${
+                              item.size === selectedSizeId && "common "
+                            }`}
+                            onClick={() =>
+                              handleSizeClick(
+                                item.size,
+                                item.retail_price,
+                                item.id,
+                              )
+                            }
+                          >
+                            {item?.size}
+                          </button>
+                        </div>
+                      ) : (
+                        item.colors.map((color, index) => (
+                          <div
+                            key={index}
+                            className={`flex flex-col ${!color && "hidden"}`}
+                          >
+                            <li
+                              key={index}
+                              onClick={() =>
+                                handleColorClick(
+                                  color,
+                                  item.retail_price,
+                                  item.id,
+                                )
+                              }
+                              className="font-semibold flex items-center gap-1"
+                            >
+                              <div
+                                className={
+                                  selectedColor &&
+                                  "border flex items-center justify-center border-solid  w-10 h-10 rounded-full"
+                                }
+                                style={{ borderColor: color }}
+                              >
+                                <div
+                                  className="flex items-center justify-center gap-1 w-8 h-8 rounded-full"
+                                  style={{ backgroundColor: color }}
+                                ></div>
+                              </div>
+                            </li>
+                            <div className="flex items-center gap-4  mt-3">
+                              <button
+                                onClick={() => handleAddToCart(selectedPrice)}
+                                className={`${
+                                  !selectedSize ||
+                                  (selectedColor && "bg-orange opacity-60")
+                                }  p-3 text-sm rounded-md common`}
+                                disabled={!selectedSizeId}
+                              >
+                                Add to Cart
+                              </button>
+                              <button
+                                onClick={() => handleAddToCart(productDet)}
+                                className="common px-5  py-3 text-sm rounded-md "
+                              >
+                                <FaHeart />
+                              </button>
+                            </div>
+                          </div>
+                        ))
+                      )}
+                    </>
                   );
                 })
               ) : (
@@ -208,45 +308,81 @@ console.log(quantityToAdd)*/
               )}
             </div>
 
-            <div className="flex items-center  gap-5">
-              <button
-                onClick={() => handleAddToCart(selectedPrice)}
-                className={`${
-                  !selectedSize ? "bg-orange opacity-60" : "bg-orange "
-                }  p-3 text-sm rounded-md`}
-                disabled={!selectedSize}
-              >
-                Add to Cart
-              </button>
-              <button
-                onClick={() => handleAddToCart(productDet)}
-                className="bg-orange  p-3 text-sm rounded-md "
-              >
-                Save Items
-              </button>
-            </div>
+            {cartItems
+              .filter((item) => Array.isArray(item.product)) // Check if item.product is an array
+              .filter((item) =>
+                item.product.some(
+                  (variant) => variant.product_variant === selectedSizeId,
+                ),
+              )
+              .map((item) => (
+                <div key={item.id}>
+                  {/* Assuming you want to show quantity buttons for the first matching variant */}
+                  {item.product.map((variant) => {
+                    if (variant.product_variant === selectedSizeId) {
+                      return (
+                        <div className="flex flex-col  gap-3" key={variant.id}>
+                          <div className="flex items-center gap-3 mt-3">
+                            <button
+                              onClick={() =>
+                                handleDecrementQuantity(variant.id)
+                              }
+                              className={`${
+                                !selectedSize ||
+                                (!selectedColor && "opacity-60")
+                              }  w-12 h-10 text-sm rounded-md common`}
+                              disabled={!selectedSizeId}
+                            >
+                              -
+                            </button>
+                            <p>{quantityInCart[selectedSizeId]}</p>
+                            <button
+                              onClick={() =>
+                                handleIncrementQuantity(variant.id)
+                              }
+                              className={`${
+                                !selectedSize ||
+                                (!selectedColor && "opacity-60")
+                              }  w-12 h-10 text-sm rounded-md common`}
+                              disabled={!selectedSizeId}
+                            >
+                              +
+                            </button>
+                          </div>
+
+                          {!counter && (
+                            <div className="flex items-center gap-4">
+                              <button
+                                onClick={() => handleAddToCart(selectedPrice)}
+                                className={`${
+                                  !selectedSize ||
+                                  (selectedColor && "bg-orange opacity-60")
+                                }  p-3 text-sm rounded-md common`}
+                                disabled={!selectedSizeId}
+                              >
+                                Add to Cart
+                              </button>
+                              <button
+                                onClick={() => handleAddToCart(productDet)}
+                                className="common px-5  py-3 text-sm rounded-md "
+                              >
+                                <FaHeart />
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+              ))}
+
             <div className="mb-4 mt-10">
               <h3 className="text-md font-semibold border-b border-b-gray-300 pb-3">
                 Product Details
               </h3>
-              <p className="text-gray-600 my-5">
-                Pepsi is a cool refreshing soft drink setting trends in Nigeria
-                youth pop culture. Pepsi is an internationally recognized cola
-                soft drink present in more than 200 countries worldwide. This
-                refreshing delicious drink will have you savoring every gulp{" "}
-              </p>
-
-              <p className="text-gray-500">
-                A cool soft drink to keep you refreshed at home and on the go.
-                Pepsi is made with carbonated water, high fructose corn syrup,
-                caramel color,sugar, phosphoric acid, caffeine, citric acid, and
-                natural flavors. A refreshing drink that makes you come back for
-                more.Pepsi is a cool refreshing soft drink setting trends in
-                Nigeria youth pop culture. Pepsi is an internationally
-                recognized cola soft drink present in more than 200 countries
-                worldwide. This refreshing delicious drink will have you
-                savoring every gulp..
-              </p>
+              <p className="text-gray-600 my-5">{productDet?.description}</p>
             </div>
 
             <div className=" ">
@@ -276,7 +412,11 @@ console.log(quantityToAdd)*/
 
                 <li className="font-semibold">
                   {" "}
-                  Shop Type:<span className="font-normal"> Groceries</span>
+                  Shop Type:
+                  <span className="font-normal capitalize">
+                    {" "}
+                    {productDet?.subcategory?.name}
+                  </span>
                 </li>
               </ul>
             </div>
@@ -285,6 +425,18 @@ console.log(quantityToAdd)*/
         <div className="mt-10 mb-10">
           <CommonProducts />
         </div>
+        {isModalOpen && (
+          <SizeModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            variantData={productPrices}
+            selectedSize={selectedSize}
+            handleAddToCart={handleAddToCart}
+            selectedPrice={selectedPrice}
+            cartItems={cartItems}
+            authToken={authToken}
+          />
+        )}
       </section>
       <Footer />
     </>
@@ -292,13 +444,3 @@ console.log(quantityToAdd)*/
 };
 
 export default UserProductDetails;
-
-/**
- *  {isModalOpen && (
-        <SizeModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          variantData={variantData}
-        />
-      )}
- */
