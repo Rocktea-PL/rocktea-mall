@@ -114,7 +114,7 @@ function Home() {
                     placeholder="Shipping Address"
                   />
                 </label>
-                <button className="bg-orange h-12 w-[150px] rounded-md mt-5 ml-[65%] lg:ml-[80%]">
+                <button className="common h-12 w-[150px] rounded-md mt-5 ml-[65%] lg:ml-[80%]">
                   Update Profile
                 </button>
               </div>

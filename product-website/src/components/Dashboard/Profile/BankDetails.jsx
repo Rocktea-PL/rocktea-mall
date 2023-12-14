@@ -4,6 +4,7 @@ import axios from "axios";
 import { Oval } from "react-loader-spinner";
 import { useState } from "react";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const BankDetails = () => {
   const [accountNumber, setAccountNumber] = useState("");
@@ -12,6 +13,7 @@ const BankDetails = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const key = import.meta.env.VITE_APP_PAYSTACK_KEY;
+  const Base_url = import.meta.env.VITE_BASE_URL;
   const queryClient = useQueryClient();
 
   //console.log(selectedBank)
@@ -66,6 +68,42 @@ const BankDetails = () => {
     },
   );
 
+  const patchAccountDetailsMutation = useMutation(
+    (data) => axios.patch(`${Base_url}/rocktea/wallet/1/`, data),
+    {
+      onSuccess: (data) => {
+        // Handle success if needed
+        console.log("Account details patched successfully", data);
+        toast.success("Bank Details added Successfully");
+      },
+      onError: (error) => {
+        // Handle error if needed
+        console.error("Error patching account details:", error);
+        toast.error("Error Saving your Bank Details");
+      },
+    },
+  );
+  const { data: bankDetails } = useQuery(
+    ["accountDetails"],
+    async () => {
+      const response = await axios.get(
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/wallet/1/`,
+      );
+      return response.data;
+    },
+    {
+      enabled: true, // Start the query manually
+      refetchOnWindowFocus: false,
+      onSuccess: (data) => {
+        // Handle the retrieved account details
+        // For example, set the customer name
+        console.log(bankDetails);
+        setCustomerName(data.account_name);
+        setAccountNumber(data.nuban);
+      },
+    },
+  );
+
   const handleVerifyAccount = async () => {
     try {
       setLoading(true);
@@ -78,8 +116,17 @@ const BankDetails = () => {
           bank_code: bankCode,
         });
 
-        // Optional: Refetch other queries if needed
-        queryClient.invalidateQueries("otherQueryKey");
+        if (!verifyAccountMutation.isError && customerName) {
+          // If verification was successful, patch the account details
+          await patchAccountDetailsMutation.mutateAsync({
+            account_name: customerName,
+            nuban: accountNumber,
+            bank_code: bankCode,
+          });
+
+          // Optional: Refetch other queries if needed
+          queryClient.invalidateQueries("otherQueryKey");
+        }
       }
     } catch (error) {
       console.error("Error verifying account number:", error);
@@ -87,12 +134,14 @@ const BankDetails = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     // Automatically verify account when accountNumber or bankName changes
     if (accountNumber && selectedBank) {
       handleVerifyAccount();
     }
   }, [selectedBank]);
+
   return (
     <div className="bg-white mt-5 p-4 rounded-md">
       <div className="block gap-x-5 px-5 profile-input">
@@ -148,7 +197,7 @@ const BankDetails = () => {
         )}
       </div>
       <button
-        className="bg-orange h-12 w-[150px] rounded-md flex items-center justify-center mx-auto"
+        className="common h-12 w-[150px] rounded-md flex items-center justify-center mx-auto"
         onClick={handleVerifyAccount}
         disabled={loading}
       >

@@ -1,11 +1,33 @@
 // cartUtils.js
 
-export const calculateTotal = (cartItems) => {
+export const calculateSubtotal = (carts) => {
+  let subtotal = 0;
+
+  if (carts && carts.length > 0) {
+    carts.forEach((data) => {
+      if (data.items && data.items.length > 0) {
+        data.items.forEach((cart) => {
+          subtotal += cart.price * cart.quantity;
+        });
+      }
+    });
+  }
+
+  return subtotal;
+};
+
+export const calculateTotal = (carts, deliveryCost, discount) => {
+  const subtotal = calculateSubtotal(carts);
+  const total = subtotal + deliveryCost - discount;
+  return total;
+};
+
+/*export const calculateTotal = (cartItems) => {
   return cartItems.reduce((total, item) => {
     // Remove commas and convert to a number
-    const itemPrice = parseFloat(item.selectedPrice.replace(/,/g, ""));
+    const itemPrice = parseFloat(item.price.replace(/,/g, ""));
 
-    const totalForItem = itemPrice * item.cartQuantity;
+    const totalForItem = itemPrice * item.cartItems.quantity;
     return total + totalForItem;
   }, 0);
 };
@@ -28,4 +50,4 @@ export const calculateEstimatedTotal = (cartItems) => {
   const calculatedTotal = calculateTotal(cartItems);
   const estimatedTotal = calculatedTotal - discount + deliveryCost;
   return estimatedTotal;
-};
+};*/

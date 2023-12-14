@@ -68,7 +68,7 @@
    label{
     @apply flex flex-col text-sm mt-5
    }
-   input,select,.country{
+   input,select,.country,textarea{
     @apply bg-[var(--white)] border border-solid border-[var(--input-border)] w-[100%] h-10 rounded-lg px-2 mt-3  outline-none
    }
    .country input{

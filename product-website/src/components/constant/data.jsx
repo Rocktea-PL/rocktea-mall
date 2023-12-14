@@ -160,25 +160,25 @@ export const category = [
   {
     id: 1,
     image:
-      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728356/rocktea-product-website/assets/Rectangle_35_1_abtt0z.png",
+      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702250400/rocktea-product-website/assets/categories/allcategories.svg",
+    name: "Categories",
+  },
+  {
+    id: 1,
+    image:
+      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702250400/rocktea-product-website/assets/categories/image_217_yymxbk.svg",
     name: "Soft Drinks",
   },
   {
     id: 1,
     image:
-      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728354/rocktea-product-website/assets/Rectangle_35_2_dndm8o.png",
-    name: "Wine",
-  },
-  {
-    id: 1,
-    image:
-      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728351/rocktea-product-website/assets/Rectangle_35_3_mi82zb.png",
+      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702250400/rocktea-product-website/assets/categories/image_214_hwmufz.svg",
     name: "Beverages",
   },
   {
     id: 1,
     image:
-      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728350/rocktea-product-website/assets/Rectangle_35_4_hwyzor.png",
+      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702250400/rocktea-product-website/assets/categories/image_215_um9ytj.svg",
     name: "Grains & Cereals",
   },
   {

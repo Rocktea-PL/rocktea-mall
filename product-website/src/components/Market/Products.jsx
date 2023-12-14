@@ -37,8 +37,9 @@ const Products = ({ page, products, openModal, getProductPrice, price }) => {
 
   return (
     <div className="mt-5">
-      {products.slice(startIndex, endIndex).map((category, index) => {
+      {products?.slice(startIndex, endIndex).map((category, index) => {
         const categoryTitle = category.category.name;
+        console.log(categoryTitle);
         return (
           <ScrollProducts
             key={index}
@@ -52,7 +53,7 @@ const Products = ({ page, products, openModal, getProductPrice, price }) => {
       })}
       <Pagination
         currentPage={currentPage}
-        totalPages={Math.ceil(products.length / productsPerPage)}
+        totalPages={Math.ceil(products?.length / productsPerPage)}
         onPageChange={onPageChange}
       />
     </div>

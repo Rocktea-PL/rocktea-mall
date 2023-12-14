@@ -5,65 +5,71 @@ import CommonProducts from "../../src/components/Products/CommonProducts";
 import Footer from "../../src/Features/Footer";
 //import Navbar from "../../src/Features/UserNavbar";
 //import { useUserProductContext } from "../../src/Hooks/UserProductContext";
-import { useSelector } from "react-redux";
-import {
-  selectCartItems,
-  setRemoveItemFromCart,
-  setDecreaseItemQuantity,
-  setIncreaseItemQuantity,
-  selectTotalQuantity,
-  //setClearItems,
-  setGetTotalAmount,
-} from "../../src/Redux/CartSlice";
+
+import { setIncreaseItemQuantity } from "../../src/Redux/CartSlice";
 import { useDispatch } from "react-redux";
-import {
-  calculateTotal,
-  calculateEstimatedTotal,
-} from "../../src/Helpers/CartUtils";
+import { calculateTotal, calculateSubtotal } from "../../src/Helpers/CartUtils";
+import { useUserCartContext } from "../../src/Hooks/CartContext";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { refreshPage } from "../../src/Helpers/Refresher";
+import { useEffect } from "react";
+import { useState } from "react";
 function Cart() {
   const dispatch = useDispatch();
-  const cartItems = useSelector(selectCartItems);
-  const cartTotalQuantity = useSelector(selectTotalQuantity);
-  //const {setCart,cart} = useUserProductContext()
-  const total = calculateTotal(cartItems);
-  const estimatedTotal = calculateEstimatedTotal(cartItems);
-  console.log("My Cart", cartItems);
-  const handleIncrement = (product) => {
-    const itemIndex = cartItems.findIndex((item) => item.id === product.id);
-    if (itemIndex >= 0) {
-      dispatch(setIncreaseItemQuantity(cartItems[itemIndex]));
-      dispatch(setGetTotalAmount());
+
+  const { carts, handleDeleteProductItems } = useUserCartContext();
+  const [subtotal, setSubtotal] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  const handleIncrement = async (cartItem) => {
+    try {
+      // Call the API to increment the quantity
+      const response = await axios.patch(
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/cart-item/${cartItem.id}/`,
+        { quantity: cartItem.quantity + 1 },
+      );
+      console.log(response.data);
+      // Dispatch action to update the local state with the updated quantity
+      dispatch(setIncreaseItemQuantity(response.data));
+      refreshPage();
+      // Dispatch action to recalculate the total amount
+      // dispatch(setGetTotalAmount());
+    } catch (error) {
+      console.error("Error incrementing quantity:", error.response);
+      toast.error("Error incrementing quantity");
     }
-    // dispatch(setIncreaseItemQuantity(product))
   };
 
-  const handleDecrement = (product) => {
-    const itemIndex = cartItems.findIndex((item) => item.id === product.id);
-    if (itemIndex >= 0) {
-      dispatch(setDecreaseItemQuantity(cartItems[itemIndex]));
-      dispatch(setGetTotalAmount());
+  const handleDecrement = async (cartItem) => {
+    try {
+      // Ensure the quantity does not go below 1
+      const newQuantity = Math.max(1, cartItem?.quantity - 1);
+
+      // Call the API to decrement the quantity
+      const response = await axios.patch(
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/cart-item/${cartItem.id}/`,
+        { quantity: newQuantity },
+      );
+      console.log(response.data);
+      // Dispatch action to update the local state with the updated quantity
+      //dispatch(setDecreaseItemQuantity(response.data));
+      refreshPage();
+      // Dispatch action to recalculate the total amount
+      //dispatch(setGetTotalAmount());
+    } catch (error) {
+      console.error("Error decrementing quantity:", error.message);
+      toast.error("Error decrementing quantity");
     }
-    // dispatch(setDecreaseItemQuantity(product))
   };
 
-  const handleRemoveProduct = (id) => {
-    dispatch(setRemoveItemFromCart(id));
-
-    //  dispatch(setRemoveItemFromCart(product));
-
-    // dispatch(setDecreaseItemQuantity(product))
-  };
-
-  /* useEffect(() => {
-    // Load the cart data from localStorage
-    const storedCart = localStorage.getItem("cart");
-    if (storedCart) {
-      const parsedCart = JSON.parse(storedCart);
-      
-      setCart(parsedCart);
-    }
-  }, []);
-console.log(cart)*/
+  useEffect(() => {
+    setSubtotal(calculateSubtotal(carts));
+    // Assume fixed values for delivery cost and discount, replace with dynamic values
+    const deliveryCost = 120;
+    const discount = 12;
+    setTotal(calculateTotal(carts, deliveryCost, discount));
+  }, [carts]);
 
   return (
     <>
@@ -87,7 +93,7 @@ console.log(cart)*/
               <FaAngleRight />
             </p>
           </div>
-          <p>{cartTotalQuantity || "0"} Items</p>
+          <p>{"0"} Items</p>
         </div>
         <hr className=" mb-5" />
         <div className="flex flex-col lg:flex-row justify-center w-full gap-5">
@@ -95,51 +101,60 @@ console.log(cart)*/
           <div className=" lg:w-3/4 w-full flex flex-col ">
             {/* Cart Item 1 */}
 
-            {cartItems.map((items, index) => {
-              return (
-                <div
-                  key={index}
-                  className="flex bg-white mb-4 items-start gap-3  w-full rounded-md  p-3   !justify-between"
-                >
-                  <div className="flex items-center justify-center gap-3">
-                    <div className="flex items-center justify-center w-[120px] h-[120px]"></div>
+            {carts?.length > 0 &&
+              carts.map((data, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="flex flex-col bg-white mb-4  gap-3  w-full rounded-md  p-3   "
+                  >
+                    {data.items.map((cart) => (
+                      <div key={cart.id} className="flex !justify-between">
+                        <div className="flex  items-center justify-center gap-3">
+                          <div className="flex items-center justify-center w-[120px] h-[120px]">
+                            <img src={cart?.product?.images[0]} alt="" />
+                          </div>
 
-                    <div className=" p-2 flex flex-col">
-                      <p className="text-[20px] uppercase tracking-wide">
-                        {items.product.name}
-                      </p>
-                      <p className="text-md font-semibold">
-                        ₦ {items.selectedPrice}
-                      </p>
+                          <div className=" p-2 flex flex-col">
+                            <p className="text-[20px] uppercase tracking-wide">
+                              {cart.product.name}
+                            </p>
+                            <p className="text-md font-semibold">
+                              ₦ {cart?.price?.toLocaleString()}
+                            </p>
 
-                      <div className="flex items-center justify-center gap-5 max-w-[100px] py-2 rounded-md border border-solid border-[var(--orange)] mt-3">
-                        <button
-                          className=" "
-                          onClick={() => handleDecrement(items)}
-                        >
-                          -
-                        </button>
-                        <p>{items.cartQuantity}</p>
-                        <button
-                          className=" "
-                          onClick={() => handleIncrement(items)}
-                        >
-                          +
-                        </button>
+                            <div className="grid grid-cols-3 items-center divide-x divide-inherit w-[150px]  border border-[#acaaaa] rounded-md">
+                              <button
+                                className="max-w-1/3 h-12 text-inherit"
+                                onClick={() => handleDecrement(cart)}
+                              >
+                                -
+                              </button>
+                              <p className="px-5 flex items-center justify-center max-w-1/3 h-12">
+                                {cart.quantity}
+                              </p>
+                              <button
+                                className="max-w-1/3 h-12 text-inherit"
+                                onClick={() => handleIncrement(cart)}
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="p-2">
+                          <button
+                            onClick={() => handleDeleteProductItems(cart.id)}
+                            className=" block common p-3 w-[150px] rounded-lg"
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
-                  <div className="p-2">
-                    <button
-                      onClick={() => handleRemoveProduct(items.product.id)}
-                      className=" block bg-[var(--orange)] p-3 w-[150px] rounded-lg"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
 
           {/* Repeat the above structure for other cart items */}
@@ -156,7 +171,7 @@ console.log(cart)*/
                   placeholder="Name"
                   className="border-0 p-2 rounded-tl-md rounded-bl-md   w-full"
                 />
-                <button className="block bg-[var(--orange)] p-2 px-4 rounded-md ">
+                <button className="block common p-2 px-4 rounded-md ">
                   Enter
                 </button>
               </div>
@@ -164,7 +179,7 @@ console.log(cart)*/
                 <h3 className="flex items-start justify-between  text-center">
                   <span className="">Subtotal</span>
                   <span className="font-semibold flex-1 text-right mr-3">
-                    ₦ {total.toLocaleString()}
+                    ₦ {subtotal.toLocaleString()}
                   </span>
                 </h3>
                 <h3 className="flex items-start justify-between  ">
@@ -183,12 +198,12 @@ console.log(cart)*/
                 <h3 className="flex items-center justify-between ">
                   <span className="">Estimated Total</span>
                   <span className="font-semibold">
-                    ₦{estimatedTotal.toLocaleString()}
+                    ₦ {total.toLocaleString()}
                   </span>
                 </h3>
               </div>
               <Link to="/checkout">
-                <button className="flex items-center justify-center mx-auto my-10 bg-[var(--orange)] rounded-md w-full h-12">
+                <button className=" common flex items-center justify-center mx-auto my-10  rounded-md w-full h-12">
                   Checkout
                 </button>
               </Link>
@@ -208,7 +223,7 @@ console.log(cart)*/
 export default Cart;
 
 /** <img
-          
+      {total.toLocaleString()}    
 {estimatedTotal.toLocaleString()}
 src={items.images[0].url}
                   alt="Product"

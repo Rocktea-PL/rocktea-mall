@@ -7,7 +7,7 @@ import {
   HiOutlineMagnifyingGlass,
 } from "react-icons/hi2";
 //import { IoMdNotificationsOutline } from "react-icons/io";
-import ProfileDropdown from "./Dropshippers/Dropdown";
+import ProfileDropdown from "./UserSearch/Dropdown";
 import { Link, useNavigate } from "react-router-dom";
 import Categories from "./Categories";
 import { useState } from "react";
@@ -18,6 +18,7 @@ import { selectTotalQuantity } from "../Redux/CartSlice"; // Make sure the path 
 import { useStoreContext } from "../Hooks/UserAuthContext";
 import MobileNavbar from "./MobileNavbar";
 import { useEffect } from "react";
+import { useUserCartContext } from "../Hooks/CartContext";
 //import { useUserProductContext } from "../Hooks/UserProductContext";
 //import { FaRegUser } from 'react-icons/fa;
 const Navbar = () => {
@@ -25,7 +26,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const { store } = useStoreContext();
-  //const { cart } = useUserProductContext();
+  const { totalQuantity } = useUserCartContext();
   const [quantity, setQuantity] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -95,9 +96,9 @@ const Navbar = () => {
             placeholder="Search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="border border-solid border-[var(--orange)] p-2 rounded-lg outline-none"
+            className="border border-solid border-orange p-2 rounded-lg outline-none"
           />
-          <button className="flex items-center gap-2 bg-[var(--orange)] p-2  rounded-lg">
+          <button className="flex items-center gap-2 common p-2  rounded-lg">
             {" "}
             <HiOutlineMagnifyingGlass /> Search{" "}
           </button>
@@ -108,8 +109,8 @@ const Navbar = () => {
             onClick={() => navigate("/cart")}
           >
             <HiOutlineShoppingBag />
-            <p className="absolute bg-red-500 w-[15px] p-2 flex items-center justify-center rounded-full h-[15px] -top-1 right-0 z-10 text-[12px] text-white">
-              {quantity}
+            <p className="absolute bg-red-500 w-[15px] p-[0.6rem]  flex items-center justify-center rounded-full h-[16px] -top-1 right-0 z-10 text-[12px] text-white">
+              {totalQuantity || 0}
             </p>
           </span>
           <ProfileDropdown />
@@ -122,8 +123,33 @@ const Navbar = () => {
           isOpen={isMobileNavOpen}
           toggleMenu={toggleMobileNav}
           quantity={quantity}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          totalQuantity={totalQuantity}
         />
       </nav>
+      <div className="flex items-center justify-center mx-auto mt-5 mb-3 w-full lg:hidden">
+        <form
+          action=""
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch(searchQuery);
+          }}
+          className="flex items-center gap-4 "
+        >
+          <input
+            type="search"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="border border-solid border-orange p-2 rounded-lg outline-none"
+          />
+          <button className="flex items-center gap-2 common p-2  rounded-lg">
+            {" "}
+            <HiOutlineMagnifyingGlass /> Search{" "}
+          </button>
+        </form>
+      </div>
       {isModalOpen && <Categories closeModal={closeModal} />}
     </header>
   );

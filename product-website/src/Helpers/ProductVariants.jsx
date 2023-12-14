@@ -4,7 +4,7 @@ export const calculatePrices = (data) => {
 
     return variants
       .map((variant) => {
-        const { size, colors, wholesale_price, store_pricings } = variant;
+        const { size, colors, wholesale_price, store_pricings, id } = variant;
 
         // Ensure that store_pricings is an array and not empty
         if (
@@ -25,6 +25,7 @@ export const calculatePrices = (data) => {
 
         return {
           size,
+          id,
           colors,
           wholesale_price,
           product,

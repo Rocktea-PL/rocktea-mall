@@ -13,6 +13,7 @@ import ProtectedRoute from "./ProtectedRoute";
 ////import {  useStoreContext } from "../Hooks/UserAuthContext";
 import Navbar from "../Features/UserNavbar";
 import SeeAll from "../../pages/SeeAll";
+import { UserCartProvider } from "../Hooks/CartContext";
 //import DropshipperNavbar from "../Features/DropshipperNavbar";
 
 function UserLayout() {
@@ -29,53 +30,59 @@ function UserLayout() {
 
   return (
     <main>
-      {!hideNavbar && <Navbar />}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
+      <UserCartProvider>
+        {!hideNavbar && (
+          <>
+            <Navbar />
+          </>
+        )}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              </>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
               <ProtectedRoute>
-                <Home />
+                <Cart />
               </ProtectedRoute>
-            </>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <ProtectedRoute>
-              <Cart />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/checkout"
-          element={
-            <ProtectedRoute>
-              <Checkout />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register/:store_id" element={<Signup />} />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/products" element={<Products />} />
-        <Route path="/shop/:categoryName" element={<SeeAll />} />
-        <Route
-          path="/product_details/:productId"
-          element={<ProductDetails />}
-        />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/*" element={<Notfound />} />
-      </Routes>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register/:store_id" element={<Signup />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/products" element={<Products />} />
+          <Route path="/shop/:categoryName" element={<SeeAll />} />
+          <Route
+            path="/product_details/:productId"
+            element={<ProductDetails />}
+          />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/*" element={<Notfound />} />
+        </Routes>
+      </UserCartProvider>
     </main>
   );
 }

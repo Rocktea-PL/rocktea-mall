@@ -112,7 +112,7 @@ function Login() {
               </a>
             </div>
             <button
-              className="bg-orange flex items-center justify-center mx-auto py-2 px-4 rounded mb-4 mt-3 w-full"
+              className="common flex items-center justify-center mx-auto py-2 px-4 rounded mb-4 mt-3 w-full"
               onClick={handleLoginUserSubmit}
               disabled={isLoading}
             >

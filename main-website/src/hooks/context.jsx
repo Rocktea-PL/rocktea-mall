@@ -1,6 +1,6 @@
 // MyContext.js
 import { createContext, useContext, useState } from "react";
-import { loginUser, register } from "../../pages/auth/auth";
+import { loginUser, register, registerService } from "../../pages/auth/auth";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +24,17 @@ const AppProvider = ({ children }) => {
     password: "",
     profile_image: "",
   });
+  const [serviceData, setServiceData] = useState({
+    // Define initial user data state
+    first_name: "",
+    last_name: "",
+    username: "",
+    email: "",
+    contact: "",
+    password: "",
+    profile_image: "",
+    type: "",
+  });
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -38,6 +49,18 @@ const AppProvider = ({ children }) => {
     domain_name: "",
     logo: "",
 
+    // Add more properties as needed
+  });
+  const [serviceInfo, setServiceInfo] = useState({
+    name: "",
+    email: "",
+    contact: "",
+    years_of_experience: "",
+    business_photograph: "",
+    business_photograph2: "",
+    business_photograph3: "",
+    about: "",
+    user: localStorage.getItem("serviceId"),
     // Add more properties as needed
   });
   const [error, setError] = useState(null);
@@ -131,6 +154,92 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const handleServiceFormSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    // Create a FormData object to send the form data including the image
+    const formData = new FormData();
+    formData.append("first_name", serviceData.first_name);
+    formData.append("last_name", serviceData.last_name);
+    formData.append("username", serviceData.username);
+    formData.append("email", serviceData.email);
+    formData.append("contact", serviceData.contact);
+    formData.append("password", serviceData.password);
+    formData.append("profile_image", serviceData.profile_image);
+    formData.append("type", serviceData.type);
+
+    try {
+      // Add logic here to submit userData to the server
+      // For example, you can call the register function from auth.js
+      const response = await registerService(formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Important for sending file data
+        },
+      });
+
+      // Send an email notification to the user using EmailJS
+      // Replace 'your_service_id', 'your_template_id', and 'your_user_id' with your actual EmailJS values
+      const emailParams = {
+        to_email: serviceData.email,
+        to_name: serviceData.first_name,
+
+        // User's email address
+        // Add any other template variables here
+      };
+
+      // Send the email
+      emailjs
+        .send(
+          "service_5hulf9r",
+          "template_nk9rq5h",
+          emailParams,
+          "Sb11MyaNpQEgE-cBn",
+        )
+        .then((response) => {
+          console.log("Email sent:", response);
+        })
+        .catch((error) => {
+          console.error("Email sending failed:", error);
+        });
+
+      emailjs
+        .send(
+          "service_5hulf9r",
+          "template_nxo03xr",
+          emailParams,
+          "Sb11MyaNpQEgE-cBn",
+        )
+        .then((response) => {
+          console.log("Email sent:", response);
+        })
+        .catch((error) => {
+          console.error("Email sending failed:", error);
+        });
+      // Handle successful registration
+      // For now, let's just log the user data
+      console.log("Registration successful", serviceData);
+      //console.log(response.error);
+      // Move to the next step
+      // Save userData to localStorage
+      localStorage.setItem("serviceUserId", response.data.id);
+      localStorage.setItem("serviceData", JSON.stringify(serviceData));
+      toast.success("Registered Succesfully!");
+
+      navigate("/email_verification");
+      //cogoToast.success("Registered Succesfully!");
+    } catch (error) {
+      setError(error || error.response.data);
+      toast.error(
+        "Registration Failed. Please check your information" || { error },
+      );
+      setVerifyEmail(false);
+
+      // cogoToast.error("Registration Failed. Please check your information");
+    } finally {
+      setIsLoading(false); // Set loading state to false
+    }
+  };
+
   const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -156,9 +265,13 @@ const AppProvider = ({ children }) => {
         //https://users.yourockteamall.com
       } else {
         window.open(
-          `https://rocktea-mall-product.vercel.app/dashboard?store_id=${store_id}`,
+          `http://localhost:5174/dashboard?store_id=${store_id}`,
           "_self",
         );
+      }
+
+      if (response.user_data.is_services) {
+        navigate(`/dashboard?store_id=${response.user_data.id}`, "_self");
       }
 
       console.log("Updated storeData:", storeData);
@@ -173,6 +286,65 @@ const AppProvider = ({ children }) => {
     } finally {
       setIsLoading(false);
       // Set loading state back to false after the request is complete
+    }
+  };
+  const handleServiceInfoSubmit = async (e) => {
+    e.preventDefault();
+
+    const storedToken = localStorage.getItem("accessToken");
+    const formData = new FormData();
+    formData.append("name", serviceInfo.name);
+    formData.append("email", serviceInfo.email);
+    formData.append("contact", serviceInfo.contact);
+    formData.append("years_of_experience", serviceInfo.years_of_experience);
+    //formData.append("category", storeData.category);
+    formData.append("business_photograph", serviceInfo.business_photograph);
+    formData.append("business_photograph2", serviceInfo.business_photograph2);
+    formData.append("business_photograph3", serviceInfo.business_photograph3);
+    //formData.append("store_url", storeData.store_url);
+    formData.append("about", serviceInfo.about);
+    formData.append("user", serviceInfo.user);
+    const headers = {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${storedToken}`, // Important for sending file data
+    };
+    const apiUrl =
+      "https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/";
+    try {
+      setIsLoading(true);
+      console.log("access token from local storage:", storedToken);
+      const response = await axios.post(apiUrl, formData, { headers });
+
+      console.log("access token from store:", storedToken);
+
+      console.log("Registration successful", response.data);
+      // After successful store registration in handleStoreFormSubmit
+      //localStorage.setItem("hasCompletedStoreDetails", "true");
+      localStorage.setItem("serviceUser", response.data.owner);
+      localStorage.setItem("serviceId", response.data.id);
+      //setStoreId(localStorage.setItem("id", response.data.id))
+      toast.success("Store Registered Successfully");
+      //navigate("/make_payment");
+
+      // Move to the next step or handle completion as needed
+      if (response.data && currentStep < 2) {
+        setCurrentStep((prevStep) => {
+          const newStep = prevStep + 1;
+          localStorage.setItem("currentStep", newStep);
+          return newStep;
+        });
+      } else {
+        // User has completed all steps, handle accordingly (e.g., redirect to dashboard)
+        alert("You have completed the registration process.");
+      }
+    } catch (error) {
+      console.error("Error registering store details:", error);
+      toast.error("Error registering store details: Check you Details");
+      setStoreError(error.response.data);
+      console.log(error.response.data);
+      // Handle any errors here
+    } finally {
+      setIsLoading(false); // Set loading state back to false after the request is complete
     }
   };
 
@@ -275,16 +447,26 @@ const AppProvider = ({ children }) => {
   const pollPaymentVerification = async (paymentReference) => {
     try {
       // Poll the verification endpoint every 5 seconds
+      const store_id = localStorage.getItem("id");
+      const service_id = localStorage.getItem("serviceId");
       const interval = setInterval(async () => {
         const verifyPayment = await axios.get(
           `https://rocktea-mall-api-test.up.railway.app/mall/verify?reference=${paymentReference}`,
         );
 
-        if (verifyPayment.data.data.status === "success") {
+        if (verifyPayment.data.data.status === "success" && !store_id) {
           clearInterval(interval);
           // Stop polling
           //const store_id = localStorage.getItem('id')
           navigate("/domain_creation");
+          /*window.location.href =
+            `http://localhost:5174/dashboard/${store_id}`;*/
+          console.log("Payment verification successful.");
+        } else if (verifyPayment.data.data.status === "success" && service_id) {
+          clearInterval(interval);
+          // Stop polling
+          //const store_id = localStorage.getItem('id')
+          navigate("/dashboard");
           /*window.location.href =
             `http://localhost:5174/dashboard/${store_id}`;*/
           console.log("Payment verification successful.");
@@ -340,6 +522,12 @@ const AppProvider = ({ children }) => {
         loginError,
         setLoginError,
         //componentProps,
+        setServiceInfo,
+        serviceInfo,
+        handleServiceFormSubmit,
+        handleServiceInfoSubmit,
+        setServiceData,
+        serviceData,
         isLoading,
         categories,
         getCategories,

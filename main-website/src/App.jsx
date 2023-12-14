@@ -12,6 +12,15 @@ import Faqs from "../pages/Faq";
 import Otp from "../pages/Otp";
 import EmailVerification from "./Components/Forms/SignUp/EmailVerification";
 import Waiting from "../pages/Waiting";
+import ServicesSignUp from "../pages/ServicesSignUp";
+//import ServiceDashboardHome from "../pages/ServicesDashboard/Home ";
+import ServiceOrders from "../pages/ServicesDashboard copy/Orders";
+import Transactions from "../pages/ServicesDashboard copy/Transactions";
+import ServiceProfile from "../pages/ServicesDashboard copy/Profile";
+import ServiceDashboardHome from "../pages/ServicesDashboard copy/Home";
+import ServicesInfo from "../pages/ServicesInfo";
+import ServicesHomePage from "../pages/ServicesHomePage";
+import ServiceDetailsPage from "../pages/ServiceDetailsPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -58,6 +67,38 @@ function App() {
         {
           path: "/bank_details",
           element: <BankDetails />,
+        },
+        {
+          path: "/services_details",
+          element: <ServicesSignUp />,
+        },
+        {
+          path: "/services_info",
+          element: <ServicesInfo />,
+        },
+        {
+          path: "/services/home",
+          element: <ServicesHomePage />,
+        },
+        {
+          path: "/services/details",
+          element: <ServiceDetailsPage />,
+        },
+        {
+          path: "/dashboard",
+          element: <ServiceDashboardHome />,
+        },
+        {
+          path: "/dashboard/orders",
+          element: <ServiceOrders />,
+        },
+        {
+          path: "/dashboard/transactions",
+          element: <Transactions />,
+        },
+        {
+          path: "/dashboard/profile",
+          element: <ServiceProfile />,
         },
       ],
     },

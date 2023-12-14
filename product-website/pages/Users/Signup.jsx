@@ -6,6 +6,7 @@ import { UserSignupForm } from "../../src/components/Forms/UserSignupForm";
 import { useGlobalContext } from "../../src/Hooks/Context";
 import { useStoreContext } from "../../src/Hooks/UserAuthContext";
 import { Link, useNavigate } from "react-router-dom";
+//import toast from "react-hot-toast";
 
 function Signup() {
   const navigate = useNavigate();
@@ -29,6 +30,8 @@ function Signup() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     const updatedErrors = { ...error };
+    // Email validation regular expression
+
     setFormData({
       ...formData,
       [name]: value,
@@ -93,7 +96,7 @@ function Signup() {
               handlePasswordVisibility={handlePasswordVisibility}
             />
             <button
-              className="bg-orange flex items-center justify-center mx-auto py-2 px-4 rounded mb-4 mt-3 w-full"
+              className="common flex items-center justify-center mx-auto py-2 px-4 rounded mb-4 mt-3 w-full"
               onClick={handleUserForm}
               disabled={loading}
             >

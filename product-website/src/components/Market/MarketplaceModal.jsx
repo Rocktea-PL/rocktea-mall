@@ -16,6 +16,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
   //const [price,setPrice] = useState()
   const [selectedSize, setSelectedSize] = useState("");
   const [retailPrices, setRetailPrices] = useState({});
+  // const [selectedSizes, setSelectedSizes] = useState([]);
   //const [selectedId, setSelectedId] = useState(null);
   const selectedProduct = products.find((product) => product.id === productId);
 
@@ -24,11 +25,9 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
   const { data: price /*isLoading: priceLoading,error*/ } = useQuery(
     ["productPrice", productId],
     async () => {
-      const response = await axios.get(
-        `${apiUrlProductVariant}?product=${productId}`,
-      );
-      console.log("response", response.data);
-      return response.data;
+      const response = await axios.get(`${apiUrlProductVariant}${productId}`);
+      console.log("response", response.data.variants);
+      return response.data.variants;
     },
     {
       staleTime: 60000, // 60 seconds
@@ -52,7 +51,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
     autoplaySpeed: 4000,
   };
 
-  console.log(selectedProduct);
+  // console.log(selectedProduct);
   //console.log(error)
   console.log(productId);
 
@@ -64,13 +63,14 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
     const data = {
       retail_price: retailPrices[id], // Assuming you want the first size
       store: localStorage.getItem("storeId"), // Replace with your actual store ID
+      productvariant: id,
       product_variant: id,
     };
 
     // Make the POST request
     axios
       .post(
-        "https://rocktea-mall-api-test.up.railway.app/rocktea/store-variant/",
+        "https://rocktea-mall-api-test.up.railway.app/rocktea/store_pricing/",
         data,
       )
       .then((response) => {
@@ -128,6 +128,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
       closeModal();
     }
   };
+  const productVariant = selectedProduct.product_variants.length;
 
   return (
     <div className="modal-overlay z-[99]" onClick={handleOverlayClick}>
@@ -177,94 +178,122 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
             </span>
           </h4>
           <div>
-            {price?.length > 0 &&
-              price.map((item) => (
-                <>
-                  <h4
-                    key={item.id}
-                    className="text-sm font-medium flex items-center gap-5 mx-8 mt-1"
-                  >
-                    Base Price:
-                    <span className="text-gold font-semibold text-center">
-                      ₦ {item?.wholesale_price?.toLocaleString("en-US")}
-                    </span>
-                  </h4>
-                  <div className="flex items-center justify-center mt-7 md:mx-20 gap-10 ">
-                    <button
-                      className="flex items-center justify-center mx-auto bg-orange h-12 w-[150px] rounded-lg"
-                      onClick={() => handleAddPrice(item.id)}
-                    >
-                      Add Product
-                    </button>
-                    <button
-                      className="flex items-center justify-center mx-auto border-[1.3px] border-orange h-12 w-[150px] rounded-lg"
-                      onClick={() => handleRemoveProduct(item.id)}
-                    >
-                      Remove Product
-                    </button>
-                  </div>
-
-                  {addPrice && (
-                    <div className="transition-all duration-[10s] delay-200 ease-in-out mx-auto mt-5">
-                      <h4 className="text-center text-[20px] text-blue font-semibold">
-                        Add Profit
-                      </h4>
-                      <form
-                        action=""
-                        className="px-5 flex items-center justify-center mx-auto gap-3 mt-5"
-                      >
-                        <label htmlFor="" className="flex items-center">
-                          <span className="font-bold text-md px-3">₦</span>
-                          <input
-                            type="number"
-                            name="retail_price"
-                            value={retailPrices[item.id] || ""}
-                            onChange={(e) =>
-                              setRetailPrices({
-                                ...retailPrices,
-                                [item.id]: e.target.value,
-                              })
-                            }
-                            className="border bg-white shadow-md border-gray-200 h-10 rounded px-5"
-                          />
-                        </label>
-                        <button
-                          className="p-2 px-4 rounded-md bg-orange"
-                          onClick={(e) => handleAddProduct(e, item.id)}
-                        >
-                          Go
-                        </button>
-                      </form>
-                    </div>
-                  )}
-                </>
-              ))}
+            {productVariant === 0 && (
+              <h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
+                Base Price:{" "}
+                <span className="text-gold font-semibold text-center">
+                  ₦ {selectedProduct?.wholesale_price?.toLocaleString("en-US")}
+                </span>
+              </h4>
+            )}
           </div>
-          {price?.length > 0 ? (
-            <>
-              <div className="mx-8 flex items-center gap-3">
-                <h4 className="text-sm font-medium mt-1">Size:</h4>
-                <select
-                  name="size"
-                  id="size"
-                  onChange={(e) => setSelectedSize(e.target.value)}
-                  value={selectedSize}
-                >
+          <div>
+            {price?.length > 0 && !selectedSize ? (
+              <>
+                <div className=" flex flex-col gap-x-3">
                   {price.map((item) => (
-                    <option key={item.id} value={item.size}>
-                      {item.size}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </>
-          ) : null}
+                    <div key={item.id}>
+                      <div className="mx-8 flex items-center gap-x-3 -mt-3 mb-3">
+                        <h4 className="text-sm font-medium">Size:</h4>
+                        <select
+                          name="size"
+                          id="size"
+                          key={item.id}
+                          onChange={(e) => setSelectedSize(e.target.value)}
+                          value={selectedSize}
+                        >
+                          <option value={item.size}>
+                            {item.size ? item.size : "No Size Available"}
+                          </option>
+                        </select>
+                      </div>
+                      {!item.size && (
+                        <div>
+                          <h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
+                            Base Price:{" "}
+                            <span className="text-gold font-semibold text-center">
+                              ₦ {item?.wholesale_price?.toLocaleString("en-US")}
+                            </span>
+                          </h4>
 
-          {price?.length > 0
-            ? price
+                          <div className="flex items-center justify-center mt-7 md:mx-20 gap-10 ">
+                            <button
+                              className="flex items-center justify-center mx-auto common h-12 w-[150px] rounded-lg"
+                              onClick={() => handleAddPrice(item.id)}
+                            >
+                              Add Product
+                            </button>
+                            <button
+                              className="flex items-center justify-center mx-auto border-[1.3px] border-orange h-12 w-[150px] rounded-lg"
+                              onClick={() => handleRemoveProduct(item.id)}
+                            >
+                              Remove Product
+                            </button>
+                          </div>
+
+                          {addPrice && (
+                            <div className="transition-all duration-[10s] delay-200 ease-in-out mx-auto mt-5">
+                              <h4 className="text-center text-[20px] text-blue font-semibold">
+                                Add Profit
+                              </h4>
+                              <form
+                                action=""
+                                className="px-5 flex items-center justify-center mx-auto gap-3 mt-5"
+                              >
+                                <label htmlFor="" className="flex items-center">
+                                  <span className="font-bold text-md px-3">
+                                    ₦
+                                  </span>
+                                  <input
+                                    type="number"
+                                    name="retail_price"
+                                    value={retailPrices[item.id] || ""}
+                                    onChange={(e) =>
+                                      setRetailPrices({
+                                        ...retailPrices,
+                                        [item.id]: e.target.value,
+                                      })
+                                    }
+                                    className="border bg-white shadow-md border-gray-200 h-10 rounded px-5"
+                                  />
+                                </label>
+                                <button
+                                  className="p-2 px-4 rounded-md common"
+                                  onClick={(e) => handleAddProduct(e, item.id)}
+                                  // disabled={selectedSizes.includes(selectedSize)}
+                                >
+                                  Go
+                                </button>
+                              </form>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              price?.length > 0 &&
+              price
                 .filter((item) => !selectedSize || item.size === selectedSize)
                 .map((item) => (
                   <div key={item.id} className="">
+                    <div className="mx-8 flex items-center gap-3 mb-3">
+                      <h4 className="text-sm font-medium">Size:</h4>
+                      <select
+                        name="size"
+                        id="size"
+                        onChange={(e) => setSelectedSize(e.target.value)}
+                        value={selectedSize}
+                      >
+                        {price.map((item) => (
+                          <option key={item.id} value={item.size}>
+                            {item.size}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                     <h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
                       Base Price:{" "}
                       <span className="text-gold font-semibold text-center">
@@ -314,6 +343,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                           <button
                             className="p-2 px-4 rounded-md bg-orange"
                             onClick={(e) => handleAddProduct(e, item.id)}
+                            // disabled={selectedSizes.includes(selectedSize)}
                           >
                             Go
                           </button>
@@ -322,7 +352,8 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                     )}
                   </div>
                 ))
-            : null}
+            )}
+          </div>
         </article>
       </div>
     </div>

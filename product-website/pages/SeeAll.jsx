@@ -133,11 +133,7 @@ function SeeAll() {
     return (
       <div key={item.product.id}>
         {productPrices?.length > 0 && !isLoading ? (
-          productPrices.map((price, index) => (
-            <p key={index} className="font-bold">
-              ₦ {price?.retail_price}{" "}
-            </p>
-          ))
+          <p className="font-bold">₦ {productPrices[0]?.retail_price} </p>
         ) : (
           <p>No price</p>
         )}
@@ -223,7 +219,7 @@ function SeeAll() {
   return (
     <div className="max-w-[1300px] mx-auto max-md:px-7">
       <div className="lg:flex items-start">
-        <section className="w-1/3 mt-20 rounded-lg p-3 lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto ">
+        <section className="w-1/4 mt-20 rounded-lg p-3 lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto ">
           <SeeAllFilters
             subcategories={subcategories}
             brands={brands}
@@ -234,7 +230,7 @@ function SeeAll() {
             onPriceFilterChange={handlePriceFilterChange}
           />
         </section>
-        <section className=" w-2/3 mt-20 rounded-lg p-3 max-w-[80%]  lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto h-full overflow-scroll">
+        <section className=" w-3/4 mt-20 rounded-lg p-3 max-w-[80%]  lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto h-full overflow-scroll">
           <div>
             <div className="relative max-md:flex items-center max-md:justify-between bg-white shadow-lg  rounded-md w-[500px] lg:w-[800px] p-5 py-5">
               <h3 className=" whitespace-nowrap text-blue font-bold text-center text-[22px] capitalize">

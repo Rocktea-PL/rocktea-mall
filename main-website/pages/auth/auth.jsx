@@ -26,6 +26,26 @@ export const register = async (userData) => {
   }
 };
 
+export const registerService = async (serviceData) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/rocktea/signup/services/`,
+      serviceData,
+    );
+    console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response.data);
+    /*if ({ error } || error.response.data.password) {
+      toast.error(
+        "Password must include at least one special symbol, one lowercase letter, and one uppercase letter.",
+      );
+    }*/
+    throw error.response.data;
+    // Handle registration errors here
+  }
+};
 // Function to handle user store registration
 export const registerStore = async (storeData) => {
   try {

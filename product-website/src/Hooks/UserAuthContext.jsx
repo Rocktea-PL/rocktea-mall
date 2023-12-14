@@ -59,7 +59,7 @@ export const UserAuthProvider = ({ children }) => {
         sameSite: "strict",
       });
       //console.log(store_id);
-      const usertoken = response.access;
+      const usertoken = response.data.access;
       localStorage.setItem("accessToken", usertoken);
       //setUserData(response.user_data);
       //console.log('before user data', response.user_data.first_name)
@@ -170,7 +170,7 @@ export const UserAuthProvider = ({ children }) => {
   };
   const storeLogOut = () => {
     localStorage.removeItem("storeId");
-    window.location.href = "http://localhost:5173/signin";
+    window.location.href = "https://rocktea-mall.vercel.app/signin";
   };
   useEffect(() => {
     //checkTokenExpiration();
@@ -186,6 +186,8 @@ export const UserAuthProvider = ({ children }) => {
     }
   }, [owner_id, user_id, store_id]);
 
+  const access = localStorage.getItem("accessToken");
+  console.log("access token", access);
   return (
     <StoreContext.Provider
       value={{

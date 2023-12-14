@@ -38,8 +38,8 @@ const Categories = ({ closeModal }) => {
   };
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className="modal flex items-center justify-between gap-16 ">
-        <div className="w-[100%]">
+      <div className="modal lg:w-[70%] w-[90%] flex items-center justify-between gap-16 ">
+        <div className="w-[80%]">
           <div className="flex items-start justify-between gap-10">
             <h2 className="text-[1.4rem] font-semibold my-6">
               {categoryname?.name}

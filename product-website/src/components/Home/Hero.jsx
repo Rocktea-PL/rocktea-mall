@@ -1,6 +1,70 @@
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import Hero1 from "../../assets/hero1.jpg";
+import Hero2 from "../../assets/hero2.jpg";
+import Hero3 from "../../assets/hero3.jpg";
+import Hero4 from "../../assets/hero4.jpg";
+
+const heroImages = [
+  {
+    id: 1,
+    image: Hero1,
+  },
+  {
+    id: 2,
+    image: Hero2,
+  },
+  {
+    id: 3,
+    image: Hero3,
+  },
+  {
+    id: 4,
+    image: Hero4,
+  },
+];
 export default function Hero() {
+  const sliderSettings = {
+    // removes default buttons
+    arrows: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    infinite: true,
+    dots: true,
+    fade: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    responsive: [
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
   return (
-    <main
+    <main className=" mt-[4rem]  h-full pb-8 pt-2 mx-2 ">
+      <Slider {...sliderSettings}>
+        {heroImages.map((item) => (
+          <figure
+            key={item.id}
+            className=" flex items-center justify-center mt-5 h-full w-full max-w-[1300px] rounded-md"
+          >
+            <img
+              src={item.image}
+              alt="hero"
+              className=" w-full h-full object-contain !rounded-md "
+            />
+          </figure>
+        ))}
+      </Slider>
+    </main>
+  );
+}
+{
+  /* <main
       className=" mt-[5rem]  h-full pb-8 pt-2 mx-2 rounded-lg"
       style={{
         backgroundImage: `url("https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694422713/rocktea-product-website/assets/Hero-section_acvj8a.png")`,
@@ -32,6 +96,5 @@ export default function Hero() {
           />
         </figure>
       </div>
-    </main>
-  );
+    </main>*/
 }

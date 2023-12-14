@@ -17,7 +17,7 @@ export default {
         'max-md': {'max': '800px'},
       },
       colors:{
-        orange:'#ffa500',
+        orange:'#000',
         gold:'#C99C00',
         darkblue:'#002440',
         lightgray:'#f9f9f9',
