@@ -1,6 +1,6 @@
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import RockteaLogo from "../assets/rocktea-logo.png";
-
+import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer className="bg-[var(--deep-blue)] p-6 lg:p-10 flex  flex-col  lg:items-center justify-between">
@@ -20,7 +20,9 @@ function Footer() {
           <ul className="flex flex-col gap-y-4">
             <li>Home</li>
             <li>About</li>
-            <li>Services</li>
+            <Link to="/services/home">
+              <li>Services</li>
+            </Link>
             <li className="whitespace-nowrap">Rocktea PL</li>
           </ul>
         </article>

@@ -22,6 +22,7 @@ import ServicesInfo from "../pages/ServicesInfo";
 import ServicesHomePage from "../pages/ServicesHomePage";
 import ServiceDetailsPage from "../pages/ServiceDetailsPage";
 import SignupChoice from "../pages/SignupChoice";
+import ServicesSetings from "../pages/ServicesSetings";
 
 function App() {
   const router = createBrowserRouter([
@@ -92,6 +93,10 @@ function App() {
         {
           path: "/dashboard",
           element: <ServiceDashboardHome />,
+        },
+        {
+          path: "/profile",
+          element: <ServicesSetings />,
         },
         {
           path: "/dashboard/orders",

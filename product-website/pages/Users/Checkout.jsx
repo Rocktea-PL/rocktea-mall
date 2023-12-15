@@ -14,24 +14,42 @@ import { useEffect } from "react";
 import { calculateSubtotal, calculateTotal } from "../../src/Helpers/CartUtils";
 import { useState } from "react";
 import OrderModal from "../../src/components/Modals/OrderModal";
+//import toast from "react-hot-toast";
 
 function Checkout() {
   const navigate = useNavigate();
 
-  const { carts } = useUserCartContext();
+  const { carts, token } = useUserCartContext();
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
   const [modal, setModal] = useState(false);
   const { userData, store } = useStoreContext();
   const publicKey = "pk_test_87ac60396c1e2cca490d90abc08a418f08c9e970";
   const estimatedTotalInNaira = total * 100;
-
+  const Base_url = import.meta.env.VITE_BASE_URL;
   //console.log(estimatedTotalInNaira);
+  const patchAccountBalance = () => {
+    const data = {
+      balance: total,
+    };
+    axios
+      .patch(`${Base_url}/rocktea/wallet/${store?.id}`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        // Handle any errors from the API request
+        console.error("API request error:", error);
+      });
+  };
 
   const onSuccess = (response) => {
     // You can access the payment reference here (in the reference variable)
     console.log("Payment reference: " + response.reference);
-    const auth = localStorage.getItem("accessToken");
 
     // Prepare the data you want to send to the API
     const data = {
@@ -46,7 +64,7 @@ function Checkout() {
         data,
         {
           headers: {
-            Authorization: `Bearer ${auth}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         },
@@ -54,6 +72,7 @@ function Checkout() {
       .then((response) => {
         // Handle the API response if needed
         console.log(response.data);
+        patchAccountBalance();
         //console.log("APIresponse:", response.data);
         setModal(true);
       })

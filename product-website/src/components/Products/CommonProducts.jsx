@@ -14,14 +14,14 @@ function CommonProducts() {
         See All <FaAngleRight />
       </span>
       <div className="flex overflow-x-scroll gap-3 snap-mandatory  scroll-smooth ">
-        {product.map((item) => (
+        {product.map((item, index) => (
           <>
             <ProductCard
               name={item.name}
               image={item.image}
               price={item.price}
               oldPrice={item.oldPrice}
-              key={item.id}
+              key={index}
             />
           </>
         ))}

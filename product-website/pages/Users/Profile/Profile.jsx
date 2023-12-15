@@ -8,7 +8,7 @@ import "../../../src/styles/profile.css";
 
 export default function Profile() {
   return (
-    <div className="">
+    <div className="max-md:mt-32">
       <section className="flex   gap-3 items-start  max-w-[1300px] mx-auto mb-5">
         <ProfileSidebar />
         <div className="w-[70%]">

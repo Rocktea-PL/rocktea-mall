@@ -343,7 +343,7 @@ function YourProfile() {
           <hr />
 
           <form action="">
-            <BankDetails />
+            <BankDetails store={store} />
           </form>
         </article>
 

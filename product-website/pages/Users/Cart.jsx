@@ -18,7 +18,8 @@ import { useState } from "react";
 function Cart() {
   const dispatch = useDispatch();
 
-  const { carts, handleDeleteProductItems } = useUserCartContext();
+  const { carts, handleDeleteProductItems, totalQuantity } =
+    useUserCartContext();
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
 
@@ -93,7 +94,7 @@ function Cart() {
               <FaAngleRight />
             </p>
           </div>
-          <p>{"0"} Items</p>
+          <p>{totalQuantity || "0"} Items</p>
         </div>
         <hr className=" mb-5" />
         <div>

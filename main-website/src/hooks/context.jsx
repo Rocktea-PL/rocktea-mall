@@ -13,7 +13,10 @@ const AppProvider = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(0);
   //const [accessToken, setAccessToken] = useState(null);
   // Define initial user data state
-  // const  [user,setUser] = useState({})
+  const [user, setUser] = useState(() => {
+    const storedServiceData = localStorage.getItem("serviceData");
+    return storedServiceData ? JSON.parse(storedServiceData) : null;
+  });
   const [userData, setUserData] = useState({
     // Define initial user data state
     first_name: "",
@@ -33,7 +36,7 @@ const AppProvider = ({ children }) => {
     contact: "",
     password: "",
     profile_image: "",
-    type: "",
+    category: "",
   });
 
   const [credentials, setCredentials] = useState({
@@ -69,7 +72,7 @@ const AppProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [verifyEmail, setVerifyEmail] = useState(false);
   const [categories, setCategories] = useState([]);
-
+  const service_id = localStorage.getItem("ownerId");
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -167,7 +170,7 @@ const AppProvider = ({ children }) => {
     formData.append("contact", serviceData.contact);
     formData.append("password", serviceData.password);
     formData.append("profile_image", serviceData.profile_image);
-    formData.append("type", serviceData.type);
+    formData.append("category", serviceData.category);
 
     try {
       // Add logic here to submit userData to the server
@@ -273,8 +276,10 @@ const AppProvider = ({ children }) => {
         );
       }
 
-      if (response.user_data.is_services) {
+      if (response.user_data.is_services === false) {
         navigate(`/services_info`);
+      } else {
+        navigate("/profile");
       }
 
       console.log("Updated storeData:", storeData);
@@ -452,13 +457,13 @@ const AppProvider = ({ children }) => {
     try {
       // Poll the verification endpoint every 5 seconds
       const store_id = localStorage.getItem("id");
-      const service_id = localStorage.getItem("serviceId");
+      //const service_id = localStorage.getItem("serviceId");
       const interval = setInterval(async () => {
         const verifyPayment = await axios.get(
           `https://rocktea-mall-api-test.up.railway.app/mall/verify?reference=${paymentReference}`,
         );
 
-        if (verifyPayment.data.data.status === "success" && !store_id) {
+        if (verifyPayment.data.data.status === "success" && store_id) {
           clearInterval(interval);
           // Stop polling
           //const store_id = localStorage.getItem('id')
@@ -518,6 +523,8 @@ const AppProvider = ({ children }) => {
         setUserData,
         setStoreData,
         storeData,
+        setUser,
+        user,
         verifyEmail,
         setVerifyEmail,
         credentials,

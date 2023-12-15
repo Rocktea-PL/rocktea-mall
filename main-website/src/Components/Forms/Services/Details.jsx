@@ -67,8 +67,8 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
                 })
               }
             />
-            {storeError?.TIN_number && (
-              <p className="text-red-500 text-sm">{storeError?.TIN_number}</p>
+            {storeError?.contact && (
+              <p className="text-red-500 text-sm">{storeError?.contact}</p>
             )}
           </label>
           <label htmlFor="years_of_experience">
@@ -78,12 +78,17 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
               id="years_of_experience"
               onChange={handleStoreInputChange}
             >
-              <option value="1">0 Years</option>
-              <option value="1">1-2 Years </option>
-              <option value="1">3-4 Years</option>
-              <option value="1">5-6 Years</option>
-              <option value="1">7 Years & above</option>
+              <option value="0 Years">0 Years</option>
+              <option value="1-2 Years">1-2 Years </option>
+              <option value="3-4 Years">3-4 Years</option>
+              <option value="5-6 Years">5-6 Years</option>
+              <option value="7 Years & above">7 Years & above</option>
             </select>
+            {storeError?.years_of_experience && (
+              <p className="text-red-500 text-sm">
+                {storeError?.years_of_experience}
+              </p>
+            )}
           </label>
           <label htmlFor="" className="flex flex-col md:col-span-2">
             Tell us about your business?
@@ -96,6 +101,9 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
               className="!h-[200px] p-1"
               onChange={handleStoreInputChange}
             ></textarea>
+            {storeError?.about && (
+              <p className="text-red-500 text-sm">{storeError?.about}</p>
+            )}
           </label>
           {/* Input for the first image 
            <label htmlFor="image1" className="flex flex-col md:col-span-2">

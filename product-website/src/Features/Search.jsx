@@ -6,29 +6,21 @@ import NoProduct from "../components/Products/NoProduct";
 export default function Search({ filteredProducts, searchQuery, openModal }) {
   return (
     <section className=" rounded-lg p-3 max-w-[80%]  lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto -mt-10">
-      <div className="relative max-md:flex items-center max-md:justify-between bg-white shadow-lg  rounded-md w-[500px] lg:w-[1000px] p-5 py-5 -mt-5">
-        <h3 className=" whitespace-nowrap text-blue font-bold text-center text-[22px] capitalize">
-          Search result for &quot;{searchQuery}&quot;{" "}
-        </h3>
-        <span className="lg:absolute right-5 top-6  text-[18px]">
-          {filteredProducts?.length} products found
-        </span>
+      <div>
+        <div className="relative max-md:flex items-center max-md:justify-between bg-white shadow-lg  rounded-md w-[500px] lg:w-[1000px] p-5 py-5">
+          <h3 className=" whitespace-nowrap text-blue font-bold text-center text-[22px] capitalize">
+            Search result for &quot;{searchQuery}&quot;{" "}
+          </h3>
+          <span className="lg:absolute right-5 top-6  text-[18px]">
+            {filteredProducts?.length} products found
+          </span>
+        </div>
+        {filteredProducts?.length > 0 && <Searchfilter />}
       </div>
       {filteredProducts.length === 0 ? (
         <NoProduct />
       ) : (
         <>
-          <div>
-            <div className="relative max-md:flex items-center max-md:justify-between bg-white shadow-lg  rounded-md w-[500px] lg:w-[1000px] p-5 py-5">
-              <h3 className=" whitespace-nowrap text-blue font-bold text-center text-[22px] capitalize">
-                Search result for &quot;{searchQuery}&quot;{" "}
-              </h3>
-              <span className="lg:absolute right-5 top-6  text-[18px]">
-                {filteredProducts?.length} products found
-              </span>
-            </div>
-            <Searchfilter />
-          </div>
           <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-items-center gap-2 ">
             {filteredProducts.map((product) => {
               const isImageAvailable =
@@ -54,12 +46,15 @@ export default function Search({ filteredProducts, searchQuery, openModal }) {
                         <p>{product.color}</p>
                         <p className="font-semibold"></p>
 
-                        <div className="relative h-[0.6rem] w-full mt-3 border border-solid border-gray-200 ">
-                          <div
-                            className="absolute inset-0 bg-orange rounded-sm"
-                            style={{ width: "50%" }}
-                          ></div>
-                        </div>
+                        <p className="text-[14px] ">
+                          {product?.quantity <= 0 ? (
+                            <span className="text-red-500">Out of Stock</span>
+                          ) : (
+                            <span className="opacity-[0.8]">
+                              {product?.quantity} units left
+                            </span>
+                          )}{" "}
+                        </p>
                       </div>
                     </div>
                   )}

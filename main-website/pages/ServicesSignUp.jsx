@@ -180,7 +180,11 @@ function ServicesSignUp() {
 
                 <label className="flex flex-col md:col-span-2">
                   What Services do you render
-                  <select name="type" id="type" onChange={handleInputChange}>
+                  <select
+                    name="category"
+                    id="category"
+                    onChange={handleInputChange}
+                  >
                     <option value="Makeup Artist">MakeUp Artist</option>
                     <option value="Fashion Designer">Fashion Designer</option>
                     <option value="Personal Assistant">

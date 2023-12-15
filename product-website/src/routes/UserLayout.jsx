@@ -76,7 +76,7 @@ function UserLayout() {
               </ProtectedRoute>
             }
           />
-          <Route path="/products" element={<Products />} />
+          <Route path="/products/:type" element={<Products />} />
           <Route path="/shop/:categoryName" element={<SeeAll />} />
           <Route
             path="/product_details/:productId"

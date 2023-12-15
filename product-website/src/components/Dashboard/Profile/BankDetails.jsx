@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 
-const BankDetails = () => {
+const BankDetails = ({ store }) => {
   const [accountNumber, setAccountNumber] = useState("");
   const [selectedBank, setSelectedBank] = useState(null);
   const [customerName, setCustomerName] = useState("");
@@ -69,7 +69,7 @@ const BankDetails = () => {
   );
 
   const patchAccountDetailsMutation = useMutation(
-    (data) => axios.patch(`${Base_url}/rocktea/wallet/1/`, data),
+    (data) => axios.patch(`${Base_url}/rocktea/wallet/${store?.id}/`, data),
     {
       onSuccess: (data) => {
         // Handle success if needed
@@ -87,7 +87,7 @@ const BankDetails = () => {
     ["accountDetails"],
     async () => {
       const response = await axios.get(
-        `https://rocktea-mall-api-test.up.railway.app/rocktea/wallet/1/`,
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/wallet/${store?.id}/`,
       );
       return response.data;
     },

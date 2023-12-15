@@ -55,26 +55,26 @@ export default function ServiceListings() {
         {services.map((data) => (
           <div key={data.id}>
             <Link to={`/services/details/${data?.id}`}>
-            <figure className="w-[280px]  h-[250px]">
-              <img
-                src={data.image}
-                className="w-full h-full object-cover rounded-md"
-                alt={data.text}
-              />
-            </figure>
-            <div className="w-[280px] max-h-[250px] bg-white px-4 py-5 shadow-md rounded-b-md flex flex-col gap-y-2">
-              <p>{data.text}</p>
-              <h4 className="!text-[22px] font-semibold ">{data.name}</h4>
-              <h4 className="!text-[20px] !mt-0 text-orange font-semibold">
-                ₦20,000/hr
-              </h4>
-              <h5 className="!text-[12px] mb-2">4+ Years of experience</h5>
+              <figure className="w-[280px]  h-[250px]">
+                <img
+                  src={data.image}
+                  className="w-full h-full object-cover rounded-md"
+                  alt={data.text}
+                />
+              </figure>
+              <div className="w-[280px] max-h-[250px] bg-white px-4 py-5 shadow-md rounded-b-md flex flex-col gap-y-2">
+                <p>{data.text}</p>
+                <h4 className="!text-[22px] font-semibold ">{data.name}</h4>
+                <h4 className="!text-[20px] !mt-0 text-orange font-semibold">
+                  ₦20,000/hr
+                </h4>
+                <h5 className="!text-[12px] mb-2">4+ Years of experience</h5>
 
-              <hr />
-              <span className="flex items-center justify-center gap-3 text-[15px] mt-3">
-                <FaLocationDot /> Ikoyi, Lagos
-              </span>
-            </div>
+                <hr />
+                <span className="flex items-center justify-center gap-3 text-[15px] mt-3">
+                  <FaLocationDot /> Ikoyi, Lagos
+                </span>
+              </div>
             </Link>
           </div>
         ))}
