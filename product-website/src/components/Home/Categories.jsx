@@ -10,7 +10,7 @@ function Categories() {
         {category.map((item) => (
           <div
             key={item.id}
-            className="   rounded-lg w flex flex-col items-center justify-center "
+            className="bg-white shadow-md pt-3   rounded-lg w flex flex-col items-center justify-center "
           >
             <figure className=" w-[80px] h-[80px] bg-[#ECEBEB]  flex items-center justify-center  rounded-full   ">
               <img
@@ -21,7 +21,7 @@ function Categories() {
                 className="  object-cover"
               />
             </figure>
-            <p className="mt-0 bg-white py-5 w-full text-center rounded-b-lg">
+            <p className="mt-0  py-5 w-full text-center rounded-b-lg">
               {item.name}
             </p>
           </div>

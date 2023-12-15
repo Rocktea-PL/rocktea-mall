@@ -32,6 +32,7 @@ export default function ScrollProducts({ categoryTitle, openModal, products }) {
     }
   };
 
+  // console.log(products)
   return (
     <div className="">
       <div className="relative my-5 bg-white shadow-md z-[10] w-auto p-5">

@@ -33,129 +33,155 @@ const servicesDetails = [
     name: "Benita Fashion....",
   },
 ];
-export default function DetailsThumbnails() {
+export default function DetailsThumbnails({ servicesDetail }) {
   // const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [thumbsSwiperMobile, setThumbsSwiperMobile] = useState(null);
   return (
-    <div className="w-full lg:w-1/2">
-      {/* <div className="hidden lg:flex flex-row-reverse gap-5  w-full justify-center ">
-        Main Image 
+    <div className="w-full">
+      {servicesDetail ? (
+        <div className="  max-w-[90%] ">
+          {/* Main Image */}
 
-        <Swiper
-          style={{
-            "--swiper-navigation-color": "#fff",
-            "--swiper-pagination-color": "#fff",
-          }}
-          loop={true}
-          slidesPerView={1}
-          spaceBetween={3}
-          navigation={true}
-          //autoplay={true}
-          thumbs={{
-            swiper:
-              thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
-          }}
-          modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper h-[500px] "
-        >
-          {productDet?.images?.length > 0 &&
-            productDet?.images.map((item, index) => (
-              <SwiperSlide key={index}>
-                <img
-                  src={item?.url}
-                  alt="Additional Product 2"
-                  className="  object-cover w-[200px] h-[200px] block rounded-md  "
-                />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-        {/* Additional Images 
-        <Swiper
-          onSwiper={setThumbsSwiper}
-          loop={true}
-          spaceBetween={2}
-          slidesPerView={4}
-          // autoplay={true}
-          //onAutoplayResume={true}
-          freeMode={true}
-          direction="vertical"
-          watchSlidesProgress={true}
-          modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper2 mt-4   flex !flex-col max-h-[300px]"
-        >
-          {productDet?.images?.length > 0 &&
-            productDet?.images.map((item, index) => (
-              <SwiperSlide key={index} className="flex !flex-col">
-                <img
-                  src={item?.url}
-                  alt="Additional Product 2"
-                  className=" object-cover !rounded-md"
-                />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </div>*/}
-      <div className="  max-w-[90%] ">
-        {/* Main Image */}
+          <Swiper
+            style={{
+              "--swiper-navigation-color": "#fff",
+              "--swiper-pagination-color": "#fff",
+            }}
+            loop={true}
+            slidesPerView={1}
+            spaceBetween={3}
+            navigation={false}
+            // autoplay={true}
+            thumbs={{
+              swiper:
+                thumbsSwiperMobile && !thumbsSwiperMobile.destroyed
+                  ? thumbsSwiperMobile
+                  : null,
+            }}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="mySwiper h-[500px] "
+          >
+            <SwiperSlide className="flex flex-col items-center justify-center  ">
+              <img
+                src={servicesDetail.business_photograph}
+                alt="Additional Product 2"
+                className=" object-cover flex rounded-md"
+              />
+            </SwiperSlide>
+            <SwiperSlide className="flex flex-col items-center justify-center  ">
+              <img
+                src={servicesDetail.business_photograph2}
+                alt="Additional Product 2"
+                className=" object-cover flex rounded-md"
+              />
+            </SwiperSlide>
+            <SwiperSlide className="flex flex-col items-center justify-center  ">
+              <img
+                src={servicesDetail.business_photograph3}
+                alt="Additional Product 2"
+                className=" object-cover flex rounded-md"
+              />
+            </SwiperSlide>
+          </Swiper>
+          {/* Additional Images */}
+          <Swiper
+            onSwiper={setThumbsSwiperMobile}
+            loop={true}
+            spaceBetween={2}
+            slidesPerView={4}
+            // autoplay={true}
+            freeMode={true}
+            // direction="vertical"
+            // watchSlidesProgress={true}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="mySwiper2 mt-4   flex !flex-col overflow-auto"
+          >
+            <SwiperSlide className="flex flex-col items-center justify-center  ">
+              <img
+                src={servicesDetail.business_photograph}
+                alt="Additional Product 2"
+                className=" object-cover flex rounded-md"
+              />
+            </SwiperSlide>
+            <SwiperSlide className="flex flex-col items-center justify-center  ">
+              <img
+                src={servicesDetail.business_photograph2}
+                alt="Additional Product 2"
+                className=" object-cover flex rounded-md"
+              />
+            </SwiperSlide>
+            <SwiperSlide className="flex flex-col items-center justify-center  ">
+              <img
+                src={servicesDetail.business_photograph3}
+                alt="Additional Product 2"
+                className=" object-cover flex rounded-md"
+              />
+            </SwiperSlide>
+          </Swiper>
+        </div>
+      ) : (
+        <div className="  max-w-[90%] ">
+          {/* Main Image */}
 
-        <Swiper
-          style={{
-            "--swiper-navigation-color": "#fff",
-            "--swiper-pagination-color": "#fff",
-          }}
-          loop={true}
-          slidesPerView={1}
-          spaceBetween={3}
-          navigation={false}
-          // autoplay={true}
-          thumbs={{
-            swiper:
-              thumbsSwiperMobile && !thumbsSwiperMobile.destroyed
-                ? thumbsSwiperMobile
-                : null,
-          }}
-          modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper h-[500px] "
-        >
-          {servicesDetails?.length > 0 &&
-            servicesDetails.map((item, index) => (
-              <SwiperSlide key={index}>
-                <img
-                  src={item?.image}
-                  alt="Additional Product 2"
-                  className="  rounded-md   object-cover"
-                />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-        {/* Additional Images */}
-        <Swiper
-          onSwiper={setThumbsSwiperMobile}
-          loop={true}
-          spaceBetween={2}
-          slidesPerView={4}
-          // autoplay={true}
-          freeMode={true}
-          // direction="vertical"
-          // watchSlidesProgress={true}
-          modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper2 mt-4   flex !flex-col overflow-auto"
-        >
-          {servicesDetails?.length > 0 &&
-            servicesDetails.map((item, index) => (
-              <SwiperSlide
-                key={index}
-                className="flex flex-col items-center justify-center  "
-              >
-                <img
-                  src={item?.image}
-                  alt="Additional Product 2"
-                  className=" object-cover flex rounded-md"
-                />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </div>
+          <Swiper
+            style={{
+              "--swiper-navigation-color": "#fff",
+              "--swiper-pagination-color": "#fff",
+            }}
+            loop={true}
+            slidesPerView={1}
+            spaceBetween={3}
+            navigation={false}
+            // autoplay={true}
+            thumbs={{
+              swiper:
+                thumbsSwiperMobile && !thumbsSwiperMobile.destroyed
+                  ? thumbsSwiperMobile
+                  : null,
+            }}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="mySwiper h-[500px] "
+          >
+            {servicesDetails?.length > 0 &&
+              servicesDetails.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <img
+                    src={item?.image}
+                    alt="Additional Product 2"
+                    className="  rounded-md   object-cover"
+                  />
+                </SwiperSlide>
+              ))}
+          </Swiper>
+          {/* Additional Images */}
+          <Swiper
+            onSwiper={setThumbsSwiperMobile}
+            loop={true}
+            spaceBetween={2}
+            slidesPerView={4}
+            // autoplay={true}
+            freeMode={true}
+            // direction="vertical"
+            // watchSlidesProgress={true}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="mySwiper2 mt-4   flex !flex-col overflow-auto"
+          >
+            {servicesDetails?.length > 0 &&
+              servicesDetails.map((item, index) => (
+                <SwiperSlide
+                  key={index}
+                  className="flex flex-col items-center justify-center  "
+                >
+                  <img
+                    src={item?.image}
+                    alt="Additional Product 2"
+                    className=" object-cover flex rounded-md"
+                  />
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        </div>
+      )}
     </div>
   );
 }

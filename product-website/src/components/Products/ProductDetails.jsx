@@ -16,6 +16,7 @@ import { useQuery } from "react-query";
 import { useProductPrices } from "../../Hooks/UseProductPrices";
 import { FaHeart } from "react-icons/fa";
 import { useUserCartContext } from "../../Hooks/CartContext";
+import TruncateDescription from "../../Features/TruncateDescription";
 /// handleIncrementQuantity,
 const UserProductDetails = () => {
   const { productId } = useParams();
@@ -321,7 +322,7 @@ const UserProductDetails = () => {
               <h3 className="text-md font-semibold border-b border-b-gray-300 pb-3">
                 Product Details
               </h3>
-              <p className="text-gray-600 my-5">{productDet?.description}</p>
+              <TruncateDescription description={productDet?.description} />
             </div>
 
             <div className=" ">

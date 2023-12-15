@@ -31,7 +31,15 @@ function Signup() {
     const { name, value } = e.target;
     const updatedErrors = { ...error };
     // Email validation regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    // Validate email if the input name is "email"
+    if (name === "email" && !value.match(emailRegex)) {
+      updatedErrors.email = "Please enter a valid email address.";
+      //toast.error('Please enter a valid email address.')
+    } else {
+      updatedErrors.email = ""; // Reset email error if valid
+    }
     setFormData({
       ...formData,
       [name]: value,

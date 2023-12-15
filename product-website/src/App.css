@@ -16,7 +16,7 @@
 }*/
 
 .common{
-  @apply  text-white bg-black
+  @apply  text-white bg-[#1e1c1c]
 }
 ::-webkit-scrollbar{
   display: none;

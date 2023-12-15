@@ -9,7 +9,7 @@ export default function ProfileSide({ profileCompletion }) {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   //const [profileCompletion, setProfileCompletion] = useState(0);
 
-  const storeUrl = `https://rocktea-mall-product.vercel.app/register/${store_id}`;
+  const storeUrl = `https://rocktea-mall-product.vercel.app/register?id=${store_id}`;
 
   const copyLinkToClipboard = async () => {
     try {

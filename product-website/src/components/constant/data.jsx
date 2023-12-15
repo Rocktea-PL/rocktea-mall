@@ -154,37 +154,37 @@ export const category = [
   {
     id: 1,
     image:
-      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728360/rocktea-product-website/assets/Rectangle_35_rdtaox.png",
-    name: "Processed Food",
+      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702613710/rocktea-product-website/assets/categories/image_218_gwydsm.svg",
+    name: "Services",
   },
   {
-    id: 1,
+    id: 2,
     image:
       "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702250400/rocktea-product-website/assets/categories/allcategories.svg",
     name: "Categories",
   },
   {
-    id: 1,
+    id: 3,
     image:
       "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702250400/rocktea-product-website/assets/categories/image_217_yymxbk.svg",
     name: "Soft Drinks",
   },
   {
-    id: 1,
+    id: 4,
     image:
       "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702250400/rocktea-product-website/assets/categories/image_214_hwmufz.svg",
     name: "Beverages",
   },
   {
-    id: 1,
+    id: 5,
     image:
       "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702250400/rocktea-product-website/assets/categories/image_215_um9ytj.svg",
     name: "Grains & Cereals",
   },
   {
-    id: 1,
+    id: 6,
     image:
-      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695728349/rocktea-product-website/assets/Rectangle_35_5_msfzqc.png",
-    name: "Diary Products",
+      "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702613709/rocktea-product-website/assets/categories/red-wine_8243341_zdlyha.svg",
+    name: "Wine",
   },
 ];

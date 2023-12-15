@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const ThemePicker = ({ handleThemeChange, store }) => {
+const ThemePicker = ({ handleThemeChange, store, selectedTheme }) => {
   const themes = [
     "ffffff",
     "8B008B",
@@ -16,6 +16,7 @@ const ThemePicker = ({ handleThemeChange, store }) => {
     "484444",
   ];
   const [selectField, setSelectField] = useState(false);
+  // const [selectTheme, setSelectedTheme] = useState(false)
   const handleThemes = () => {
     setSelectField(!selectField);
   };
@@ -37,7 +38,10 @@ const ThemePicker = ({ handleThemeChange, store }) => {
                 type="button"
                 key={index}
                 className={`rounded-md shadow-md w-12 h-12  sm:w-16 sm:h-16 ${
-                  store.theme === theme && "border-[1.3px] border-orange"
+                  (selectedTheme === theme &&
+                    " shadow-xl scale-[1.15] transition-all duration-[600ms] ease-in-out") ||
+                  (store.theme === theme &&
+                    "border-[2px] border-orange shadow-xl scale-[1.05]")
                 }`}
                 style={{ backgroundColor: "#" + theme, cursor: "pointer" }}
                 onClick={() => handleThemeChange(theme)}

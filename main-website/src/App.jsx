@@ -21,6 +21,7 @@ import ServiceDashboardHome from "../pages/ServicesDashboard copy/Home";
 import ServicesInfo from "../pages/ServicesInfo";
 import ServicesHomePage from "../pages/ServicesHomePage";
 import ServiceDetailsPage from "../pages/ServiceDetailsPage";
+import SignupChoice from "../pages/SignupChoice";
 
 function App() {
   const router = createBrowserRouter([
@@ -43,6 +44,10 @@ function App() {
         {
           path: "/signin",
           element: <SignIn />,
+        },
+        {
+          path: "/signup",
+          element: <SignupChoice />,
         },
         {
           path: "/personal_details",
@@ -81,7 +86,7 @@ function App() {
           element: <ServicesHomePage />,
         },
         {
-          path: "/services/details",
+          path: "/services/details/:id",
           element: <ServiceDetailsPage />,
         },
         {

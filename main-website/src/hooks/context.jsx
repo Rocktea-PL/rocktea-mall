@@ -60,7 +60,7 @@ const AppProvider = ({ children }) => {
     business_photograph2: "",
     business_photograph3: "",
     about: "",
-    user: localStorage.getItem("serviceId"),
+    user: localStorage.getItem("ownerId"),
     // Add more properties as needed
   });
   const [error, setError] = useState(null);
@@ -136,6 +136,7 @@ const AppProvider = ({ children }) => {
       console.log(response.error);
       // Move to the next step
       // Save userData to localStorage
+
       localStorage.setItem("userData", JSON.stringify(userData));
       toast.success("Registered Succesfully!");
 
@@ -218,14 +219,16 @@ const AppProvider = ({ children }) => {
       // Handle successful registration
       // For now, let's just log the user data
       console.log("Registration successful", serviceData);
-      //console.log(response.error);
-      // Move to the next step
-      // Save userData to localStorage
-      localStorage.setItem("serviceUserId", response.data.id);
-      localStorage.setItem("serviceData", JSON.stringify(serviceData));
+      console.log(response?.data);
       toast.success("Registered Succesfully!");
 
       navigate("/email_verification");
+      //console.log(response.error);
+      // Move to the next step
+      // Save userData to localStorage
+      localStorage.setItem("serviceUserId", response?.data?.id);
+      localStorage.setItem("serviceData", JSON.stringify(serviceData));
+
       //cogoToast.success("Registered Succesfully!");
     } catch (error) {
       setError(error || error.response.data);
@@ -271,11 +274,12 @@ const AppProvider = ({ children }) => {
       }
 
       if (response.user_data.is_services) {
-        navigate(`/dashboard?store_id=${response.user_data.id}`, "_self");
+        navigate(`/services_info`);
       }
 
       console.log("Updated storeData:", storeData);
-
+      localStorage.setItem("ownerId", response.user_data.id);
+      console.log(response.user_data.id);
       toast.success("Logged in Successfully");
     } catch (error) {
       setLoginError(error); // Handle login error
@@ -309,7 +313,7 @@ const AppProvider = ({ children }) => {
       Authorization: `Bearer ${storedToken}`, // Important for sending file data
     };
     const apiUrl =
-      "https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/";
+      "https://rocktea-mall-api-test.up.railway.app/rocktea/business_info/";
     try {
       setIsLoading(true);
       console.log("access token from local storage:", storedToken);

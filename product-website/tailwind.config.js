@@ -23,7 +23,8 @@ export default {
         lightgray:'#f9f9f9',
         blue:'#002440',
         primary:'#fcfcfc',
-        dashblue:'#00508C'
+        dashblue:'#00508C',
+        
       },
       fontSize:{
         xsm:'0.8rem',

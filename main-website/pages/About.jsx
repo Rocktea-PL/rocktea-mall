@@ -74,12 +74,12 @@ function About() {
         </div>
       </figure>
       <article className="flex flex-col-reverse lg:flex-row items-center justify-center gap-y-10 lg:gap-20 mt-12 bg-white rounded-lg py-10 px-7  ">
-        <figure className=" w-[70%] md:w-[300px] md:h-[300px]">
+        <figure className=" w-[100%] md:w-[500px] md:h-[400px]">
           {loading ? (
             <Skeleton width={300} height={300} />
           ) : (
             <motion.img
-              src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298697/rocktea-main-website/assets/Our_story_vmaky5.png"
+              src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702571192/rocktea-main-website/assets/Team_goals-rafiki_1_cmt2vg.svg"
               alt="our story"
               initial={{ opacity: 0, x: -150 }}
               whileInView={{
@@ -136,7 +136,7 @@ function About() {
                   ease: "easeInOut",
                 },
               }}
-              className="mt-7"
+              className="mt-5"
             >
               Our mission is to empower businesses by providing them with a
               comprehensive and user-friendly platform that simplifies the
@@ -151,12 +151,12 @@ function About() {
       </article>
 
       <article className="flex flex-col-reverse lg:flex-row-reverse items-center justify-center gap-y-10 lg:gap-20 mt-12 bg-white rounded-lg py-10 px-7">
-        <figure className=" w-[70%] md:w-[300px]   md:h-[300px]">
+        <figure className=" w-[100%] md:w-[500px]   md:h-[400px]">
           {loading ? (
             <Skeleton width={300} height={300} />
           ) : (
             <motion.img
-              src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298697/rocktea-main-website/assets/vision.png"
+              src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702571193/rocktea-main-website/assets/Marketing_consulting-amico_1_jm83ru.svg"
               alt="our story"
               initial={{ opacity: 0, x: 150 }}
               whileInView={{
@@ -213,7 +213,7 @@ function About() {
                   ease: "easeInOut",
                 },
               }}
-              className="mt-7"
+              className="mt-5"
             >
               We envision a world where online shopping is not just about buying
               products but about discovering exciting new items that enhance
