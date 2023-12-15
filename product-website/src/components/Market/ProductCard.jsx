@@ -14,7 +14,7 @@ export default function ProductCard({ id, quantity, image, name, openModal }) {
   const currentQuantity = quantity;
   //const [currentQuantity, setCurrentQuantity] = useState(quantity);
 
-  // Calculate the percentage based on the currentQuantity
+  /*Calculate the percentage based on the currentQuantity
   const percentage = (currentQuantity / quantity) * 100;
   // Determine the CSS class and color based on the percentage
   let progressBarClass = "bg-red-600"; // Default to red
@@ -24,7 +24,7 @@ export default function ProductCard({ id, quantity, image, name, openModal }) {
     progressBarClass = "bg-orange"; // Orange for 15% to 50%
   } else if (percentage === 0) {
     progressBarClass = "bg-gray-400"; // Out of stock (0%)
-  }
+  }*/
 
   return (
     <>
@@ -48,21 +48,15 @@ export default function ProductCard({ id, quantity, image, name, openModal }) {
                 {name}
               </p>
 
-              <p className="text-[14px] opacity-[0.5]">
+              <p className="text-[14px] ">
                 {currentQuantity <= 0 ? (
-                  "Out of Stock"
+                  <span className="text-red-500">Out of Stock</span>
                 ) : (
-                  <span>{currentQuantity} left</span>
+                  <span className="opacity-[0.8]">
+                    {currentQuantity} units left
+                  </span>
                 )}{" "}
               </p>
-              <div
-                className={`relative h-[0.6rem] rounded  mt-1 border border-solid border-gray-200 `}
-              >
-                <div
-                  className={`absolute inset-0 rounded-sm ${progressBarClass}`}
-                  style={{ width: `${percentage}%` }}
-                ></div>
-              </div>
             </div>
           </div>
         </div>
@@ -72,3 +66,10 @@ export default function ProductCard({ id, quantity, image, name, openModal }) {
     </>
   );
 }
+/**<div
+                className={`relative h-[0.6rem] rounded  mt-1 border border-solid border-gray-200 `}
+              >
+                <div
+                  className={`absolute inset-0 rounded-sm ${progressBarClass}`}
+                  style={{ width: `${percentage}%` }}
+                ></div></div> */

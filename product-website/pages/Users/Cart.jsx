@@ -96,120 +96,138 @@ function Cart() {
           <p>{"0"} Items</p>
         </div>
         <hr className=" mb-5" />
-        <div className="flex flex-col lg:flex-row justify-center w-full gap-5">
-          {/* Cart Items */}
-          <div className=" lg:w-3/4 w-full flex flex-col ">
-            {/* Cart Item 1 */}
+        <div>
+          {carts?.length <= 0 ? (
+            <div className="bg-white mb-3 max-w-[600px] flex flex-col items-center justify-center mx-auto py-10 rounded-md px-6">
+              <img
+                width={320}
+                height={320}
+                src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1701240027/rocktea-product-website/assets/Empty_Bag_ccbshd.svg"
+                alt="orders"
+              />
+              <h3 className="text-md text-center">Your cart is empty!</h3>
+              <p>
+                Browse our categories to discover <br />
+                our best deals!
+              </p>
+              <Link to={`/`}>
+                <button className="common p-3  font-medium rounded-md mt-5">
+                  Start Shopping
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <div className="flex flex-col lg:flex-row justify-center w-full gap-5">
+              <div className=" lg:w-3/4 w-full flex flex-col ">
+                {carts?.length > 0 &&
+                  carts.map((data, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="flex flex-col bg-white mb-4  gap-3  w-full rounded-md  p-3   "
+                      >
+                        {data.items.map((cart) => (
+                          <div key={cart.id} className="flex !justify-between">
+                            <div className="flex  items-center justify-center gap-3">
+                              <div className="flex items-center justify-center w-[120px] h-[120px]">
+                                <img src={cart?.product?.images[0]} alt="" />
+                              </div>
 
-            {carts?.length > 0 &&
-              carts.map((data, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="flex flex-col bg-white mb-4  gap-3  w-full rounded-md  p-3   "
-                  >
-                    {data.items.map((cart) => (
-                      <div key={cart.id} className="flex !justify-between">
-                        <div className="flex  items-center justify-center gap-3">
-                          <div className="flex items-center justify-center w-[120px] h-[120px]">
-                            <img src={cart?.product?.images[0]} alt="" />
-                          </div>
+                              <div className=" p-2 flex flex-col">
+                                <p className="text-[20px] uppercase tracking-wide">
+                                  {cart.product.name}
+                                </p>
+                                <p className="text-md font-semibold">
+                                  ₦ {cart?.price?.toLocaleString()}
+                                </p>
 
-                          <div className=" p-2 flex flex-col">
-                            <p className="text-[20px] uppercase tracking-wide">
-                              {cart.product.name}
-                            </p>
-                            <p className="text-md font-semibold">
-                              ₦ {cart?.price?.toLocaleString()}
-                            </p>
-
-                            <div className="grid grid-cols-3 items-center divide-x divide-inherit w-[150px]  border border-[#acaaaa] rounded-md">
+                                <div className="grid grid-cols-3 items-center divide-x divide-inherit w-[150px]  border border-[#acaaaa] rounded-md">
+                                  <button
+                                    className="max-w-1/3 h-12 text-inherit"
+                                    onClick={() => handleDecrement(cart)}
+                                  >
+                                    -
+                                  </button>
+                                  <p className="px-5 flex items-center justify-center max-w-1/3 h-12">
+                                    {cart.quantity}
+                                  </p>
+                                  <button
+                                    className="max-w-1/3 h-12 text-inherit"
+                                    onClick={() => handleIncrement(cart)}
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="p-2">
                               <button
-                                className="max-w-1/3 h-12 text-inherit"
-                                onClick={() => handleDecrement(cart)}
+                                onClick={() =>
+                                  handleDeleteProductItems(cart.id)
+                                }
+                                className=" block common p-3 w-[150px] rounded-lg"
                               >
-                                -
-                              </button>
-                              <p className="px-5 flex items-center justify-center max-w-1/3 h-12">
-                                {cart.quantity}
-                              </p>
-                              <button
-                                className="max-w-1/3 h-12 text-inherit"
-                                onClick={() => handleIncrement(cart)}
-                              >
-                                +
+                                Delete
                               </button>
                             </div>
                           </div>
-                        </div>
-                        <div className="p-2">
-                          <button
-                            onClick={() => handleDeleteProductItems(cart.id)}
-                            className=" block common p-3 w-[150px] rounded-lg"
-                          >
-                            Delete
-                          </button>
-                        </div>
+                        ))}
                       </div>
-                    ))}
+                    );
+                  })}
+              </div>
+
+              <div className="lg:w-1/4 mb-10 ">
+                <div className="bg-white p-4 w-full h-auto shadow rounded-md py-5 px-7">
+                  <h3 className="text-md font-semibold mb-2">Checkout</h3>
+                  <p className="my-2">Enter Promo Code</p>
+                  <div className="flex items-center border border-gray-300 rounded-md">
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      className="border-0 p-2 rounded-tl-md rounded-bl-md   w-full"
+                    />
+                    <button className="block common p-2 px-4 rounded-md ">
+                      Enter
+                    </button>
                   </div>
-                );
-              })}
-          </div>
 
-          {/* Repeat the above structure for other cart items */}
-
-          {/* Checkout */}
-          <div className="lg:w-1/4 mb-10 ">
-            <div className="bg-white p-4 w-full h-auto shadow rounded-md py-5 px-7">
-              {/* Add your checkout elements here */}
-              <h3 className="text-md font-semibold mb-2">Checkout</h3>
-              <p className="my-2">Enter Promo Code</p>
-              <div className="flex items-center border border-gray-300 rounded-md">
-                <input
-                  type="text"
-                  placeholder="Name"
-                  className="border-0 p-2 rounded-tl-md rounded-bl-md   w-full"
-                />
-                <button className="block common p-2 px-4 rounded-md ">
-                  Enter
-                </button>
+                  <div className="mt-8 flex flex-col text-left gap-y-8 ">
+                    <h3 className="flex items-start justify-between  text-center">
+                      <span className="">Subtotal</span>
+                      <span className="font-semibold flex-1 text-right mr-3">
+                        ₦ {subtotal.toLocaleString()}
+                      </span>
+                    </h3>
+                    <h3 className="flex items-start justify-between  ">
+                      <span className="">Delivery Cost</span>
+                      <span className="font-semibold flex-1 text-right mr-3">
+                        ₦120
+                      </span>
+                    </h3>
+                    <h3 className="flex items-start justify-between ">
+                      <span className="">Discount</span>
+                      <span className="font-semibold block flex-1 text-right mr-3">
+                        ₦12
+                      </span>
+                    </h3>
+                    <hr />
+                    <h3 className="flex items-center justify-between ">
+                      <span className="">Estimated Total</span>
+                      <span className="font-semibold">
+                        ₦ {total.toLocaleString()}
+                      </span>
+                    </h3>
+                  </div>
+                  <Link to="/checkout">
+                    <button className=" common flex items-center justify-center mx-auto my-10  rounded-md w-full h-12">
+                      Checkout
+                    </button>
+                  </Link>
+                </div>
               </div>
-              <div className="mt-8 flex flex-col text-left gap-y-8 ">
-                <h3 className="flex items-start justify-between  text-center">
-                  <span className="">Subtotal</span>
-                  <span className="font-semibold flex-1 text-right mr-3">
-                    ₦ {subtotal.toLocaleString()}
-                  </span>
-                </h3>
-                <h3 className="flex items-start justify-between  ">
-                  <span className="">Delivery Cost</span>
-                  <span className="font-semibold flex-1 text-right mr-3">
-                    ₦120
-                  </span>
-                </h3>
-                <h3 className="flex items-start justify-between ">
-                  <span className="">Discount</span>
-                  <span className="font-semibold block flex-1 text-right mr-3">
-                    ₦12
-                  </span>
-                </h3>
-                <hr />
-                <h3 className="flex items-center justify-between ">
-                  <span className="">Estimated Total</span>
-                  <span className="font-semibold">
-                    ₦ {total.toLocaleString()}
-                  </span>
-                </h3>
-              </div>
-              <Link to="/checkout">
-                <button className=" common flex items-center justify-center mx-auto my-10  rounded-md w-full h-12">
-                  Checkout
-                </button>
-              </Link>
-              {/* Add more checkout elements */}
             </div>
-          </div>
+          )}
         </div>
         <div className="mx-0 p-0">
           <CommonProducts />
@@ -221,6 +239,13 @@ function Cart() {
 }
 
 export default Cart;
+
+/* <>
+  
+
+
+
+
 
 /** <img
       {total.toLocaleString()}    

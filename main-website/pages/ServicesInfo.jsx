@@ -2,7 +2,7 @@ import { useGlobalContext } from "../src/hooks/context";
 import { ImageWithLoading } from "../src/Components/ImageLoader";
 import Otp from "../src/Components/Forms/SignUp/Otp";
 import Details from "../src/Components/Forms/Services/Details";
-import ServiceImg from "../src/assets/services.svg";
+
 //import { useEffect } from "react";
 function ServicesInfo() {
   const {
@@ -107,7 +107,10 @@ function ServicesInfo() {
   return (
     <div className=" flex items-center gap-16 justify-center lg:justify-start lg:h-screen lg:overflow-hidden">
       <div className="hidden w-full max-w-[45%] lg:flex ">
-        <ImageWithLoading src={ServiceImg} alt="service" />
+        <ImageWithLoading
+          src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1698348705/rocktea-main-website/assets/rocktea-signin_ncsai9.jpg"
+          alt=""
+        />
       </div>
       <div className="mt-10 lg-mt-0 lg:max-w-[50%] h-full overflow-auto">
         <div className="relative px-10 md-px-2 flex items-center justify-start gap-2 mb-5">

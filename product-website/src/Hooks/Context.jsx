@@ -24,7 +24,7 @@ const AppProvider = ({ children }) => {
 
     address: "",
   });
-
+  console.log("user id", localStorage.getItem("storeUid"));
   const handleUserForm = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -32,6 +32,7 @@ const AppProvider = ({ children }) => {
     const store_id =
       localStorage.getItem("storeId") || localStorage.getItem("storeUid");
     formData.associated_domain = store_id;
+
     try {
       const headers = {
         "Content-Type": "multipart/form-data",

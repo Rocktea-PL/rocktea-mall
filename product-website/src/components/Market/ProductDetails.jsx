@@ -9,6 +9,8 @@ import { useProductPrices } from "../../Hooks/UseProductPrices";
 ////mport { useUserProductContext } from "../../Hooks/UserProductContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import TruncateDescription from "../../Features/TruncateDescription";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -19,8 +21,30 @@ const ProductDetails = () => {
   const { productPrices, isLoading } = useProductPrices(id);
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
-  //const [variantData, setVariantData] = useState([]);
+  const [selectedSizeId, setSelectedSizeId] = useState("");
+  const [selectedColor, setSelectedColor] = useState(null);
 
+  const [initialSizeSet, setInitialSizeSet] = useState(false);
+  //const [counter, setCounter] = useState(
+  // Object.keys(quantityInCart).length > 0,
+  // );
+
+  //Effects for controling  states of the counter, cart item and sizes
+
+  console.log(productPrices);
+  useEffect(() => {
+    if (!initialSizeSet && productPrices.length > 0) {
+      const firstSize = productPrices[0]?.size;
+      const firstColor = productPrices[0]?.colors[0];
+      const firstSizeId = productPrices[0]?.id;
+      const firstSizePrice = productPrices[0]?.retail_price;
+      setSelectedColor(firstColor);
+      setSelectedSize(firstSize);
+      setSelectedSizeId(firstSizeId);
+      setSelectedPrice(firstSizePrice);
+      setInitialSizeSet(true);
+    }
+  }, [initialSizeSet, productPrices]);
   const fetchProductDetails = async () => {
     const response = await axios.get(
       `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${id}`,
@@ -53,12 +77,18 @@ const ProductDetails = () => {
   // console.log(productDet)
   //fetchVariantData()
 
-  const handleSizeClick = (size, price) => {
+  const handleSizeClick = (size, price, id) => {
     setSelectedSize(size, price);
-
+    setSelectedSizeId(id);
     setSelectedPrice(price);
   };
-
+  const handleColorClick = (color, price, id) => {
+    setSelectedColor(color, price);
+    setSelectedSizeId(id);
+    //setIsModalOpen(true)
+    setInitialSizeSet(true);
+    setSelectedPrice(price);
+  };
   //console.log(productPrices)
   //)
   const removeProduct = async () => {
@@ -92,20 +122,29 @@ const ProductDetails = () => {
             <h2 className=" font-semibold uppercase text-md">
               {productDet?.name}
             </h2>
-            <p className="capitalize font-bold">
-              Brand:
-              <span className="font-medium ml-2">
-                {productDet?.brand?.name}
-              </span>{" "}
-            </p>
-            <p className="capitalize font-bold">
-              Category:
-              <span className="font-medium ml-2">
-                {productDet?.subcategory?.name}
-              </span>
-            </p>
-            <p className="capitalize font-bold ">
-              SKU: <span className="font-medium">{productDet?.sku}</span>
+            <div className="flex items-center gap-3 divide-x-2 divide-gray-300 mt-2">
+              <p className="capitalize font-bold pr-2">
+                Brand:
+                <span className="font-medium">
+                  {productDet?.brand?.name}
+                </span>{" "}
+              </p>
+              <p className="capitalize font-bold px-2">
+                Category:
+                <span className="font-medium">
+                  {productDet?.subcategory?.name}
+                </span>
+              </p>
+              <p className="capitalize font-bold px-2">
+                SKU: <span className="font-medium">{productDet?.sku}</span>
+              </p>
+            </div>
+            <p className="text-gray-400 my-1">
+              {productDet?.is_available ? (
+                "Instock"
+              ) : (
+                <span className="text-red-500">Out of Stock</span>
+              )}
             </p>
 
             {productPrices?.length > 0 && !isLoading ? (
@@ -121,33 +160,71 @@ const ProductDetails = () => {
               <p>No price</p>
             )}
 
-            <p className="text-gray-300 my-2">
-              {productDet?.is_available ? (
-                "Instock"
-              ) : (
-                <span className="text-red-500">Out of Stock</span>
-              )}
-            </p>
-            <div className="flex items-center gap-x-3">
+            <div className="flex  items-center gap-3">
               {productPrices?.length > 0 && !isLoading ? (
                 productPrices.map((item, index) => {
                   return (
-                    <div
-                      key={index}
-                      className={`flex ${!item.size && "hidden"}`}
-                    >
-                      <button
-                        key={index}
-                        className={`border border-solid  rounded-md px-3 flex items-center space-x-3 mb-4 py-1 ${
-                          item.size === selectedSize && "bg-orange "
-                        }`}
-                        onClick={() =>
-                          handleSizeClick(item.size, item.retail_price)
-                        }
-                      >
-                        {item?.size}
-                      </button>
-                    </div>
+                    <>
+                      {item.size ? (
+                        <div
+                          key={index}
+                          className={`flex flex-col ${!item.size && "hidden"}`}
+                        >
+                          <button
+                            className={`border border-solid border-orange rounded-md px-3 !flex items-center space-x-3 mb-4 py-1 ${
+                              item.size === selectedSizeId && "common "
+                            }`}
+                            onClick={() =>
+                              handleSizeClick(
+                                item.size,
+                                item.retail_price,
+                                item.id,
+                              )
+                            }
+                          >
+                            {item?.size}
+                          </button>
+                        </div>
+                      ) : (
+                        item.colors.map((color, index) => (
+                          <div
+                            key={index}
+                            className={`flex flex-col mb-3 ${
+                              !color && "hidden"
+                            }`}
+                          >
+                            {" "}
+                            <p className="font-semibold uppercase mb-2">
+                              Product Variants Available
+                            </p>
+                            <li
+                              key={index}
+                              onClick={() =>
+                                handleColorClick(
+                                  color,
+                                  item.retail_price,
+                                  item.id,
+                                )
+                              }
+                              className="font-semibold flex items-center gap-1"
+                            >
+                              <div
+                                className={
+                                  selectedColor &&
+                                  "border flex items-center justify-center border-solid  w-10 h-10 rounded-full"
+                                }
+                                style={{ borderColor: color }}
+                              >
+                                <div
+                                  className="flex items-center justify-center gap-1 w-8 h-8 rounded-full"
+                                  style={{ backgroundColor: color }}
+                                ></div>
+                              </div>
+                            </li>
+                          </div>
+                        ))
+                      )}
+                    </>
                   );
                 })
               ) : (
@@ -166,7 +243,7 @@ const ProductDetails = () => {
               <h3 className="text-md font-semibold border-b border-b-gray-300 pb-3">
                 Product Details
               </h3>
-              <p className=" my-5">{productDet?.description}</p>
+              <TruncateDescription description={productDet?.description} />
             </div>
 
             <div className=" ">

@@ -20,6 +20,7 @@ export default {
       },
       colors:{
         orange:'#ffa500',
+        ash:'#CAC4D0'
       },
       fontSize:{
         xsm:'0.8rem',

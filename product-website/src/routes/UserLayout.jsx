@@ -14,13 +14,16 @@ import ProtectedRoute from "./ProtectedRoute";
 import Navbar from "../Features/UserNavbar";
 import SeeAll from "../../pages/SeeAll";
 import { UserCartProvider } from "../Hooks/CartContext";
+import { useEffect } from "react";
 //import DropshipperNavbar from "../Features/DropshipperNavbar";
 
 function UserLayout() {
   //const {storeUser} = useStoreContext()
   const location = useLocation();
   let id = localStorage.getItem("storeUid");
-
+  useEffect(() => {
+    localStorage.getItem("storeUid");
+  }, []);
   //console.log(id)
   // Check if the current location is the registration route
   const hideNavbar =

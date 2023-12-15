@@ -16,20 +16,23 @@ export const calculatePrices = (data) => {
         }
 
         // Calculate the total price by adding wholesale and retail prices
-        const totalPrices = store_pricings.map(
-          (pricing) => pricing.retail_price + wholesale_price,
+        const totalRetailPrice = store_pricings.reduce(
+          (total, pricing) => total + pricing.retail_price,
+          0,
         );
-        const averageTotalPrice =
-          totalPrices.reduce((total, price) => total + price, 0) /
-          totalPrices.length;
 
+        const totalPrices = totalRetailPrice + wholesale_price;
+        /*const averageTotalPrice =
+          totalPrices.reduce((total, price) => total + price, 0) 
+          ;*/
+        // const totalPrices = totalRetailPrice + wholesale_price;
         return {
           size,
           id,
           colors,
           wholesale_price,
           product,
-          retail_price: averageTotalPrice.toLocaleString(),
+          retail_price: totalPrices.toLocaleString(),
         };
       })
       .filter(Boolean);

@@ -14,6 +14,7 @@ function Layout() {
     location.pathname === "/make_payment" ||
     location.pathname === "/domain_creation" ||
     location.pathname === "/signin" ||
+    location.pathname === "/signup" ||
     location.pathname === "/services_info";
 
   return (

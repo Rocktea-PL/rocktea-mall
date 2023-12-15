@@ -1,6 +1,15 @@
 import { category } from "../constant/data";
 
 function Categories() {
+  const handleCategoryClick = (category) => {
+    if (category.name.toLowerCase() === 'services') {
+      // Handle Services category
+      window.location.href = 'https://rocktea-mall.vercel.app/services/home'  //http://localhost:5173/services/home';
+    } else {
+      // Handle other categories or show a message
+      console.log(`Clicked on category: ${category.name}`);
+    }
+  };
   return (
     <section className=" mt-5 pt-2 pb-5  rounded-lg ">
       <h2 className="text-center font-semibold  text-2xl bg-white h-14 flex items-center justify-center rounded-md">
@@ -10,7 +19,9 @@ function Categories() {
         {category.map((item) => (
           <div
             key={item.id}
-            className="   rounded-lg w flex flex-col items-center justify-center "
+            onClick={() => handleCategoryClick(item)}
+            role="button"
+            className="bg-white shadow-md pt-3   rounded-lg w flex flex-col items-center justify-center "
           >
             <figure className=" w-[80px] h-[80px] bg-[#ECEBEB]  flex items-center justify-center  rounded-full   ">
               <img
@@ -21,7 +32,7 @@ function Categories() {
                 className="  object-cover"
               />
             </figure>
-            <p className="mt-0 bg-white py-5 w-full text-center rounded-b-lg">
+            <p className="mt-0  py-5 w-full text-center rounded-b-lg">
               {item.name}
             </p>
           </div>

@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import SeeAllFilters from "../src/components/Products/SeeAllFilters";
 import { useProductPrices } from "../src/Hooks/UseProductPrices";
 import { applyFilters } from "../src/Helpers/ProductFilter"; // Import the helper function
+import NoProduct from "../src/components/Products/NoProduct";
 
 function SeeAll() {
   const { categoryName } = useParams();
@@ -109,11 +110,13 @@ function SeeAll() {
   const handleBrandFilterChange = (brand) => {
     setSelectedBrand(brand);
     setSelectedProductType(null);
+    setSelectedSubcategory(null);
   };
 
   const handleProductTypeFilterChange = (productType) => {
     setSelectedProductType(productType);
     setSelectedBrand(null);
+    setSelectedSubcategory(null);
   };
   const handlePriceFilterChange = (min, max) => {
     setPriceRange({ min, max });
@@ -143,7 +146,7 @@ function SeeAll() {
 
   const mappedProducts = () => {
     if (!Array.isArray(filteredProducts) || filteredProducts.length === 0) {
-      return <p>No products available.</p>;
+      return <NoProduct />;
     }
 
     // Check if selectedBrand is not present in filtered products
@@ -179,7 +182,9 @@ function SeeAll() {
         );
 
       // Display filter-specific messages if any
-      return messages.map((message, index) => <p key={index}>{message}</p>);
+      return messages.map((message, index) => (
+        <NoProduct key={index} message={message} />
+      ));
     }
     return filteredProducts.map((item, index) => (
       <div
@@ -203,12 +208,15 @@ function SeeAll() {
 
             <ProductItem item={item} />
 
-            <div className="relative h-[0.6rem] w-full mt-3 border border-solid border-gray-200 ">
-              <div
-                className="absolute inset-0 bg-orange rounded-sm"
-                style={{ width: "50%" }}
-              ></div>
-            </div>
+            <p className="text-[14px] ">
+              {item?.product?.quantity <= 0 ? (
+                <span className="text-red-500">Out of Stock</span>
+              ) : (
+                <span className="opacity-[0.8]">
+                  {item?.product?.quantity} units left
+                </span>
+              )}{" "}
+            </p>
           </div>
         </Link>
       </div>

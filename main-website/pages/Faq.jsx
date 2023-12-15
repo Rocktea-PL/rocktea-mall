@@ -80,24 +80,37 @@ export default Faqs;
 const AccordionData = [
   {
     id: 1,
-    title: "What is Drop Shipping?",
-    content: `Whether you´re looking to supplement your income or embark on a full-fledged business journey, 
-seize the opportunity to earn money doing what you love without 
-leaving where you are. Join us now and embark on your path to profitability!`,
+    title: "WHAT IS ROCKTEA MALL?",
+    content: ` At RockTea Mall we do B2B2C, where we bring together Drop-shipping and E commerce business ownership. 
+    We generate online stores for our Drop-shippers using business details, we give them products for free, 
+    they list those products and add their own profits to the initial price of the products to make sales.`,
   },
   {
     id: 2,
-    title: "What is Drop Shipping?",
-    content: `Whether you´re looking to supplement your income or embark on a full-fledged business journey, 
-    seize the opportunity to earn money doing what you love without 
-    leaving where you are. Join us now and embark on your path to profitability!`,
+    title: "WHAT MAKES ROCKTEA MALL UNIQUE?",
+    content: `1. Tailored Product Access:<br>
+  RockTea Mall stands out by providing a curated selection of high-quality products to our drop-shippers at no cost, 
+  setting us apart from other platforms that may require upfront fees or limited access.<br><br>
+
+2. Your Unique Store, Effortlessly:\n
+  We go beyond traditional dropshipping models by not only offering products but by generating personalized online 
+  stores for our valued partners. This means you can focus on your business, while we take care of the technicalities.<br><br>
+
+3. Flexibility in Profit Margins:<br>
+  At RockTea Mall, we believe in empowering our drop-shippers to control their success. That's why we offer the 
+  freedom to set your own profit margins, allowing you to tailor your pricing strategy based on your business goals.<br><br>
+
+4. Building a Community Ecosystem:<br>
+  Beyond just facilitating transactions, RockTea Mall is committed to building a thriving community ecosystem. 
+  Our platform extends beyond products, fostering partnerships, resources, and support specifically designed to elevate your dropshipping experience.`,
   },
   {
     id: 3,
-    title: "What is Drop Shipping?",
-    content: `Whether you´re looking to supplement your income or embark on a full-fledged business journey, 
-        seize the opportunity to earn money doing what you love without 
-        leaving where you are. Join us now and embark on your path to profitability!`,
+    title: "IS ROCKTEA MALL FREE?",
+    content: `RockTea Mall is not available for free usage. We offer an OTP (One-Time Payment) option at a cost of NGN 150,000, 
+    providing users with comprehensive access to the platform's features and services without the need for recurring subscription fees. 
+    This one-time payment ensures a straightforward and transparent transaction, granting users full access to RockTea Mall's capabilities 
+    for an extended period, based on the terms outlined in the agreement.`,
   },
   {
     id: 4,

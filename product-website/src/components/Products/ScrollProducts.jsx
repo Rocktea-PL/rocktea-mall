@@ -37,7 +37,7 @@ export default function ScrollProducts({
     }
   };
 
-  console.log(products);
+  //console.log(products);
   //console.log('subcategory',subCategory)
   const sanitizedCategoryName = subCategory.replace(/\s+/g, "-");
   // const decodedSubCategory = decodeURIComponent(subCategory);

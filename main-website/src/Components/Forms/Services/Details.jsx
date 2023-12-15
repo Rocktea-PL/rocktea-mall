@@ -63,7 +63,7 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
               onChange={(e) =>
                 setServiceInfo({
                   ...serviceInfo,
-                  [serviceInfo.contact]: e,
+                  contact: e,
                 })
               }
             />
@@ -88,11 +88,13 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
           <label htmlFor="" className="flex flex-col md:col-span-2">
             Tell us about your business?
             <textarea
-              name=""
+              name="about"
               id=""
+              value={serviceInfo.about}
               cols="30"
               rows="10"
               className="!h-[200px] p-1"
+              onChange={handleStoreInputChange}
             ></textarea>
           </label>
           {/* Input for the first image 
