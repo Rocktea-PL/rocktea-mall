@@ -4,7 +4,7 @@ function Categories() {
   const handleCategoryClick = (category) => {
     if (category.name.toLowerCase() === 'services') {
       // Handle Services category
-      window.location.href = 'http://localhost:5173/services/home';
+      window.location.href = 'https://rocktea-mall.vercel.app/services/home'  //http://localhost:5173/services/home';
     } else {
       // Handle other categories or show a message
       console.log(`Clicked on category: ${category.name}`);
