@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { Oval } from "react-loader-spinner";
 import { useState } from "react";
 import PasswordChecklist from "react-password-checklist";
-//import {useState} from 'react'
+
 import {
   FaEye,
   FaEyeSlash,

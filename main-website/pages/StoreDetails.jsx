@@ -1,33 +1,25 @@
 import { useGlobalContext } from "../src/hooks/context";
-//import {useState} from 'react'
-//import { toast } from "react-hot-toast";
-//import StoreImage from "../src/Components/Forms/SignUp/StoreImage";
 import { ImageWithLoading } from "../src/Components/ImageLoader";
-//import { useEffect } from "react";
-//import Select from 'react-select';
-//import 'react-select/dist/react-select.css';
-//import { Oval } from "react-loader-spinner";
-//import { useState } from "react";
 import Store from "../src/Components/Forms/SignUp/Store";
 import Categories from "../src/Components/Forms/SignUp/Categories";
 import Otp from "../src/Components/Forms/SignUp/Otp";
-//import { useEffect } from "react";
+
 function StoreDetails() {
   const {
-    //handleStoreFormSubmit,
+    
     storeData,
     setStoreData,
     storeError,
     setStoreError,
-    //setCurrentStep,
+    
     //isLoading,
-    //getCategories,
+    
 
     currentStep,
   } = useGlobalContext();
 
   //const [emailError, setEmailError] = useState(false);
-  //const [selectedCategory, setSelectedCategory] = useState("");
+  
   const emailIsValid = (email) => {
     // Regular expression for basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -93,10 +85,7 @@ function StoreDetails() {
     }
   }, []);
 
-  console.log("storeDetails", storeData.owner);
-  useEffect(() => {
-    getCategories();
-  }, []);*/
+  */
   // console.log(storeData.category);
   const PageDisplay = () => {
     if (currentStep === 0) {
