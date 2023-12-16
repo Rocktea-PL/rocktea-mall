@@ -71,7 +71,7 @@ export default function ScrollProducts({
                   productId={item?.product?.id}
                   image={item?.product?.images[0]?.url}
                   name={item?.product.name}
-                  quantity = {item?.product?.quantity}
+                  quantity={item?.product?.quantity}
                   // price={combinedPrice?.toLocaleString()}
                   oldPrice={item?.oldPrice}
                 />

@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 
 import { HiBars3BottomRight, HiXMark } from "react-icons/hi2";
-import { FaAngleDown, FaUserAlt } from "react-icons/fa";
+import { FaAngleDown, FaAngleUp, FaUserAlt } from "react-icons/fa";
 import Button from "../Button";
 import { useGlobalContext } from "../../hooks/context";
+import { IoSettingsOutline } from "react-icons/io5";
+import { IoMdLogOut } from "react-icons/io";
 const Header = () => {
   const path = useLocation();
   const { user } = useGlobalContext();
-
+  const [isdropdown, setIsDropdown] = useState(false);
   const navItems = [
     {
       id: 1,
@@ -34,7 +36,7 @@ const Header = () => {
   }, [path]);
 
   return (
-    <header className=" bg-white shadow-md w-full h-[5rem] fixed top-0 left-0 z-[99]  items-center">
+    <header className=" bg-white shadow-md w-full h-[5.5rem] fixed top-0 left-0 z-[99]  items-center">
       <nav className="md:flex md:items-center md:justify-between gap-8 py-[1.7rem]  md:px-10 px-7 ">
         <Link to="/">
           <figure className="flex items-center mt-2 md:mt-0">
@@ -54,11 +56,11 @@ const Header = () => {
         </div>
 
         {/* DESKTOP NAVIGATION ITEMS */}
-        <form action="" className="flex items-center gap-3 ">
+        <form action="" className="flex !items-center gap-x-3 ">
           <input
             type="search"
             placeholder="search a service"
-            className="p-3 h-10"
+            className="px-3 !py-2 -mt-[0.4px] !h-[2.7rem] "
           />
           <Link to="/signin">
             <button className="w-[120px] h-10 bg-orange rounded-md">
@@ -66,10 +68,36 @@ const Header = () => {
             </button>
           </Link>
         </form>
-        <div className="mt-5 md:mt-0 hidden md:flex items-center justify-between">
+        <div className="mt-5 relative md:mt-0 hidden md:flex items-center justify-between">
           {user ? (
             <div className="w-[120px] h-10 bg-orange rounded-md flex gap-2 items-center justify-center">
-              <FaUserAlt /> <p>{user.first_name}</p> <FaAngleDown />
+              <FaUserAlt /> <p>{user.first_name}</p>
+              <span
+                onClick={() => setIsDropdown(!isdropdown)}
+                className="cursor-pointer"
+              >
+                {isdropdown ? <FaAngleUp /> : <FaAngleDown />}
+              </span>
+              {isdropdown && (
+                <div className="absolute top-[3.4rem] right-0 bg-white rounded-md shadow-md p-4 max-w-32">
+                  <Link to="/profile">
+                    <li className="flex items-center justify-center whitespace-nowrap gap-2 mb-3">
+                      <span>
+                        <IoSettingsOutline />
+                      </span>{" "}
+                      Profile
+                    </li>
+                  </Link>
+                  <Link to="/profile">
+                    <li className="flex items-center justify-center whitespace-nowrap gap-2">
+                      <span>
+                        <IoMdLogOut />
+                      </span>{" "}
+                      Logout
+                    </li>
+                  </Link>
+                </div>
+              )}
             </div>
           ) : (
             <Link to="/signin">

@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h3{
+    font-family: 'Poppins', sans-serif;
+    @apply text-md sm:text-[30px] md:text-[40px] font-semibold text-[var(--deep-blue)] leading-tight lg:leading-[3.5rem] 
+  }

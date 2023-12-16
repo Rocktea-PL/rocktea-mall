@@ -9,7 +9,7 @@ export default function ProductTracker() {
       </h2>
 
       <article className="relative h-auto rounded-md bg-primary border border-gray-300 py-5 px-2 mb-5 ">
-        {products?.length > 0 &&
+        {products?.length > 0 ? (
           products.map((item) => {
             const initialDateTimeString = item.created_at;
             const [date, time] = initialDateTimeString.split(", ");
@@ -32,7 +32,19 @@ export default function ProductTracker() {
                 </div>
               </>
             );
-          })}
+          })
+        ) : (
+          <div className="flex flex-col items-center justify-center">
+            <img
+              src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702609861/rocktea-product-website/assets/Products_not_found_n2clbx.svg"
+              width={300}
+              height={300}
+              className="flex items-center justify-center"
+              alt="no product"
+            />
+            <p className="text-[1.2rem]">No Product has been added yet</p>
+          </div>
+        )}
       </article>
     </div>
   );

@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css";
+
 import Layout from "./routes/Layout";
 import Home from "../pages/Home";
 import SignIn from "../pages/SignIn";
@@ -14,15 +14,12 @@ import EmailVerification from "./Components/Forms/SignUp/EmailVerification";
 import Waiting from "../pages/Waiting";
 import ServicesSignUp from "../pages/ServicesSignUp";
 //import ServiceDashboardHome from "../pages/ServicesDashboard/Home ";
-import ServiceOrders from "../pages/ServicesDashboard copy/Orders";
-import Transactions from "../pages/ServicesDashboard copy/Transactions";
-import ServiceProfile from "../pages/ServicesDashboard copy/Profile";
-import ServiceDashboardHome from "../pages/ServicesDashboard copy/Home";
 import ServicesInfo from "../pages/ServicesInfo";
 import ServicesHomePage from "../pages/ServicesHomePage";
 import ServiceDetailsPage from "../pages/ServiceDetailsPage";
 import SignupChoice from "../pages/SignupChoice";
 import ServicesSetings from "../pages/ServicesSetings";
+import "./App.css";
 
 function App() {
   const router = createBrowserRouter([
@@ -90,25 +87,10 @@ function App() {
           path: "/services/details/:id",
           element: <ServiceDetailsPage />,
         },
-        {
-          path: "/dashboard",
-          element: <ServiceDashboardHome />,
-        },
+
         {
           path: "/profile",
           element: <ServicesSetings />,
-        },
-        {
-          path: "/dashboard/orders",
-          element: <ServiceOrders />,
-        },
-        {
-          path: "/dashboard/transactions",
-          element: <Transactions />,
-        },
-        {
-          path: "/dashboard/profile",
-          element: <ServiceProfile />,
         },
       ],
     },

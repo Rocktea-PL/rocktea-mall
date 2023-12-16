@@ -1,16 +1,16 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-//import "../../styles/Dashboard.css";
+import "../../styles/Dashboard.css";
 import ProfileCompletion from "./ProfileCompletion";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 
-function ServiceOrderStatus() {
+function Orders() {
   /*const handleCheckboxChange = (orderId) => {
     // Handle checkbox change if needed
     console.log("Checkbox changed for order ID:", orderId);
   };*/
-  const store_id = "6f24b2c7-08e5-4199-a1cb-2d9df35724aa"; //localStorage.getItem("storeId");
+  const store_id = localStorage.getItem("storeId");
   const fetchStoreOrders = async () => {
     const response = await axios.get(
       `https://rocktea-mall-api-test.up.railway.app/mall/store_order?store=${store_id}`,
@@ -120,7 +120,7 @@ function ServiceOrderStatus() {
             You do not have any <br /> orders yet
           </h3>
           <Link to={`/dashboard?store=${store_id}`}>
-            <button className="bg-orange p-3 text-blue font-medium rounded-md mt-5">
+            <button className="common p-3  font-medium rounded-md mt-5">
               Go to Dashboard
             </button>
           </Link>
@@ -224,4 +224,4 @@ function ServiceOrderStatus() {
   );
 }
 
-export default ServiceOrderStatus;
+export default Orders;

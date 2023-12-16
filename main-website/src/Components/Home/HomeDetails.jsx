@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import "../../styles/topography.css";
 function HomeDetails() {
   return (
     <section className="mt-12">

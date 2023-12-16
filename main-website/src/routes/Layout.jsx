@@ -15,6 +15,7 @@ function Layout() {
     location.pathname === "/domain_creation" ||
     location.pathname === "/signin" ||
     location.pathname === "/signup" ||
+    location.pathname.includes("services") ||
     location.pathname === "/services_info";
 
   return (

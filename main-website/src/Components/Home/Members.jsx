@@ -3,7 +3,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { motion } from "framer-motion";
+import { useState } from "react";
 function Members() {
+  const [sliderRef, setSliderRef] = useState(null);
   const sliderSettings = {
     // removes default buttons
     arrows: false,
@@ -34,7 +36,7 @@ function Members() {
         Hear From <span className="text-[var(--yellow)]">Our Members</span>
       </h2>
 
-      <Slider {...sliderSettings} className="">
+      <Slider ref={setSliderRef} {...sliderSettings} className="">
         {members.map((data) => (
           <div
             key={data.id}
@@ -63,10 +65,16 @@ function Members() {
                   &quot;{data.quote}&quot;
                 </p>
                 <div className="flex gap-8 mt-4">
-                  <button className="w-[30px] border-2 border-solid border-[var(--yellow)] h-[30px] flex items-center justify-center rounded-full">
+                  <button
+                    onClick={sliderRef?.slickPrev}
+                    className="w-[30px] border-2 border-solid border-[var(--yellow)] h-[30px] flex items-center justify-center rounded-full"
+                  >
                     <FaAngleLeft className="text-[var(--yellow)]" />
                   </button>
-                  <button className="w-[30px] border-2 border-solid border-[var(--yellow)] h-[30px] flex items-center justify-center rounded-full">
+                  <button
+                    onClick={sliderRef?.slickNext}
+                    className="w-[30px] border-2 border-solid border-[var(--yellow)] h-[30px] flex items-center justify-center rounded-full"
+                  >
                     <FaAngleRight className="text-[var(--yellow)]" />
                   </button>
                 </div>
