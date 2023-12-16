@@ -27,6 +27,8 @@ export const UserAuthProvider = ({ children }) => {
   const [storeUser, setStoreUser] = useState({});
   const [userData, setUserData] = useState({});
   const [isUser, setIsUser] = useState(false);
+  //const token = Cookies.get('token')
+  // console.log('cookies',token)
   //const [isStoreOwner, setIsStoreOwner] = useState(null);
   let storeId = localStorage.getItem("storeId");
   const [credentials, setCredentials] = useState({
@@ -54,12 +56,13 @@ export const UserAuthProvider = ({ children }) => {
       ); // Call the login function
       console.log("Login worked:", response);
 
-      Cookies.set("token", response.data.access, {
+      Cookies.set("token", response?.data?.access, {
         secure: true,
         sameSite: "strict",
       });
+
       //console.log(store_id);
-      const usertoken = response.data.access;
+      const usertoken = response?.data?.access;
       localStorage.setItem("accessToken", usertoken);
       //setUserData(response.user_data);
       //console.log('before user data', response.user_data.first_name)
@@ -186,8 +189,6 @@ export const UserAuthProvider = ({ children }) => {
     }
   }, [owner_id, user_id, store_id]);
 
-  const access = localStorage.getItem("accessToken");
-  console.log("access token", access);
   return (
     <StoreContext.Provider
       value={{
@@ -197,6 +198,7 @@ export const UserAuthProvider = ({ children }) => {
         checkTokenExpiration,
         userData,
         store,
+        //token,
         error,
         isLoading,
         isUser,

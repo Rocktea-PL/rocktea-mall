@@ -1,12 +1,13 @@
 /*eslint no-useless-escape: "off"*/
 import "react-phone-number-input/style.css";
+import "../src/styles/form.css";
 import PhoneInput from "react-phone-number-input";
 import FileInput from "../src/Components/Forms/SignUp/FormImage";
 import { useEffect } from "react";
 import { Oval } from "react-loader-spinner";
 import { useState } from "react";
 import PasswordChecklist from "react-password-checklist";
-//import {useState} from 'react'
+
 import {
   FaEye,
   FaEyeSlash,

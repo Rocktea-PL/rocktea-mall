@@ -62,7 +62,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 800);
   }, []);
 
   const refreshPage = () => {

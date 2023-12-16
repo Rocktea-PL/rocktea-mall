@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { addToCart, setGetTotalAmount } from "../Redux/CartSlice";
+import Cookies from "js-cookie";
 
 const UseCartContext = createContext();
 
@@ -20,7 +21,7 @@ export const useUserCartContext = () => {
 };
 
 const fetchCarts = async () => {
-  const authToken = localStorage.getItem("accessToken");
+  const authToken = Cookies.get("token");
   const response = await axios.get(`${BASE_URL}/rocktea/cart/`, {
     headers: {
       Authorization: `Bearer ${authToken} `,

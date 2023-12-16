@@ -69,10 +69,11 @@ export default function ScrollProducts({
                   key={index}
                   id={item?.id}
                   productId={item?.product?.id}
-                  image={item.product?.images[0]?.url}
-                  name={item.product.name}
+                  image={item?.product?.images[0]?.url}
+                  name={item?.product.name}
+                  quantity={item?.product?.quantity}
                   // price={combinedPrice?.toLocaleString()}
-                  oldPrice={item.oldPrice}
+                  oldPrice={item?.oldPrice}
                 />
               );
             })}

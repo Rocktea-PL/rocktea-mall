@@ -88,21 +88,18 @@ const AccordionData = [
   {
     id: 2,
     title: "WHAT MAKES ROCKTEA MALL UNIQUE?",
-    content: `1. Tailored Product Access:<br>
-  RockTea Mall stands out by providing a curated selection of high-quality products to our drop-shippers at no cost, 
-  setting us apart from other platforms that may require upfront fees or limited access.<br><br>
+    content: `
 
-2. Your Unique Store, Effortlessly:\n
-  We go beyond traditional dropshipping models by not only offering products but by generating personalized online 
-  stores for our valued partners. This means you can focus on your business, while we take care of the technicalities.<br><br>
-
-3. Flexibility in Profit Margins:<br>
-  At RockTea Mall, we believe in empowering our drop-shippers to control their success. That's why we offer the 
-  freedom to set your own profit margins, allowing you to tailor your pricing strategy based on your business goals.<br><br>
-
-4. Building a Community Ecosystem:<br>
-  Beyond just facilitating transactions, RockTea Mall is committed to building a thriving community ecosystem. 
-  Our platform extends beyond products, fostering partnerships, resources, and support specifically designed to elevate your dropshipping experience.`,
+    1. Free and Curated Access: RockTea Mall offers high-quality products to drop-shippers at no cost, distinguishing itself from platforms with upfront fees.
+    
+    2. Personalized Online Stores: Beyond traditional dropshipping, RockTea Mall creates personalized online stores for partners, handling technicalities for a hassle-free experience.
+    
+    3. Profit Control: Drop-shippers have the freedom to set their own profit margins, giving them control over pricing and business success.
+    
+    4. Community Building: RockTea Mall goes beyond transactions, fostering a community ecosystem with partnerships, resources, and support to enhance the dropshipping experience.
+    
+    5. Cutting-Edge Technology and Transparency: The platform provides advanced tools and technology for success, coupled with a commitment to transparency and open communication in the partnership.
+  `,
   },
   {
     id: 3,
@@ -114,16 +111,21 @@ const AccordionData = [
   },
   {
     id: 4,
-    title: "What is Drop Shipping?",
-    content: `Whether you´re looking to supplement your income or embark on a full-fledged business journey, 
-            seize the opportunity to earn money doing what you love without 
-            leaving where you are. Join us now and embark on your path to profitability!`,
-  },
-  {
-    id: 5,
-    title: "What is Drop Shipping?",
-    content: `Whether you´re looking to supplement your income or embark on a full-fledged business journey, 
-                seize the opportunity to earn money doing what you love without 
-                leaving where you are. Join us now and embark on your path to profitability!`,
+    title: "HOW CAN I EARN WITH ROCKTEA MALL?",
+    content: `
+
+    1. Sign Up and Obtain OTP: Start by signing up on RockTea Mall, paying NGN 150,000 for a One-Time Payment (OTP) to access all services.
+    
+    2. Generate Your Online Store: Easily create your personalized online store on RockTea Mall without the hassle of building a website from scratch.
+    
+    3. List and Customize Products: Choose products from RockTea Mall, list them in your store, and set profit margins to maximize earnings.
+    
+    4. Promote and Drive Sales: Actively market your store through channels like social media, digital marketing, etc., to attract customers and boost sales.
+    
+    5. Fulfillment and Profit Earnings: RockTea Mall handles order fulfillment, including shipping. As customers purchase, you earn profits based on your set profit margins.
+    
+    Remember, success involves scaling your business, accessing ongoing support from RockTea Mall, and staying informed about market trends to enhance your earning potential.
+
+`,
   },
 ];

@@ -172,7 +172,7 @@ const UserProductDetails = () => {
   };
 
   console.log(selectedPrice);
-  // console.log(productPrices)
+  //console.log(productDet)
 
   return (
     <>

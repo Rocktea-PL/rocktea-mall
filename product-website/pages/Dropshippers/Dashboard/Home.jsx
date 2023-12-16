@@ -2,8 +2,9 @@ import BestSelling from "../../../src/components/Dashboard/BestSelling";
 import Cards from "../../../src/components/Dashboard/Cards";
 import Chart from "../../../src/components/Dashboard/NewChart";
 import ProductTracker from "../../../src/components/Dashboard/ProductTracker";
-import ProfileCompletion from "../../../src/components/Dashboard/ProfileCompletion";
+//import ProfileCompletion from "../../../src/components/Dashboard/ProfileCompletion";
 import Sidebar from "../../../src/components/Dashboard/Sidebar";
+import StoreUrl from "../../../src/components/Dashboard/StoreUrl";
 
 export default function DashboardHome() {
   /* const { storeId } = useParams();
@@ -23,7 +24,7 @@ export default function DashboardHome() {
 
         <div className=" block lg:flex lg:relative lg:left-[320px] w-full lg:gap-x-10 lg:w-[80%] px-5">
           <div className="lg:w-[65%]">
-            <ProfileCompletion />
+            <StoreUrl />
             <Cards />
             <Chart />
           </div>

@@ -1,6 +1,6 @@
 import { useGlobalContext } from "../src/hooks/context";
 import { ImageWithLoading } from "../src/Components/ImageLoader";
-//import {Link} from 'react-router-dom'
+
 function BankDetails() {
   const { handleFormSubmit } = useGlobalContext();
   return (

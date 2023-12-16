@@ -20,7 +20,11 @@ export default {
       },
       colors:{
         orange:'#ffa500',
-        ash:'#CAC4D0'
+        ash:'#CAC4D0',
+        gold:'#C99C00',
+        darkblue:'#002440',
+        lightgray:'#f9f9f9',
+        blue:'#002440',
       },
       fontSize:{
         xsm:'0.8rem',

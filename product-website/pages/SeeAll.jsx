@@ -19,6 +19,10 @@ function SeeAll() {
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedProductType, setSelectedProductType] = useState(null);
   const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
+  const [filterMobile, setFilterMobile] = useState(false);
+  const toggleMobileNav = () => {
+    setFilterMobile(!filterMobile);
+  };
   const Data = async () => {
     const response = await axios.get(
       `https://rocktea-mall-api-test.up.railway.app/rocktea/marketplace/?store=${store_id}`,
@@ -225,20 +229,23 @@ function SeeAll() {
 
   console.log(filteredProducts);
   return (
-    <div className="max-w-[1300px] mx-auto max-md:px-7">
+    <div className=" relative max-md:mt-24 max-w-[1300px] mx-auto max-md:px-7">
       <div className="lg:flex items-start">
         <section className="w-1/4 mt-20 rounded-lg p-3 lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto ">
           <SeeAllFilters
             subcategories={subcategories}
             brands={brands}
             productTypes={productTypes}
+            toggleMobileNav={toggleMobileNav}
+            onClose={() => setFilterMobile(false)}
+            filterMobile={filterMobile}
             onCategoryFilterChange={handleCategoryFilterChange}
             onBrandFilterChange={handleBrandFilterChange}
             onProductTypeFilterChange={handleProductTypeFilterChange}
             onPriceFilterChange={handlePriceFilterChange}
           />
         </section>
-        <section className=" w-3/4 mt-20 rounded-lg p-3 max-w-[80%]  lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto h-full overflow-scroll">
+        <section className=" w-3/4  rounded-lg p-3 max-w-[80%]  lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto h-full overflow-scroll">
           <div>
             <div className="relative max-md:flex items-center max-md:justify-between bg-white shadow-lg  rounded-md w-[500px] lg:w-[800px] p-5 py-5">
               <h3 className=" whitespace-nowrap text-blue font-bold text-center text-[22px] capitalize">
@@ -251,10 +258,16 @@ function SeeAll() {
             </div>
           </div>
 
-          <article className="grid   sm:grid-cols-2 lg:grid-cols-3 place-items-center gap-5">
+          <article className="grid sm:grid-cols-2 lg:grid-cols-3 place-items-center gap-5">
             {mappedProducts()}
           </article>
         </section>
+      </div>
+      <div
+        onClick={toggleMobileNav}
+        className="fixed  cursor-pointer lg:hidden bg-orange text-white w-full h-14 bottom-0 flex items-center justify-center mx-auto"
+      >
+        Filter
       </div>
     </div>
   );
