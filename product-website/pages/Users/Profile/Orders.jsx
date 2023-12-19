@@ -1,19 +1,26 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import "../../styles/Dashboard.css";
-import ProfileCompletion from "./ProfileCompletion";
+import "../../../src/styles/Dashboard.css";
+//import ProfileCompletion from "./ProfileCompletion";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
+import { useUserCartContext } from "../../../src/Hooks/CartContext";
 
 function Orders() {
   /*const handleCheckboxChange = (orderId) => {
     // Handle checkbox change if needed
     console.log("Checkbox changed for order ID:", orderId);
   };*/
+  const { token } = useUserCartContext();
   const store_id = localStorage.getItem("storeId");
   const fetchStoreOrders = async () => {
     const response = await axios.get(
-      `https://rocktea-mall-api-test.up.railway.app/mall/store_order?store=${store_id}`,
+      `https://rocktea-mall-api-test.up.railway.app/rocktea/my-orders`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
     );
     console.log(response.data);
     return response.data;
@@ -38,15 +45,15 @@ function Orders() {
   if (isError) {
     return <p>Error loading product count</p>;
   }
-
+  //console.log(orders)
   return (
-    <section className="mt-5 w-full  -ml-1">
-      <ProfileCompletion />
-      {orders.length > 0 ? (
+    <section className="mt-36 lg:mt-20 w-full  -ml-1 px-3 lg:px-10">
+      {orders?.length > 0 ? (
         <>
           <div className="overflow-x-auto">
             <table className="w-full border-spacing-7 border-collapse  ">
               <tr className="order-table   bg-white mt-5 h-10">
+                <th>S/N</th>
                 <th>Name</th>
                 <th>Tracking ID</th>
                 <th>Cost</th>
@@ -55,13 +62,16 @@ function Orders() {
                 <th>Date</th>
               </tr>
               <tbody className="">
-                {orders.map((item) => (
+                {orders.map((item, i) => (
                   <tr key={item.id} className="table-content   w-full bg-white">
+                    <td className="text-center  text-sm md:text-[1rem] ">
+                      {i + 1}.
+                    </td>
                     <td className="text-center  text-sm md:text-[1rem] ">
                       {item.buyer}
                     </td>
                     <td className="text-center  text-sm md:text-[1rem]">
-                      #{item.tracking}
+                      #{item.order_id}
                     </td>
                     <td className="text-center  text-sm md:text-[1rem]">
                       ₦ {item.total_price}

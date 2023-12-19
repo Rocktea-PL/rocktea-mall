@@ -17,6 +17,8 @@ import { useProductPrices } from "../../Hooks/UseProductPrices";
 import { FaHeart } from "react-icons/fa";
 import { useUserCartContext } from "../../Hooks/CartContext";
 import TruncateDescription from "../../Features/TruncateDescription";
+import { refreshPage } from "../../Helpers/Refresher";
+import Cookies from "js-cookie";
 /// handleIncrementQuantity,
 const UserProductDetails = () => {
   const { productId } = useParams();
@@ -32,7 +34,7 @@ const UserProductDetails = () => {
     // handleDecrementQuantity,
   } = useUserCartContext();
   const storeId = localStorage.getItem("storeUid");
-  const authToken = localStorage.getItem("accessToken");
+  const authToken = Cookies.get("token");
   const dispatch = useDispatch();
 
   const cartItems = useSelector(selectCartItems);
@@ -162,7 +164,7 @@ const UserProductDetails = () => {
       }));
 
       toast.success("Product added to cart successfully.");
-
+      refreshPage();
       // setCounter(true);
     } catch (error) {
       // Handle errors
@@ -170,7 +172,7 @@ const UserProductDetails = () => {
       toast.error("Failed to add product to cart.");
     }
   };
-
+  //console.log(authToken)
   console.log(selectedPrice);
   //console.log(productDet)
 

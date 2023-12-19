@@ -33,7 +33,7 @@ function FileInput({ userData, setUserData, error }) {
     <div className="flex flex-col  justify-start space-y-4 w-full ">
       <label className="relative  cursor-point text-black rounded-lg ">
         <span className="absolute top-0 left-0 right-0 bottom-0 opacity-0 cursor-pointer"></span>
-        <span className="">Profile Image</span>
+        <span className="">Profile Image*</span>
         <input
           type="file"
           name="profile_image"

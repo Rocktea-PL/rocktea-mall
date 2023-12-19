@@ -25,14 +25,14 @@ export default function ServiceListings() {
           servicesList.map((data) => (
             <div key={data.id}>
               <Link to={`/services/details/${data?.id}`}>
-                <figure className="w-[280px]  h-[250px]">
+                <figure className="w-full lg:w-[280px]  h-[250px]">
                   <img
                     src={data.business_photograph}
                     className="w-full h-full object-cover rounded-md"
                     alt={data.text}
                   />
                 </figure>
-                <div className="w-[280px] max-h-[250px] bg-white px-4 py-5 shadow-md rounded-b-md flex flex-col gap-y-2">
+                <div className="w-full lg:w-[280px] h-[250px] bg-white px-4 py-5 shadow-md rounded-b-md flex flex-col gap-y-2">
                   <h4 className="!text-[22px] font-semibold ">{data?.name}</h4>
                   <p>{data.about}</p>
                   <h4 className="!text-[20px] !mt-0 text-orange font-semibold">
@@ -55,14 +55,14 @@ export default function ServiceListings() {
         {services.map((data) => (
           <div key={data.id}>
             <Link to={`/services/details/${data?.id}`}>
-              <figure className="w-[280px]  h-[250px]">
+              <figure className="w-full lg:w-[280px]  h-[250px]">
                 <img
                   src={data.image}
                   className="w-full h-full object-cover rounded-md"
                   alt={data.text}
                 />
               </figure>
-              <div className="w-[280px] max-h-[250px] bg-white px-4 py-5 shadow-md rounded-b-md flex flex-col gap-y-2">
+              <div className="w-full lg:w-[280px] max-h-[250px] bg-white px-4 py-5 shadow-md rounded-b-md flex flex-col gap-y-2">
                 <p>{data.text}</p>
                 <h4 className="!text-[22px] font-semibold ">{data.name}</h4>
                 <h4 className="!text-[20px] !mt-0 text-orange font-semibold">

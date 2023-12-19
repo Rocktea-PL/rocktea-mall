@@ -64,6 +64,8 @@ function ServicesInfo() {
     setStoreError(updatedErrors);
   };
 
+  console.log(serviceInfo.category);
+
   /*useEffect(() => {
     const savedStep = localStorage.getItem("currentStep");
     if (savedStep) {

@@ -43,11 +43,11 @@ function Categories() {
       <h2 className="text-center font-semibold  text-2xl bg-white h-14 flex items-center justify-center rounded-md">
         Categories
       </h2>
-      <article className="grid grid-cols-2 sm:grid-cols-3  lg:grid-cols-6 gap-4 mt-5 ">
+      <article className="flex items-center max-md:overflow-auto max-w-[100%] gap-5 mt-5 ">
         {category.map((item) => (
           <div
             key={item.id}
-            className="   rounded-lg w flex flex-col items-center justify-center bg-white py-5 shadow-md"
+            className="   rounded-lg w flex flex-col items-center  justify-center bg-white max-md:!w-[200px] max-md:h-[180px] py-5 max-md:px-8 shadow-md w-[200px]"
           >
             <figure className=" w-[80px] h-[80px] bg-[#ECEBEB]  flex items-center justify-center  rounded-full  px-3 ">
               <img
@@ -58,7 +58,9 @@ function Categories() {
                 className="  object-cover"
               />
             </figure>
-            <p className="mt-2 w-full text-center rounded-b-lg">{item.name}</p>
+            <p className="mt-2 w-full text-center rounded-b-lg whitespace-nowrap">
+              {item.name}
+            </p>
           </div>
         ))}
       </article>

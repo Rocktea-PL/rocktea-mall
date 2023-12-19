@@ -72,6 +72,7 @@ function Cart() {
     setTotal(calculateTotal(carts, deliveryCost, discount));
   }, [carts]);
 
+  // console.log(carts)
   return (
     <>
       <section className="">
@@ -98,7 +99,7 @@ function Cart() {
         </div>
         <hr className=" mb-5" />
         <div>
-          {carts?.length <= 0 ? (
+          {carts?.items?.length === 0 ? (
             <div className="bg-white mb-3 max-w-[600px] flex flex-col items-center justify-center mx-auto py-10 rounded-md px-6">
               <img
                 width={320}

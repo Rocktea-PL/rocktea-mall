@@ -8,19 +8,14 @@ import { Link } from "react-router-dom";
 import { MdAddBusiness } from "react-icons/md";
 import "../../../styles/profile.css";
 //import { useStoreContext } from "../../Hooks/UserAuthContext";
-import { useGlobalContext } from "../../../hooks/context";
-export default function Sidebar() {
-  const { user } = useGlobalContext();
-  console.log(user);
+//import { useGlobalContext } from "../../../hooks/context";
+export default function Sidebar({ user }) {
   return (
     <aside className="flex flex-col  bg-white w-[300px] p-3 mt-3 rounded-md overflow-hidden">
       <div className="relative">
         <img
           className="w-[200px] h-[200px] object-cover rounded-full mx-auto"
-          src={
-            "https://res.cloudinary.com/dwvdgmuaq/raw/upload/handsome-young-businessman-suit_1_1_hkyekc.png" ||
-            user?.profile_image
-          }
+          src={user?.profile_image}
           alt="profile"
         />
         <div className="absolute right-[45px]  bg-white opacity-[0.9] w-[50px] h-[50px] flex items-center justify-center  rounded-full bottom-[-5px]  cursor-pointer border border-gray-300">
@@ -43,9 +38,9 @@ export default function Sidebar() {
 
       <div className="text-center mt-5">
         <h3 className="capitalize font-semibold text-darkblue text-[22px]">
-          {user.first_name} {user.last_name}{" "}
+          {user?.first_name} {user?.last_name}{" "}
         </h3>
-        <h4 className="text-darkblue ">{user.email}</h4>
+        <h4 className="text-darkblue ">{user?.email}</h4>
       </div>
 
       <div>

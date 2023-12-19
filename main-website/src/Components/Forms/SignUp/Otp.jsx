@@ -8,7 +8,7 @@ function Otp() {
   const { initiatePayment, isLoading } = useGlobalContext();
   //console.log(componentProps.email)
   const handlePaymentInitiation = () => {
-    const owner = localStorage.getItem("owner"); // Get the owner from localStorage
+    const owner = localStorage.getItem("ownerId"); // Get the owner from localStorage
 
     if (!owner) {
       console.error("Owner information not found.");

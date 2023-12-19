@@ -1,5 +1,5 @@
 //import { useGlobalContext } from "../../Hooks/Context"
-import { useEffect, useState } from "react";
+/*import { useEffect, useState } from "react";
 
 import toast from "react-hot-toast";
 import { useGlobalContext } from "../../../hooks/context";
@@ -11,11 +11,11 @@ function Business() {
   useEffect(() => {
     // Populate the form fields with the initial data when userData changes
     setUpdateData({
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      contact: user.contact,
-      address: user.address,
+      first_name: user?.first_name,
+      last_name: user?.last_name,
+      email: user?.email,
+      contact: user?.contact,
+      address: user?.address,
     });
   }, [user]);
   const handleProfileUpdate = (e) => {
@@ -48,7 +48,7 @@ function Business() {
                   First Name
                   <input
                     type="text"
-                    value={updateData.first_name}
+                    value={updateData?.first_name}
                     onChange={(e) =>
                       setUpdateData({
                         ...updateData,
@@ -62,7 +62,7 @@ function Business() {
                   Last Name
                   <input
                     type="text"
-                    value={updateData.last_name}
+                    value={updateData?.last_name}
                     onChange={(e) =>
                       setUpdateData({
                         ...updateData,
@@ -76,7 +76,7 @@ function Business() {
                   Email
                   <input
                     type="text"
-                    value={updateData.email}
+                    value={updateData?.email}
                     onChange={(e) =>
                       setUpdateData({ ...updateData, email: e.target.value })
                     }
@@ -87,7 +87,7 @@ function Business() {
                   Phone
                   <input
                     type="text"
-                    value={updateData.contact}
+                    value={updateData?.contact}
                     onChange={(e) =>
                       setUpdateData({ ...updateData, contact: e.target.value })
                     }
@@ -107,4 +107,4 @@ function Business() {
   );
 }
 
-export default Business;
+export default Business;*/

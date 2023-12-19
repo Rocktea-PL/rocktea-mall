@@ -37,6 +37,7 @@ const getQuantityInCartBySize = () => {
 };
 export const UserCartProvider = ({ children }) => {
   const dispatch = useDispatch();
+  const token = Cookies.get("token");
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [selectedPrice, setSelectedPrice] = useState(null);
@@ -238,6 +239,7 @@ export const UserCartProvider = ({ children }) => {
         handleAddToCart,
         counter,
         setCounter,
+        token,
         //setCart,
       }}
     >

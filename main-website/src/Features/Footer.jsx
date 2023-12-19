@@ -18,8 +18,13 @@ function Footer() {
             Links
           </h4>
           <ul className="flex flex-col gap-y-4">
-            <li>Home</li>
-            <li>About</li>
+            <Link to="/">
+              <li>Home</li>
+            </Link>
+            <Link to="/about">
+              {" "}
+              <li>About</li>
+            </Link>
             <Link to="/services/home">
               <li>Services</li>
             </Link>

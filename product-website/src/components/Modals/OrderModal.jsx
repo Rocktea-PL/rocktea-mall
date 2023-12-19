@@ -28,8 +28,9 @@ export default function OrderModal({ onClose }) {
             <p className="mt-2 text-[18px] text-center">
               Your order is complete “We will ensure a swift delivery”
             </p>
-            <button className="border boder-orange rounded-md h-14 w-[70%] flex items-center justify-center mx-auto m-3">
-              Order Details
+
+            <button className="border border-orange rounded-md h-14 w-[70%] flex items-center justify-center mx-auto m-3">
+              <Link to="/order_items"> Order Details</Link>
             </button>
 
             <button className="common h-14 w-[70%] rounded-md flex items-center justify-center mx-auto">

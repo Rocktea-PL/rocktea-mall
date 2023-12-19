@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { calculateSubtotal, calculateTotal } from "../../src/Helpers/CartUtils";
 import { useState } from "react";
 import OrderModal from "../../src/components/Modals/OrderModal";
+//import OrderItems from "../../src/Features/OrderItems";
 //import toast from "react-hot-toast";
 
 function Checkout() {
@@ -23,10 +24,12 @@ function Checkout() {
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
   const [modal, setModal] = useState(false);
+
   const { userData, store } = useStoreContext();
   const publicKey = "pk_test_87ac60396c1e2cca490d90abc08a418f08c9e970";
   const estimatedTotalInNaira = total * 100;
   const Base_url = import.meta.env.VITE_BASE_URL;
+  console.log(token);
   //console.log(estimatedTotalInNaira);
   const patchAccountBalance = () => {
     const data = {
@@ -71,7 +74,9 @@ function Checkout() {
       )
       .then((response) => {
         // Handle the API response if needed
+        let checkOutOrders = response.data;
         console.log(response.data);
+        sessionStorage.setItem("orders", JSON.stringify(checkOutOrders));
         patchAccountBalance();
         //console.log("APIresponse:", response.data);
         setModal(true);
@@ -103,6 +108,8 @@ function Checkout() {
     const discount = 12;
     setTotal(calculateTotal(carts, deliveryCost, discount));
   }, [carts]);
+
+  //console.log(orderItems)
   return (
     <>
       <section className="px-5 mx-5 relative">

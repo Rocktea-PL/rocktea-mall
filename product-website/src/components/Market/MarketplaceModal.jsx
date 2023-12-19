@@ -15,7 +15,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
   const [addPrice, setAddPrice] = useState(false);
   //const [price,setPrice] = useState()
   const [selectedSize, setSelectedSize] = useState("");
-  const [retailPrices, setRetailPrices] = useState({});
+  const [retailPrices, setRetailPrices] = useState("");
   // const [selectedSizes, setSelectedSizes] = useState([]);
   //const [selectedId, setSelectedId] = useState(null);
   const selectedProduct = products.find((product) => product.id === productId);
@@ -34,6 +34,9 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
     },
   );
 
+  const handleRetail = (e) => {
+    setRetailPrices(e.target.value);
+  };
   const handleAddPrice = (id) => {
     setAddPrice((prevState) => ({
       ...prevState,
@@ -58,12 +61,12 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
   const handleAddProduct = (e, id) => {
     //setSelectedId(id)
     e.preventDefault();
-
+    console.log(id);
     // Prepare the data for the POST request
     const data = {
-      retail_price: retailPrices[id], // Assuming you want the first size
+      retail_price: retailPrices, // Assuming you want the first size
       store: localStorage.getItem("storeId"), // Replace with your actual store ID
-      productvariant: id,
+      // productvariant: id,
       product_variant: id,
     };
 
@@ -83,7 +86,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
       .catch((error) => {
         // Handle errors
         console.error("Error adding product:", error.response);
-        toast.error(error.response.data);
+        toast.error(error.response.data.non_field_errors[0]);
       });
   };
 
@@ -129,7 +132,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
     }
   };
   const productVariant = selectedProduct.product_variants.length;
-
+  console.log(retailPrices);
   return (
     <div className="modal-overlay z-[99]" onClick={handleOverlayClick}>
       <div className="pt-8 bg-white rounded-lg relative w-[70%]  lg:w-[500px] flex flex-col   ">
@@ -193,20 +196,39 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                 <div className=" flex flex-col gap-x-3">
                   {price.map((item) => (
                     <div key={item.id}>
-                      <div className="mx-8 flex items-center gap-x-3 -mt-3 mb-3">
-                        <h4 className="text-sm font-medium">Size:</h4>
-                        <select
-                          name="size"
-                          id="size"
+                      {item.size ? (
+                        <div
                           key={item.id}
-                          onChange={(e) => setSelectedSize(e.target.value)}
-                          value={selectedSize}
+                          className="mx-8 flex items-center gap-3 mb-3"
                         >
-                          <option value={item.size}>
-                            {item.size ? item.size : "No Size Available"}
-                          </option>
-                        </select>
-                      </div>
+                          <h4 className="text-sm font-medium">Size:</h4>
+                          <select
+                            name="size"
+                            id="size"
+                            onChange={(e) => setSelectedSize(e.target.value)}
+                            value={selectedSize}
+                          >
+                            <option value={item.size}>{item.size}</option>
+                          </select>
+                        </div>
+                      ) : (
+                        <div
+                          key={item.id}
+                          className="mx-8 flex items-center gap-3 mb-3"
+                        >
+                          <h4 className="text-sm font-medium">Color</h4>
+                          <select
+                            name="size"
+                            id="size"
+                            onChange={(e) => setSelectedSize(e.target.value)}
+                            value={selectedSize}
+                          >
+                            <option value={item.colors[0]}>
+                              {item.colors[0]}
+                            </option>
+                          </select>
+                        </div>
+                      )}
                       {!item.size && (
                         <div>
                           <h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
@@ -247,19 +269,14 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                                   <input
                                     type="number"
                                     name="retail_price"
-                                    value={retailPrices[item.id] || ""}
-                                    onChange={(e) =>
-                                      setRetailPrices({
-                                        ...retailPrices,
-                                        [item.id]: e.target.value,
-                                      })
-                                    }
+                                    value={retailPrices}
+                                    onChange={handleRetail}
                                     className="border bg-white shadow-md border-gray-200 h-10 rounded px-5"
                                   />
                                 </label>
                                 <button
                                   className="p-2 px-4 rounded-md common"
-                                  onClick={(e) => handleAddProduct(e, item.id)}
+                                  onClick={(e) => handleAddProduct(e, item?.id)}
                                   // disabled={selectedSizes.includes(selectedSize)}
                                 >
                                   Go
@@ -279,20 +296,48 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                 .filter((item) => !selectedSize || item.size === selectedSize)
                 .map((item) => (
                   <div key={item.id} className="">
-                    <div className="mx-8 flex items-center gap-3 mb-3">
-                      <h4 className="text-sm font-medium">Size:</h4>
-                      <select
-                        name="size"
-                        id="size"
-                        onChange={(e) => setSelectedSize(e.target.value)}
-                        value={selectedSize}
-                      >
-                        {price.map((item) => (
-                          <option key={item.id} value={item.size}>
-                            {item.size}
-                          </option>
-                        ))}
-                      </select>
+                    <div>
+                      {price.map((item) => (
+                        <>
+                          {item.size ? (
+                            <div
+                              key={item.id}
+                              className="mx-8 flex items-center gap-3 mb-3"
+                            >
+                              <h4 className="text-sm font-medium">Size:</h4>
+                              <select
+                                name="size"
+                                id="size"
+                                onChange={(e) =>
+                                  setSelectedSize(e.target.value)
+                                }
+                                value={selectedSize}
+                              >
+                                <option value={item.size}>{item.size}</option>
+                              </select>
+                            </div>
+                          ) : (
+                            <div
+                              key={item.id}
+                              className="mx-8 flex items-center gap-3 mb-3"
+                            >
+                              <h4 className="text-sm font-medium">Color</h4>
+                              <select
+                                name="size"
+                                id="size"
+                                onChange={(e) =>
+                                  setSelectedSize(e.target.value)
+                                }
+                                value={selectedSize}
+                              >
+                                <option value={item.colors[0]}>
+                                  {item.colors[0]}
+                                </option>
+                              </select>
+                            </div>
+                          )}
+                        </>
+                      ))}
                     </div>
                     <h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
                       Base Price:{" "}
@@ -330,13 +375,8 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                             <input
                               type="number"
                               name="retail_price"
-                              value={retailPrices[item.id] || ""}
-                              onChange={(e) =>
-                                setRetailPrices({
-                                  ...retailPrices,
-                                  [item.id]: e.target.value,
-                                })
-                              }
+                              value={retailPrices.retail_price}
+                              onChange={handleRetail}
                               className="border bg-white shadow-md border-gray-200 h-10 rounded px-5"
                             />
                           </label>
