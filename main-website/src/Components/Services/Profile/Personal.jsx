@@ -2,20 +2,19 @@
 import { useEffect, useState } from "react";
 
 import toast from "react-hot-toast";
-import { useGlobalContext } from "../../../hooks/context";
 
-function Personal() {
-  const { user } = useGlobalContext();
+function Personal({ user }) {
+  //const { user } = useGlobalContext();
   const [updateData, setUpdateData] = useState({});
 
   useEffect(() => {
     // Populate the form fields with the initial data when userData changes
     setUpdateData({
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      contact: user.contact,
-      address: user.address,
+      first_name: user?.first_name,
+      last_name: user?.last_name,
+      email: user?.email,
+      contact: user?.contact,
+      address: user?.address,
     });
   }, [user]);
   const handleProfileUpdate = (e) => {
@@ -48,7 +47,7 @@ function Personal() {
                   First Name
                   <input
                     type="text"
-                    value={updateData.first_name}
+                    value={updateData?.first_name}
                     onChange={(e) =>
                       setUpdateData({
                         ...updateData,
@@ -62,7 +61,7 @@ function Personal() {
                   Last Name
                   <input
                     type="text"
-                    value={updateData.last_name}
+                    value={updateData?.last_name}
                     onChange={(e) =>
                       setUpdateData({
                         ...updateData,
@@ -76,7 +75,7 @@ function Personal() {
                   Email
                   <input
                     type="text"
-                    value={updateData.email}
+                    value={updateData?.email}
                     onChange={(e) =>
                       setUpdateData({ ...updateData, email: e.target.value })
                     }
@@ -87,7 +86,7 @@ function Personal() {
                   Phone
                   <input
                     type="text"
-                    value={updateData.contact}
+                    value={updateData?.contact}
                     onChange={(e) =>
                       setUpdateData({ ...updateData, contact: e.target.value })
                     }

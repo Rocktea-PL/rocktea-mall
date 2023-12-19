@@ -15,6 +15,8 @@ import Navbar from "../Features/UserNavbar";
 import SeeAll from "../../pages/SeeAll";
 import { UserCartProvider } from "../Hooks/CartContext";
 import { useEffect } from "react";
+import OrderItems from "../Features/OrderItems";
+import Orders from "../../pages/Users/Profile/Orders";
 //import DropshipperNavbar from "../Features/DropshipperNavbar";
 
 function UserLayout() {
@@ -83,6 +85,8 @@ function UserLayout() {
             element={<ProductDetails />}
           />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/order_items" element={<OrderItems />} />
+          <Route path="/my_orders" element={<Orders />} />
           <Route path="/*" element={<Notfound />} />
         </Routes>
       </UserCartProvider>

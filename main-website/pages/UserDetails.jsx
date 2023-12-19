@@ -117,7 +117,7 @@ function UserDetails() {
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5  ">
                 <label className="">
-                  First Name
+                  First Name*
                   <input
                     type="text"
                     placeholder="First name"
@@ -130,7 +130,7 @@ function UserDetails() {
                   )}
                 </label>
                 <label className="">
-                  Last Name
+                  Last Name*
                   <input
                     type="text"
                     placeholder="Last name"
@@ -143,7 +143,7 @@ function UserDetails() {
                   )}
                 </label>
                 <label className="flex flex-col md:col-span-2">
-                  Email
+                  Email*
                   <input
                     type="email"
                     placeholder="example@mail.com"
@@ -157,7 +157,7 @@ function UserDetails() {
                 </label>
 
                 <label className="relative ">
-                  Phone Number
+                  Phone Number*
                   <PhoneInput
                     defaultCountry="NG"
                     international
@@ -181,7 +181,7 @@ function UserDetails() {
                 />
 
                 <label className="relative md:col-span-2">
-                  Password
+                  Password*
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="*******"

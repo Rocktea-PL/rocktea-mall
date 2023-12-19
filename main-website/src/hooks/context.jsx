@@ -36,7 +36,6 @@ const AppProvider = ({ children }) => {
     contact: "",
     password: "",
     profile_image: "",
-    category: "",
   });
 
   const [credentials, setCredentials] = useState({
@@ -63,6 +62,8 @@ const AppProvider = ({ children }) => {
     business_photograph2: "",
     business_photograph3: "",
     about: "",
+    category: sessionStorage.getItem("selectedCategoryId"),
+    location: "",
     user: localStorage.getItem("ownerId"),
     // Add more properties as needed
   });
@@ -72,6 +73,7 @@ const AppProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [verifyEmail, setVerifyEmail] = useState(false);
   const [categories, setCategories] = useState([]);
+  //const [initialRedirect, setInitialRedirect] = useState("");
   const service_id = localStorage.getItem("ownerId");
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -170,7 +172,6 @@ const AppProvider = ({ children }) => {
     formData.append("contact", serviceData.contact);
     formData.append("password", serviceData.password);
     formData.append("profile_image", serviceData.profile_image);
-    formData.append("category", serviceData.category);
 
     try {
       // Add logic here to submit userData to the server
@@ -258,12 +259,12 @@ const AppProvider = ({ children }) => {
       const token = response.access;
       localStorage.setItem("accessToken", token);
 
-      let store_id = response.user_data.store_id;
+      //let store_id = localStorage.getItem("id");
       // console.log(store_id)
       if (response.status === 400 || response.status === 401) {
         console.log("error is bad");
       }
-      if (response.user_data.has_store === false) {
+      /*if (response.user_data.has_store === false) {
         navigate("/store_details");
         //https://rocktea-mall-product.vercel.app
         //`https://rocktea-mall-product.vercel.app/dashboard
@@ -280,10 +281,28 @@ const AppProvider = ({ children }) => {
         navigate(`/services_info`);
       } else {
         navigate("/profile");
+      }*/
+      localStorage.setItem("ownerId", response.user_data.id);
+      if (response.user_data.is_services && response.user_data.has_services) {
+        navigate(`/profile?id=${response.user_data.id}`);
+      } else if (
+        response.user_data.is_storeowner &&
+        response.user_data.has_store
+      ) {
+        // window.open(`https://rocktea-mall-product.vercel.app/dashboard?store_id=${response.user_data.store_id}`, "_self",);
+      } else {
+        // If neither is_services nor has_store is true, navigate to registration pages
+        navigate(
+          response.user_data.is_storeowner && !response.user_data.has_store
+            ? "/store_details"
+            : response.user_data.is_services && !response.user_data.has_services
+            ? "/services_info"
+            : "/signin",
+        );
       }
 
       console.log("Updated storeData:", storeData);
-      localStorage.setItem("ownerId", response.user_data.id);
+
       console.log(response.user_data.id);
       toast.success("Logged in Successfully");
     } catch (error) {
@@ -297,6 +316,7 @@ const AppProvider = ({ children }) => {
       // Set loading state back to false after the request is complete
     }
   };
+
   const handleServiceInfoSubmit = async (e) => {
     e.preventDefault();
 
@@ -307,6 +327,8 @@ const AppProvider = ({ children }) => {
     formData.append("contact", serviceInfo.contact);
     formData.append("years_of_experience", serviceInfo.years_of_experience);
     //formData.append("category", storeData.category);
+    formData.append("category", serviceInfo.category);
+    formData.append("location", serviceInfo.location);
     formData.append("business_photograph", serviceInfo.business_photograph);
     formData.append("business_photograph2", serviceInfo.business_photograph2);
     formData.append("business_photograph3", serviceInfo.business_photograph3);
@@ -418,6 +440,7 @@ const AppProvider = ({ children }) => {
 
   // Call the function to initiate the payment
   //initiatePayment();
+  let ownerId = localStorage.getItem("ownerId");
   const initiatePayment = async (formData) => {
     setIsLoading(true);
     try {
@@ -475,7 +498,7 @@ const AppProvider = ({ children }) => {
           clearInterval(interval);
           // Stop polling
           //const store_id = localStorage.getItem('id')
-          navigate("/dashboard");
+          navigate(`/profile?id=${ownerId}`);
           /*window.location.href =
             `http://localhost:5174/dashboard/${store_id}`;*/
           console.log("Payment verification successful.");

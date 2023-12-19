@@ -1,11 +1,15 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import "../../styles/Dashboard.css";
+import "../../styles/pagination.css";
 import ProfileCompletion from "./ProfileCompletion";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
-
+import ReactPaginate from "react-paginate";
+import { useState } from "react";
 function OrderStatus() {
+  const [currentPage, setCurrentPage] = useState(0);
+
   /*const handleCheckboxChange = (orderId) => {
     // Handle checkbox change if needed
     console.log("Checkbox changed for order ID:", orderId);
@@ -39,15 +43,26 @@ function OrderStatus() {
     return <p>Error loading product count</p>;
   }
 
+  const ordersPerPage = 10;
+  const pageCount = Math.ceil(orders.length / ordersPerPage);
+
+  const handlePageClick = (data) => {
+    const selectedPage = data.selected;
+    setCurrentPage(selectedPage);
+  };
+
+  const indexOfLastOrder = (currentPage + 1) * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
   return (
     <section className="mt-5 w-full  -ml-1">
       <ProfileCompletion />
-      {orders.length > 0 ? (
+      {currentOrders?.length > 0 ? (
         <>
           <div className="overflow-x-auto">
             <table className="w-full border-spacing-7 border-collapse  ">
               <tr className="order-table   bg-white mt-5 h-10">
-                <th>Name</th>
+                <th>Buyer</th>
                 <th>Tracking ID</th>
                 <th>Cost</th>
                 <th>Payment</th>
@@ -55,13 +70,13 @@ function OrderStatus() {
                 <th>Date</th>
               </tr>
               <tbody className="">
-                {orders.map((item) => (
+                {currentOrders.map((item) => (
                   <tr key={item.id} className="table-content   w-full bg-white">
                     <td className="text-center  text-sm md:text-[1rem] ">
                       {item.buyer}
                     </td>
                     <td className="text-center  text-sm md:text-[1rem]">
-                      #{item.tracking}
+                      #{item.order_id}
                     </td>
                     <td className="text-center  text-sm md:text-[1rem]">
                       ₦ {item.total_price}
@@ -86,26 +101,20 @@ function OrderStatus() {
               </tbody>
             </table>
           </div>
-          <div className="bg-white flex items-end justify-end py-7  mt-5 p-5 rounded-lg">
-            <div className="flex items-end gap-x-4 justify-between">
-              <span>1/10</span>
-              <div className="flex items-center gap-x-3">
-                <button className="border border-black rounded-md p-1 font-[400]">
-                  <FaAngleLeft />
-                </button>
-                <button className="border border-black rounded-md p-1 font-[400]">
-                  <FaAngleRight />
-                </button>
-              </div>
-              <form className="flex items-center gap-2">
-                <label htmlFor="goTo"> Go To</label>
-                <input
-                  type="text"
-                  placeholder="1-20 pages"
-                  className="border border-black rounded-md w-[100px] outline-none px-2 py-1 text-sm"
-                />
-              </form>
-            </div>
+          <div className="bg-white flex items-center justify-center py-5  mt-5 p-5 rounded-lg">
+            <ReactPaginate
+              containerClassName={"pagination"}
+              pageClassName={"page-item"}
+              activeClassName={"active"}
+              previousLabel={<FaAngleLeft />}
+              nextLabel={<FaAngleRight />}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+            />
           </div>
         </>
       ) : (
@@ -129,6 +138,25 @@ function OrderStatus() {
 
       {/*
 
+<div className="flex items-end gap-x-4 justify-between">
+              <span>1/10</span>
+              <div className="flex items-center gap-x-3">
+                <button className="border border-black rounded-md p-1 font-[400]">
+                  <FaAngleLeft />
+                </button>
+                <button className="border border-black rounded-md p-1 font-[400]">
+                  <FaAngleRight />
+                </button>
+              </div>
+              <form className="flex items-center gap-2">
+                <label htmlFor="goTo"> Go To</label>
+                <input
+                  type="text"
+                  placeholder="1-20 pages"
+                  className="border border-black rounded-md w-[100px] outline-none px-2 py-1 text-sm"
+                />
+              </form>
+            </div>
 <td className=" p-2">
                     <div className="flex items-center justify-center">
                       <input

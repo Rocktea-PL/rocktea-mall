@@ -5,14 +5,14 @@ import ServicesHero from "../src/Components/Services/ServicesHero";
 
 function ServicesHomePage() {
   return (
-    <>
+    <div className="relative">
       <Header />
       <section>
         <ServicesHero />
         <Categories />
         <ServiceListings />
       </section>
-    </>
+    </div>
   );
 }
 

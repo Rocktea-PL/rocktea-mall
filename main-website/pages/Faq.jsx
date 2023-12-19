@@ -81,9 +81,7 @@ const AccordionData = [
   {
     id: 1,
     title: "WHAT IS ROCKTEA MALL?",
-    content: ` At RockTea Mall we do B2B2C, where we bring together Drop-shipping and E commerce business ownership. 
-    We generate online stores for our Drop-shippers using business details, we give them products for free, 
-    they list those products and add their own profits to the initial price of the products to make sales.`,
+    content: ` At RockTea Mall we do B2B2C, where we bring together Drop-shipping and E commerce business ownership. We generate online stores for our Drop-shippers using business details, we give them products for free, they list those products and add their own profits to the initial price of the products to make sales.`,
   },
   {
     id: 2,
@@ -104,10 +102,7 @@ const AccordionData = [
   {
     id: 3,
     title: "IS ROCKTEA MALL FREE?",
-    content: `RockTea Mall is not available for free usage. We offer an OTP (One-Time Payment) option at a cost of NGN 150,000, 
-    providing users with comprehensive access to the platform's features and services without the need for recurring subscription fees. 
-    This one-time payment ensures a straightforward and transparent transaction, granting users full access to RockTea Mall's capabilities 
-    for an extended period, based on the terms outlined in the agreement.`,
+    content: `RockTea Mall is not available for free usage. We offer an OTP (One-Time Payment) option at a cost of NGN 150,000, providing users with comprehensive access to the platform's features and services without the need for recurring subscription fees. This one-time payment ensures a straightforward and transparent transaction, granting users full access to RockTea Mall's capabilities for an extended period, based on the terms outlined in the agreement.`,
   },
   {
     id: 4,

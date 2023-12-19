@@ -43,7 +43,7 @@ function Store({ handleStoreInputChange, storeError, setStoreError }) {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 md:mt-3 md:mb-6 md:w-[90%] w-full">
           <label htmlFor="name" className="md:col-span-2">
-            Store Name
+            Store Name*
             <input
               type="text"
               name="name"
@@ -56,7 +56,7 @@ function Store({ handleStoreInputChange, storeError, setStoreError }) {
             )}
           </label>
           <label htmlFor="email" className="flex flex-col md:col-span-2">
-            Store Email
+            Store Email*
             <input
               type="email"
               name="email"
@@ -83,7 +83,7 @@ function Store({ handleStoreInputChange, storeError, setStoreError }) {
             )}
           </label>
           <label htmlFor="domain_name">
-            Domain
+            Domain*
             <div className="flex items-center country">
               <input
                 type="text"

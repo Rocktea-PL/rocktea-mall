@@ -75,7 +75,7 @@ function HowItWorks() {
           </figure>
         </motion.article>
       </section>
-      <Link to="/personal_details">
+      <Link to="/signup">
         <div className="flex items-center justify-center mt-2 mb-8">
           <Button text="Get Started" />
         </div>

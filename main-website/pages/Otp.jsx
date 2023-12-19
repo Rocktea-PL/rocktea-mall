@@ -5,18 +5,20 @@ import { useGlobalContext } from "../src/hooks/context";
 
 function Otp() {
   const { initiatePayment } = useGlobalContext();
-  //console.log(componentProps.email)
-  const handlePaymentInitiation = () => {
-    const owner = localStorage.getItem("owner"); // Get the owner from localStorage
-    const user = location.getItem("serviceId");
-    if (!owner || !user) {
+
+  /* const handlePaymentInitiation = () => {
+    const owner =  localStorage.getItem("ownerId"); // Get the owner from localStorage
+   // const user = location.getItem("serviceId");
+   console.log(owner)
+    if (!owner ) {
       console.error("Owner information not found.");
       return;
     }
+    console.log(owner)
     const formData = new FormData();
-    formData.append("store_owner", owner) || formData.append("serviceId", user);
+    formData.append("store_owner", owner) ;
     initiatePayment(formData); // Pass the owner information to initiatePayment
-  };
+  };*/
   return (
     <section className="relative h-screen w-full gap-20 flex flex-col md:flex-row items-center justify-center md:justify-start p-0  md:overflow-hidden">
       <figure className="hidden lg:max-w-[50%]   w-[570px] lg:block lg:h-screen  ">
@@ -41,7 +43,7 @@ function Otp() {
           URL.
         </p>
         <button
-          onClick={handlePaymentInitiation}
+          onClick={initiatePayment}
           className="flex items-center justify-center bg-[var(--yellow)] py-3 px-5 rounded-lg"
         >
           Procceed to payment

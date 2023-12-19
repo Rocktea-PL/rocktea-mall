@@ -27,6 +27,7 @@ const dropdown = [
     id: 3,
     title: "Orders",
     icon: <RiListUnordered />,
+    link: "/my_orders",
   },
   {
     id: 4,

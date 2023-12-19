@@ -39,14 +39,14 @@ const Accordion = ({ title, content }) => {
         <div
           className={`p-4 shadow-md panel bg-white border-t border-t-solid border-t-gray rounded-b-md overflow-scroll ${
             isOpen
-              ? "sticky top-0 bg-white max-h-[600px] overflow-y-auto transition-opacity duration-1000 opacity-100 "
+              ? "sticky top-0 bg-white max-h-auto  transition-opacity duration-1000 opacity-100 "
               : "max-h-0 opacity-0 "
           }`}
         >
           <p
             className={`text-sm p-6  ${
               isOpen
-                ? "sticky top-0 bg-white max-h-[600px] leading-8 opacity-100  transition-all duration-1000"
+                ? "sticky top-0 bg-white max-h-auto leading-8 opacity-100  transition-all duration-1000"
                 : "max-h-0 opacity-0 "
             }`}
           >

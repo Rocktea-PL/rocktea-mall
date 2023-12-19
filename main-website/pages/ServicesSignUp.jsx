@@ -7,6 +7,7 @@ import { Oval } from "react-loader-spinner";
 import { useState } from "react";
 import PasswordChecklist from "react-password-checklist";
 //import {useState} from 'react'
+import axios from "axios";
 import ServiceImg from "../src/assets/services.svg";
 import {
   FaEye,
@@ -16,6 +17,7 @@ import {
 } from "react-icons/fa";
 import { useGlobalContext } from "../src/hooks/context";
 import { ImageWithLoading } from "../src/Components/ImageLoader";
+import { useQuery } from "react-query";
 
 function ServicesSignUp() {
   const {
@@ -54,13 +56,18 @@ function ServicesSignUp() {
     }
   }, [setVerifyEmail]);
 */
-
+  const { data: categories } = useQuery("categories", async () => {
+    const response = await axios(
+      "https://rocktea-mall-api-test.up.railway.app/rocktea/services-category",
+    );
+    const data = response.data;
+    return data;
+  });
   const handleInputChange = (e) => {
-    let updatedUserData = {};
+    let updatedUserData = { ...serviceData };
     let updatedErrors = { ...error };
 
     if (e && e.target) {
-      // Regular input change
       const { name, value } = e.target;
       updatedUserData = {
         ...serviceData,
@@ -68,22 +75,25 @@ function ServicesSignUp() {
       };
 
       if (name === "password") {
-        handlePasswordTyping(); // Update the typing status for password
+        handlePasswordTyping();
       }
 
-      // Add specific validations if needed
+      // Save the selected category ID to session storage
+      if (name === "category") {
+        sessionStorage.setItem("selectedCategoryId", value);
+      }
     } else {
-      // Phone number input change
       updatedUserData = {
         ...serviceData,
-        contact: e, // e contains the phone number directly
+        contact: e,
       };
-      updatedErrors.contact = ""; // Reset error for contact
+      updatedErrors.contact = "";
     }
 
     setServiceData(updatedUserData);
     setError(updatedErrors);
   };
+
   //console.log(serviceData.type)
   useEffect(() => {
     localStorage.setItem("verifyEmail", JSON.stringify(verifyEmail));
@@ -185,11 +195,17 @@ function ServicesSignUp() {
                     id="category"
                     onChange={handleInputChange}
                   >
-                    <option value="Makeup Artist">MakeUp Artist</option>
-                    <option value="Fashion Designer">Fashion Designer</option>
-                    <option value="Personal Assistant">
-                      Personal Assistant
+                    <option value="*" disabled>
+                      Pick a Category
                     </option>
+                    {categories?.length > 0 &&
+                      categories.map((category) => (
+                        <>
+                          <option key={category.id} value={category.id}>
+                            {category.name}
+                          </option>
+                        </>
+                      ))}
                   </select>
                 </label>
 

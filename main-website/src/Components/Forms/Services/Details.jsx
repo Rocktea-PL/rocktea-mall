@@ -10,7 +10,7 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
   return (
     <div className="px-5 md-px-2 ">
       <h2 className="text-black text-[1.3rem] md:text-lg leading-tight">
-        Tell us a bit about yourself
+        Tell us a bit about your business
       </h2>
       <p className="text-orange mt-2 text-sm md:text-[20px]">
         Business Information
@@ -23,7 +23,7 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 md:mt-3 md:mb-6 md:w-[90%] w-full">
           <label htmlFor="name" className="md:col-span-2">
-            Business Name
+            Business Name*
             <input
               type="text"
               name="name"
@@ -36,7 +36,7 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
             )}
           </label>
           <label htmlFor="email" className="flex flex-col md:col-span-2">
-            Business Email
+            Business Email*
             <input
               type="email"
               name="email"
@@ -48,9 +48,22 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
               <p className="text-red-500 text-sm">{storeError.email}</p>
             )}
           </label>
+          <label htmlFor="email" className="flex flex-col md:col-span-2">
+            Location*
+            <input
+              type="location"
+              name="location"
+              placeholder="address"
+              value={serviceInfo?.location}
+              onChange={handleStoreInputChange}
+            />
+            {storeError?.email && (
+              <p className="text-red-500 text-sm">{storeError.location}</p>
+            )}
+          </label>
 
           <label htmlFor="contact">
-            Business Contact
+            Business Contact*
             <PhoneInput
               defaultCountry="NG"
               international
@@ -72,7 +85,7 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
             )}
           </label>
           <label htmlFor="years_of_experience">
-            Years of Experience
+            Years of Experience*
             <select
               name="years_of_experience"
               id="years_of_experience"
@@ -91,7 +104,7 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
             )}
           </label>
           <label htmlFor="" className="flex flex-col md:col-span-2">
-            Tell us about your business?
+            Tell us about your business?*
             <textarea
               name="about"
               id=""
@@ -156,7 +169,7 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
               setStoreData={setServiceInfo}
               error={storeError}
               setError={setStoreError}
-              label="Photograph 1 capturing you while providing the services you offer"
+              label="Photograph 1 capturing you while providing the services you offer*"
               imageIdentifier="business_photograph"
             />
           </div>
@@ -168,7 +181,7 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
               setStoreData={setServiceInfo}
               error={storeError}
               setError={setStoreError}
-              label="Photograph 2 capturing you while providing the services you offer"
+              label="Photograph 2 capturing you while providing the services you offer*"
               imageIdentifier="business_photograph2"
             />
           </div>
@@ -179,7 +192,7 @@ function Details({ handleStoreInputChange, storeError, setStoreError }) {
               setStoreData={setServiceInfo}
               error={storeError}
               setError={setStoreError}
-              label="Photograph 3 capturing you while providing the services you offer"
+              label="Photograph 3 capturing you while providing the services you offer*"
               imageIdentifier="business_photograph3"
             />
           </div>

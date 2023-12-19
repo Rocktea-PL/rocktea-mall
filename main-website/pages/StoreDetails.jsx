@@ -6,20 +6,18 @@ import Otp from "../src/Components/Forms/SignUp/Otp";
 
 function StoreDetails() {
   const {
-    
     storeData,
     setStoreData,
     storeError,
     setStoreError,
-    
+
     //isLoading,
-    
 
     currentStep,
   } = useGlobalContext();
 
   //const [emailError, setEmailError] = useState(false);
-  
+
   const emailIsValid = (email) => {
     // Regular expression for basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
