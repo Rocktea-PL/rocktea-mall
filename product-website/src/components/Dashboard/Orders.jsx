@@ -1,19 +1,18 @@
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+//import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import "../../styles/Dashboard.css";
 import "../../styles/pagination.css";
 import ProfileCompletion from "./ProfileCompletion";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
-import ReactPaginate from "react-paginate";
+//import ReactPaginate from "react-paginate";
 import { useState } from "react";
+import { paginateData } from "../../Helpers/Paginations";
+import Pagination from "../../Features/Pagination";
 function OrderStatus() {
   const [currentPage, setCurrentPage] = useState(0);
-
-  /*const handleCheckboxChange = (orderId) => {
-    // Handle checkbox change if needed
-    console.log("Checkbox changed for order ID:", orderId);
-  };*/
+  //const [currentPage, setCurrentPage] = useState(0);
+  
   const store_id = localStorage.getItem("storeId");
   const fetchStoreOrders = async () => {
     const response = await axios.get(
@@ -43,17 +42,19 @@ function OrderStatus() {
     return <p>Error loading product count</p>;
   }
 
-  const ordersPerPage = 10;
-  const pageCount = Math.ceil(orders.length / ordersPerPage);
+  /*const ordersPerPage = 10;
+  const pageCount = Math.ceil(orders.length / ordersPerPage);*/
 
   const handlePageClick = (data) => {
     const selectedPage = data.selected;
     setCurrentPage(selectedPage);
   };
+  const { currentOrders, pageCount } = paginateData(orders, currentPage);
 
-  const indexOfLastOrder = (currentPage + 1) * ordersPerPage;
+
+  /*const indexOfLastOrder = (currentPage + 1) * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
+  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);*/
   return (
     <section className="mt-5 w-full  -ml-1">
       <ProfileCompletion />
@@ -91,7 +92,7 @@ function OrderStatus() {
                           : " text-green-700 my-2"
                       }`}
                     >
-                      {item.status}
+                     {item.status}
                     </td>
                     <td className="text-center p-2 text-sm md:text-[1rem]">
                       {item.created_at}
@@ -100,22 +101,12 @@ function OrderStatus() {
                 ))}
               </tbody>
             </table>
+            
           </div>
-          <div className="bg-white flex items-center justify-center py-5  mt-5 p-5 rounded-lg">
-            <ReactPaginate
-              containerClassName={"pagination"}
-              pageClassName={"page-item"}
-              activeClassName={"active"}
-              previousLabel={<FaAngleLeft />}
-              nextLabel={<FaAngleRight />}
-              breakLabel={"..."}
-              breakClassName={"break-me"}
-              pageCount={pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageClick}
-            />
-          </div>
+          
+           
+          <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
+        
         </>
       ) : (
         <div className="bg-white mb-3 max-w-[600px] flex flex-col items-center justify-center mx-auto py-10 rounded-md px-6">
