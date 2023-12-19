@@ -1,12 +1,16 @@
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+
 import "../../../src/styles/Dashboard.css";
 //import ProfileCompletion from "./ProfileCompletion";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useUserCartContext } from "../../../src/Hooks/CartContext";
+import { paginateData } from "../../../src/Helpers/Paginations";
+import { useState } from "react";
+import Pagination from "../../../src/Features/Pagination";
 
 function Orders() {
+  const [currentPage, setCurrentPage] = useState(0);
   /*const handleCheckboxChange = (orderId) => {
     // Handle checkbox change if needed
     console.log("Checkbox changed for order ID:", orderId);
@@ -45,10 +49,16 @@ function Orders() {
   if (isError) {
     return <p>Error loading product count</p>;
   }
+
+  const handlePageClick = (data) => {
+    const selectedPage = data.selected;
+    setCurrentPage(selectedPage);
+  };
+  const { currentOrders, pageCount } = paginateData(orders, currentPage);
   //console.log(orders)
   return (
     <section className="mt-36 lg:mt-20 w-full  -ml-1 px-3 lg:px-10">
-      {orders?.length > 0 ? (
+      {currentOrders?.length > 0 ? (
         <>
           <div className="overflow-x-auto">
             <table className="w-full border-spacing-7 border-collapse  ">
@@ -62,7 +72,7 @@ function Orders() {
                 <th>Date</th>
               </tr>
               <tbody className="">
-                {orders.map((item, i) => (
+                {currentOrders.map((item, i) => (
                   <tr key={item.id} className="table-content   w-full bg-white">
                     <td className="text-center  text-sm md:text-[1rem] ">
                       {i + 1}.
@@ -96,27 +106,7 @@ function Orders() {
               </tbody>
             </table>
           </div>
-          <div className="bg-white flex items-end justify-end py-7  mt-5 p-5 rounded-lg">
-            <div className="flex items-end gap-x-4 justify-between">
-              <span>1/10</span>
-              <div className="flex items-center gap-x-3">
-                <button className="border border-black rounded-md p-1 font-[400]">
-                  <FaAngleLeft />
-                </button>
-                <button className="border border-black rounded-md p-1 font-[400]">
-                  <FaAngleRight />
-                </button>
-              </div>
-              <form className="flex items-center gap-2">
-                <label htmlFor="goTo"> Go To</label>
-                <input
-                  type="text"
-                  placeholder="1-20 pages"
-                  className="border border-black rounded-md w-[100px] outline-none px-2 py-1 text-sm"
-                />
-              </form>
-            </div>
-          </div>
+          <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
         </>
       ) : (
         <div className="bg-white mb-3 max-w-[600px] flex flex-col items-center justify-center mx-auto py-10 rounded-md px-6">

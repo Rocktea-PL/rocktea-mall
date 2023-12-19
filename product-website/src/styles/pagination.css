@@ -12,7 +12,7 @@
   
   .active {
     background-color: #000;
-    border-radius: 50%;
+    border-radius: 10px;
     color: white;
   }
   

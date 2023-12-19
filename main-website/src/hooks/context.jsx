@@ -289,7 +289,7 @@ const AppProvider = ({ children }) => {
         response.user_data.is_storeowner &&
         response.user_data.has_store
       ) {
-        // window.open(`https://rocktea-mall-product.vercel.app/dashboard?store_id=${response.user_data.store_id}`, "_self",);
+        window.open(`https://rocktea-mall-product.vercel.app/dashboard?store_id=${response.user_data.store_id}`, "_self",);
       } else {
         // If neither is_services nor has_store is true, navigate to registration pages
         navigate(
