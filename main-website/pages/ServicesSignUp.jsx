@@ -18,6 +18,7 @@ import {
 import { useGlobalContext } from "../src/hooks/context";
 import { ImageWithLoading } from "../src/Components/ImageLoader";
 import { useQuery } from "react-query";
+import { NavLink } from "react-router-dom";
 
 function ServicesSignUp() {
   const {
@@ -110,7 +111,7 @@ function ServicesSignUp() {
             isCheckerOpen && "lg:pt-[11rem] overflow-auto"
           } max-w-[85%] lg:w-[450px] mx-auto flex flex-col items-center justify-center py-8 transition-all  px-5  h-full`}
         >
-          <div className=" mt-20 lg:mt-0">
+          <div className=" mt-10 lg:mt-0">
             <h2 className="mt-0 text-center  lg:text-start text-black leading-[1.5rem] !text-[32px]">
               Sign Up
             </h2>
@@ -281,6 +282,15 @@ function ServicesSignUp() {
                 </button>
               </div>
             </form>
+            <p className="text-sm text-center  hover:underline">
+          Do not have an account?{" "}
+          <NavLink
+            to="/signin"
+            style={{ color: "var(--deep-blue)", fontWeight: "bold" }}
+          >
+            Sign In
+          </NavLink>{" "}
+        </p>
           </div>
         </div>
       </div>

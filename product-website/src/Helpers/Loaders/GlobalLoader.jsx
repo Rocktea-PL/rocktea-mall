@@ -8,7 +8,7 @@ export default function GlobalLoader() {
 
   const { View } = useLottie(options);
   return (
-    <div className="w-[300px] h-[300px] flex items-center justify-center mx-auto mt-[200px] fill-orange">
+    <div className="w-[300px] h-[300px] flex items-center justify-center mx-auto  xsm:mt-[100px] mt-[200px] fill-orange">
       {View}
     </div>
   );

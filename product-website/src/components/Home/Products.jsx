@@ -56,10 +56,12 @@ const Products = () => {
             />
           );
         })}
-        <article className="w-full h-full lg:h-[300px] my-10">
+        <article className=" my-10">
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695733529/rocktea-product-website/assets/Product_ad_mzshyg.png"
-            className="w-full h-full object-cover rounded-lg"
+            width={1300}
+            height={1000}
+            className=" rounded-lg"
             alt=""
           />
         </article>

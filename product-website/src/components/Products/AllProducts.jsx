@@ -18,7 +18,7 @@ export default function AllProducts({ FilterAllProducts }) {
       </div>
       {FilterAllProducts?.length > 0 ? (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-5 lg:grid-cols-5 w-[98%] justify-center mx-auto  overflow-hidden mt-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-5 lg:grid-cols-5  lg:w-[98%] justify-center mx-auto  overflow-hidden mt-5">
             {FilterAllProducts.map((item) => (
               <ProductCard
                 key={item?.id}

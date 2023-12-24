@@ -15,64 +15,8 @@ export default function Thumbnails({ productDet }) {
   const [thumbsSwiperMobile, setThumbsSwiperMobile] = useState(null);
   return (
     <div className="w-full">
-      {/* <div className="hidden lg:flex flex-row-reverse gap-5  w-full justify-center ">
-        Main Image 
-
-        <Swiper
-          style={{
-            "--swiper-navigation-color": "#fff",
-            "--swiper-pagination-color": "#fff",
-          }}
-          loop={true}
-          slidesPerView={1}
-          spaceBetween={3}
-          navigation={true}
-          //autoplay={true}
-          thumbs={{
-            swiper:
-              thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
-          }}
-          modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper h-[500px] "
-        >
-          {productDet?.images?.length > 0 &&
-            productDet?.images.map((item, index) => (
-              <SwiperSlide key={index}>
-                <img
-                  src={item?.url}
-                  alt="Additional Product 2"
-                  className="  object-cover w-[200px] h-[200px] block rounded-md  "
-                />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-        {/* Additional Images 
-        <Swiper
-          onSwiper={setThumbsSwiper}
-          loop={true}
-          spaceBetween={2}
-          slidesPerView={4}
-          // autoplay={true}
-          //onAutoplayResume={true}
-          freeMode={true}
-          direction="vertical"
-          watchSlidesProgress={true}
-          modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper2 mt-4   flex !flex-col max-h-[300px]"
-        >
-          {productDet?.images?.length > 0 &&
-            productDet?.images.map((item, index) => (
-              <SwiperSlide key={index} className="flex !flex-col">
-                <img
-                  src={item?.url}
-                  alt="Additional Product 2"
-                  className=" object-cover !rounded-md"
-                />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </div>*/}
-      <div className="  max-w-[90%] ">
+      
+      <div className="  lg:max-w-[90%] ">
         {/* Main Image */}
 
         <Swiper
@@ -92,7 +36,7 @@ export default function Thumbnails({ productDet }) {
                 : null,
           }}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper h-[500px] "
+          className="mySwiper  "
         >
           {productDet?.images?.length > 0 &&
             productDet?.images.map((item, index) => (
@@ -100,7 +44,7 @@ export default function Thumbnails({ productDet }) {
                 <img
                   src={item?.url}
                   alt="Additional Product 2"
-                  className="  rounded-md   object-cover"
+                  className="  rounded-md  object-contain"
                 />
               </SwiperSlide>
             ))}
@@ -127,7 +71,9 @@ export default function Thumbnails({ productDet }) {
                 <img
                   src={item?.url}
                   alt="Additional Product 2"
-                  className=" object-cover flex rounded-md"
+                  width={200}
+                  height={200}
+                  className=" object-contain  flex rounded-md"
                 />
               </SwiperSlide>
             ))}

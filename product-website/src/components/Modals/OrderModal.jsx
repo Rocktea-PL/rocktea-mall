@@ -11,7 +11,7 @@ export default function OrderModal({ onClose }) {
   const { View } = useLottie(options);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-[#000000b3] flex items-center  justify-center z-50">
+    <div className="fixed top-0 left-0 w-full h-full bg-[#000000b3] flex items-center  justify-center z-[999]">
       <div className="relative shadow-sm max-w-[80%]  bg-white w-[85%] sm:w-[400px]  h-[420px] rounded-[10px] px-5 py-2">
         <span
           className="absolute right-2 text-black top-2 text-3xl  px-3 text-small cursor-pointer"
@@ -33,7 +33,7 @@ export default function OrderModal({ onClose }) {
               <Link to="/order_items"> Order Details</Link>
             </button>
 
-            <button className="common h-14 w-[70%] rounded-md flex items-center justify-center mx-auto">
+            <button className="common h-14 mb-8 w-[70%] rounded-md flex items-center justify-center mx-auto">
               <Link to="/">Go to home</Link>
             </button>
           </div>

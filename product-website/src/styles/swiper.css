@@ -19,15 +19,11 @@
     background-position: center;
   }
   
-  .mySwiper .swiper-slide img {
   
-    height: 500px;
-   object-fit: cover;
-  }
   
   .mySwiper2 .swiper-slide img{
    width: 200px;
-    height: 100px;
+    
     opacity: 0.8;
   }
 

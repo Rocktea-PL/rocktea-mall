@@ -43,7 +43,7 @@ function Categories() {
       <h2 className="text-center font-semibold  text-2xl bg-white h-14 flex items-center justify-center rounded-md">
         Categories
       </h2>
-      <article className="flex items-center max-md:overflow-auto max-w-[100%] gap-5 mt-5 ">
+      <article max-md:overfclassName="flex items-center low-auto max-w-[100%] gap-5 mt-5 ">
         {category.map((item) => (
           <div
             key={item.id}

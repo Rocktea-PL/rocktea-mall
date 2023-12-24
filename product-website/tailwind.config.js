@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       screens:{
-        'xsm':'320px',
+        'xsm':{'max': '320px'},
         'sm':'500px',
         'md':'700px',
         'lg':'960px',
@@ -38,7 +38,8 @@ export default {
       },
       backgroundImage:{
         'market':'url("https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696399801/rocktea-main-website/assets/About_Us_2_rnw8se.png")',
-        'range':'linear-gradient(96deg, #1C0132 0.73%, #3F034E 100%)'
+        'range':'linear-gradient(96deg, #1C0132 0.73%, #3F034E 100%)',
+        'product':'url("https://res.cloudinary.com/dwvdgmuaq/image/upload/v1702665716/rocktea-product-website/assets/Groceries_1_m3egno.png")'
       }
     },
   },

@@ -42,11 +42,11 @@ export default function ScrollProducts({
   const sanitizedCategoryName = subCategory.replace(/\s+/g, "-");
   // const decodedSubCategory = decodeURIComponent(subCategory);
   return (
-    <div className="">
+    <div className="mb-5">
       <div className="relative w-full mt-5 bg-white z-[10] p-5">
-        <h2 className="font-semibold text-md lg:text-2xl">{categoryTitle}</h2>
+        <h2 className="font-semibold xsm:text-sm text-[1.2rem] sm:text-md lg:text-2xl">{categoryTitle}</h2>
         <Link to={`/shop/${sanitizedCategoryName}`}>
-          <span className="absolute top-5 lg:top-5 right-5 text-right flex items-center gap-2 text-[var(--orange)] cursor-pointer">
+          <span className=" absolute top-5 lg:top-5 right-5 text-right flex items-center gap-2 text-[var(--orange)] cursor-pointer">
             See All <FaAngleRight />
           </span>
         </Link>
@@ -80,7 +80,7 @@ export default function ScrollProducts({
           </article>
           <button
             onClick={handlePrev}
-            className={`absolute top-1/2 transform -translate-y-1/2 -left-2 z-50 bg-[rgba(0,0,0,0.5)] w-10 h-10 rounded-full text-md text-white flex items-center justify-center ${
+            className={`xsm:hidden absolute top-1/2 transform -translate-y-1/2 -left-2 z-50 bg-[rgba(0,0,0,0.5)] w-10 h-10 rounded-full text-md text-white flex items-center justify-center ${
               !scrollAtStart ? "" : "hidden"
             } transition-opacity duration-300`}
           >
@@ -88,7 +88,7 @@ export default function ScrollProducts({
           </button>
           <button
             onClick={handleNext}
-            className={`absolute top-1/2 transform -translate-y-1/2 -right-2 z-50 bg-[rgba(0,0,0,0.5)] w-10 h-10 rounded-full  text-md text-white flex items-center justify-center ${
+            className={` xsm:hidden absolute top-1/2 transform -translate-y-1/2 -right-2 z-50 bg-[rgba(0,0,0,0.5)] w-10 h-10 rounded-full  text-md text-white flex items-center justify-center ${
               !scrollAtEnd ? "" : "hidden"
             } transition-opacity duration-300`}
           >

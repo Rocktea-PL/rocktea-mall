@@ -178,7 +178,7 @@ const UserProductDetails = () => {
 
   return (
     <>
-      <section className="relative mt-20 px-10 lg:px-0 max-w-[1300px] m-auto bg-white rounded max-md:mx-10 pt-5">
+      <section className="relative mt-36 lg:mt-20 px-5 lg:px-0 max-w-[1300px] m-auto bg-white rounded max-md:mx-5 pt-5">
         <div className=" flex flex-col lg:flex-row w-full  lg:space-x-20 lg:p-8">
           {/* Product Images */}
           <div className="lg:max-w-[50%]">
@@ -193,20 +193,20 @@ const UserProductDetails = () => {
             <h2 className=" font-semibold uppercase text-md">
               {productDet?.name}
             </h2>
-            <div className="flex items-center gap-3 divide-x-2 divide-gray-300 mt-2">
-              <p className="capitalize font-bold pr-2">
+            <div className="hidden md:flex flex-col md:flex-row md:items-center gap-3 md:divide-x-2 divide-gray-300 mt-2">
+              <p className="capitalize font-bold md:pr-2">
                 Brand:
                 <span className="font-medium">
                   {productDet?.brand?.name}
                 </span>{" "}
               </p>
-              <p className="capitalize font-bold px-2">
+              <p className="capitalize font-bold md:px-2">
                 Category:
                 <span className="font-medium">
                   {productDet?.subcategory?.name}
                 </span>
               </p>
-              <p className="capitalize font-bold px-2">
+              <p className="capitalize font-bold md:px-2">
                 SKU: <span className="font-medium">{productDet?.sku}</span>
               </p>
             </div>
@@ -335,7 +335,20 @@ const UserProductDetails = () => {
                 <li className="font-semibold">
                   SKU: <span className="font-normal">{productDet?.sku}</span>{" "}
                 </li>
-
+                <li className="font-semibold">
+            Category:{" "}
+                  <span className="font-normal">
+                    {" "}
+                    {productDet?.subcategory?.name}
+                  </span>{" "}
+                </li>
+                <li className="font-semibold">
+                  Brand:{" "}
+                  <span className="font-normal">
+                    {" "}
+                    {productDet?.brand?.name}
+                  </span>{" "}
+                </li>
                 <li className="font-semibold">
                   Quantity:{" "}
                   <span className="font-normal">

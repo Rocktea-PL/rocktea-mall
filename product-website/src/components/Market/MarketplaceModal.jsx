@@ -135,7 +135,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
   console.log(retailPrices);
   return (
     <div className="modal-overlay z-[99]" onClick={handleOverlayClick}>
-      <div className="pt-8 bg-white rounded-lg relative w-[70%]  lg:w-[500px] flex flex-col   ">
+      <div className="pt-8 bg-white rounded-lg relative w-[95%] md:w-[70%] xsm:h-full  lg:w-[500px] flex flex-col   overflow-y-auto">
         <button onClick={closeModal} className="close-button">
           &times;
         </button>
@@ -214,7 +214,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                       ) : (
                         <div
                           key={item.id}
-                          className="mx-8 flex items-center gap-3 mb-3"
+                          className="mx-8 flex items-center gap-3 mb-3 -mt-3"
                         >
                           <h4 className="text-sm font-medium">Color</h4>
                           <select
@@ -238,15 +238,15 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                             </span>
                           </h4>
 
-                          <div className="flex items-center justify-center mt-7 md:mx-20 gap-10 ">
+                          <div className="flex items-center justify-center mt-7 mx-3 md:mx-20 xsm:gap-x-2 gap-x-5 md:gap-10 ">
                             <button
-                              className="flex items-center justify-center mx-auto common h-12 w-[150px] rounded-lg"
+                              className="flex items-center justify-center mx-auto common h-12 px-5 md:w-[150px] rounded-lg"
                               onClick={() => handleAddPrice(item.id)}
                             >
                               Add Product
                             </button>
                             <button
-                              className="flex items-center justify-center mx-auto border-[1.3px] border-orange h-12 w-[150px] rounded-lg"
+                              className="flex items-center justify-center mx-auto border-[1.3px] border-orange h-12  px-3 md:w-[150px] rounded-lg"
                               onClick={() => handleRemoveProduct(item.id)}
                             >
                               Remove Product
@@ -260,7 +260,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                               </h4>
                               <form
                                 action=""
-                                className="px-5 flex items-center justify-center mx-auto gap-3 mt-5"
+                                className="px-5 flex items-center justify-center mx-auto gap-3 mt-5 max-w-[90%]"
                               >
                                 <label htmlFor="" className="flex items-center">
                                   <span className="font-bold text-md px-3">
@@ -271,7 +271,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                                     name="retail_price"
                                     value={retailPrices}
                                     onChange={handleRetail}
-                                    className="border bg-white shadow-md border-gray-200 h-10 rounded px-5"
+                                    className="border bg-white shadow-md border-gray-200 h-10 xsm:!w-[150px] rounded px-5"
                                   />
                                 </label>
                                 <button
