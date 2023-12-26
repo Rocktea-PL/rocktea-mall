@@ -107,15 +107,15 @@ function YourProfile() {
         {loading ? (
           <h3>Loading....</h3>
         ) : (
-          <article className="bg-white p-2  rounded-md mt-5 ">
+          <article className="bg-white max-md:pb-5 p-2  rounded-md mt-5 ">
             <h4 className="mb-5 mx-5 text-[20px] text-darkblue mt-4 lg:text-start whitespace-nowrap font-medium">
               Personal Information
             </h4>
             <hr />
-            <div className="flex items-center px-5 gap-5 mt-8">
+            <div className="flex flex-col lg:flex-row items-center px-5 gap-5 mt-8">
               <div className="relative">
                 <img
-                  className=" w-[150px] h-[150px] object-cover rounded-full "
+                  className="w-[150px] h-[150px] object-cover rounded-full "
                   src={storeUser.profile_image}
                   alt=""
                 />
@@ -220,12 +220,12 @@ function YourProfile() {
           </article>
         )}
 
-        <article className="bg-white p-2  rounded-md mt-5 ">
+        <article className="bg-white p-2 max-md:pb-5 rounded-md mt-5 ">
           <h4 className="mb-5 mx-5 text-[20px] text-darkblue mt-4 lg:text-start whitespace-nowrap font-medium">
             Store Information
           </h4>
           <hr />
-          <div className="flex items-center px-5 gap-5 mt-8">
+          <div className="flex flex-col lg:flex-row items-center px-5 gap-5 mt-8">
             <div className="relative">
               <img
                 className=" w-[150px] h-[150px] object-cover rounded-full "
@@ -347,7 +347,7 @@ function YourProfile() {
           </form>
         </article>
 
-        <article className="bg-white p-2  rounded-md mt-5 ">
+        <article className="bg-white p-2  max-md:pb-5 rounded-md mt-5 ">
           <h4 className="mb-5 mx-5 text-[20px] text-darkblue mt-4 lg:text-start whitespace-nowrap font-medium">
             Social Media
           </h4>

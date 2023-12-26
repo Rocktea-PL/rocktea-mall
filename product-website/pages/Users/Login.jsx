@@ -32,7 +32,7 @@ function Login() {
   };
 
   return (
-    <div className="logout flex items-center justify-center h-screen overflow-hidden">
+    <div className="logout flex items-center justify-center h-screen overflow-hidden  -mt-3">
       <figure className="w-full hidden lg:block h-full overflow-hidden max-w-[50%]">
         <img
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694882647/rocktea-product-website/assets/image_109_wy4a6a.png"

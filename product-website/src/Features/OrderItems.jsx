@@ -67,30 +67,29 @@ function OrderItems() {
           </h3>
           <div>
             <span className="flex items-center justify-between mt-5 py-3">
-              <h3 className="text-md font-semibold">Order details</h3>
-              <p>{orderItems?.created_at}</p>
+              <h3 className=" whitespace-nowrap md:text-md font-semibold">Order details</h3>
+              <p className=" text-[0.8rem] sm:text-sm">{orderItems?.created_at}</p>
             </span>
             <hr className="border-[1.2px] " />
-            <div className="flex items-start justify-between my-3">
+            <div className="flex flex-col md:flex-row md:items-start items-center justify-between my-3">
               <img
                 src="https://res.cloudinary.com/dwvdgmuaq/raw/upload/iphone11promax_wff1v1.jpg"
-                width={100}
-                height={100}
+               
                 alt="product"
-                className="rounded-md object-cover"
+                className="w-[90%] lg:w-[100px] lg:h-[100px] rounded-md object-cover"
               />
               {orderItems?.order_items?.length > 0 &&
                 orderItems.order_items.map((item, i) => {
                   return (
                     <div
                       key={i}
-                      className="flex items-center justify-between gap-10"
+                      className="flex flex-col md:flex-row items-center justify-between gap-10"
                     >
                       <>
                         {item?.product?.length > 0 &&
                           item?.product?.map((data) => (
                             <div key={data?.sku}>
-                              <h3 className="text-md font-semibold">
+                              <h3 className="text-md font-semibold truncate">
                                 {data?.name}
                               </h3>
                               <div className="flex items-center justify-between gap-5 mt-3">
@@ -100,6 +99,9 @@ function OrderItems() {
                                 <p>
                                   Size <br />1
                                 </p>
+                                <p className="lg:hidden">
+                                Price <br /> N {orderItems?.total_price}
+                                </p>
                               </div>
                             </div>
                           ))}
@@ -108,7 +110,7 @@ function OrderItems() {
                   );
                 })}
 
-              <span className="flex flex-col gap-y-5">
+              <span className="hidden lg:flex flex-col gap-y-5">
                 <p className="text-[1.2rem] font-semibold">Price</p>
                 <p>N{orderItems?.total_price}</p>
               </span>
@@ -118,7 +120,7 @@ function OrderItems() {
           <div className="float-right mt-3">
             <p className="flex items-start gap-x-4 my-2 font-semibold">
               SubTotal{" "}
-              <span className="font-normal">N{orderItems?.total_price}</span>
+              <span className="font-normal">N {orderItems?.total_price}</span>
             </p>
             <p className="flex items-start gap-x-4 my-2 font-semibold">
               {" "}
@@ -127,7 +129,7 @@ function OrderItems() {
             <hr className="border-[1.5px] mb-3" />
             <p className="flex items-start gap-x-5 my-2 font-semibold">
               Total{" "}
-              <span className="font-normal">N{orderItems?.total_price}</span>
+              <span className="font-normal">N {orderItems?.total_price}</span>
             </p>
           </div>
         </article>

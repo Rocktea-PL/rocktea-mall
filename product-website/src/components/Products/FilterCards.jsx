@@ -18,7 +18,7 @@ const ProductFilter = () => {
   };
 
   return (
-    <section className="overflow-x-auto whitespace-nowrap  mt-6">
+    <section className="overflow-x-auto whitespace-nowrap  lg:mt-6">
       {productType?.length &&
         productType.map((category) => (
           <button

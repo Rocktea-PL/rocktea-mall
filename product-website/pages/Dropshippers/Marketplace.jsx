@@ -52,12 +52,12 @@ export default function Marketplace() {
             e.preventDefault();
             handleSearch(searchQuery);
           }}
-          className="flex items-center justify-between border border-solid rounded-[10px] h-[65px] w-[50%] mx-auto pl-7 pr-3 bg-white my-6"
+          className="flex items-center justify-between border border-solid rounded-[10px] h-[65px] w-[85%] lg:w-[50%] mx-auto pl-7 pr-3 bg-white lg:my-5"
         >
           <input
             type="search"
             placeholder="Type to search the market place"
-            className=" bg-transparent border-none outline-0 w-[90%]"
+            className=" bg-transparent border-none outline-0 w-full md:w-[90%]"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -65,7 +65,7 @@ export default function Marketplace() {
             Search
           </button>
         </form>
-        <section className="max-w-[1250px] mx-auto">
+        <section className="max-w-[1250px] mx-auto -mt-10 lg:mt-0">
           <ProductFilter />
           <Products products={products} page={page} openModal={openModal} />
         </section>

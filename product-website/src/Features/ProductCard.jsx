@@ -28,18 +28,18 @@ export default function ProductCard({
     <>
       {isImageAvailable ? (
         <Link to={`/product_details/${productId}`}>
-          <div className=" hover:scale-[1.01] hover:shadow-md bg-white  hover:transition-all duration-300 ease-in-out overflow-hidden w-[220px]  mt-5 ">
+          <div className="   w-[220px]  mt-5 ">
             <span className=""></span>
-            <figure className="w-full h-[200px] max-h-[200px] ">
+            <figure className=" flex items-center center mx-auto w-full lg:h-[200px] max-h-[200px] hover:scale-[1.01] ">
               <img
                 src={image}
                 alt="Image 1"
-                className="w-full h-full object-cover rounded-t-[0.2rem]"
+                className=" w-[85%] h-auto  md:w-full md:h-full object-cover rounded-t-[0.2rem]"
               />
             </figure>
 
-            <div className="block p-4 -mt-5 rounded-b-lg mx-auto">
-              <p className="font-light whitespace-nowrap truncate text-[1rem] mt-5">
+            <div className=" bg-white w-[85%] md:w-full block px-4 py-3 rounded-b-lg hover:scale-[1.01] hover:shadow-md   hover:transition-all duration-300 ease-in-out overflow-hidden">
+              <p className="font-light whitespace-nowrap truncate text-[1rem] mt-3">
                 {name}
               </p>
               {productPrices?.length > 0 && !isLoading ? (

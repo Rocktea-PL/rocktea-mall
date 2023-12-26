@@ -15,13 +15,13 @@ function Categories() {
       <h2 className="text-center font-semibold  text-2xl bg-white h-14 flex items-center justify-center rounded-md">
         Categories
       </h2>
-      <article className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-5">
+      <article className="flex items-center max-md:overflow-auto max-w-[100%] gap-5 mt-5 ">
         {category.map((item) => (
           <div
             key={item.id}
             onClick={() => handleCategoryClick(item)}
             role="button"
-            className="bg-white shadow-md pt-3   rounded-lg w flex flex-col items-center justify-center "
+             className="   rounded-lg w flex flex-col items-center  justify-center bg-white max-md:!w-[200px] max-md:h-[180px] py-5 max-md:px-8 shadow-md w-[200px]"
           >
             <figure className=" w-[80px] h-[80px] bg-[#ECEBEB]  flex items-center justify-center  rounded-full   ">
               <img

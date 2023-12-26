@@ -170,8 +170,8 @@ section{
 }
 .slick-dots li button{
 font-size: 10px!important;
-height:70%!important;
-width: 70%!important;
+height:65%!important;
+width: 65%!important;
 background-color: #E6CCFF!important;
 border-radius: 50%;
 }
@@ -179,8 +179,8 @@ border-radius: 50%;
 .slick-dots li button:before
     {
       content: ''!important;
-    height:70%!important;
-    width: 70%!important;
+    height:65%!important;
+    width: 65%!important;
       font-size: 8px!important;
         line-height: 10px;
        background: var(--orange)!important;

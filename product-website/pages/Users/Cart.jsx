@@ -1,6 +1,6 @@
 //import {  useState } from "react";
 import { Link } from "react-router-dom";
-import { FaAngleRight } from "react-icons/fa";
+import { FaAngleRight, FaTrash } from "react-icons/fa";
 import CommonProducts from "../../src/components/Products/CommonProducts";
 import Footer from "../../src/Features/Footer";
 //import Navbar from "../../src/Features/UserNavbar";
@@ -99,8 +99,8 @@ function Cart() {
         </div>
         <hr className=" mb-5" />
         <div>
-          {carts?.items?.length === 0 ? (
-            <div className="bg-white mb-3 max-w-[600px] flex flex-col items-center justify-center mx-auto py-10 rounded-md px-6">
+          {carts?.length && carts[0]?.items && carts[0]?.items?.length === 0 ? (
+            <div className="bg-white mb-3 max-w-[700px] flex flex-col items-center justify-center mx-auto py-10 rounded-md px-6">
               <img
                 width={320}
                 height={320}
@@ -132,18 +132,18 @@ function Cart() {
                           <div key={cart.id} className="flex !justify-between">
                             <div className="flex  items-center justify-center gap-3">
                               <div className="flex items-center justify-center w-[120px] h-[120px]">
-                                <img src={cart?.product?.images[0]} alt="" />
+                                <img src={cart?.product?.images[0]} alt="product" className="w-full object-contain rounded-md" />
                               </div>
 
                               <div className=" p-2 flex flex-col">
-                                <p className="text-[20px] uppercase tracking-wide">
+                                <p className="md:text-[20px] uppercase tracking-wide">
                                   {cart.product.name}
                                 </p>
-                                <p className="text-md font-semibold">
+                                <p className="md:text-md font-semibold">
                                   ₦ {cart?.price?.toLocaleString()}
                                 </p>
 
-                                <div className="grid grid-cols-3 items-center divide-x divide-inherit w-[150px]  border border-[#acaaaa] rounded-md">
+                                <div className="grid grid-cols-3 items-center divide-x divide-inherit md:w-[150px] max-md:mt-3  border border-[#acaaaa] rounded-md">
                                   <button
                                     className="max-w-1/3 h-12 text-inherit"
                                     onClick={() => handleDecrement(cart)}
@@ -162,15 +162,20 @@ function Cart() {
                                 </div>
                               </div>
                             </div>
-                            <div className="p-2">
+                            <div className=" p-2">
                               <button
                                 onClick={() =>
-                                  handleDeleteProductItems(cart.id)
+                                  handleDeleteProductItems(cart?.id)
                                 }
-                                className=" block common p-3 w-[150px] rounded-lg"
+                                className=" common  hidden md:block p-3 w-[150px] rounded-lg"
                               >
                                 Delete
                               </button>
+                              <span
+                              className="block md:hidden "
+                                onClick={() =>
+                                  handleDeleteProductItems(cart?.id)
+                                }><FaTrash /></span>
                             </div>
                           </div>
                         ))}

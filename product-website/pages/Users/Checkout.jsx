@@ -112,7 +112,7 @@ function Checkout() {
   //console.log(orderItems)
   return (
     <>
-      <section className="px-5 mx-5 relative">
+      <section className="lg:px-5 lg:mx-5 relative">
         <div className="flex items-center gap-1 mb-4">
           <Link to="/">
             <p className="flex items-center">
@@ -138,8 +138,8 @@ function Checkout() {
           </p>
         </div>
         <hr className=" mb-5" />
-        <article className="flex justify-between gap-x-16">
-          <div className="w-1/2 ">
+        <article className="flex flex-col lg:flex-row justify-between lg:gap-x-16">
+          <div className="lg:w-1/2 ">
             <div className=" relative py-7 px-5 rounded-md bg-white">
               <span
                 onClick={() => navigate("/profile")}
@@ -183,7 +183,7 @@ function Checkout() {
             </div>
           </div>
 
-          <div className="w-1/2">
+          <div className="lg:w-1/2 max-md:mt-5">
             <h2 className="font-semibold text-xl bg-white py-4  px-3 rounded-md mb-5">
               Summary
             </h2>

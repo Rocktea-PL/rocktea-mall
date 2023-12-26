@@ -52,7 +52,7 @@ function Signup() {
   };
 
   return (
-    <div className="logout flex items-center justify-center h-screen lg:overflow-hidden mt-5">
+    <div className="logout flex items-center justify-center h-screen lg:overflow-hidden -mt-3">
       <figure className="w-full hidden lg:flex h-screen overflow-hidden max-w-[50%]">
         <img
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694882647/rocktea-product-website/assets/image_109_wy4a6a.png"

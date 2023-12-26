@@ -40,12 +40,13 @@ export default function Hero() {
         breakpoint: 960,
         settings: {
           slidesToShow: 1,
+          arrows: false,
         },
       },
     ],
   };
   return (
-    <main className=" mt-[4rem]  h-full pb-8 pt-2 mx-2 ">
+    <main className="-mt-14 lg:mt-[4rem]  h-full pb-8 pt-2 mx-1 ">
       <Slider {...sliderSettings}>
         {heroImages.map((item) => (
           <figure
@@ -55,7 +56,7 @@ export default function Hero() {
             <img
               src={item.image}
               alt="hero"
-              className=" w-full h-full object-contain !rounded-md "
+              className=" w-full h-full object-cover !rounded-md "
             />
           </figure>
         ))}
