@@ -8,6 +8,7 @@ import GlobalLoader from "./Helpers/Loaders/GlobalLoader";
 //import { ColorThemePicker } from "./Helpers/ColorTheme";
 import { useLocation } from "react-router-dom/dist";
 import BadNetwork from "./assets/bad-network.svg";
+import CookieBanner from "./components/CookieBanner";
 function App() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -101,6 +102,7 @@ function App() {
                     onThemeChange={handleThemeChange}
                   />*/}
                   <Layout storeId={storeId} />
+                  <CookieBanner />
                 </>
               )
             ) : (

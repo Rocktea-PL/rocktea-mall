@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../Features/Navbar";
 import Footer from "../Features/Footer";
 import { AppProvider } from "../hooks/context";
+import CookieBanner from "../Components/CookieBanner";
 function Layout() {
   const location = useLocation();
 
@@ -24,6 +25,7 @@ function Layout() {
         {!hideNavbar && <Navbar />}
         <Outlet />
         {!hideNavbar && <Footer />}
+        <CookieBanner />
       </main>
     </AppProvider>
   );
