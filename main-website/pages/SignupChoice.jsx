@@ -2,7 +2,7 @@
 import "react-phone-number-input/style.css";
 
 import { ImageWithLoading } from "../src/Components/ImageLoader";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 function SignupChoice() {
   const navigate = useNavigate();
@@ -66,8 +66,18 @@ function SignupChoice() {
             >
               Continue
             </button>
+            <p className="text-sm text-center  hover:underline mt-8">
+            Already have an account?{" "}
+          <NavLink
+            to="/signin"
+            style={{ color: "var(--deep-blue)", fontWeight: "bold" }}
+          >
+            Sign In
+          </NavLink>{" "}
+        </p>
           </div>
         </div>
+        
       </div>
     </>
   );

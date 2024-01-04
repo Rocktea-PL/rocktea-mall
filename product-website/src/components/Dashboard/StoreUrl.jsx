@@ -10,7 +10,7 @@ function StoreUrl() {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   //const [profileCompletion, setProfileCompletion] = useState(0);
 
-  const storeUrl = `https://rocktea-mall-product.vercel.app/register?id=${store?.id}`;
+  const storeUrl = `https://rocktea-mall-product.vercel.app/register/${store?.id}`;
 
   const copyLinkToClipboard = async () => {
     try {

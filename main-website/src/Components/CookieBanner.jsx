@@ -5,21 +5,30 @@ import { useState } from 'react';
 const CookieBanner = () => {
   const [isBannerVisible, setIsBannerVisible] = useState(false);
   useEffect(() => {
-    // Show the banner after 5 seconds
-    const timeout = setTimeout(() => {
-      setIsBannerVisible(true);
-    }, 5000);
+    // Check if the banner was already shown today
+    const lastShownDate = localStorage.getItem('cookieBannerLastShown');
+    const currentDate = new Date().toLocaleDateString();
+
+    if (!lastShownDate || lastShownDate !== currentDate) {
+      // Show the banner if it was not shown today
+      setTimeout(() => {
+        setIsBannerVisible(true);
+      }, 5000);
+    }
 
     return () => {
-      clearTimeout(timeout);
+      // Remember the last shown date
+      localStorage.setItem('cookieBannerLastShown', currentDate);
     };
   }, []);
+
   const handleAccept = () => {
     setIsBannerVisible(false);
     // You can set a cookie or use localStorage to remember the user's choice
     // For simplicity, let's use localStorage in this example
     localStorage.setItem('cookieConsent', 'true');
   };
+
 
   return (
     isBannerVisible && (

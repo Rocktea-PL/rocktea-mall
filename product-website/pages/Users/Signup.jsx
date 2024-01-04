@@ -128,7 +128,7 @@ function Signup() {
           </form>
         </div>
         <p>
-          Don’t have an account?{" "}
+        Already have an account?{" "}
           <Link to={`/login`} className="font-semibold">
             Login
           </Link>

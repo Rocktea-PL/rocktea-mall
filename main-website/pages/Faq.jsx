@@ -81,7 +81,7 @@ const AccordionData = [
   {
     id: 1,
     title: "WHAT IS ROCKTEA MALL?",
-    content: ` At RockTea Mall we do B2B2C, where we bring together Drop-shipping and E commerce business ownership. We generate online stores for our Drop-shippers using business details, we give them products for free, they list those products and add their own profits to the initial price of the products to make sales.`,
+    content: ` At RockTea Mall, we operate on a B2B2C model, seamlessly combining Drop-shipping and E-commerce business ownership. Our process involves creating customized online stores for our Drop-shippers based on their business details. We provide them with products at no cost, allowing them to list and sell these products by adding their desired profit margins to the initial product prices.`,
   },
   {
     id: 2,
