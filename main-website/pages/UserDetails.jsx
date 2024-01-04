@@ -254,7 +254,7 @@ function UserDetails() {
               </div>
             </form>
             <p className="text-sm text-center  hover:underline">
-          Do not have an account?{" "}
+            Already have an account?{" "}
           <NavLink
             to="/signin"
             style={{ color: "var(--deep-blue)", fontWeight: "bold" }}
