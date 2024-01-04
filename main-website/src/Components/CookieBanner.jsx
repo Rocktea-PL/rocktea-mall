@@ -15,12 +15,13 @@ const CookieBanner = () => {
         setIsBannerVisible(true);
       }, 5000);
     }
-
-    return () => {
-      // Remember the last shown date
-      localStorage.setItem('cookieBannerLastShown', currentDate);
-    };
   }, []);
+
+  useEffect(() => {
+    // Cleanup logic to remember the last shown date
+    const currentDate = new Date().toLocaleDateString();
+    localStorage.setItem('cookieBannerLastShown', currentDate);
+  }, []); // Empty dependency array ensures this effect runs only once
 
   const handleAccept = () => {
     setIsBannerVisible(false);
