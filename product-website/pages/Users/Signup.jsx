@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import {  useState } from "react";
+
 import { FaArrowLeft } from "react-icons/fa";
 import { Oval } from "react-loader-spinner";
 import { UserSignupForm } from "../../src/components/Forms/UserSignupForm";
@@ -11,22 +11,14 @@ import { Link, useNavigate } from "react-router-dom";
 function Signup() {
   const navigate = useNavigate();
   const { store } = useStoreContext();
-  const { store_id } = useParams();
+  //const { store_id } = useParams();
 
   const { loading, formData, setFormData, error, setError, handleUserForm } =
     useGlobalContext();
-  useEffect(() => {
-    // Set store_id in local storage when the component mounts
-    localStorage.setItem("storeUid", store_id);
-    //setRole('user');
-    localStorage.setItem("userRole", "user");
-  }, []);
-  //console.log(store_id);
-  // const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+ 
+  
   const [showPassword, setShowPassword] = useState(false);
-  //const [step, setStep] = useState(1);
-
-  //const [isFormValid, setIsFormValid] = useState(false);
+ 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     const updatedErrors = { ...error };
@@ -129,7 +121,7 @@ function Signup() {
         </div>
         <p>
         Already have an account?{" "}
-          <Link to={`/login`} className="font-semibold">
+          <Link to='/login' className="font-semibold">
             Login
           </Link>
         </p>

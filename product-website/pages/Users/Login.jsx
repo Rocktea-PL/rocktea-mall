@@ -135,7 +135,7 @@ function Login() {
             </button>
             <p>
               Don’t have an account?{" "}
-              <Link to={`/register/${store_id}`} className="font-semibold">
+              <Link to={`/register?id=${store_id}`} className="font-semibold">
                 Sign Up
               </Link>
             </p>

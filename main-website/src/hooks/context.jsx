@@ -529,7 +529,7 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  //getCategories()
+  
 
   return (
     <AppContext.Provider

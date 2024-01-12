@@ -5,8 +5,12 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../src/styles/swiper.css";
 import Header from "../src/Components/Services/Header";
+import SkeletonCardDetails from "../src/Features/Loaders/DetailsLoader";
+import { useState } from "react";
+import ReportUserModal from "../src/Components/Services/RepotUserModal";
 function ServiceDetailsPage() {
   const { id } = useParams();
+  const [isReportModal,setIsReportModal] = useState(false)
   const fetchCarts = async () => {
     const response = await axios.get(
       `https://rocktea-mall-api-test.up.railway.app/rocktea/business_info/${id}`,
@@ -22,7 +26,7 @@ function ServiceDetailsPage() {
   );
 
   if (isLoading) {
-    return <p className="mt-20">Loading...</p>;
+    return <SkeletonCardDetails />
   }
 
   const phoneNumber = servicesDetail?.contact; // Replace with your actual phone number
@@ -146,12 +150,15 @@ and global glamour.`}{" "}
           </div>
           <div className="bg-white p-4 rounded-md flex flex-col gap-y-2">
             <h3 className="!text-md !mb-1 text-center">Report User</h3>
-            <button className="bg-orange text-white w-full h-14 flex items-center justify-center mx-auto">
+            <button
+            onClick={() => setIsReportModal(!isReportModal)}
+             className="bg-orange text-white w-full h-14 flex items-center justify-center mx-auto" >
               Report
             </button>
           </div>
         </article>
       </section>
+      {isReportModal && <ReportUserModal closeModal={() => setIsReportModal(false)} />}
     </>
   );
 }

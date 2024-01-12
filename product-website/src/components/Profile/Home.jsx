@@ -1,11 +1,11 @@
 //import { useGlobalContext } from "../../Hooks/Context"
 import { useEffect, useState } from "react";
-import { useStoreContext } from "../../Hooks/UserAuthContext";
+//import { useStoreContext } from "../../Hooks/UserAuthContext";
 import { useGlobalContext } from "../../Hooks/Context";
 import toast from "react-hot-toast";
 
-function Home() {
-  const { userData } = useStoreContext();
+function Home({userData}) {
+ // const { userData } = useStoreContext();
   const { updateProfile, loading } = useGlobalContext();
   const [updateData, setUpdateData] = useState({});
 

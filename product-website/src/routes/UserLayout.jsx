@@ -22,14 +22,14 @@ import Orders from "../../pages/Users/Profile/Orders";
 function UserLayout() {
   //const {storeUser} = useStoreContext()
   const location = useLocation();
-  let id = localStorage.getItem("storeUid");
+ 
   useEffect(() => {
     localStorage.getItem("storeUid");
   }, []);
-  //console.log(id)
+ // console.log( localStorage.getItem("storeUid"))
   // Check if the current location is the registration route
   const hideNavbar =
-    location.pathname === `/register/${id}` ||
+    location.pathname === `/register` ||
     location.pathname === "/login" ||
     location.pathname === "/logout";
 
@@ -69,7 +69,7 @@ function UserLayout() {
             }
           />
           <Route path="/login" element={<Login />} />
-          <Route path="/register/:store_id" element={<Signup />} />
+          <Route path="/register" element={<Signup />} />
           <Route
             path="/profile"
             element={
