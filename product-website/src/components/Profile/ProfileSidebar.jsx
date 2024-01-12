@@ -5,9 +5,9 @@ import {
   AiOutlineBell,
 } from "react-icons/ai";
 import "../../styles/profile.css";
-import { useStoreContext } from "../../Hooks/UserAuthContext";
-export default function ProfileSidebar() {
-  const { userData } = useStoreContext();
+//import { useStoreContext } from "../../Hooks/UserAuthContext";
+export default function ProfileSidebar({userData}) {
+  //const { userData } = useStoreContext();
   return (
     <aside className="flex flex-col  bg-white w-[300px] p-3 mt-3 rounded-md overflow-hidden">
       <div className="relative">

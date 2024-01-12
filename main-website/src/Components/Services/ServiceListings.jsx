@@ -2,6 +2,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import SkeletonCard from "../../Features/Loaders/CardLoaders";
 export default function ServiceListings() {
   const fetchCarts = async () => {
     const response = await axios.get(
@@ -17,11 +18,16 @@ export default function ServiceListings() {
     { enabled: true, staleTime: 5 * (60 * 1000), cacheTime: 10 * (60 * 1000) },
   );
 
+  const listLength = servicesList?.length || 6
+console.log(listLength)
   return (
     <>
       <article className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 rounded-md">
-        {servicesList?.length > 0 &&
-          !loading &&
+        {loading
+              ? Array.from({ length: listLength }, (_, index) => (
+                  <SkeletonCard key={index} count={listLength} />
+                )) : servicesList?.length > 0 &&
+         
           servicesList.map((data) => (
             <div key={data.id}>
               <Link to={`/services/details/${data?.id}`}>
