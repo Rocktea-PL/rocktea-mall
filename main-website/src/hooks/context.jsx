@@ -62,7 +62,7 @@ const AppProvider = ({ children }) => {
     business_photograph2: "",
     business_photograph3: "",
     about: "",
-    category: sessionStorage.getItem("selectedCategoryId"),
+    category: localStorage.getItem("selectedCategoryId"),
     location: "",
     user: localStorage.getItem("ownerId"),
     // Add more properties as needed

@@ -7,9 +7,9 @@ export default function Notfound() {
       />
       <h3 className="text-lg mt-5">Uh Oooooh</h3>
       <p className="mt-7 text-[1.3rem] text-center mx-5 sm:mx-0">
-        Sorry we cant find what you’re looking for but you can go
+        Sorry You are in the wrong place
       </p>
-      <button className="mt-7 text-blue text-[1.3rem] bg-orange w-[180px] h-14 rounded-md">
+      <button className="mt-7 text-white text-[1.3rem] bg-orange w-[180px] h-14 rounded-md">
         Home
       </button>
     </article>

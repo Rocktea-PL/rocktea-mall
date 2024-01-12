@@ -10,36 +10,48 @@ import { useLocation } from "react-router-dom/dist";
 import BadNetwork from "./assets/bad-network.svg";
 import CookieBanner from "./components/CookieBanner";
 function App() {
-  const location = useLocation();
+  const location = useLocation();  // Use the location hook to get the query parameters
   const queryParams = new URLSearchParams(location.search);
   const idFromQuery = queryParams.get("store_id");
-
+  const searchParams = new URLSearchParams(location.search);
+  const userStoreId = searchParams.get("id");
+  
   const [isLoading, setIsLoading] = useState(true);
   const [isOnline, setIsOnline] = useState(true);
-  //const [selectedTheme, setSelectedTheme] = useState(
-  //  localStorage.getItem("selectedTheme") || "#f5f5f51a",
-  //); // Set the initial theme
   const [storeId, setStoreId] = useState(
     () => localStorage.getItem("storeId") || null,
   );
-
-  // Use the location hook to get the query parameters
-
+  const [userParamId,setUserParamId] = useState(
+    localStorage.getItem("storeUid") || null,
+  );
+ 
+console.log(queryParams)
+  // Dropshippers store id so they can have access to teir store and dashboard
+  //user store id so that they can have access to the stores they want to reagister
   useEffect(() => {
     setIsLoading(true);
-    // Check if the query parameter is present before updating state
+
+    // Check if the query parameters are present before updating state
     if (idFromQuery !== null) {
       setStoreId(idFromQuery);
       localStorage.setItem("storeId", idFromQuery); // Set store_id to local storage
-      setIsLoading(false);
     }
+
+    if (userStoreId !== null) {
+      setUserParamId(userStoreId);
+      localStorage.setItem("storeUid", userStoreId);// Set store_id to local storage
+    }
+
+    // Set loading to false after a timeout
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 700); // Adjust the duration as needed
+    }, 500); // Adjust the duration as needed
 
     // Clean up the timeout to avoid memory leaks
     return () => clearTimeout(timeout);
-  }, [idFromQuery]);
+  }, [idFromQuery, userStoreId]);
+
+  //Loading animation for the pages
   useEffect(() => {
     setIsOnline(navigator.onLine);
 
@@ -70,14 +82,7 @@ function App() {
     window.location.reload();
   };
 
-  /*const handleThemeChange = (theme) => {
-    setSelectedTheme(theme);
-  };
-*/
-  // Apply the theme on page load
-  /* useEffect(() => {
-    document.body.style.backgroundColor = selectedTheme;
-  }, [selectedTheme]);*/
+ 
 
   return (
     <>
@@ -89,19 +94,8 @@ function App() {
                 <GlobalLoader />
               ) : (
                 <>
-                  {/* <ColorThemePicker
-                    themes={[
-                      "#f5f5f51a",
-                      "#ffcccb",
-                      "#add8e6",
-                      "#90ee90",
-                      "#ffc0cb",
-                      "#dda0dd",
-                      "#000",
-                    ]}
-                    onThemeChange={handleThemeChange}
-                  />*/}
-                  <Layout storeId={storeId} />
+                  
+                  <Layout storeId={storeId} userParamId={userParamId} />
                   <CookieBanner />
                 </>
               )
