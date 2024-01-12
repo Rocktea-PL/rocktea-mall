@@ -75,16 +75,16 @@ export default function ReportUserModal({closeModal }) {
         <form className="mt-7 shopInfo-form  px-7 pb-10" encType="multi-part/form-data">
          <label htmlFor="full_name">
             Full Name
-         <input type="text" name="full_name" value={report.user} onChange={handleChange} />
+         <input type="text" name="user" value={report?.user} onChange={handleChange} />
          </label>
          <label htmlFor="title">
           Title
-         <input type="text" name="title" value={report.title} onChange={handleChange} />
+         <input type="text" name="title" value={report?.title} onChange={handleChange} />
          </label>
 
          <label htmlFor="details">
           Message
-         <textarea type="text" name="details" value={report.details} onChange={handleChange}  className="!lowercase h-32 " />
+         <textarea type="text" name="details" value={report?.details} onChange={handleChange}  className="!lowercase h-32 " />
          </label>
           
          

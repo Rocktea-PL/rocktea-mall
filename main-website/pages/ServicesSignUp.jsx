@@ -100,6 +100,7 @@ function ServicesSignUp() {
     localStorage.setItem("verifyEmail", JSON.stringify(verifyEmail));
   }, [verifyEmail]);
 
+  console.log(sessionStorage.getItem("selectedCategoryId"),)
   return (
     <>
       <div className=" flex items-center justify-center lg:justify-start lg:h-screen lg:overflow-hidden">
