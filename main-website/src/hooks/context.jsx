@@ -5,6 +5,7 @@ import emailjs from "@emailjs/browser";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const AppContext = createContext();
 
@@ -282,20 +283,24 @@ const AppProvider = ({ children }) => {
       } else {
         navigate("/profile");
       }*/
+      Cookies.set("userData", JSON.stringify(response.user_data));
       localStorage.setItem("ownerId", response.user_data.id);
-      if (response.user_data.is_services && response.user_data.has_services) {
+      if (response.user_data.is_services && response.user_data.has_service) {
         navigate(`/profile?id=${response.user_data.id}`);
       } else if (
         response.user_data.is_storeowner &&
         response.user_data.has_store
       ) {
-        window.open(`https://rocktea-mall-product.vercel.app/dashboard?store_id=${response.user_data.store_id}`, "_self",);
+        window.open(
+          `http://localhost:5174/dashboard/home?store_id=${response.user_data.store_id}`,
+          "_self",
+        );
       } else {
         // If neither is_services nor has_store is true, navigate to registration pages
         navigate(
           response.user_data.is_storeowner && !response.user_data.has_store
             ? "/store_details"
-            : response.user_data.is_services && !response.user_data.has_services
+            : response.user_data.is_services && !response.user_data.has_service
             ? "/services_info"
             : "/signin",
         );
@@ -461,7 +466,7 @@ const AppProvider = ({ children }) => {
         const authorizationUrl = response.data.data.authorization_url;
 
         // Open the payment page in a new tab
-        window.open(authorizationUrl, "_blank");
+        window.open(authorizationUrl, "_self");
 
         // Poll the verification endpoint for the payment status
         pollPaymentVerification(response.data.data.reference);
@@ -528,8 +533,6 @@ const AppProvider = ({ children }) => {
       console.error("Error fetching categories:", error);
     }
   };
-
-  
 
   return (
     <AppContext.Provider

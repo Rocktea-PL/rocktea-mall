@@ -8,7 +8,8 @@ const ThemePicker = ({ handleThemeChange, store, selectedTheme }) => {
     "8B008B",
     "006400",
     "C0A204",
-    "00008B",
+    "f7fafc",
+    //"00008B",
     "4B0082",
     "8B4513",
     "2F4F4F",
@@ -20,7 +21,7 @@ const ThemePicker = ({ handleThemeChange, store, selectedTheme }) => {
   const handleThemes = () => {
     setSelectField(!selectField);
   };
-  //console.log(store.theme)
+  console.log(store.theme);
   return (
     <div className="lg:col-span-2 mb-4 cursor-pointer">
       <h2 className="font-semibold mb-2">Theme</h2>
@@ -28,7 +29,18 @@ const ThemePicker = ({ handleThemeChange, store, selectedTheme }) => {
         className="border border-gray-300 rounded-[5px] h-10 flex items-center px-5 opacity-70"
         onClick={handleThemes}
       >
-        {store.theme ? "Click to Change Theme" : "Click to pick a theme"}
+        {store?.theme ? (
+          <div className="flex items-center gap-x-3">
+            {" "}
+            <span
+              className="w-6 h-6 rounded-md"
+              style={{ backgroundColor: "#" + store?.theme, cursor: "pointer" }}
+            ></span>
+            Click to Change Theme
+          </div>
+        ) : (
+          "Click to pick a theme"
+        )}
       </div>
       <div>
         {selectField && (

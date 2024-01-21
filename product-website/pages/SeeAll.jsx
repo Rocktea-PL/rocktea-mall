@@ -1,13 +1,14 @@
 // SeeAll.js
 
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import SeeAllFilters from "../src/components/Products/SeeAllFilters";
-import { useProductPrices } from "../src/Hooks/UseProductPrices";
+//import { useProductPrices } from "../src/Hooks/UseProductPrices";
 import { applyFilters } from "../src/Helpers/ProductFilter"; // Import the helper function
 import NoProduct from "../src/components/Products/NoProduct";
+import ProductCard from "../src/Features/ProductCard";
 
 function SeeAll() {
   const { categoryName } = useParams();
@@ -20,9 +21,10 @@ function SeeAll() {
   const [selectedProductType, setSelectedProductType] = useState(null);
   const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
   const [filterMobile, setFilterMobile] = useState(false);
-  const toggleMobileNav = () => {
+  const toggleMobileFilter = () => {
     setFilterMobile(!filterMobile);
   };
+
   const Data = async () => {
     const response = await axios.get(
       `https://rocktea-mall-api-test.up.railway.app/rocktea/marketplace/?store=${store_id}`,
@@ -109,18 +111,21 @@ function SeeAll() {
     setSelectedSubcategory(subcategory);
     setSelectedProductType(null);
     setSelectedBrand(null);
+    setFilterMobile(false);
   };
 
   const handleBrandFilterChange = (brand) => {
     setSelectedBrand(brand);
     setSelectedProductType(null);
     setSelectedSubcategory(null);
+    setFilterMobile(false);
   };
 
   const handleProductTypeFilterChange = (productType) => {
     setSelectedProductType(productType);
     setSelectedBrand(null);
     setSelectedSubcategory(null);
+    setFilterMobile(false);
   };
   const handlePriceFilterChange = (min, max) => {
     setPriceRange({ min, max });
@@ -134,7 +139,7 @@ function SeeAll() {
     // Add more filters here if needed
   });
 
-  const ProductItem = ({ item }) => {
+  /* const ProductItem = ({ item }) => {
     const { productPrices, isLoading } = useProductPrices(item.product.id);
 
     return (
@@ -147,7 +152,7 @@ function SeeAll() {
       </div>
     );
   };
-
+*/
   const mappedProducts = () => {
     if (!Array.isArray(filteredProducts) || filteredProducts.length === 0) {
       return <NoProduct />;
@@ -190,53 +195,31 @@ function SeeAll() {
         <NoProduct key={index} message={message} />
       ));
     }
+    console.log(filteredProducts);
     return filteredProducts.map((item, index) => (
-      <div
+      <ProductCard
         key={index}
-        className="hover:scale-[1.01] hover:shadow-md bg-white hover:transition-all duration-300 ease-in-out overflow-hidden w-[220px] mt-5"
-      >
-        <Link to={`/product_details/${item.product.id}`}>
-          <span className=""></span>
-          <figure className="w-full h-[200px] max-h-[200px] ">
-            <img
-              src={item.product?.images[0]?.url}
-              alt="Image 1"
-              className="w-full h-full object-cover rounded-t-[0.2rem]"
-            />
-          </figure>
-
-          <div className="block p-4 -mt-5 rounded-b-lg mx-auto">
-            <p className="font-light whitespace-nowrap truncate text-[1rem] mt-5">
-              {item.product.name}
-            </p>
-
-            <ProductItem item={item} />
-
-            <p className="text-[14px] ">
-              {item?.product?.quantity <= 0 ? (
-                <span className="text-red-500">Out of Stock</span>
-              ) : (
-                <span className="opacity-[0.8]">
-                  {item?.product?.quantity} units left
-                </span>
-              )}{" "}
-            </p>
-          </div>
-        </Link>
-      </div>
+        id={item?.id}
+        productId={item?.product?.id}
+        image={item?.product?.images[0]?.url}
+        name={item?.product.name}
+        quantity={item?.product?.quantity}
+        variants={item?.product?.product_variant}
+        oldPrice={item?.oldPrice}
+      />
     ));
   };
 
   console.log(filteredProducts);
   return (
-    <div className=" relative max-md:mt-24 max-w-[1300px] mx-auto max-md:px-7">
+    <div className=" relative  max-w-[1300px] mx-auto ">
       <div className="lg:flex items-start">
-        <section className="w-1/4 mt-20 rounded-lg p-3 lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto ">
+        <section className="lg:w-1/4 rounded-lg p-3 lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto ">
           <SeeAllFilters
             subcategories={subcategories}
             brands={brands}
             productTypes={productTypes}
-            toggleMobileNav={toggleMobileNav}
+            toggleMobileNav={toggleMobileFilter}
             onClose={() => setFilterMobile(false)}
             filterMobile={filterMobile}
             onCategoryFilterChange={handleCategoryFilterChange}
@@ -245,7 +228,7 @@ function SeeAll() {
             onPriceFilterChange={handlePriceFilterChange}
           />
         </section>
-        <section className=" w-3/4  rounded-lg p-3 max-w-[80%]  lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto h-full overflow-scroll">
+        <section className=" lg:w-3/4 max-md:-mt-14  rounded-lg p-3 max-w-[90%]  lg:max-w-[1300px]  flex flex-col items-center justify-center mx-auto h-full overflow-scroll">
           <div>
             <div className="relative max-md:flex items-center max-md:justify-between bg-white shadow-lg  rounded-md w-[500px] lg:w-[800px] p-5 py-5">
               <h3 className=" whitespace-nowrap text-blue font-bold text-center text-[22px] capitalize">
@@ -264,7 +247,7 @@ function SeeAll() {
         </section>
       </div>
       <div
-        onClick={toggleMobileNav}
+        onClick={toggleMobileFilter}
         className="fixed  cursor-pointer lg:hidden bg-orange text-white w-full h-14 bottom-0 flex items-center justify-center mx-auto"
       >
         Filter

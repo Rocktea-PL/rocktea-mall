@@ -5,6 +5,7 @@ import Hero1 from "../../assets/hero1.jpg";
 import Hero2 from "../../assets/hero2.jpg";
 import Hero3 from "../../assets/hero3.jpg";
 import Hero4 from "../../assets/hero4.jpg";
+import SearchForm from "../Forms/SearchForm";
 
 const heroImages = [
   {
@@ -46,7 +47,8 @@ export default function Hero() {
     ],
   };
   return (
-    <main className="-mt-14 lg:mt-[4rem]  h-full pb-8 pt-2 mx-1 ">
+    <main className="mt-[3rem]  lg:mt-[4rem]  h-full pb-8 pt-2 mx-1 ">
+      <SearchForm />
       <Slider {...sliderSettings}>
         {heroImages.map((item) => (
           <figure

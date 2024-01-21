@@ -8,8 +8,7 @@ function Footer() {
         <figure className="flex flex-col items-center justify-center">
           <img src={RockteaLogo} width={180} height={180} alt="logo" />
           <p className="text-[15px] mt-6 text-[var(--white)] lg:ml-6">
-          Digital Art Library, Jakande Estate, Lagos State
-            
+            Digital Art Library, Jakande Estate, Lagos State
           </p>
         </figure>
 

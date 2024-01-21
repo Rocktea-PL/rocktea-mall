@@ -1,45 +1,30 @@
-export const calculatePrices = (data) => {
+import { useProductPrices } from "../Hooks/UseProductPrices";
+
+export const calculatePrices = () => {
+  const { variantsData } = useProductPrices;
   try {
-    const { product, variants } = data;
+    return variantsData.map((variant) => {
+      const { size, colors, wholesale_price, store_pricings, id } = variant;
 
-    return variants
-      .map((variant) => {
-        const { size, colors, wholesale_price, store_pricings, id } = variant;
+      // Calculate the total price by adding wholesale and retail prices
+      const retailPrice = store_pricings.retail_price;
 
-        // Ensure that store_pricings is an array and not empty
-        if (
-          !store_pricings ||
-          !Array.isArray(store_pricings) ||
-          store_pricings.length === 0
-        ) {
-          return null; // Handle the case where store_pricings is not available or empty
-        }
+      // Calculate total price: retail price if available, otherwise wholesale price
+      const totalPrices =
+        retailPrice !== null ? retailPrice + wholesale_price : wholesale_price;
 
-        // Calculate the total price by adding wholesale and retail prices
-        const totalRetailPrice = store_pricings.reduce(
-          (total, pricing) => total + pricing.retail_price,
-          0,
-        );
+      return {
+        size,
+        id,
+        colors,
+        wholesale_price,
 
-        const totalPrices = totalRetailPrice + wholesale_price;
-        /*const averageTotalPrice =
-          totalPrices.reduce((total, price) => total + price, 0) 
-          ;*/
-        // const totalPrices = totalRetailPrice + wholesale_price;
-        return {
-          size,
-          id,
-          colors,
-          wholesale_price,
-          product,
-          retail_price: totalPrices.toLocaleString(),
-        };
-      })
-      .filter(Boolean);
+        retail_price:
+          totalPrices !== null ? totalPrices.toLocaleString() : null,
+      };
+    });
   } catch (error) {
     console.error("Error fetching or processing data:", error);
     return [];
   }
 };
-
-// Remove null entries from the array

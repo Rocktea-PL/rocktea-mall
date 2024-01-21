@@ -8,7 +8,7 @@ import ProfileSidebar from "../../../src/components/Profile/ProfileSidebar";
 import "../../../src/styles/profile.css";
 
 export default function Profile() {
-  const {userData} = useStoreContext()
+  const { userData } = useStoreContext();
   return (
     <div className="max-md:mt-32">
       <section className="flex   gap-3 items-start  max-w-[1300px] mx-auto mb-5">

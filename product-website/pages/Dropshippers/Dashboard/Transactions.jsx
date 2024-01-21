@@ -1,10 +1,11 @@
 //import Footer from "../../../src/Features/Footer";
 //import Navbar from "../../../src/Features/UserNavbar";
 import Cards from "../../../src/components/Dashboard/Cards";
-import Chart from "../../../src/components/Dashboard/NewChart";
+//import Chart from "../../../src/components/Dashboard/NewChart";
 import ProfileCompletion from "../../../src/components/Dashboard/ProfileCompletion";
 import Sidebar from "../../../src/components/Dashboard/Sidebar";
 import Transaction from "../../../src/components/Dashboard/Transaction";
+import TransactionTable from "../../../src/components/Dashboard/TransactionTable";
 
 export default function Transactions() {
   return (
@@ -16,7 +17,7 @@ export default function Transactions() {
           <div className="lg:w-[65%]">
             <ProfileCompletion />
             <Cards />
-            <Chart />
+            <TransactionTable />
           </div>
 
           <div className="lg:w-[28%]">

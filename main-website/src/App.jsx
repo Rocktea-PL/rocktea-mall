@@ -12,13 +12,13 @@ import Faqs from "../pages/Faq";
 import Otp from "../pages/Otp";
 import EmailVerification from "./Components/Forms/SignUp/EmailVerification";
 import Waiting from "../pages/Waiting";
-import ServicesSignUp from "../pages/ServicesSignUp";
+import ServicesSignUp from "../pages/ServicesPage/ServicesSignUp";
 //import ServiceDashboardHome from "../pages/ServicesDashboard/Home ";
-import ServicesInfo from "../pages/ServicesInfo";
-import ServicesHomePage from "../pages/ServicesHomePage";
-import ServiceDetailsPage from "../pages/ServiceDetailsPage";
+import ServicesInfo from "../pages/ServicesPage/ServicesInfo";
+import ServicesHomePage from "../pages/ServicesPage/ServicesHomePage";
+import ServiceDetailsPage from "../pages/ServicesPage/ServiceDetailsPage";
 import SignupChoice from "../pages/SignupChoice";
-import ServicesSetings from "../pages/ServicesSetings";
+import ServicesSetings from "../pages/ServicesPage/ServicesSetings";
 import "./App.css";
 
 function App() {

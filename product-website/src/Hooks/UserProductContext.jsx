@@ -3,6 +3,7 @@
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
+import Cookies from "js-cookie";
 
 const UserProductContext = createContext();
 
@@ -57,7 +58,7 @@ export const UserProductProvider = ({ children }) => {
   // const { data: price, isLoading: priceLoading } = useQuery('productPrice', () => fetchProductsPrice());
 
   const handleGetProductItems = async () => {
-    const store_id = localStorage.getItem("storeId");
+    const store_id = Cookies.get("storeId");
     try {
       const response = await axios.get(
         `${apiUrlMarketplace}?store=${store_id}`,

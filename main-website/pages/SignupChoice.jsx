@@ -67,17 +67,16 @@ function SignupChoice() {
               Continue
             </button>
             <p className="text-sm text-center  hover:underline mt-8">
-            Already have an account?{" "}
-          <NavLink
-            to="/signin"
-            style={{ color: "var(--deep-blue)", fontWeight: "bold" }}
-          >
-            Sign In
-          </NavLink>{" "}
-        </p>
+              Already have an account?{" "}
+              <NavLink
+                to="/signin"
+                style={{ color: "var(--deep-blue)", fontWeight: "bold" }}
+              >
+                Sign In
+              </NavLink>{" "}
+            </p>
           </div>
         </div>
-        
       </div>
     </>
   );

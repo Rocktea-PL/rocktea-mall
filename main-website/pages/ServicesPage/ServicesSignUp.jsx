@@ -1,22 +1,22 @@
 /*eslint no-useless-escape: "off"*/
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
-import FileInput from "../src/Components/Forms/SignUp/FormImage";
+import FileInput from "../../src/Components/Forms/SignUp/FormImage";
 import { useEffect } from "react";
 import { Oval } from "react-loader-spinner";
 import { useState } from "react";
 import PasswordChecklist from "react-password-checklist";
 //import {useState} from 'react'
 import axios from "axios";
-import ServiceImg from "../src/assets/services.svg";
+import ServiceImg from "../../src/assets/services.svg";
 import {
   FaEye,
   FaEyeSlash,
   FaCheckCircle,
   FaTimesCircle,
 } from "react-icons/fa";
-import { useGlobalContext } from "../src/hooks/context";
-import { ImageWithLoading } from "../src/Components/ImageLoader";
+import { useGlobalContext } from "../../src/hooks/context";
+import { ImageWithLoading } from "../../src/Components/ImageLoader";
 import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 
@@ -100,7 +100,7 @@ function ServicesSignUp() {
     localStorage.setItem("verifyEmail", JSON.stringify(verifyEmail));
   }, [verifyEmail]);
 
-  console.log(sessionStorage.getItem("selectedCategoryId"),)
+  console.log(sessionStorage.getItem("selectedCategoryId"));
   return (
     <>
       <div className=" flex items-center justify-center lg:justify-start lg:h-screen lg:overflow-hidden">
@@ -284,14 +284,14 @@ function ServicesSignUp() {
               </div>
             </form>
             <p className="text-sm text-center  hover:underline">
-          Do not have an account?{" "}
-          <NavLink
-            to="/signin"
-            style={{ color: "var(--deep-blue)", fontWeight: "bold" }}
-          >
-            Sign In
-          </NavLink>{" "}
-        </p>
+              Do not have an account?{" "}
+              <NavLink
+                to="/signin"
+                style={{ color: "var(--deep-blue)", fontWeight: "bold" }}
+              >
+                Sign In
+              </NavLink>{" "}
+            </p>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Footer from "../../Features/Footer";
 import CommonProducts from "../Products/CommonProducts";
@@ -19,9 +19,13 @@ import { useUserCartContext } from "../../Hooks/CartContext";
 import TruncateDescription from "../../Features/TruncateDescription";
 import { refreshPage } from "../../Helpers/Refresher";
 import Cookies from "js-cookie";
+import { useStoreContext } from "../../Hooks/UserAuthContext";
+
 /// handleIncrementQuantity,
 const UserProductDetails = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
+  const { userData } = useStoreContext();
   const {
     selectedSize,
     selectedSizeId,
@@ -39,13 +43,15 @@ const UserProductDetails = () => {
 
   const cartItems = useSelector(selectCartItems);
   console.log(cartItems);
-  const { productPrices, isLoading } = useProductPrices(productId);
+  const { variantsData } = useProductPrices(productId);
   const [selectedColor, setSelectedColor] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [initialSizeSet, setInitialSizeSet] = useState(false);
   //const [counter, setCounter] = useState(
   // Object.keys(quantityInCart).length > 0,
   // );
+
+  console.log(variantsData);
 
   //Effects for controling  states of the counter, cart item and sizes
   useEffect(() => {
@@ -54,20 +60,19 @@ const UserProductDetails = () => {
     sessionStorage.setItem("quantityInCart", JSON.stringify(quantityInCart));
   }, [quantityInCart]);
 
-  console.log(productPrices);
   useEffect(() => {
-    if (!initialSizeSet && productPrices.length > 0) {
-      const firstSize = productPrices[0]?.size;
-      const firstColor = productPrices[0]?.colors[0];
-      const firstSizeId = productPrices[0]?.id;
-      const firstSizePrice = productPrices[0]?.retail_price;
+    if (!initialSizeSet && variantsData?.length > 0) {
+      const firstSize = variantsData[0]?.size;
+      const firstColor = variantsData[0]?.colors[0];
+      const firstSizeId = variantsData[0]?.id;
+      const firstSizePrice = variantsData[0]?.retail_price;
       setSelectedColor(firstColor);
       setSelectedSize(firstSize);
       setSelectedSizeId(firstSizeId);
       setSelectedPrice(firstSizePrice);
       setInitialSizeSet(true);
     }
-  }, [initialSizeSet, productPrices]);
+  }, [initialSizeSet, variantsData]);
 
   //Functions
   const fetchProductDetails = async () => {
@@ -114,18 +119,23 @@ const UserProductDetails = () => {
   };
 
   const handleAddToCart = async (selectedPrice) => {
-    if (!selectedSizeId) {
-      toast.error("Please select a size before adding to cart.");
+    if (!selectedSizeId || !selectedColor) {
+      toast.error(
+        "Please select a product variant before adding item to cart.",
+      );
       return;
+    }
+    if (Object.keys(userData).length === 0) {
+      navigate("/login");
     }
 
     try {
       // Make a POST request to the cart API
       const quantityToAdd = 1;
-      const stringWithComma = selectedPrice;
-      const prices = parseInt(stringWithComma.replace(/,/g, ""), 10);
+      const prices = selectedPrice;
+
       const response = await axios.post(
-        "https://rocktea-mall-api-test.up.railway.app/rocktea/cart/",
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/cart/?user=${userData?.id}`,
         {
           store: storeId,
           products: [
@@ -140,13 +150,13 @@ const UserProductDetails = () => {
 
         {
           headers: {
-            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
           },
         },
       );
       // Assuming the API response contains the updated cart information
       const updatedCart = response.data.items;
-      console.log(updatedCart);
+
       //setCart(updatedCart);
 
       // Dispatch the action to update the Redux store
@@ -168,17 +178,22 @@ const UserProductDetails = () => {
       // setCounter(true);
     } catch (error) {
       // Handle errors
-      console.error("Error adding product to cart:", error.response);
+      console.log("Error adding product to cart:", error);
       toast.error("Failed to add product to cart.");
     }
   };
   //console.log(authToken)
   console.log(selectedPrice);
+  console.log(selectedColor);
   //console.log(productDet)
-
+  console.log("user", userData);
+  const totalprice = variantsData[0].store_pricings.retail_price
+    ? variantsData[0]?.wholesale_price +
+      variantsData[0].store_pricings.retail_price
+    : variantsData[0]?.wholesale_price;
   return (
     <>
-      <section className="relative mt-36 lg:mt-20 px-5 lg:px-0 max-w-[1300px] m-auto bg-white rounded max-md:mx-5 pt-5">
+      <section className="relative mt-20 px-5 lg:px-0 max-w-[1300px] m-auto bg-white rounded max-md:mx-5 pt-5">
         <div className=" flex flex-col lg:flex-row w-full  lg:space-x-20 lg:p-8">
           {/* Product Images */}
           <div className="lg:max-w-[50%]">
@@ -196,13 +211,13 @@ const UserProductDetails = () => {
             <div className="hidden md:flex flex-col md:flex-row md:items-center gap-3 md:divide-x-2 divide-gray-300 mt-2">
               <p className="capitalize font-bold md:pr-2">
                 Brand:
-                <span className="font-medium">
+                <span className="font-medium ml-2">
                   {productDet?.brand?.name}
                 </span>{" "}
               </p>
               <p className="capitalize font-bold md:px-2">
                 Category:
-                <span className="font-medium">
+                <span className="font-medium ml-2">
                   {productDet?.subcategory?.name}
                 </span>
               </p>
@@ -218,14 +233,9 @@ const UserProductDetails = () => {
               )}
             </p>
 
-            {productPrices?.length > 0 && !isLoading ? (
+            {variantsData?.length > 0 ? (
               <p className="font-bold my-2 text-lg">
-                ₦{" "}
-                {selectedSize
-                  ? selectedPrice
-                  : isLoading
-                  ? "Loading..."
-                  : productPrices[0]?.retail_price}{" "}
+                ₦ {selectedSize ? selectedPrice : totalprice.toLocaleString()}{" "}
               </p>
             ) : (
               <p>No price</p>
@@ -233,8 +243,10 @@ const UserProductDetails = () => {
             <hr className="mb-3" />
 
             <div className="flex  items-center gap-3">
-              {productPrices?.length > 0 && !isLoading ? (
-                productPrices.map((item, index) => {
+              {variantsData?.length > 0 ? (
+                variantsData.map((item, index) => {
+                  const total =
+                    item.wholesale_price + item.store_pricings.retail_price;
                   return (
                     <>
                       {item.size ? (
@@ -247,11 +259,7 @@ const UserProductDetails = () => {
                               item.size === selectedSizeId && "common "
                             }`}
                             onClick={() =>
-                              handleSizeClick(
-                                item.size,
-                                item.retail_price,
-                                item.id,
-                              )
+                              handleSizeClick(item.size, total, item.id)
                             }
                           >
                             {item?.size}
@@ -270,11 +278,7 @@ const UserProductDetails = () => {
                             <li
                               key={index}
                               onClick={() =>
-                                handleColorClick(
-                                  color,
-                                  item.retail_price,
-                                  item.id,
-                                )
+                                handleColorClick(color, total, item.id)
                               }
                               className="font-semibold flex items-center gap-1"
                             >
@@ -336,7 +340,7 @@ const UserProductDetails = () => {
                   SKU: <span className="font-normal">{productDet?.sku}</span>{" "}
                 </li>
                 <li className="font-semibold">
-            Category:{" "}
+                  Category:{" "}
                   <span className="font-normal">
                     {" "}
                     {productDet?.subcategory?.name}
@@ -384,7 +388,7 @@ const UserProductDetails = () => {
           <SizeModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            variantData={productPrices}
+            variantData={variantsData}
             selectedSize={selectedSize}
             handleAddToCart={handleAddToCart}
             selectedPrice={selectedPrice}

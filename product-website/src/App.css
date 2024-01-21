@@ -259,3 +259,10 @@ border-radius: 50%;
 .addCart-increase {
   fill: radial-gradient(50% 50% at 50% 50%, rgba(217, 217, 217, 0.00) 0%, #E4E4E4 100%);
 }
+
+.country input{
+  @apply bg-transparent border-0 border-solid border-[var(--input-border)] w-[100%] h-10 rounded-lg px-2 mt-0  outline-none
+ }
+.country input:focus{
+  border: none;
+ }

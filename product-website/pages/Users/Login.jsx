@@ -46,9 +46,9 @@ function Login() {
             <img
               src={store?.logo}
               alt="logo"
-              width={50}
-              height={50}
-              className="w-[50px] h-[50px] rounded-full"
+              width={120}
+              height={120}
+              className=" object-contain"
             />
           ) : (
             <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">

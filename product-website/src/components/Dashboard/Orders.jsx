@@ -9,11 +9,12 @@ import { useQuery } from "react-query";
 import { useState } from "react";
 import { paginateData } from "../../Helpers/Paginations";
 import Pagination from "../../Features/Pagination";
+import Cookies from "js-cookie";
 function OrderStatus() {
   const [currentPage, setCurrentPage] = useState(0);
   //const [currentPage, setCurrentPage] = useState(0);
-  
-  const store_id = localStorage.getItem("storeId");
+
+  const store_id = Cookies.get("storeId");
   const fetchStoreOrders = async () => {
     const response = await axios.get(
       `https://rocktea-mall-api-test.up.railway.app/mall/store_order?store=${store_id}`,
@@ -21,18 +22,12 @@ function OrderStatus() {
     console.log(response.data);
     return response.data;
   };
-  const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
+  //const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
   const {
     data: orders,
     isLoading,
     isError,
-  } = useQuery("order", fetchStoreOrders, {
-    refetchOnWindowFocus: false,
-    refetchOnmount: false,
-    refetchOnReconnect: false,
-    retry: false,
-    staleTime: twentyFourHoursInMs, // Fetch only when 'id' is available
-  });
+  } = useQuery("order", fetchStoreOrders);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -50,7 +45,6 @@ function OrderStatus() {
     setCurrentPage(selectedPage);
   };
   const { currentOrders, pageCount } = paginateData(orders, currentPage);
-
 
   /*const indexOfLastOrder = (currentPage + 1) * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
@@ -92,7 +86,7 @@ function OrderStatus() {
                           : " text-green-700 my-2"
                       }`}
                     >
-                     {item.status}
+                      {item.status}
                     </td>
                     <td className="text-center p-2 text-sm md:text-[1rem]">
                       {item.created_at}
@@ -101,12 +95,9 @@ function OrderStatus() {
                 ))}
               </tbody>
             </table>
-            
           </div>
-          
-           
+
           <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
-        
         </>
       ) : (
         <div className="bg-white mb-3 max-w-[600px] flex flex-col items-center justify-center mx-auto py-10 rounded-md px-6">

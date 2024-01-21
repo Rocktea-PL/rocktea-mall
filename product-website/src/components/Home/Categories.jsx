@@ -21,7 +21,7 @@ function Categories() {
             key={item.id}
             onClick={() => handleCategoryClick(item)}
             role="button"
-             className="   rounded-lg w flex flex-col items-center  justify-center bg-white max-md:!w-[200px] max-md:h-[180px] py-5 max-md:px-8 shadow-md w-[200px]"
+            className="   rounded-lg w flex flex-col items-center  justify-center bg-white max-md:!w-[200px] max-md:h-[180px] py-5 max-md:px-8 shadow-md w-[200px]"
           >
             <figure className=" w-[80px] h-[80px] bg-[#ECEBEB]  flex items-center justify-center  rounded-full   ">
               <img

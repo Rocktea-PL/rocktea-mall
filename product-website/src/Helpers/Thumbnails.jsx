@@ -15,7 +15,6 @@ export default function Thumbnails({ productDet }) {
   const [thumbsSwiperMobile, setThumbsSwiperMobile] = useState(null);
   return (
     <div className="w-full">
-      
       <div className="  lg:max-w-[90%] ">
         {/* Main Image */}
 

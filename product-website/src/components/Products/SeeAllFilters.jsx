@@ -14,6 +14,7 @@ export default function SeeAllFilters({
   onProductTypeFilterChange,
   filterMobile,
   onClose,
+  //toggleMenuFilter
   // onPriceFilterChange,
 }) {
   return (
