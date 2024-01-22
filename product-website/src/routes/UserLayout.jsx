@@ -7,7 +7,7 @@ import Signup from "../../pages/Users/Signup";
 import Profile from "../../pages/Users/Profile/Profile";
 import Products from "../../pages/Products";
 import ProductDetails from "../components/Products/ProductDetails";
-import SearchPage from "../../pages/Dropshippers/SearchPage";
+//import SearchPage from "../../pages/users/SearchPage";
 import Notfound from "../Notfound";
 import ProtectedRoute from "./ProtectedRoute";
 ////import {  useStoreContext } from "../Hooks/UserAuthContext";
@@ -17,16 +17,18 @@ import { UserCartProvider } from "../Hooks/CartContext";
 import { useEffect } from "react";
 import OrderItems from "../Features/OrderItems";
 import Orders from "../../pages/Users/Profile/Orders";
+//import Search from "../Features/UserSearch/Search";
+import SearchPage from "../../pages/Search";
 //import DropshipperNavbar from "../Features/DropshipperNavbar";
 
 function UserLayout() {
   //const {storeUser} = useStoreContext()
   const location = useLocation();
- 
+
   useEffect(() => {
     localStorage.getItem("storeUid");
   }, []);
- // console.log( localStorage.getItem("storeUid"))
+  // console.log( localStorage.getItem("storeUid"))
   // Check if the current location is the registration route
   const hideNavbar =
     location.pathname === `/register` ||
@@ -46,9 +48,7 @@ function UserLayout() {
             path="/"
             element={
               <>
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
+                <Home />
               </>
             }
           />
@@ -85,8 +85,22 @@ function UserLayout() {
             element={<ProductDetails />}
           />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/order_items" element={<OrderItems />} />
-          <Route path="/my_orders" element={<Orders />} />
+          <Route
+            path="/order_items"
+            element={
+              <ProtectedRoute>
+                <OrderItems />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my_orders"
+            element={
+              <ProtectedRoute>
+                <Orders />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/*" element={<Notfound />} />
         </Routes>
       </UserCartProvider>

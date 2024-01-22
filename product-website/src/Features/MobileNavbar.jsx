@@ -6,17 +6,31 @@ import { useUserProductContext } from "../Hooks/UserProductContext";
 import { FaAngleUp, FaHome, FaMinus } from "react-icons/fa";
 import { useState } from "react";
 import { TbCategory } from "react-icons/tb";
+import { IoClose } from "react-icons/io5";
 
 function MobileNavbar({ store, isOpen, toggleMenu, totalQuantity }) {
   const navigate = useNavigate();
   const { categoryname } = useUserProductContext();
-  const [mobileDropdown, setMobileDropdown] = useState(false);
-  const toggleDropdown = () => {
-    setMobileDropdown(!mobileDropdown);
-  };
   let subcategories = categoryname?.subcategories;
   //const Type= productType.filter(cat => cat.subcategory.name ===subcategories.name )
   let productType = categoryname?.product_types;
+  const [mobileDropdown, setMobileDropdown] = useState(
+    Array(subcategories?.length).fill(false),
+  );
+  const toggleDropdown = (index) => {
+    setMobileDropdown((prevToggles) => {
+      const newToggles = [...prevToggles];
+      newToggles[index] = !newToggles[index];
+      return newToggles;
+    });
+    // setMobileDropdown(!mobileDropdown);
+  };
+  const closeMenu = () => {
+    // Close the menu when navigating to a new page
+    if (isOpen) {
+      toggleMenu();
+    }
+  };
   return (
     <div className="flex items-center !justify-between md:px-5">
       <span
@@ -26,56 +40,64 @@ function MobileNavbar({ store, isOpen, toggleMenu, totalQuantity }) {
         <HiMiniBars3BottomLeft />
       </span>
       <div
-        className={`absolute top-[4.8rem] left-0 w-64 h-screen bg-white  transform ${
+        className={`absolute top-[0rem] left-0 w-[100%] h-screen bg-white  transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform ease-in-out duration-300 z-[999]`}
+        } transition-transform ease-in-out duration-300 z-[99]`}
       >
+        <div className="flex items-center gap-x-2 p-5">
+          <span
+            className="text-lg cursor-pointer relative z-[99]"
+            onClick={toggleMenu}
+          >
+            <IoClose />
+          </span>
+        </div>
+
         <ul className="flex flex-col gap-y-3 bg-white py-4 px-5 border-r-2 border-r-gray-300 ">
           <li className=" tracking-[1px] mt-10">
             <Link to="/">
               {" "}
               <div className="flex items-center justify-between">
-                <span className="flex items-center gap-x-2">
+                <span className="flex items-center gap-x-2 text-[1.2rem]">
                   <FaHome /> Products
-                </span>
-                <span>
-                  <FaMinus />
                 </span>
               </div>
             </Link>
-            <hr className="mt-2" />
           </li>
           <div className=" tracking-[1px] cursor-pointer ">
-            <div onClick={toggleDropdown} className="mb-3">
+            <div className="mb-3">
               <div className="flex items-center justify-between">
-                <span className="flex items-center gap-x-2">
-                  <TbCategory /> Category
-                </span>
-                <span>
-                  {" "}
-                  {mobileDropdown ? (
-                    <FaAngleUp className="text-[22px]" />
-                  ) : (
-                    <FaMinus />
-                  )}{" "}
+                <span className="flex items-center gap-x-2 text-[1.2rem]">
+                  <TbCategory /> Categories
                 </span>
               </div>
             </div>
-            {mobileDropdown && (
-              <div className="mt-4">
-                {subcategories?.length > 0 &&
-                  subcategories.map((subcategory, subIndex) => {
-                    const decodedType = subcategory?.name.replace(/\s+/g, "-");
-                    //const FormattedType = subcategory.name.replace(/-/g, " ");
-                    return (
-                      <div key={subIndex} className="border-r px-2 mt-5">
+
+            <div className="mt-4">
+              {subcategories?.length > 0 &&
+                subcategories.map((subcategory, subIndex) => {
+                  const decodedType = subcategory?.name.replace(/\s+/g, "-");
+                  //const FormattedType = subcategory.name.replace(/-/g, " ");
+                  return (
+                    <div key={subIndex} className="border-r px-1 mt-5">
+                      <div className="flex items-center justify-between">
                         <Link to={`/products/${decodedType}`}>
                           <h3 className="text-[1rem] font-medium hover:text-orange cursor-pointer  ">
                             {subcategory?.name}
                           </h3>
-                          <hr className="my-2" />
                         </Link>
-                        <ul key={subIndex} className="flex flex-col">
+                        <div onClick={() => toggleDropdown(subIndex)}>
+                          {" "}
+                          {mobileDropdown[subIndex] ? (
+                            <FaAngleUp className="text-[22px]" />
+                          ) : (
+                            <FaMinus />
+                          )}{" "}
+                        </div>
+                      </div>
+                      <hr className="my-2 border-[1.5px]" />
+                      {mobileDropdown[subIndex] && (
+                        <ul key={subIndex} className="flex flex-col gap-y-3">
                           {productType
                             ?.filter(
                               (type) =>
@@ -83,7 +105,10 @@ function MobileNavbar({ store, isOpen, toggleMenu, totalQuantity }) {
                             )
                             .map((type, typeIndex) => (
                               <li key={typeIndex}>
-                                <Link to={`/products/${type.id}`}>
+                                <Link
+                                  to={`/products/${type.id}`}
+                                  onClick={closeMenu}
+                                >
                                   <p className="capitalize text-sm hover:text-orange leading-tight cursor-pointer">
                                     {type.name}
                                   </p>
@@ -91,24 +116,27 @@ function MobileNavbar({ store, isOpen, toggleMenu, totalQuantity }) {
                               </li>
                             ))}
                         </ul>
-                      </div>
-                    );
-                  })}
-              </div>
-            )}
-            <hr />
+                      )}
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </ul>
+        <p className="px-3 italic text-blue tracking-wider text-[1.2rem]">
+          Contact center
+        </p>
       </div>
 
-      <div className="">
+      <div className="z-[100]">
         {store.logo ? (
           <img
             src={store?.logo}
             alt="logo"
-            width={50}
-            height={50}
-            className="rounded-full"
+            width={110}
+            height={110}
+            className=" object-contain  max-w-[100%] max-h-[70px]"
+            // className="rounded-full"
           />
         ) : (
           <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
@@ -116,7 +144,7 @@ function MobileNavbar({ store, isOpen, toggleMenu, totalQuantity }) {
           </div>
         )}
       </div>
-      <div className="relative flex items-center justify-between gap-3">
+      <div className="relative flex items-center justify-between gap-3 z-[100]">
         <span
           className=" relative p-2 z-0 text-[1.2rem] cursor-pointer"
           onClick={() => navigate("/cart")}

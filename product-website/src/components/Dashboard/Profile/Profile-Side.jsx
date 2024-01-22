@@ -3,13 +3,13 @@ import { IoIosCopy, IoIosShareAlt } from "react-icons/io";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function ProfileSide({ profileCompletion }) {
+export default function ProfileSide({ profileCompletion, store, bankDetails }) {
   // const { storeUser } = useStoreContext();
   const store_id = localStorage.getItem("storeId");
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   //const [profileCompletion, setProfileCompletion] = useState(0);
 
-  const storeUrl = `https://rocktea-mall-product.vercel.app/register?id=${store_id}`;
+  const storeUrl = `https://rocktea-mall-product.vercel.app/?id=${store_id}`;
 
   const copyLinkToClipboard = async () => {
     try {
@@ -111,53 +111,96 @@ export default function ProfileSide({ profileCompletion }) {
           Store Details
         </div>
         <div className="text-sky-950 text-[20px] font-medium font-['Poppins'] flex items-center gap-x-2">
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="23"
-              viewBox="0 0 24 27"
-              fill="none"
-            >
-              <path
-                d="M20.5 2.5C14.8333 12.5 7.2 23 2 25"
-                stroke="#F81000"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-              <path
-                d="M5 2C10.6667 12 16.8 23.5 22 25.5"
-                stroke="#F81000"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-            </svg>
-          </span>{" "}
+          {bankDetails?.nuban && bankDetails?.bank_code ? (
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="23"
+                viewBox="0 0 32 23"
+                fill="none"
+              >
+                <path
+                  d="M2 9L10 19.5C11.3333 14.6667 17.2 4.4 30 2"
+                  stroke="#00AE00"
+                  strokeOpacity="0.85"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
+          ) : (
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="23"
+                viewBox="0 0 24 27"
+                fill="none"
+              >
+                <path
+                  d="M20.5 2.5C14.8333 12.5 7.2 23 2 25"
+                  stroke="#F81000"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M5 2C10.6667 12 16.8 23.5 22 25.5"
+                  stroke="#F81000"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
+          )}
           Bank Details
         </div>
         <div className="text-sky-950 text-[20px] font-medium font-['Poppins'] flex items-center gap-x-2">
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="23"
-              viewBox="0 0 24 27"
-              fill="none"
-            >
-              <path
-                d="M20.5 2.5C14.8333 12.5 7.2 23 2 25"
-                stroke="#F81000"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-              <path
-                d="M5 2C10.6667 12 16.8 23.5 22 25.5"
-                stroke="#F81000"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-            </svg>
-          </span>{" "}
+          {store?.facebook ||
+          store?.whatsapp ||
+          store?.twitter ||
+          store?.instagram ? (
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="23"
+                viewBox="0 0 32 23"
+                fill="none"
+              >
+                <path
+                  d="M2 9L10 19.5C11.3333 14.6667 17.2 4.4 30 2"
+                  stroke="#00AE00"
+                  strokeOpacity="0.85"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
+          ) : (
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="23"
+                viewBox="0 0 24 27"
+                fill="none"
+              >
+                <path
+                  d="M20.5 2.5C14.8333 12.5 7.2 23 2 25"
+                  stroke="#F81000"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M5 2C10.6667 12 16.8 23.5 22 25.5"
+                  stroke="#F81000"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
+          )}
           Social Media
         </div>
         <div>

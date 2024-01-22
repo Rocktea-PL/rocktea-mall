@@ -11,7 +11,7 @@ export default function Sidebar() {
   const sidebarItems = [
     {
       id: 1,
-      link: `/dashboard?store_id=${storeId}`,
+      link: `/dashboard/home?store_id=${storeId}`,
       title: "Home",
       icon: <HiOutlineHome />,
     },
@@ -32,6 +32,7 @@ export default function Sidebar() {
   return (
     <div className=" hidden lg:fixed top-10  w-[300px] mt-5 rounded-lg lg:flex flex-col justify-between pb-20 pt-10 bg-white shadow-md h-full mb-14 px-3 ">
       <div className="">
+        <h4 className="text-blue text-sm px-3 mt-3">Dashboard</h4>
         <ul className="sidebar-list flex flex-col gap-y-3 mt-5">
           {sidebarItems.map((items) => (
             <li key={items.id} className="flex">
@@ -53,7 +54,7 @@ export default function Sidebar() {
         </ul>
       </div>
       <div>
-        <h4 className="text-blue text-[18px] px-3 mt-3">Settings</h4>
+        <h4 className="text-blue text-sm px-3 mt-3">User Account</h4>
         <ul className="sidebar-list flex flex-col gap-y-3 mt-5">
           <Link to="/dashboard/your_profile">
             <li>

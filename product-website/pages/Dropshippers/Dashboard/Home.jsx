@@ -22,7 +22,7 @@ export default function DashboardHome() {
       <main className="flex lg:justify-between gap-20 mt-20 w-full  mx-auto">
         <Sidebar />
 
-        <div className=" block lg:flex lg:relative lg:left-[320px] w-full lg:gap-x-10 lg:w-[80%] px-5">
+        <div className=" block lg:flex lg:relative lg:left-[320px] w-full lg:gap-x-10 lg:w-[80%] px-5 mt-7">
           <div className="lg:w-[65%]">
             <StoreUrl />
             <Cards />

@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 
 import { FaArrowLeft } from "react-icons/fa";
 import { Oval } from "react-loader-spinner";
@@ -15,11 +15,70 @@ function Signup() {
 
   const { loading, formData, setFormData, error, setError, handleUserForm } =
     useGlobalContext();
- 
-  
+
   const [showPassword, setShowPassword] = useState(false);
- 
+  //const [showPassword, setShowPassword] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isTypingPassword, setIsTypingPassword] = useState(false);
+  // const isCheckerOpen = true;
+  const handlePasswordValidation = (isValid) => {
+    setIsPasswordValid(isValid);
+  };
+  const handlePasswordTyping = () => {
+    setIsTypingPassword(true);
+  };
+
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  /*const handleChecker = () => {
+    setIsCheckerOpen(!isCheckerOpen);
+  };*/
+  /* useEffect(() => {
+    const storedVerifyEmail = localStorage.getItem("verifyEmail");
+    if (storedVerifyEmail) {
+      setVerifyEmail(JSON.parse(storedVerifyEmail));
+    }
+  }, [setVerifyEmail]);
+*/
+
   const handleInputChange = (e) => {
+    let updatedFormData = {};
+    let updatedErrors = { ...error };
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (e && e.target) {
+      // Regular input change
+      const { name, value } = e.target;
+      updatedFormData = {
+        ...formData,
+        [name]: value,
+      };
+
+      if (name === "password") {
+        handlePasswordTyping(); // Update the typing status for password
+      }
+      if (name === "email" && !value.match(emailRegex)) {
+        updatedErrors.email = "Please enter a valid email address.";
+        //toast.error('Please enter a valid email address.')
+      }
+
+      // Add specific validations if needed
+    } else {
+      updatedErrors.email = "";
+      // Phone number input change
+      updatedFormData = {
+        ...formData,
+        contact: e, // e contains the phone number directly
+      };
+      updatedErrors.contact = ""; // Reset error for contact
+    }
+
+    setFormData(updatedFormData);
+    setError(updatedErrors);
+  };
+
+  /* const handleInputChange = (e) => {
     const { name, value } = e.target;
     const updatedErrors = { ...error };
     // Email validation regular expression
@@ -37,11 +96,7 @@ function Signup() {
       [name]: value,
     });
     setError(updatedErrors);
-  };
-
-  const handlePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  };*/
 
   return (
     <div className="logout flex items-center justify-center h-screen lg:overflow-hidden -mt-3">
@@ -67,9 +122,9 @@ function Signup() {
             <img
               src={store?.logo}
               alt="logo"
-              width={50}
-              height={50}
-              className="w-[50px] h-[50px] rounded-full"
+              width={120}
+              height={120}
+              className=" object-contain"
             />
           ) : (
             <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
@@ -94,6 +149,9 @@ function Signup() {
               showPassword={showPassword}
               formData={formData}
               handlePasswordVisibility={handlePasswordVisibility}
+              isTypingPassword={isTypingPassword}
+              isPasswordValid={isPasswordValid}
+              handlePasswordValidation={handlePasswordValidation}
             />
             <button
               className="common flex items-center justify-center mx-auto py-2 px-4 rounded mb-4 mt-3 w-full"
@@ -120,8 +178,8 @@ function Signup() {
           </form>
         </div>
         <p>
-        Already have an account?{" "}
-          <Link to='/login' className="font-semibold">
+          Already have an account?{" "}
+          <Link to="/login" className="font-semibold">
             Login
           </Link>
         </p>

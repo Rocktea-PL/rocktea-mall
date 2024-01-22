@@ -1,6 +1,7 @@
 // MyContext.js
 //import axios from "axios";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { createContext, useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -29,8 +30,7 @@ const AppProvider = ({ children }) => {
     e.preventDefault();
     setLoading(true);
 
-    const store_id =
-      localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+    const store_id = Cookies.get("storeId") || localStorage.getItem("storeUid");
     formData.associated_domain = store_id;
 
     try {
@@ -102,7 +102,7 @@ const AppProvider = ({ children }) => {
     setLoading(true); // Set loading to true when the update starts
 
     try {
-      const store_id = localStorage.getItem("storeId");
+      const store_id = Cookies.get("storeId");
       const response = await axios.patch(
         `https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/${store_id}/`,
         updatedProfileData,

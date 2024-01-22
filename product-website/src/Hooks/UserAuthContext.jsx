@@ -30,7 +30,7 @@ export const UserAuthProvider = ({ children }) => {
   //const token = Cookies.get('token')
   // console.log('cookies',token)
   //const [isStoreOwner, setIsStoreOwner] = useState(null);
-  let storeId = localStorage.getItem("storeId");
+  let storeId = Cookies.get("storeId");
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -83,8 +83,8 @@ export const UserAuthProvider = ({ children }) => {
       setError(error); // Handle login error
       console.error("Login error:", error);
       toast.error(
-        "Invalid credentials. Please try again.",
-        error.response.data.detail,
+        error?.response?.data?.detail ||
+          "Invalid credentials. Please try again.",
       );
       //cogoToast.success("Log in Failed. Check you Details");
     } finally {
@@ -92,8 +92,7 @@ export const UserAuthProvider = ({ children }) => {
     }
   };
 
-  const store_id =
-    localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+  const store_id = Cookies.get("storeId") || localStorage.getItem("storeUid");
 
   const getStoreDetails = async () => {
     try {
@@ -172,7 +171,7 @@ export const UserAuthProvider = ({ children }) => {
     }
   };
   const storeLogOut = () => {
-    localStorage.removeItem("storeId");
+    Cookies.remove("storeId");
     window.location.href = "https://rocktea-mall.vercel.app/signin";
   };
   useEffect(() => {

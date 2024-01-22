@@ -1,7 +1,7 @@
-import { useGlobalContext } from "../src/hooks/context";
-import { ImageWithLoading } from "../src/Components/ImageLoader";
-import Otp from "../src/Components/Forms/SignUp/Otp";
-import Details from "../src/Components/Forms/Services/Details";
+import { useGlobalContext } from "../../src/hooks/context";
+import { ImageWithLoading } from "../../src/Components/ImageLoader";
+import Otp from "../../src/Components/Forms/SignUp/Otp";
+import Details from "../../src/Components/Forms/Services/Details";
 
 //import { useEffect } from "react";
 function ServicesInfo() {

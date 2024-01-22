@@ -1,11 +1,7 @@
-import React from 'react'
+//import React from "react";
 
 function getStoreDetails() {
-    return (
-        <div>
-            
-        </div>
-    )
+  return <div></div>;
 }
 
-export default getStoreDetails
+export default getStoreDetails;

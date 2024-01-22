@@ -1,8 +1,8 @@
 //import React from 'react'
 
-import Header from "../src/Components/Services/Header";
-import Personal from "../src/Components/Services/Profile/Personal";
-import Sidebar from "../src/Components/Services/Profile/Sidebar";
+import Header from "../../src/Components/Services/Header";
+import Personal from "../../src/Components/Services/Profile/Personal";
+import Sidebar from "../../src/Components/Services/Profile/Sidebar";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "react-query";

@@ -8,7 +8,7 @@ import { useState } from "react";
 import ProfileDropdown from "./Dropshippers/Dropdown";
 
 const DropshipperNavbar = ({ page }) => {
-  const { store } = useStoreContext();
+  const { store, storeId } = useStoreContext();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   //console.log(store)
   const toggleMobileNav = () => {
@@ -18,16 +18,16 @@ const DropshipperNavbar = ({ page }) => {
   //const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <header className="p-3 bg-white shadow-md fixed top-0 w-full z-[60]">
-      <nav className="hidden lg:flex items-center justify-between px-4">
+    <header className="p-3 bg-white shadow-md fixed -top-0 w-full z-[100] h-[90px] max-h-[100px]  ">
+      <nav className="hidden lg:flex items-center justify-between px-4 relative left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] ">
         <figure className="flex items-center justify-center gap-3">
           {store?.logo ? (
             <img
               src={store?.logo}
               alt="logo"
-              width={50}
-              height={50}
-              className="w-[50px] h-[50px] "
+              width={110}
+              height={110}
+              className=" object-contain  max-w-[100%] max-h-[70px]"
             />
           ) : (
             <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
@@ -35,14 +35,14 @@ const DropshipperNavbar = ({ page }) => {
             </div>
           )}
         </figure>
-        <ul className="flex items-center justify-between gap-5">
+        <ul className="flex items-center justify-between  gap-5">
           <li className=" tracking-[1px]">
             {" "}
             <Link to="/">Products</Link>
           </li>
           <li className=" tracking-[1px]">
             {" "}
-            <Link to={`/dashboard?store_id=${store?.id}`}>Dashboard</Link>
+            <Link to={`/dashboard/home?store_id=${storeId}`}>Dashboard</Link>
           </li>
 
           <li className=" tracking-[1px]">
@@ -62,7 +62,7 @@ const DropshipperNavbar = ({ page }) => {
           <ProfileDropdown />
         </div>
       </nav>
-      <nav className="block lg:hidden ">
+      <nav className="block lg:hidden w-full ">
         <DropshipperMobileNavbar
           store={store}
           page={page}

@@ -5,14 +5,8 @@ import DoughnutChart from "./DougnutChart";
 export default function Transaction() {
   return (
     <div className="p-3 mt-5 ">
-      <div className="bg-white mb-5 rounded-lg w-auto h-[50px] flex items-center gap-3 px-5">
-        <span className="border-r-[1.5px] border-r-gray-400 text-gray-400 px-2">
-          Weekly
-        </span>
-        <span className="border-r-[1.5px] border-r-gray-400 px-2 text-gray-400">
-          Monthly
-        </span>
-        <span>Yearly</span>
+      <div className="bg-white mb-5 rounded-lg w-auto h-[50px] flex items-center justify-center gap-3 px-5">
+        <button>Withdraw Earnings</button>
       </div>
       <article className="bg-white rounded-md flex flex-col items-center justify-center p-3">
         <h3 className="font-semibold text-[1.3rem]">Transaction History</h3>

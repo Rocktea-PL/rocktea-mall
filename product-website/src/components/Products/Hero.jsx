@@ -10,12 +10,11 @@ export default function Hero({ FormattedType, FilterAllProducts }) {
         </div>
         <hr className="mt-3" />
       </div>
-      <div className="bg-product bg-no-repeat bg-cover bg-center h-[300px] ">
-          <h2 className="text-start text-[3rem] sm:text-[4rem] text-white pl-10  pt-[10rem] font-semibold leading-tight">
+      <div className="bg-product bg-no-repeat bg-cover bg-center h-[300px]">
+        <h2 className="text-start text-[3rem] sm:text-[4rem] text-white pl-10  pt-[10rem] font-semibold leading-tight">
           {FormattedType}
-          </h2>
-        </div>
-      
+        </h2>
+      </div>
     </section>
   );
 }

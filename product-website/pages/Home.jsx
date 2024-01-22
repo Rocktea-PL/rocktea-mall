@@ -9,7 +9,7 @@ import Products from "../src/components/Home/Products";
 export default function Home() {
   return (
     <>
-      <div className="max-w-[1250px] mx-auto max-md:mt-32">
+      <div className="max-w-[1250px] mx-auto mt-20">
         <Hero />
         <Categories />
         <Products />

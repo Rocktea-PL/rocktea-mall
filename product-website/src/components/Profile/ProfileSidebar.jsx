@@ -5,16 +5,22 @@ import {
   AiOutlineBell,
 } from "react-icons/ai";
 import "../../styles/profile.css";
+
+import useImageUpload from "../../Helpers/UpdateImages";
+//import { useEffect } from "react";
 //import { useStoreContext } from "../../Hooks/UserAuthContext";
-export default function ProfileSidebar({userData}) {
-  //const { userData } = useStoreContext();
+export default function ProfileSidebar({ userData }) {
+  //const { userData } = useStoreContext();zz
+  const url = `https://rocktea-mall-api-test.up.railway.app/rocktea/signup/user/${userData?.id}/`;
+  const { image, fileInputRef, handleFileChange, openFileInput } =
+    useImageUpload(userData.profile_image, "profile_image", url);
   return (
     <aside className="flex flex-col  bg-white w-[300px] p-3 mt-3 rounded-md overflow-hidden">
-      <div className="relative">
+      <div className="relative" onClick={openFileInput}>
         <img
           className="w-[200px] h-[200px] object-cover rounded-full mx-auto"
-          src={userData.profile_image}
-          alt=""
+          src={image}
+          alt="profile image"
         />
         <div className="absolute right-[45px]  bg-white opacity-[0.9] w-[50px] h-[50px] flex items-center justify-center  rounded-full bottom-[-5px]  cursor-pointer border border-gray-300">
           <svg
@@ -32,6 +38,13 @@ export default function ProfileSidebar({userData}) {
             />
           </svg>
         </div>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleFileChange(e.target.files)}
+          style={{ display: "none" }}
+          ref={fileInputRef}
+        />
       </div>
 
       <div className="text-center mt-5">

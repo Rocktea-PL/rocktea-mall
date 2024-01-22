@@ -18,45 +18,47 @@ export default function ServiceListings() {
     { enabled: true, staleTime: 5 * (60 * 1000), cacheTime: 10 * (60 * 1000) },
   );
 
-  const listLength = servicesList?.length || 6
-console.log(listLength)
+  const listLength = servicesList?.length || 6;
+  console.log(listLength);
   return (
     <>
       <article className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 rounded-md">
         {loading
-              ? Array.from({ length: listLength }, (_, index) => (
-                  <SkeletonCard key={index} count={listLength} />
-                )) : servicesList?.length > 0 &&
-         
-          servicesList.map((data) => (
-            <div key={data.id}>
-              <Link to={`/services/details/${data?.id}`}>
-                <figure className="w-full lg:w-[280px]  h-[250px]">
-                  <img
-                    src={data.business_photograph}
-                    className="w-full h-full object-cover rounded-md"
-                    alt={data.text}
-                  />
-                </figure>
-                <div className="w-full lg:w-[280px] h-[250px] bg-white px-4 py-5 shadow-md rounded-b-md flex flex-col gap-y-2">
-                  <h4 className="!text-[22px] font-semibold ">{data?.name}</h4>
-                  <p>{data.about}</p>
-                  <h4 className="!text-[20px] !mt-0 text-orange font-semibold">
-                    ₦20,000/hr
-                  </h4>
-                  <h5 className="!text-[12px] mb-2">
-                    {data?.years_of_experience}{" "}
-                    {data?.years_of_experience > 1 ? "years" : " year"}
-                  </h5>
+          ? Array.from({ length: listLength }, (_, index) => (
+              <SkeletonCard key={index} count={listLength} />
+            ))
+          : servicesList?.length > 0 &&
+            servicesList.map((data) => (
+              <div key={data.id}>
+                <Link to={`/services/details/${data?.id}`}>
+                  <figure className="w-full lg:w-[280px]  h-[250px]">
+                    <img
+                      src={data.business_photograph}
+                      className="w-full h-full object-cover rounded-md"
+                      alt={data.text}
+                    />
+                  </figure>
+                  <div className="w-full lg:w-[280px] h-[250px] bg-white px-4 py-5 shadow-md rounded-b-md flex flex-col gap-y-2">
+                    <h4 className="!text-[22px] font-semibold ">
+                      {data?.name}
+                    </h4>
+                    <p>{data.about}</p>
+                    <h4 className="!text-[20px] !mt-0 text-orange font-semibold">
+                      ₦20,000/hr
+                    </h4>
+                    <h5 className="!text-[12px] mb-2">
+                      {data?.years_of_experience}{" "}
+                      {data?.years_of_experience > 1 ? "years" : " year"}
+                    </h5>
 
-                  <hr />
-                  <span className="flex items-center justify-center gap-3 text-[15px] mt-3">
-                    <FaLocationDot /> Ikoyi, Lagos
-                  </span>
-                </div>
-              </Link>
-            </div>
-          ))}
+                    <hr />
+                    <span className="flex items-center justify-center gap-3 text-[15px] mt-3">
+                      <FaLocationDot /> Ikoyi, Lagos
+                    </span>
+                  </div>
+                </Link>
+              </div>
+            ))}
 
         {services.map((data) => (
           <div key={data.id}>

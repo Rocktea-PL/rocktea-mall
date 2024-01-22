@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import "../../styles/topography.css";
+import ServicesImg from "../../assets/servicesHome.svg";
 function HomeDetails() {
   return (
     <section className="mt-12">
@@ -20,7 +21,7 @@ function HomeDetails() {
           <img
             src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1700830252/rocktea-main-website/assets/Money_income-amico_1_c8tjx1.svg"
             alt="home3"
-            width={450}
+            width={400}
             height={400}
           />
         </motion.figure>
@@ -143,6 +144,47 @@ function HomeDetails() {
             without you, you’re our veins. To further establish that fact, we
             have created a community of our dedicated businesses. You can share
             your success story, ideas, advices and many more you name it.
+          </p>
+        </motion.div>
+      </article>
+      <article className="flex flex-col items-center   text-center lg:text-start lg:flex-row-reverse lg:items-start justify-center gap-y-5 lg:gap-20 mb-5">
+        <motion.figure
+          initial={{ opacity: 0, x: 200 }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+            transition: {
+              delay: 0.3,
+              duration: 0.8,
+              ease: "easeInOut",
+            },
+          }}
+          className="lg:-mt-20"
+        >
+          <img src={ServicesImg} alt="home3" width={400} height={400} />
+        </motion.figure>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{
+            opacity: 1,
+
+            transition: {
+              delay: 0.3,
+              duration: 0.8,
+              ease: "easeInOut",
+            },
+          }}
+          className="lg:max-w-[50%] "
+        >
+          <p className="text-[var(--yellow)] text-[15px]">Services </p>
+          <h3 className="leading-[1.2]">
+            Get the very best of service providers.
+          </h3>
+          <p className="mt-5 text-start text-sm w-[300px] sm:w-full leading-[2] lg:leading-[2.5] xxsm:px-5">
+            Rest assured, we have curated a selection of top-tier professionals
+            across various services —barbers, accountants, makeup artists,
+            cleaners—to streamline and elevate your daily activities. Certified
+            and trusted experts at your service.
           </p>
         </motion.div>
       </article>

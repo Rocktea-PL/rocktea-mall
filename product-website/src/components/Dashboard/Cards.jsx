@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { AiOutlineFall, AiOutlineRise } from "react-icons/ai";
+import Cookies from "js-cookie";
 
 export default function Cards() {
   const fetchProductCount = async () => {
-    const store_id = localStorage.getItem("storeId");
+    const store_id = Cookies.get("storeId");
     const response = await axios.get(
       `https://rocktea-mall-api-test.up.railway.app/mall/count/?store=${store_id}`,
     );

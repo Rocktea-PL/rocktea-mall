@@ -67,14 +67,17 @@ function OrderItems() {
           </h3>
           <div>
             <span className="flex items-center justify-between mt-5 py-3">
-              <h3 className=" whitespace-nowrap md:text-md font-semibold">Order details</h3>
-              <p className=" text-[0.8rem] sm:text-sm">{orderItems?.created_at}</p>
+              <h3 className=" whitespace-nowrap md:text-md font-semibold">
+                Order details
+              </h3>
+              <p className=" text-[0.8rem] sm:text-sm">
+                {orderItems?.created_at}
+              </p>
             </span>
             <hr className="border-[1.2px] " />
             <div className="flex flex-col md:flex-row md:items-start items-center justify-between my-3">
               <img
                 src="https://res.cloudinary.com/dwvdgmuaq/raw/upload/iphone11promax_wff1v1.jpg"
-               
                 alt="product"
                 className="w-[90%] lg:w-[100px] lg:h-[100px] rounded-md object-cover"
               />
@@ -100,7 +103,7 @@ function OrderItems() {
                                   Size <br />1
                                 </p>
                                 <p className="lg:hidden">
-                                Price <br /> N {orderItems?.total_price}
+                                  Price <br /> N {orderItems?.total_price}
                                 </p>
                               </div>
                             </div>

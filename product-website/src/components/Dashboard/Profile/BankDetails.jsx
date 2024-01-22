@@ -15,7 +15,7 @@ const BankDetails = ({ store }) => {
   const key = import.meta.env.VITE_APP_PAYSTACK_KEY;
   const Base_url = import.meta.env.VITE_BASE_URL;
   const queryClient = useQueryClient();
-
+  const storeId = store?.id;
   //console.log(selectedBank)
   const fetchBankList = async () => {
     try {
@@ -69,7 +69,7 @@ const BankDetails = ({ store }) => {
   );
 
   const patchAccountDetailsMutation = useMutation(
-    (data) => axios.patch(`${Base_url}/rocktea/wallet/${store?.id}/`, data),
+    (data) => axios.patch(`${Base_url}/rocktea/wallet/${storeId}/`, data),
     {
       onSuccess: (data) => {
         // Handle success if needed
@@ -83,27 +83,28 @@ const BankDetails = ({ store }) => {
       },
     },
   );
+
   const { data: bankDetails } = useQuery(
     ["accountDetails"],
     async () => {
       const response = await axios.get(
-        `https://rocktea-mall-api-test.up.railway.app/rocktea/wallet/${store?.id}/`,
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/wallet/${storeId}/`,
       );
       return response.data;
     },
     {
-      enabled: true, // Start the query manually
-      refetchOnWindowFocus: false,
       onSuccess: (data) => {
         // Handle the retrieved account details
         // For example, set the customer name
         console.log(bankDetails);
+
         setCustomerName(data.account_name);
         setAccountNumber(data.nuban);
       },
     },
   );
-
+  //console.log(bankDetails)
+  //console.log( `https://rocktea-mall-api-test.up.railway.app/rocktea/wallet/${storeId}/`)
   const handleVerifyAccount = async () => {
     try {
       setLoading(true);

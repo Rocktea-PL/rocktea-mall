@@ -9,6 +9,7 @@ import axios from "axios";
 
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
+import Cookies from "js-cookie";
 //import { useState } from "react";
 
 export default function MarketplaceModal({ closeModal, products, productId }) {
@@ -65,9 +66,9 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
     // Prepare the data for the POST request
     const data = {
       retail_price: retailPrices, // Assuming you want the first size
-      store: localStorage.getItem("storeId"), // Replace with your actual store ID
+      store: Cookies.get("storeId")("storeId"), // Replace with your actual store ID
       // productvariant: id,
-      product_variant: id,
+      product: productId,
     };
 
     // Make the POST request
@@ -190,6 +191,60 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
               </h4>
             )}
           </div>
+          {selectedProduct?.product_variants.map((item, index) => (
+            <div key={index} className={index === 0 ? "" : ""}>
+              <h4 className="text-sm font-medium flex items-center gap-5 mx-8 mt-1">
+                Base Price:{" "}
+                <span className="text-gold font-semibold text-center">
+                  ₦ {item?.wholesale_price?.toLocaleString("en-US")}
+                </span>
+              </h4>
+
+              <div className="flex items-center justify-center mt-7 mx-3 md:mx-20 xsm:gap-x-2 gap-x-5 md:gap-10 ">
+                <button
+                  className="flex items-center justify-center mx-auto common h-12 px-5 md:w-[150px] rounded-lg"
+                  onClick={() => handleAddPrice(item.id)}
+                >
+                  Add Product
+                </button>
+                <button
+                  className="flex items-center justify-center mx-auto border-[1.3px] border-orange h-12  px-3 md:w-[150px] rounded-lg"
+                  onClick={() => handleRemoveProduct(item.id)}
+                >
+                  Remove Product
+                </button>
+              </div>
+              {addPrice && (
+                <div className="transition-all duration-[10s] delay-200 ease-in-out mx-auto mt-5">
+                  <h4 className="text-center text-[20px] text-blue font-semibold">
+                    Add Profit
+                  </h4>
+                  <form
+                    action=""
+                    className="px-5 flex items-center justify-center mx-auto gap-3 mt-5 max-w-[90%]"
+                  >
+                    <label htmlFor="" className="flex items-center">
+                      <span className="font-bold text-md px-3">₦</span>
+                      <input
+                        type="number"
+                        name="retail_price"
+                        value={retailPrices}
+                        onChange={handleRetail}
+                        className="border bg-white shadow-md border-gray-200 h-10 xsm:!w-[150px] rounded px-5"
+                      />
+                    </label>
+                    <button
+                      className="p-2 px-4 rounded-md common"
+                      onClick={(e) => handleAddProduct(e, item?.id)}
+                      // disabled={selectedSizes.includes(selectedSize)}
+                    >
+                      Go
+                    </button>
+                  </form>
+                </div>
+              )}
+            </div>
+          ))}
           <div>
             {price?.length > 0 && !selectedSize ? (
               <>

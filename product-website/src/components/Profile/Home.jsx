@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 //import { useStoreContext } from "../../Hooks/UserAuthContext";
 import { useGlobalContext } from "../../Hooks/Context";
 import toast from "react-hot-toast";
+//import updateUserProfile from "../../Helpers/UpdateImages";
 
-function Home({userData}) {
- // const { userData } = useStoreContext();
+function Home({ userData }) {
+  // const { userData } = useStoreContext();
   const { updateProfile, loading } = useGlobalContext();
   const [updateData, setUpdateData] = useState({});
 
@@ -21,8 +22,7 @@ function Home({userData}) {
   }, [userData]);
   const handleProfileUpdate = (e) => {
     e.preventDefault();
-    // Capture the updated profile data from the form
-    // Call the updateProfile function with the updated data
+
     updateProfile(updateData);
     setUpdateData(updateData);
     toast.success("Profile Updated successfully");
@@ -49,6 +49,7 @@ function Home({userData}) {
                   First Name
                   <input
                     type="text"
+                    name="first_name"
                     value={updateData.first_name}
                     onChange={(e) =>
                       setUpdateData({
@@ -63,6 +64,7 @@ function Home({userData}) {
                   Last Name
                   <input
                     type="text"
+                    name="last_name"
                     value={updateData.last_name}
                     onChange={(e) =>
                       setUpdateData({
@@ -77,6 +79,7 @@ function Home({userData}) {
                   Email
                   <input
                     type="text"
+                    name="email"
                     value={updateData.email}
                     onChange={(e) =>
                       setUpdateData({ ...updateData, email: e.target.value })
@@ -88,6 +91,7 @@ function Home({userData}) {
                   Phone
                   <input
                     type="text"
+                    name="contact"
                     value={updateData.contact}
                     onChange={(e) =>
                       setUpdateData({ ...updateData, contact: e.target.value })
@@ -107,6 +111,7 @@ function Home({userData}) {
                   Address
                   <input
                     type="text"
+                    name="address"
                     value={updateData.address}
                     onChange={(e) =>
                       setUpdateData({ ...updateData, address: e.target.value })

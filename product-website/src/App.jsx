@@ -9,23 +9,22 @@ import GlobalLoader from "./Helpers/Loaders/GlobalLoader";
 import { useLocation } from "react-router-dom/dist";
 import BadNetwork from "./assets/bad-network.svg";
 import CookieBanner from "./components/CookieBanner";
+import Cookies from "js-cookie";
 function App() {
-  const location = useLocation();  // Use the location hook to get the query parameters
+  const location = useLocation(); // Use the location hook to get the query parameters
   const queryParams = new URLSearchParams(location.search);
   const idFromQuery = queryParams.get("store_id");
   const searchParams = new URLSearchParams(location.search);
   const userStoreId = searchParams.get("id");
-  
+
   const [isLoading, setIsLoading] = useState(true);
   const [isOnline, setIsOnline] = useState(true);
-  const [storeId, setStoreId] = useState(
-    () => localStorage.getItem("storeId") || null,
-  );
-  const [userParamId,setUserParamId] = useState(
+  const [storeId, setStoreId] = useState(() => Cookies.get("storeId") || null);
+  const [userParamId, setUserParamId] = useState(
     localStorage.getItem("storeUid") || null,
   );
- 
-console.log(queryParams)
+
+  console.log(queryParams);
   // Dropshippers store id so they can have access to teir store and dashboard
   //user store id so that they can have access to the stores they want to reagister
   useEffect(() => {
@@ -34,12 +33,12 @@ console.log(queryParams)
     // Check if the query parameters are present before updating state
     if (idFromQuery !== null) {
       setStoreId(idFromQuery);
-      localStorage.setItem("storeId", idFromQuery); // Set store_id to local storage
+      Cookies.set("storeId", idFromQuery, { secure: true, sameSite: "strict" }); // Set store_id to local storage
     }
 
     if (userStoreId !== null) {
       setUserParamId(userStoreId);
-      localStorage.setItem("storeUid", userStoreId);// Set store_id to local storage
+      localStorage.setItem("storeUid", userStoreId); // Set store_id to local storage
     }
 
     // Set loading to false after a timeout
@@ -82,8 +81,6 @@ console.log(queryParams)
     window.location.reload();
   };
 
- 
-
   return (
     <>
       <AppProvider>
@@ -94,7 +91,6 @@ console.log(queryParams)
                 <GlobalLoader />
               ) : (
                 <>
-                  
                   <Layout storeId={storeId} userParamId={userParamId} />
                   <CookieBanner />
                 </>

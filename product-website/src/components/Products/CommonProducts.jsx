@@ -6,7 +6,9 @@ function CommonProducts() {
   //console.log(product)
   return (
     <div className="relative mt-10 bg-white p-3 lg:mx-5">
-      <h2 className=" font-semibold xsm:text-sm text-[1.2rem] md:text-md ">Customer Also Viewed</h2>
+      <h2 className=" font-semibold xsm:text-sm text-[1.2rem] md:text-md ">
+        Customer Also Viewed
+      </h2>
       <span
         className="absolute  top-3  md:top-5 -right-3 md:right-5 text-right flex items-center gap-2 text-[var(--orange)] cursor-pointer"
         onClick={() => alert("yesss")}

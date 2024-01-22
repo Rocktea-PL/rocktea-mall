@@ -57,13 +57,15 @@ const Navbar = () => {
       <nav className="hidden lg:flex items-center justify-between px-5">
         <div className="">
           {store.logo ? (
-            <img
-              src={store?.logo}
-              alt="logo"
-              width={50}
-              height={50}
-              className="rounded-full"
-            />
+            <figure className="w-[50%] h-[50px]">
+              <img
+                src={store?.logo}
+                alt="logo"
+                width={110}
+                height={110}
+                className=" object-contain  max-w-[100%] max-h-[70px]"
+              />
+            </figure>
           ) : (
             <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
               {store.name?.slice(0, 2)}
@@ -122,34 +124,14 @@ const Navbar = () => {
           store={store}
           isOpen={isMobileNavOpen}
           toggleMenu={toggleMobileNav}
+          closeMenu={() => setIsMobileNavOpen(false)}
           quantity={quantity}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           totalQuantity={totalQuantity}
         />
       </nav>
-      <div className="flex items-center justify-center mx-auto mt-5 mb-3 w-full lg:hidden">
-        <form
-          action=""
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSearch(searchQuery);
-          }}
-          className="flex items-center gap-4 "
-        >
-          <input
-            type="search"
-            placeholder="Search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="border border-solid border-orange p-2 rounded-lg outline-none"
-          />
-          <button className="flex items-center gap-2 common p-2  rounded-lg">
-            {" "}
-            <HiOutlineMagnifyingGlass /> Search{" "}
-          </button>
-        </form>
-      </div>
+
       {isModalOpen && <Categories closeModal={closeModal} />}
     </header>
   );

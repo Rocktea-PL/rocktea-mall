@@ -7,7 +7,7 @@ export default function Profile() {
     <main className="flex lg:justify-between gap-20 mt-20 w-full  mx-auto">
       <Sidebar />
 
-      <div className=" block w-full  lg:ml-[320px]  lg:gap-x-10  px-5">
+      <div className=" block w-full mt-5  lg:ml-[320px]  lg:gap-x-10  px-5">
         <YourProfile />
       </div>
     </main>

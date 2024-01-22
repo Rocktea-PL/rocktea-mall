@@ -23,6 +23,7 @@ function Cart() {
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
 
+  console.log(carts);
   const handleIncrement = async (cartItem) => {
     try {
       // Call the API to increment the quantity
@@ -132,7 +133,11 @@ function Cart() {
                           <div key={cart.id} className="flex !justify-between">
                             <div className="flex  items-center justify-center gap-3">
                               <div className="flex items-center justify-center w-[120px] h-[120px]">
-                                <img src={cart?.product?.images[0]} alt="product" className="w-full object-contain rounded-md" />
+                                <img
+                                  src={cart?.product?.images[0]}
+                                  alt="product"
+                                  className="w-full object-contain rounded-md"
+                                />
                               </div>
 
                               <div className=" p-2 flex flex-col">
@@ -140,7 +145,7 @@ function Cart() {
                                   {cart.product.name}
                                 </p>
                                 <p className="md:text-md font-semibold">
-                                  ₦ {cart?.price?.toLocaleString()}
+                                  ₦ {total?.toLocaleString()}
                                 </p>
 
                                 <div className="grid grid-cols-3 items-center divide-x divide-inherit md:w-[150px] max-md:mt-3  border border-[#acaaaa] rounded-md">
@@ -172,10 +177,13 @@ function Cart() {
                                 Delete
                               </button>
                               <span
-                              className="block md:hidden "
+                                className="block md:hidden "
                                 onClick={() =>
                                   handleDeleteProductItems(cart?.id)
-                                }><FaTrash /></span>
+                                }
+                              >
+                                <FaTrash />
+                              </span>
                             </div>
                           </div>
                         ))}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
+import { useQuery } from "react-query";
 import { HiBars3BottomRight, HiXMark } from "react-icons/hi2";
 import {
   FaAngleDown,
@@ -13,13 +13,34 @@ import Button from "../Button";
 import { useGlobalContext } from "../../hooks/context";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoMdLogOut } from "react-icons/io";
+import axios from "axios";
 const Header = () => {
   const path = useLocation();
   const { user } = useGlobalContext();
   const [isdropdown, setIsDropdown] = useState(false);
+  const [isSearchMobile, setIsSearchMobile] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
   let [open, setOpen] = useState(false);
+
+  const fetchServices = async () => {
+    const response = await axios.get(
+      `https://rocktea-mall-api-test.up.railway.app/rocktea/business_info/`,
+    );
+    return response.data;
+  };
+
+  const { data: servicesList } = useQuery("services", fetchServices, {
+    enabled: true,
+    staleTime: 5 * (60 * 1000),
+    cacheTime: 10 * (60 * 1000),
+  });
+
+  const filteredServices = servicesList?.filter(
+    (service) =>
+      service.name.toLowerCase().startsWith(searchQuery.toLowerCase()) ||
+      service.name.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   //This closes the mobile navigation as the user changes path/pages.
   useEffect(() => {
@@ -28,7 +49,7 @@ const Header = () => {
 
   return (
     <header className=" bg-white shadow-md w-full h-[5.5rem] fixed top-0 left-0 z-[99]  items-center">
-      <nav className="hidden md:flex md:items-center md:justify-between gap-8 py-[1.7rem]  md:px-10 px-7 ">
+      <nav className="hidden lg:flex lg:items-center lg:justify-between gap-8 py-[1.7rem]  md:px-10 px-7 ">
         <Link to="/">
           <figure className="flex items-center mt-2 md:mt-0">
             <img
@@ -47,12 +68,37 @@ const Header = () => {
         </div>
 
         {/* DESKTOP NAVIGATION ITEMS */}
-        <form action="" className="lg:flex hidden !items-center gap-x-3 ">
+        <form
+          action=""
+          className="lg:flex relative hidden !items-center gap-x-3 "
+        >
           <input
             type="search"
             placeholder="search a service"
-            className="px-3 !py-2 -mt-[0.4px] !h-[2.7rem] "
+            value={searchQuery}
+            onChange={(e) => {
+              setIsSearch(!!e.target.value);
+              setSearchQuery(e.target.value);
+            }}
+            className={`px-3 !py-2 -mt-[0.4px] !h-[2.7rem] border border-gray-300 rounded-md focus:outline-none focus:border-orange 
+           
+          transition-all ease-in-out duration-300`}
           />
+          {isSearch && (
+            <div className="absolute top-full left-0 w-full bg-white border border-gray-300 shadow-md rounded-md mt-2 p-4 mx-auto">
+              {filteredServices?.length > 0 ? (
+                filteredServices.map((service) => (
+                  <div key={service.id} className="hover:text-orange">
+                    <Link to={`/services/details/${service.id}`}>
+                      {service.name}
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <div className="text-[20px]">No service found</div>
+              )}
+            </div>
+          )}
           <Link to="/signin">
             <button className="w-[120px] h-10 bg-orange rounded-md">
               Search
@@ -97,10 +143,10 @@ const Header = () => {
           )}
         </div>
       </nav>
-      <nav className="md:hidden flex items-center justify-between gap-8 py-[1.7rem]  md:px-10 px-7 ">
-        {!isSearch && (
+      <nav className="lg:hidden flex items-center justify-between gap-8 py-[1.7rem]  md:px-10 px-7 w-full">
+        {!isSearchMobile && (
           <Link to="/">
-            <figure className="flex items-center mt-2 md:mt-0">
+            <figure className="flex items-center  mt-2 md:mt-0">
               <img
                 src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421637/rocktea-main-website/assets/rocktea-logo_qlaflj.png"
                 width={150}
@@ -111,32 +157,51 @@ const Header = () => {
           </Link>
         )}
 
-        <div className="flex items-center gap-3">
-          {/* DESKTOP NAVIGATION ITEMS */}
-          {isSearch && (
-            <form
-              action=""
-              className={`flex !items-center gap-x-3 transition-all ease-in-out duration-300 ${
-                isSearch ? "w-full" : ""
-              }`}
-            >
-              <FaTimes
-                className="text-[22px]"
-                onClick={() => setIsSearch(false)}
-              />
+        <div className="flex items-center justify-between gap-3">
+          {/* Mobile NAVIGATION ITEMS */}
+          <>
+            {isSearchMobile && (
+              <form
+                action=""
+                className={` relative flex !items-center gap-x-3 transition-all ease-in-out duration-300  ${
+                  isSearchMobile ? " w-full md:w-[500px]" : ""
+                }`}
+              >
+                <FaTimes
+                  className="text-[22px] "
+                  onClick={() => setIsSearchMobile(false)}
+                />
 
-              <input
-                type="search"
-                placeholder="search a service"
-                className="px-3 !py-2 -mt-[0.4px] !h-[2.7rem] "
-              />
-              <Link to="/signin">
-                <button className="w-[120px] h-10 bg-orange rounded-md">
-                  Search
-                </button>
-              </Link>
-            </form>
-          )}
+                <input
+                  type="search"
+                  placeholder="Search a service"
+                  className="px-3 !py-2 -mt-[0.4px] !h-[2.7rem] border border-gray-300 rounded-md focus:outline-none focus:border-orange w-full"
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setIsSearch(!!e.target.value);
+                    setSearchQuery(e.target.value);
+                  }}
+                />
+                {isSearch && (
+                  <div className="absolute top-full left-0 w-full bg-white border border-gray-300 shadow-md rounded-md mt-2 p-4">
+                    {filteredServices?.length > 0 &&
+                      filteredServices.map((service) => (
+                        <div key={service.id} className="hover:text-orange">
+                          <Link to={`/services/details/${service.id}`}>
+                            {service.name}
+                          </Link>
+                        </div>
+                      ))}
+                  </div>
+                )}
+                <Link to="/signin">
+                  <button className="w-[120px] h-10 bg-orange rounded-md">
+                    Search
+                  </button>
+                </Link>
+              </form>
+            )}
+          </>
 
           <div className=" relative md:mt-0 flex items-center justify-between">
             {user ? (
@@ -172,12 +237,12 @@ const Header = () => {
             ) : (
               <div
                 className={` ${
-                  isSearch ? "hidden" : "flex items-center gap-3"
+                  isSearchMobile ? "hidden" : "flex items-center gap-3"
                 }`}
               >
                 <FaSearch
                   className="text-md"
-                  onClick={() => setIsSearch(!isSearch)}
+                  onClick={() => setIsSearchMobile(!isSearchMobile)}
                 />
                 <Link to="/signin">
                   <button className="bg-orange p-3 px-4 rounded-md">

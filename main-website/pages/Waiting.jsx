@@ -40,14 +40,10 @@ function Waiting() {
         <p className="mt-10 mb-8 text-[1.2rem]">
           The mail will contain your e-store Unique URL.
         </p>
-        <Link to="/">
-          <button className="w-[200px] text-blue h-14 bg-orange rounded-lg">
-            Home
-          </button>
-        </Link>
+
         <Link to="/signin">
           <button className="w-[200px] text-blue h-14 bg-orange rounded-lg mt-5">
-            Demo
+            Continue
           </button>
         </Link>
       </article>

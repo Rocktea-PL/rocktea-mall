@@ -3,8 +3,9 @@
 //import axios from "axios";
 //import { useEffect } from "react";
 import { Link } from "react-router-dom";
-//import { useUserProductContext } from "../Hooks/UserProductContext";
 import { useProductPrices } from "../Hooks/UseProductPrices";
+//import { useUserProductContext } from "../Hooks/UserProductContext";
+//import { useProductPrices } from "../Hooks/UseProductPrices";
 //import { useUserProductContext } from "../Hooks/UserProductContext";
 
 export default function ProductCard({
@@ -21,8 +22,13 @@ export default function ProductCard({
   const currentQuantity = quantity;
   //const [currentQuantity, setCurrentQuantity] = useState(quantity);
 
-  const { productPrices, isLoading } = useProductPrices(productId);
-  //console.log("prices", productPrices);
+  const { variantsData /* isLoading */ } = useProductPrices(productId);
+  //console.log("prices", variants);
+  //console.log("pricesss", productPrices);
+  // console.log("price", variants);
+  /*if(isLoading){
+    return <p>Loading...</p> 
+  }*/
 
   return (
     <>
@@ -42,13 +48,19 @@ export default function ProductCard({
               <p className="font-light whitespace-nowrap truncate text-[1rem] mt-3">
                 {name}
               </p>
-              {productPrices?.length > 0 && !isLoading ? (
-                <p className="font-semibold">
-                  ₦ {productPrices[0]?.retail_price}
-                </p>
-              ) : (
-                <p>Loading...</p>
-              )}
+              {variantsData?.length > 0 &&
+                variantsData.map((item) => {
+                  const total =
+                    item?.wholesale_price + item?.store_pricings?.retail_price;
+                  return (
+                    <div key={item?.id}>
+                      <p className="font-semibold">
+                        ₦ {total?.toLocaleString()}
+                      </p>
+                    </div>
+                  );
+                })}
+
               <strike className="text-gray-400 text-[12px]">{oldPrice}</strike>
               <p className="text-[14px] ">
                 {currentQuantity <= 0 ? (

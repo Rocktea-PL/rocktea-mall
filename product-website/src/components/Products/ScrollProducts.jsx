@@ -37,14 +37,16 @@ export default function ScrollProducts({
     }
   };
 
-  //console.log(products);
+  console.log(products);
   //console.log('subcategory',subCategory)
   const sanitizedCategoryName = subCategory.replace(/\s+/g, "-");
   // const decodedSubCategory = decodeURIComponent(subCategory);
   return (
     <div className="mb-5">
       <div className="relative w-full mt-5 bg-white z-[10] p-5">
-        <h2 className="font-semibold xsm:text-sm text-[1.2rem] sm:text-md lg:text-2xl">{categoryTitle}</h2>
+        <h2 className="font-semibold xsm:text-sm text-[1.2rem] sm:text-md lg:text-2xl">
+          {categoryTitle}
+        </h2>
         <Link to={`/shop/${sanitizedCategoryName}`}>
           <span className=" absolute top-5 lg:top-5 right-5 text-right flex items-center gap-2 text-[var(--orange)] cursor-pointer">
             See All <FaAngleRight />
@@ -72,7 +74,7 @@ export default function ScrollProducts({
                   image={item?.product?.images[0]?.url}
                   name={item?.product.name}
                   quantity={item?.product?.quantity}
-                  // price={combinedPrice?.toLocaleString()}
+                  variants={item?.product?.product_variant}
                   oldPrice={item?.oldPrice}
                 />
               );

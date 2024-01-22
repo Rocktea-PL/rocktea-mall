@@ -18,7 +18,7 @@ const ProductDetails = () => {
   //console.log(id)
   const store_id = localStorage.getItem("storeId");
 
-  const { productPrices, isLoading } = useProductPrices(id);
+  const { isLoading, variantsData } = useProductPrices(id);
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedSizeId, setSelectedSizeId] = useState("");
@@ -31,20 +31,19 @@ const ProductDetails = () => {
 
   //Effects for controling  states of the counter, cart item and sizes
 
-  console.log(productPrices);
   useEffect(() => {
-    if (!initialSizeSet && productPrices.length > 0) {
-      const firstSize = productPrices[0]?.size;
-      const firstColor = productPrices[0]?.colors[0];
-      const firstSizeId = productPrices[0]?.id;
-      const firstSizePrice = productPrices[0]?.retail_price;
+    if (!initialSizeSet && variantsData?.length > 0) {
+      const firstSize = variantsData[0]?.size;
+      const firstColor = variantsData[0]?.colors[0];
+      const firstSizeId = variantsData[0]?.id;
+      const firstSizePrice = variantsData[0]?.retail_price;
       setSelectedColor(firstColor);
       setSelectedSize(firstSize);
       setSelectedSizeId(firstSizeId);
       setSelectedPrice(firstSizePrice);
       setInitialSizeSet(true);
     }
-  }, [initialSizeSet, productPrices]);
+  }, [initialSizeSet, variantsData]);
   const fetchProductDetails = async () => {
     const response = await axios.get(
       `https://rocktea-mall-api-test.up.railway.app/rocktea/product-details/${id}`,
@@ -104,6 +103,9 @@ const ProductDetails = () => {
     }
   };
   console.log(productDet);
+  const totalprice =
+    variantsData[0]?.wholesale_price +
+    variantsData[0]?.store_pricings?.retail_price;
   //console.log(productDet.product_variants[0].wholesale_price);
   return (
     <>
@@ -147,22 +149,19 @@ const ProductDetails = () => {
               )}
             </p>
 
-            {productPrices?.length > 0 && !isLoading ? (
+            {variantsData?.length > 0 ? (
               <p className="font-bold my-2 text-lg">
-                ₦{" "}
-                {selectedSize
-                  ? selectedPrice
-                  : isLoading
-                  ? "Loading..."
-                  : productPrices[0]?.retail_price}{" "}
+                ₦ {selectedSize ? selectedPrice : totalprice?.toLocaleString()}{" "}
               </p>
             ) : (
               <p>No price</p>
             )}
 
             <div className="flex  items-center gap-3">
-              {productPrices?.length > 0 && !isLoading ? (
-                productPrices.map((item, index) => {
+              {variantsData?.length > 0 ? (
+                variantsData.map((item, index) => {
+                  const total =
+                    item?.wholesale_price + item.store_pricings?.retail_price;
                   return (
                     <>
                       {item.size ? (
@@ -175,11 +174,7 @@ const ProductDetails = () => {
                               item.size === selectedSizeId && "common "
                             }`}
                             onClick={() =>
-                              handleSizeClick(
-                                item.size,
-                                item.retail_price,
-                                item.id,
-                              )
+                              handleSizeClick(item.size, total, item.id)
                             }
                           >
                             {item?.size}
@@ -200,11 +195,7 @@ const ProductDetails = () => {
                             <li
                               key={index}
                               onClick={() =>
-                                handleColorClick(
-                                  color,
-                                  item.retail_price,
-                                  item.id,
-                                )
+                                handleColorClick(color, total, item.id)
                               }
                               className="font-semibold flex items-center gap-1"
                             >
@@ -254,9 +245,9 @@ const ProductDetails = () => {
                 <li className="font-semibold">
                   SKU: <span className="font-normal">{productDet?.sku}</span>{" "}
                 </li>
-                
-            <li className="font-semibold">
-            Category:{" "}
+
+                <li className="font-semibold">
+                  Category:{" "}
                   <span className="font-normal">
                     {" "}
                     {productDet?.subcategory?.name}
@@ -285,8 +276,8 @@ const ProductDetails = () => {
                 </li>
                 <div className="flex items-center  gap-1">
                   <h3 className="font-semibold">Color:</h3>
-                  {productPrices?.length > 0 && !isLoading ? (
-                    productPrices.map((item, index) => {
+                  {variantsData?.length > 0 ? (
+                    variantsData.map((item, index) => {
                       // Use a Set to store unique colors
                       const uniqueColors = new Set(
                         item.colors.map((x) => x.toLowerCase()),
