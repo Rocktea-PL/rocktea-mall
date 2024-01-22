@@ -23,12 +23,12 @@ export default function TransactionTable() {
     console.log(response.data);
     return response.data;
   };
- 
+
   const {
     data: orders,
     isLoading,
     isError,
-  } = useQuery(["order",store_id], fetchStoreOrders);
+  } = useQuery(["order", store_id], fetchStoreOrders);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -80,8 +80,8 @@ export default function TransactionTable() {
               <tbody className="">
                 {currentOrders.map((item) => (
                   <tr key={item.id} className="table-content   w-full bg-white">
-                    <td className="text-center  text-sm md:text-[1rem] ">
-                      {item.buyer}
+                    <td className="text-center capitalize  text-sm md:text-[1rem] ">
+                      {item.buyer.name}
                     </td>
                     <td className="text-center  text-sm md:text-[1rem]">
                       #{item.order_id}
