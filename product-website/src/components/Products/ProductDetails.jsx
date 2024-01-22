@@ -81,7 +81,7 @@ const UserProductDetails = () => {
     );
     return response.data;
   };
-  const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
+ /// const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
   // Use React Query's useQuery to fetch product details
   const {
     data: productDet,
@@ -89,11 +89,7 @@ const UserProductDetails = () => {
     error,
   } = useQuery(["product", productId], fetchProductDetails, {
     enabled: !!productId,
-    refetchOnWindowFocus: false,
-    refetchOnmount: false,
-    refetchOnReconnect: false,
-    retry: false,
-    staleTime: twentyFourHoursInMs, // Fetch only when 'id' is available
+    
   });
   if (productStatus === "loading") {
     return <p>Loading...</p>;
