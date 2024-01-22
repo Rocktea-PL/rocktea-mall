@@ -27,7 +27,7 @@ function OrderStatus() {
     data: orders,
     isLoading,
     isError,
-  } = useQuery("order", fetchStoreOrders);
+  } = useQuery(["order",store_id], fetchStoreOrders);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -110,7 +110,7 @@ function OrderStatus() {
           <h3 className="text-md text-center">
             You do not have any <br /> orders yet
           </h3>
-          <Link to={`/dashboard?store=${store_id}`}>
+          <Link to={`/dashboard/home?store=${store_id}`}>
             <button className="common p-3  font-medium rounded-md mt-5">
               Go to Dashboard
             </button>
@@ -118,118 +118,7 @@ function OrderStatus() {
         </div>
       )}
 
-      {/*
-
-<div className="flex items-end gap-x-4 justify-between">
-              <span>1/10</span>
-              <div className="flex items-center gap-x-3">
-                <button className="border border-black rounded-md p-1 font-[400]">
-                  <FaAngleLeft />
-                </button>
-                <button className="border border-black rounded-md p-1 font-[400]">
-                  <FaAngleRight />
-                </button>
-              </div>
-              <form className="flex items-center gap-2">
-                <label htmlFor="goTo"> Go To</label>
-                <input
-                  type="text"
-                  placeholder="1-20 pages"
-                  className="border border-black rounded-md w-[100px] outline-none px-2 py-1 text-sm"
-                />
-              </form>
-            </div>
-<td className=" p-2">
-                    <div className="flex items-center justify-center">
-                      <input
-                        type="checkbox"
-                        className={`checkbox ${
-                          index !== -1 ? "unchecked border-none" : "checked"
-                        }`}
-                        onChange={() => handleCheckboxChange(item.orderId)}
-                      />
-                    </div>
-                  </td>
-<article className="mt-5  py-5 rounded-md w-full">
-        <div className="overflow-x-auto ">
-          <table className=" ">
-            <thead className="">
-              <tr className="mt-5 bg-white">
-                <th className="py-2 px-4">Status</th>
-                <th className="text-sm px-4  whitespace-nowrap py-2 ">
-                  Client Name
-                </th>
-                <th className="text-sm px-4   whitespace-nowrap py-2">
-                  Tracking Id
-                </th>
-                <th className="text-sm px-4  whitespace-nowrap py-2">Cost</th>
-                <th className="text-sm px-4  whitespace-nowrap py-2">
-                  Payment Status
-                </th>
-                <th className="text-sm px-4  whitespace-nowrap py-2">
-                  Order Date
-                </th>
-                <th className="text-sm px-4  whitespace-nowrap py-2">
-                  Delivery Status
-                </th>
-              </tr>
-            </thead>
-            <tbody className="w-full">
-              {fakeData.map((item, index) => (
-                <tr key={index} className="table bg-white w-full">
-                  <td className=" p-2">
-                    <div className="flex items-center justify-center">
-                      <input
-                        type="checkbox"
-                        className={`checkbox ${
-                          index !== -1 ? "unchecked border-none" : "checked"
-                        }`}
-                        onChange={() => handleCheckboxChange(item.orderId)}
-                      />
-                    </div>
-                  </td>
-
-                  <td className="text-center p-2 text-sm md:text-[1rem] ">
-                    {item.client}
-                  </td>
-                  <td className="text-center p-2 text-sm md:text-[1rem]">
-                    #{item.tracking}
-                  </td>
-                  <td className="text-center p-2 text-sm md:text-[1rem]">
-                    ${item.price.toFixed(2)}
-                  </td>
-                  <td
-                    className={`text-center border-2 border-solid w-[100px] capitalize rounded-lg p-2 text-sm md:text-[1rem] flex items-center justify-center mx-auto gap-5  ${
-                      item.status === "Pending"
-                        ? " border-red-500 my-2"
-                        : " border-green-700 my-2"
-                    }`}
-                  >
-                    {item.status}
-                  </td>
-                  <td className="text-center p-2 text-sm md:text-[1rem]">
-                    {item.date}
-                  </td>
-
-                  <td
-                    className={`text-center border-2 border-solid w-[100px] capitalize rounded-lg p-2 text-sm md:text-[1rem] flex items-center justify-center mx-auto gap-5  ${
-                      item.deliveryStatus === "pending"
-                        ? " border-red-500 my-2"
-                        : item.deliveryStatus === "enroute"
-                        ? " border-yellow-400 my-2"
-                        : " border-green-700 my-2"
-                    }`}
-                  >
-                    {item.deliveryStatus}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </article>
-
-*/}
+     
     </section>
   );
 }
