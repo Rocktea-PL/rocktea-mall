@@ -27,7 +27,7 @@ function OrderStatus() {
     data: orders,
     isLoading,
     isError,
-  } = useQuery(["order",store_id], fetchStoreOrders);
+  } = useQuery(["order", store_id], fetchStoreOrders);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -49,6 +49,7 @@ function OrderStatus() {
   /*const indexOfLastOrder = (currentPage + 1) * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
   const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);*/
+  //console.log(currentOrders)
   return (
     <section className="mt-5 w-full  -ml-1">
       <ProfileCompletion />
@@ -67,8 +68,8 @@ function OrderStatus() {
               <tbody className="">
                 {currentOrders.map((item) => (
                   <tr key={item.id} className="table-content   w-full bg-white">
-                    <td className="text-center  text-sm md:text-[1rem] ">
-                      {item.buyer}
+                    <td className="text-center capitalize  text-sm md:text-[1rem] ">
+                      {item.buyer.name}
                     </td>
                     <td className="text-center  text-sm md:text-[1rem]">
                       #{item.order_id}
@@ -117,8 +118,6 @@ function OrderStatus() {
           </Link>
         </div>
       )}
-
-     
     </section>
   );
 }
