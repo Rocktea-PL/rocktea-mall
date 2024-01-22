@@ -44,7 +44,7 @@ function App() {
     // Set loading to false after a timeout
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 500); // Adjust the duration as needed
+    }, 300); // Adjust the duration as needed
 
     // Clean up the timeout to avoid memory leaks
     return () => clearTimeout(timeout);
@@ -74,7 +74,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 300);
   }, []);
 
   const refreshPage = () => {

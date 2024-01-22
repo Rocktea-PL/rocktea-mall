@@ -10,11 +10,12 @@ import { useState } from "react";
 import { paginateData } from "../../Helpers/Paginations";
 import Pagination from "../../Features/Pagination";
 import { FaAngleDown } from "react-icons/fa";
+import Cookies from "js-cookie";
 export default function TransactionTable() {
   const [currentPage, setCurrentPage] = useState(0);
   //const [currentPage, setCurrentPage] = useState(0);
 
-  const store_id = localStorage.getItem("storeId");
+  const store_id = Cookies.get("storeId");
   const fetchStoreOrders = async () => {
     const response = await axios.get(
       `https://rocktea-mall-api-test.up.railway.app/mall/store_order?store=${store_id}`,
@@ -22,18 +23,12 @@ export default function TransactionTable() {
     console.log(response.data);
     return response.data;
   };
-  const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
+ 
   const {
     data: orders,
     isLoading,
     isError,
-  } = useQuery("order", fetchStoreOrders, {
-    refetchOnWindowFocus: false,
-    refetchOnmount: false,
-    refetchOnReconnect: false,
-    retry: false,
-    staleTime: twentyFourHoursInMs, // Fetch only when 'id' is available
-  });
+  } = useQuery(["order",store_id], fetchStoreOrders);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -118,7 +113,7 @@ export default function TransactionTable() {
             You do not have any <br />
             Transaction History yet
           </h3>
-          <Link to={`/dashboard?store=${store_id}`}>
+          <Link to={`/dashboard/home?store=${store_id}`}>
             <button className="common p-3  font-medium rounded-md mt-5">
               Go to Dashboard
             </button>
