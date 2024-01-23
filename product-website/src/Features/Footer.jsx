@@ -11,10 +11,9 @@ function Footer() {
             <img
               src={store.logo}
               alt="logo"
-              width={120}
-              height={120}
-              className="filter invert object-contain"
-            />
+              width={110}
+              height={110}
+              className=" filter invert object-contain  max-w-[100%] max-h-[70px]"/>
           ) : (
             <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">
               {store.name?.slice(0, 2)}

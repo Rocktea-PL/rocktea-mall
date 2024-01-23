@@ -14,6 +14,7 @@ export default function StoreUpdate({
   const url = `https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/${store?.id}/`;
   const { image, fileInputRef, handleFileChange, openFileInput } =
     useImageUpload(store?.logo, "logo", url);
+    console.log(store)
   return (
     <article className="bg-white p-2 max-md:pb-5 rounded-md mt-5 ">
       <h4 className="mb-5 mx-5 text-[20px] text-darkblue mt-4 lg:text-start whitespace-nowrap font-medium">
