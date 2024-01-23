@@ -37,7 +37,7 @@ const Products = () => {
     return <p>Error: {error}</p>;
   }
 
-  //console.log(data.results);
+  console.log(data.results);
 
   if (data && data.results) {
     return (

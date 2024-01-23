@@ -66,7 +66,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
     // Prepare the data for the POST request
     const data = {
       retail_price: retailPrices, // Assuming you want the first size
-      store: Cookies.get("storeId")("storeId"), // Replace with your actual store ID
+      store: Cookies.get("storeId"), // Replace with your actual store ID
       // productvariant: id,
       product: productId,
     };
@@ -135,7 +135,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
   const productVariant = selectedProduct.product_variants.length;
   console.log(retailPrices);
   return (
-    <div className="modal-overlay z-[99]" onClick={handleOverlayClick}>
+    <div className="modal-overlay z-[999]" onClick={handleOverlayClick}>
       <div className="pt-8 bg-white rounded-lg relative w-[95%] md:w-[70%] xsm:h-full  lg:w-[500px] flex flex-col   overflow-y-auto">
         <button onClick={closeModal} className="close-button">
           &times;

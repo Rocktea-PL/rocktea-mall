@@ -15,7 +15,7 @@ function Signup() {
 
   const { loading, formData, setFormData, error, setError, handleUserForm } =
     useGlobalContext();
-
+   // const [touchedFields, setTouchedFields] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   //const [showPassword, setShowPassword] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
@@ -45,7 +45,7 @@ function Signup() {
 
   const handleInputChange = (e) => {
     let updatedFormData = {};
-    let updatedErrors = { ...error };
+    let updatedErrors = { ...error,[name]: "" };
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (e && e.target) {
       // Regular input change
@@ -60,10 +60,11 @@ function Signup() {
       }
       if (name === "email" && !value.match(emailRegex)) {
         updatedErrors.email = "Please enter a valid email address.";
-        //toast.error('Please enter a valid email address.')
+      } else {
+        updatedErrors.email = ""; // Clear the error if the user starts typing
       }
 
-      // Add specific validations if needed
+      // Reset specific validations if needed
     } else {
       updatedErrors.email = "";
       // Phone number input change
@@ -71,9 +72,10 @@ function Signup() {
         ...formData,
         contact: e, // e contains the phone number directly
       };
-      updatedErrors.contact = ""; // Reset error for contact
+      updatedErrors.contact = ""; 
+     // updatedErrors.first_name = ""; // Reset error for contact
     }
-
+ 
     setFormData(updatedFormData);
     setError(updatedErrors);
   };
@@ -99,7 +101,7 @@ function Signup() {
   };*/
 
   return (
-    <div className="logout flex items-center justify-center h-screen lg:overflow-hidden -mt-3">
+    <div className="logout  flex items-center justify-center h-screen lg:overflow-hidden -mt-3">
       <figure className="w-full hidden lg:flex h-screen overflow-hidden max-w-[50%]">
         <img
           src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694882647/rocktea-product-website/assets/image_109_wy4a6a.png"
@@ -107,12 +109,12 @@ function Signup() {
           className="w-full h-full object-cover"
         />
       </figure>
-      <div className="flex flex-col items-center justify-center mx-auto text-center w-full overflow-auto h-full lg:py-10">
+      <div className=" relative flex flex-col items-center justify-center mx-auto text-center w-full overflow-auto h-full lg:py-10 mt-14">
         <div
           className="flex items-center justify-start w-full mb-4 px-5"
           onClick={() => navigate(-1)}
         >
-          <span className="cursor-pointer text-xl">
+          <span className="absolute left-5 -top-28 cursor-pointer text-xl mt-32">
             <FaArrowLeft />
           </span>
         </div>
@@ -122,9 +124,9 @@ function Signup() {
             <img
               src={store?.logo}
               alt="logo"
-              width={120}
-              height={120}
-              className=" object-contain"
+              width={110}
+              height={110}
+              className=" object-contain  max-w-[100%] max-h-[70px]"
             />
           ) : (
             <div className="w-[50px] h-[50px] bg-black rounded-full text-white flex items-center justify-center uppercase shadow-md font-semibold text-md">

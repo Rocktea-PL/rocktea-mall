@@ -1,6 +1,7 @@
 // productSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 // Define an async thunk to fetch product data
 export const fetchProducts = createAsyncThunk(
@@ -8,7 +9,7 @@ export const fetchProducts = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const store_id =
-        localStorage.getItem("storeId") || localStorage.getItem("storeUid");
+        Cookies.get("storeId") || localStorage.getItem("storeUid");
       const response = await axios.get(
         `https://rocktea-mall-api-test.up.railway.app/rocktea/marketplace/?store=${store_id}`,
       );
