@@ -292,7 +292,7 @@ const AppProvider = ({ children }) => {
         response.user_data.has_store
       ) {
         window.open(
-          `http://localhost:5174/dashboard/home?store_id=${response.user_data.store_id}`,
+          `https://rocktea-mall-product.vercel.app/dashboard/home?store_id=${response.user_data.store_id}`,
           "_self",
         );
       } else {
