@@ -1,13 +1,14 @@
 import { useQuery } from "react-query";
 //import { calculatePrices } from "../Helpers/ProductVariants";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const apiUrlProductVariant = import.meta.env.VITE_BASE_URL;
 
 export const useProductPrices = (productId) => {
   //const {store} = useStoreContext()
   const storeId =
-    localStorage.getItem("storeUid") || localStorage.getItem("storeId");
+    localStorage.getItem("storeUid") || Cookies.get("storeId");
 
   const fetchProductsPrice = async () => {
     if (!productId) {

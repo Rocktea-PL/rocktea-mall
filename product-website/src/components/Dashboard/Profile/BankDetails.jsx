@@ -96,14 +96,14 @@ const BankDetails = ({ store }) => {
       onSuccess: (data) => {
         // Handle the retrieved account details
         // For example, set the customer name
-        console.log(bankDetails);
+       // console.log(bankDetails);
 
         setCustomerName(data.account_name);
         setAccountNumber(data.nuban);
       },
     },
   );
-  //console.log(bankDetails)
+  console.log(bankDetails)
   //console.log( `https://rocktea-mall-api-test.up.railway.app/rocktea/wallet/${storeId}/`)
   const handleVerifyAccount = async () => {
     try {

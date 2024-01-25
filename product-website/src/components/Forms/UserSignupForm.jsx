@@ -47,7 +47,7 @@ export function UserSignupForm({
           className="border-2 border-solid border-[var(--form-border)] py-2 px-4  rounded w-full outline-none"
         />
         {error && error?.last_name && (
-          <div className="text-red-500">{error.first_name}</div>
+          <div className="text-red-500">{error.last_name}</div>
         )}
       </label>
 
@@ -61,7 +61,7 @@ export function UserSignupForm({
           className="border-2 border-solid border-[var(--form-border)] py-2 px-4 rounded w-full outline-none"
         />
         {error && error?.email && (
-          <div className="text-red-500">{error.first_name}</div>
+          <div className="text-red-500">{error.email}</div>
         )}
       </label>
 
@@ -78,7 +78,7 @@ export function UserSignupForm({
           onChange={handleInputChange}
         />
         {error && error.contact && (
-          <div className="text-red-500">{error.first_name}</div>
+          <div className="text-red-500 text-start">{error.contact}</div>
         )}
       </label>
 
@@ -98,7 +98,7 @@ export function UserSignupForm({
           {showPassword ? <FaEyeSlash /> : <FaEye />}
         </span>
         {error && error?.password && (
-          <div className="text-red-500 text-left">{error.first_name}</div>
+          <div className="text-red-500 text-left">{error?.password}</div>
         )}
       </div>
       {isTypingPassword && error && !isPasswordValid && (

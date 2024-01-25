@@ -106,6 +106,7 @@ const ProductDetails = () => {
   const totalprice =
     variantsData[0]?.wholesale_price +
     variantsData[0]?.store_pricings?.retail_price;
+    console.log(variantsData)
   //console.log(productDet.product_variants[0].wholesale_price);
   return (
     <>
