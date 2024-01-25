@@ -76,6 +76,7 @@ function Login() {
             <hr className="flex-grow border-t border-t-[var(--form-border)]" />
           </div>*/}
           <form className="flex flex-col sm:w-[350px]">
+            <>
             <input
               type="email"
               name="email"
@@ -84,7 +85,12 @@ function Login() {
               placeholder="Email"
               className=" border-2 border-solid border-[var(--form-border)] py-2 px-4 rounded  my-7 outline-none"
             />
+             {error && error?.email && (
+          <div className="text-red-500 text-left">{error?.email}</div>
+        )}
+            </>
             <div className="relative mb-4">
+              <label htmlFor="password">
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
@@ -93,12 +99,17 @@ function Login() {
                 placeholder="Password"
                 className=" border-2 border-solid border-[var(--form-border)] py-2 px-4 rounded w-full outline-none"
               />
+               {error && error?.password && (
+          <div className="text-red-500 text-left">{error?.password}</div>
+        )}
+              </label>
               <span
                 onClick={handlePasswordVisibility}
                 className="absolute inset-y-0 right-0 flex items-center pr-4 cursor-pointer"
               >
                 {!showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
+             
             </div>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-x-4">
