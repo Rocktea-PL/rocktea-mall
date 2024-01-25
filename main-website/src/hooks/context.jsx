@@ -466,7 +466,7 @@ const AppProvider = ({ children }) => {
         const authorizationUrl = response.data.data.authorization_url;
 
         // Open the payment page in a new tab
-        window.open(authorizationUrl, "_self");
+        window.open(authorizationUrl, "_blank");
 
         // Poll the verification endpoint for the payment status
         pollPaymentVerification(response.data.data.reference);
