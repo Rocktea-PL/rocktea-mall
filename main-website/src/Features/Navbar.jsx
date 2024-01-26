@@ -31,7 +31,7 @@ const Navbar = () => {
   }, [path]);
 
   return (
-    <header className=" bg-white shadow-md w-full h-[5rem] fixed top-0 left-0 z-[99]  items-center">
+    <header className=" bg-white shadow-md w-full h-[80px] fixed top-0 left-0 z-[99]  items-center">
       <nav className="md:flex md:items-center md:justify-between gap-8 py-[1.7rem]  md:px-10 px-7 ">
         <Link to="/">
           <figure className="flex items-center mt-2 md:mt-0">

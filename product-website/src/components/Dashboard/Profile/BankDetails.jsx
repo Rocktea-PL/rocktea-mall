@@ -5,8 +5,9 @@ import { Oval } from "react-loader-spinner";
 import { useState } from "react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
-const BankDetails = ({ store }) => {
+const BankDetails = () => {
   const [accountNumber, setAccountNumber] = useState("");
   const [selectedBank, setSelectedBank] = useState(null);
   const [customerName, setCustomerName] = useState("");
@@ -15,7 +16,7 @@ const BankDetails = ({ store }) => {
   const key = import.meta.env.VITE_APP_PAYSTACK_KEY;
   const Base_url = import.meta.env.VITE_BASE_URL;
   const queryClient = useQueryClient();
-  const storeId = store?.id;
+  const storeId =Cookies.get('storeId');
   //console.log(selectedBank)
   const fetchBankList = async () => {
     try {
@@ -150,7 +151,7 @@ const BankDetails = ({ store }) => {
           Account Number:
           <input
             type="text"
-            value={accountNumber}
+            value={accountNumber || bankDetails?.nuban}
             onChange={(e) => setAccountNumber(e.target.value)}
           />
         </label>
@@ -190,12 +191,13 @@ const BankDetails = ({ store }) => {
               customerName && (
                 <div>
                   <label>Customer Name:</label>
-                  <p className="-mt-3">{customerName}</p>
+                  <p className="-mt-3">{customerName }</p>
                 </div>
               )
             )}
           </>
         )}
+       
       </div>
       <button
         className="common h-12 w-[150px] rounded-md flex items-center justify-center mx-auto"

@@ -2,10 +2,11 @@ import { IoIosCopy, IoIosShareAlt } from "react-icons/io";
 //import { useStoreContext } from "../../../Hooks/UserAuthContext";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 export default function ProfileSide({ profileCompletion, store, bankDetails }) {
   // const { storeUser } = useStoreContext();
-  const store_id = localStorage.getItem("storeId");
+  const store_id = Cookies.get("storeId");
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   //const [profileCompletion, setProfileCompletion] = useState(0);
 
