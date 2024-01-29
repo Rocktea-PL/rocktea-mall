@@ -16,6 +16,7 @@ export default function ProductCard({
   quantity,
   productId,
 }) {
+  console.log(name)
   // const {fetchProductsPrice} = useUserProductContext()
   const isImageAvailable = image && image.trim() !== "";
 

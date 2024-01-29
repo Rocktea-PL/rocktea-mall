@@ -42,7 +42,7 @@ export default function Cards() {
   const totalCustomers = productCount?.Customers || 0;
   const customerPercentage = (totalCustomers / 100) * 100;
 
-  //console.log(data)
+  console.log(productCount)
   return (
     <div className=" flex gap-2 flex-col md:flex-row">
       <article className="bg-white flex flex-col gap-y-5 lg:gap-y-0  py-3 px-5 shadow-md rounded-md w-full   gap-3">

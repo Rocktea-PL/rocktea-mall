@@ -111,11 +111,11 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
       });
   };
 
-  const handleRemoveProduct = (productVariantId) => {
+  const handleRemoveProduct = (Id) => {
     // Make a DELETE request to remove the product
     axios
       .delete(
-        `https://rocktea-mall-api-test.up.railway.app/rocktea/store-variant/${productVariantId}/`,
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/marketplace/?${Id}/`,
       )
       .then((response) => {
         // Handle the success response as needed
