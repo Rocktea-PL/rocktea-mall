@@ -55,13 +55,15 @@ function OrderItems() {
           ref={targetRef}
           className="lg:w-2/3 bg-white rounded-md p-4 max-md:pb-36 max-md:mt-5"
         >
-          <h3 className="text-md">Hello, {orderItems?.buyer}</h3>
+          <h3 className="text-md">Hello, {orderItems?.buyer?.name}</h3>
           <p className="text-[1.2rem]">Thanks for your order!</p>
           <h3 className="text-md font-semibold leading-tight mt-5">
             Deliver To <br />{" "}
             <span className="text-sm leading-tight font-normal">
               {" "}
-              Benson Wang Yu <br />
+              {orderItems?.buyer?.name} <br />
+              {orderItems?.buyer?.contact} 
+              <br />
               123, butwise avenue, killermore Estate, Ikoyi, Lagos state.{" "}
             </span>
           </h3>
@@ -79,7 +81,7 @@ function OrderItems() {
               <img
                 src="https://res.cloudinary.com/dwvdgmuaq/raw/upload/iphone11promax_wff1v1.jpg"
                 alt="product"
-                className="w-[90%] lg:w-[100px] lg:h-[100px] rounded-md object-cover"
+                className="w-[90%] md:w-[100px] lg:h-[100px] rounded-md object-cover"
               />
               {orderItems?.order_items?.length > 0 &&
                 orderItems.order_items.map((item, i) => {
@@ -102,8 +104,8 @@ function OrderItems() {
                                 <p>
                                   Size <br />1
                                 </p>
-                                <p className="lg:hidden">
-                                  Price <br /> N {orderItems?.total_price}
+                                <p className="md:hidden">
+                                  Price <br />  ₦ {orderItems?.total_price}
                                 </p>
                               </div>
                             </div>
@@ -113,9 +115,9 @@ function OrderItems() {
                   );
                 })}
 
-              <span className="hidden lg:flex flex-col gap-y-5">
+              <span className="hidden md:flex flex-col gap-y-5">
                 <p className="text-[1.2rem] font-semibold">Price</p>
-                <p>N{orderItems?.total_price}</p>
+                <p> ₦{orderItems?.total_price}</p>
               </span>
             </div>
           </div>
@@ -123,7 +125,7 @@ function OrderItems() {
           <div className="float-right mt-3">
             <p className="flex items-start gap-x-4 my-2 font-semibold">
               SubTotal{" "}
-              <span className="font-normal">N {orderItems?.total_price}</span>
+              <span className="font-normal"> ₦{orderItems?.total_price}</span>
             </p>
             <p className="flex items-start gap-x-4 my-2 font-semibold">
               {" "}
@@ -132,7 +134,7 @@ function OrderItems() {
             <hr className="border-[1.5px] mb-3" />
             <p className="flex items-start gap-x-5 my-2 font-semibold">
               Total{" "}
-              <span className="font-normal">N {orderItems?.total_price}</span>
+              <span className="font-normal"> ₦{orderItems?.total_price}</span>
             </p>
           </div>
         </article>

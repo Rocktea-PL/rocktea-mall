@@ -115,6 +115,9 @@ const UserProductDetails = () => {
 
   const handleAddToCart = async (selectedPrice) => {
      const authToken = Cookies.get("token");
+     console.log('store',storeId)
+     console.log('store',storeId)
+     console.log(authToken)
     if (!selectedSizeId || !selectedColor) {
       toast.error(
         "Please select a product variant before adding item to cart.",
@@ -184,9 +187,9 @@ const UserProductDetails = () => {
   console.log(selectedColor);
   //console.log(productDet)
   console.log("user", userData);
-  const totalprice = variantsData[0].store_pricings.retail_price
+  const totalprice = variantsData[0]?.store_pricings?.retail_price
     ? variantsData[0]?.wholesale_price +
-      variantsData[0].store_pricings.retail_price
+      variantsData[0]?.store_pricings?.retail_price
     : variantsData[0]?.wholesale_price;
   return (
     <>

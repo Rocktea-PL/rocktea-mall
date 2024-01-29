@@ -8,22 +8,22 @@ import { useState } from "react";
 import axios from "axios";
 
 import toast from "react-hot-toast";
-import { useQuery } from "react-query";
+//import { useQuery } from "react-query";
 import Cookies from "js-cookie";
 //import { useState } from "react";
 
 export default function MarketplaceModal({ closeModal, products, productId }) {
   const [addPrice, setAddPrice] = useState(false);
   //const [price,setPrice] = useState()
-  const [selectedSize, setSelectedSize] = useState("");
+  //const [selectedSize, setSelectedSize] = useState("");
   const [retailPrices, setRetailPrices] = useState("");
   // const [selectedSizes, setSelectedSizes] = useState([]);
   //const [selectedId, setSelectedId] = useState(null);
   const selectedProduct = products.find((product) => product.id === productId);
 
-  const apiUrlProductVariant = import.meta.env.VITE_API_URL_PRODUCT_VARIANT;
+  //const apiUrlProductVariant = import.meta.env.VITE_API_URL_PRODUCT_VARIANT;
 
-  const { data: price /*isLoading: priceLoading,error*/ } = useQuery(
+  /*const { data: price /*isLoading: priceLoading,error } = useQuery(
     ["productPrice", productId],
     async () => {
       const response = await axios.get(`${apiUrlProductVariant}${productId}`);
@@ -33,7 +33,7 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
     {
       staleTime: 60000, // 60 seconds
     },
-  );
+  );*/
 
   const handleRetail = (e) => {
     setRetailPrices(e.target.value);
@@ -245,7 +245,13 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
               )}
             </div>
           ))}
-          <div>
+          
+        </article>
+      </div>
+    </div>
+  );
+}
+/**<div>
             {price?.length > 0 && !selectedSize ? (
               <>
                 <div className=" flex flex-col gap-x-3">
@@ -448,9 +454,4 @@ export default function MarketplaceModal({ closeModal, products, productId }) {
                   </div>
                 ))
             )}
-          </div>
-        </article>
-      </div>
-    </div>
-  );
-}
+          </div> */
