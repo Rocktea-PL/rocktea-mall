@@ -105,7 +105,8 @@ export const UserAuthProvider = ({ children }) => {
       // console.log(response.data);
       let owner = response.data.owner;
       localStorage.setItem("owner", owner);
-      localStorage.setItem("category_id", response.data.category);
+      localStorage.setItem("category_id", response?.data?.category);
+    
       // console.log('store owner', store.owner)
       setStore(response.data);
     } catch (error) {

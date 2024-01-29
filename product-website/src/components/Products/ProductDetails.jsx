@@ -114,6 +114,7 @@ const UserProductDetails = () => {
   };
 
   const handleAddToCart = async (selectedPrice) => {
+     const authToken = Cookies.get("token");
     if (!selectedSizeId || !selectedColor) {
       toast.error(
         "Please select a product variant before adding item to cart.",
@@ -130,7 +131,7 @@ const UserProductDetails = () => {
       const prices = selectedPrice;
 
       const response = await axios.post(
-        `https://rocktea-mall-api-test.up.railway.app/rocktea/cart/?user=${userData?.id}`,
+        `https://rocktea-mall-api-test.up.railway.app/rocktea/cart/`,
         {
           store: storeId,
           products: [
@@ -146,6 +147,7 @@ const UserProductDetails = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken} `,
           },
         },
       );
