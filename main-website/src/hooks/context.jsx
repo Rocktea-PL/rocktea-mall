@@ -495,7 +495,7 @@ const AppProvider = ({ children }) => {
           clearInterval(interval);
           // Stop polling
           //const store_id = localStorage.getItem('id')
-          navigate("/domain_creation");
+          window.location.href = "https://rocktea-mall.vercel.app/domain_creation"
           /*window.location.href =
             `http://localhost:5174/dashboard/${store_id}`;*/
           console.log("Payment verification successful.");

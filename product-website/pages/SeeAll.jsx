@@ -9,13 +9,14 @@ import SeeAllFilters from "../src/components/Products/SeeAllFilters";
 import { applyFilters } from "../src/Helpers/ProductFilter"; // Import the helper function
 import NoProduct from "../src/components/Products/NoProduct";
 import ProductCard from "../src/Features/ProductCard";
+import Cookies from "js-cookie";
 
 function SeeAll() {
   const { categoryName } = useParams();
   const FormattedCategoryName = categoryName.replace(/-/g, " ");
   //console.log(FormattedCategoryName)
   const store_id =
-    localStorage.getItem("storeUid") || localStorage.getItem("storeId");
+    localStorage.getItem("storeUid") || Cookies.get("storeId");
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedProductType, setSelectedProductType] = useState(null);

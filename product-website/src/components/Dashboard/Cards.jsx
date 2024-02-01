@@ -37,7 +37,7 @@ export default function Cards() {
   const orderPercentage = (totalOrders / 200) * 100;
 
   const totalProducts = productCount?.Listed_Products || 0;
-  const productPercentage = (totalProducts / 1000) * 100;
+  const productPercentage = (totalProducts / 200) * 100;
 
   const totalCustomers = productCount?.Customers || 0;
   const customerPercentage = (totalCustomers / 100) * 100;
@@ -61,7 +61,7 @@ export default function Cards() {
               orderPercentage < 100 && "text-red-500"
             }`}
           >
-            {orderPercentage}%
+            {Math.round(orderPercentage)}%
             {orderPercentage < 100 ? (
               <span className="text-red-600 text-md">
                 <AiOutlineFall />
