@@ -113,12 +113,12 @@ const UserProductDetails = () => {
     setSelectedPrice(price);
   };
 
+  console.log('price',parseFloat(selectedPrice))
   const handleAddToCart = async (selectedPrice) => {
      const authToken = Cookies.get("token");
-     console.log('store',storeId)
-     console.log('store',storeId)
+     
      console.log(authToken)
-    if (!selectedSizeId || !selectedColor) {
+    if (!selectedSizeId || !selectedColor || !selectedPrice) {
       toast.error(
         "Please select a product variant before adding item to cart.",
       );
@@ -132,7 +132,7 @@ const UserProductDetails = () => {
       // Make a POST request to the cart API
       const quantityToAdd = 1;
       const prices = selectedPrice;
-
+        console.log('price',parseFloat(prices))
       const response = await axios.post(
         `https://rocktea-mall-api-test.up.railway.app/rocktea/cart/`,
         {
@@ -142,7 +142,7 @@ const UserProductDetails = () => {
               id: productDet.id, // Assuming productDet has the product ID
               quantity: quantityToAdd,
               variant: selectedSizeId,
-              price: prices,
+              price: parseFloat(prices),
             },
           ],
         },
@@ -184,6 +184,7 @@ const UserProductDetails = () => {
   };
   //console.log(authToken)
   console.log(selectedPrice);
+  console.log(selectedSize);
   console.log(selectedColor);
   //console.log(productDet)
   console.log("user", userData);
