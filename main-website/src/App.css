@@ -25,6 +25,9 @@
     background-color: var(--main-body);
    color: var(--small-text);
  font-family: var(--family);
+ scroll-behavior: smooth;
+ transition-timing-function: ease-out;
+ transition-duration: 500ms;
   }
   .partner img {
     filter: drop-shadow(0,0,0,0,gray);
