@@ -285,14 +285,19 @@ const AppProvider = ({ children }) => {
       }*/
       Cookies.set("user_id", response.user_data.id);
       localStorage.setItem("ownerId", response.user_data.id);
-      if (response.user_data.is_services && response.user_data.has_service) {
-        navigate(`/profile?id=${response.user_data.id}`);
-      } else if (
+      if (
         response.user_data.is_storeowner &&
-        response.user_data.has_store
+        response.user_data.has_store &&  !response.user_data.completed
       ) {
       
-        console.log(response.data)
+       navigate('/domain_creation')
+      }
+   else if (
+        response.user_data.is_storeowner &&
+        response.user_data.has_store &&  response.user_data.completed
+      ) {
+      
+       navigate(response?.data?.domain_name)
       } else {
         // If neither is_services nor has_store is true, navigate to registration pages
         navigate(
@@ -303,7 +308,11 @@ const AppProvider = ({ children }) => {
             : "/signin",
         );
       }
- /* window.open(
+ /*
+ 
+    if (response.user_data.is_services && response.user_data.has_service) {
+        navigate(`/profile?id=${response.user_data.id}`);
+      } elsewindow.open(
           `https://rocktea-mall-product.vercel.app/dashboard/home?store_id=${response.user_data.store_id}`,
           "_self",
         );*/
