@@ -28,7 +28,7 @@ function Hero() {
           Drop-shipping
         </p>
         <div className="flex items-center justify-center gap-5 lg:justify-start ">
-          <Link to="/signup">
+          <Link to="/personal_details">
             <button className="flex items-center justify-center bg-orange w-[120px] xsm:w-[150px] p-3 rounded-lg whitespace-nowrap ">
               Get Started
             </button>

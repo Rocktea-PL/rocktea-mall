@@ -145,7 +145,7 @@ function Login() {
         <p className="text-sm text-center mt-3 hover:underline">
           Do not have an account?{" "}
           <NavLink
-            to="/signup"
+            to="/personal_details"
             style={{ color: "var(--deep-blue)", fontWeight: "bold" }}
           >
             Sign Up
