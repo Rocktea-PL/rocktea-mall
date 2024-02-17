@@ -49,6 +49,7 @@ const AppProvider = ({ children }) => {
       if (response.status === 200 || response.data) {
         console.log("Registration Successful", response.data);
         localStorage.setItem("user_id", response.data.id);
+        Cookies.set("user_id", response.data.id);
         toast.success("Registration Successful");
         // localStorage.setItem('store_id', )
 

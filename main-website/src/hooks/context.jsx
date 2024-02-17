@@ -283,7 +283,7 @@ const AppProvider = ({ children }) => {
       } else {
         navigate("/profile");
       }*/
-      Cookies.set("userData", JSON.stringify(response.user_data));
+      Cookies.set("user_id", response.user_data.id);
       localStorage.setItem("ownerId", response.user_data.id);
       if (response.user_data.is_services && response.user_data.has_service) {
         navigate(`/profile?id=${response.user_data.id}`);
@@ -291,10 +291,8 @@ const AppProvider = ({ children }) => {
         response.user_data.is_storeowner &&
         response.user_data.has_store
       ) {
-        window.open(
-          `https://rocktea-mall-product.vercel.app/dashboard/home?store_id=${response.user_data.store_id}`,
-          "_self",
-        );
+      
+        console.log(response.data)
       } else {
         // If neither is_services nor has_store is true, navigate to registration pages
         navigate(
@@ -305,7 +303,10 @@ const AppProvider = ({ children }) => {
             : "/signin",
         );
       }
-
+ /* window.open(
+          `https://rocktea-mall-product.vercel.app/dashboard/home?store_id=${response.user_data.store_id}`,
+          "_self",
+        );*/
       console.log("Updated storeData:", storeData);
 
       console.log(response.user_data.id);
@@ -314,7 +315,7 @@ const AppProvider = ({ children }) => {
       setLoginError(error); // Handle login error
       console.error("Login error:", error);
       console.error("Login status:", error.message);
-      toast.error("Invalid credentials. Please try again.", error);
+      toast.error(error.detail || "Invalid credentials. Please try again.", error);
       //cogoToast.success("Log in Failed. Check you Details");
     } finally {
       setIsLoading(false);
