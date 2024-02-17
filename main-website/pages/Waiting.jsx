@@ -1,11 +1,12 @@
 
 import WaitingSvg from '../src/assets/waiting.svg'
+import WaitingYoutube from '../src/assets/waiting-youtube.png'
 import People from '../src/assets/people.png'
 import { useEffect } from 'react';
 import { useState } from 'react';
 
 export default function Waiting() {
-  const countdownDuration = 72 * 60 * 60 * 1000; // 72 hours in milliseconds
+  const countdownDuration = 24 * 60 * 60 * 1000; // 72 hours in milliseconds
   const [remainingTime, setRemainingTime] = useState(countdownDuration);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function Waiting() {
   };
 
   return (
-    <div className=' h-full bg-white'>
+    <div className=' h-full bg-white mb-10'>
       <article className='bg-white pb-10 md:p-10 flex flex-col lg:flex-row items-center justify-center gap-x-10 '>
         <img width={500} height={500} src={WaitingSvg} alt="waitinglist " />
         <div className='lg:max-w-[55%] max-md:mx-auto flex flex-col items-center justify-center lg:items-start lg:justify-start'>
@@ -72,10 +73,10 @@ Welcome to RockTea Mall.
         </div>
       </article>
 
-      <article className='p-10 bg-[#FAFAFAB8]' id='community'>
+      <article className='p-10 bg-[#FAFAFAB8] transition-all delay-500 duration-500 ease-in' id='community'>
       <div className='flex relative'>
       <div>
-        <h3 className='text-orange mb-5 text-md md:text-lg'>Hear from our comm--- <br />unity of Entrepreneurs.</h3>
+        <h3 className='text-orange mb-5 text-md md:text-[2.2rem] leading-tight'>Hear from our community <br /> of Entrepreneurs.</h3>
         <p>The RockTea Mall community comprises a growing number of <br /> dropshippers, fostering synergy and growth among all business owners.</p>
         </div>
         <img src={People} width={300} height={300} alt="people" className='absolute right-5 lg:right-20 top-[50%] md:top-0 z-[1]' />
@@ -97,10 +98,19 @@ Welcome to RockTea Mall.
         ))}
       </div>
       </article>
-      <article className='p-10'>
-        <h3 className='text-orange mb-5 text-md md:text-lg '>Preview the appearance of your store.</h3>
+      <article className='p-10 '>
+        <h3 className='text-orange mb-5 text-md md:text-[2.2rem] '>Preview the appearance of your store.</h3>
         <p>Watch our detailed tutorial on seamlessly navigating the <br /> RockTea Mall Dropshipper&#39;s dashboard.</p>
-        <img width={800} height={500} src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1695298697/rocktea-main-website/assets/video-card.png" alt="youtube" className='px-5 flex items-center justify-center mx-auto mt-7' />
+       <div className='flex flex-col lg:flex-row items-center gap-16 lg:gap-x-20 justify-center'>
+        <figure className='w-full h-[400px]'>
+        <img  src={WaitingYoutube} alt="youtube" className='w-full h-full object-cover flex items-center justify-center mx-auto mt-7 rounded-lg' />
+        <h4 className='text-md font-medium mt-3'>Getting Started with RockTea Mall</h4>
+        </figure>
+        <figure className='w-full h-[400px]'>
+        <img  src={WaitingYoutube} alt="youtube" className='w-full h-full object-cover flex items-center justify-center mx-auto mt-7 rounded-lg' />
+        <h4 className='text-md font-medium mt-3 '>Growing your business with RockTea Mall</h4>
+        </figure>
+       </div>
       </article>
     </div>
   )
