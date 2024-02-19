@@ -287,17 +287,18 @@ const AppProvider = ({ children }) => {
       localStorage.setItem("ownerId", response.user_data.id);
       if (
         response.user_data.is_storeowner &&
-        response.user_data.has_store &&  !response.user_data.completed
+        response.user_data.has_store &&  response.user_data.completed
       ) {
       
        navigate('/domain_creation')
       }
    else if (
         response.user_data.is_storeowner &&
-        response.user_data.has_store &&  response.user_data.completed
+        response.user_data.has_store &&  !response.user_data.completed
       ) {
       
-       navigate(response?.data?.domain_name)
+        window.open(response?.user_data?.domain_name)
+        console.log(response?.user_data?.domain_name)
       } else {
         // If neither is_services nor has_store is true, navigate to registration pages
         navigate(
