@@ -24,7 +24,7 @@ function App() {
     localStorage.getItem("storeUid") || null,
   );
 
-  console.log(queryParams);
+  
   // Dropshippers store id so they can have access to teir store and dashboard
   //user store id so that they can have access to the stores they want to reagister
   useEffect(() => {
