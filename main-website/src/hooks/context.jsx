@@ -297,7 +297,7 @@ const AppProvider = ({ children }) => {
         response.user_data.has_store &&  response.user_data.completed
       ) {//https://rocktea-dropshippers.vercel.app/
         
-        window.open(`http://localhost:5174/?store_id=${response?.user_data?.store_id}`,"_self",)
+        window.open(`https://rocktea-dropshippers.vercel.app/?store_id=${response?.user_data?.store_id}`,"_self",)
         console.log(response?.user_data?.domain_name)
       } else {
         // If neither is_services nor has_store is true, navigate to registration pages
