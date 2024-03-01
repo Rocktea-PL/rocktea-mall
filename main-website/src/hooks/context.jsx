@@ -255,7 +255,7 @@ const AppProvider = ({ children }) => {
       setIsLoading(true);
       const response = await loginUser(credentials); // Call the login function
 
-      console.log("Login successful:", response);
+    //  console.log("Login successful:", response);
 
       const token = response.access;
       localStorage.setItem("accessToken", token);
@@ -287,17 +287,17 @@ const AppProvider = ({ children }) => {
       localStorage.setItem("ownerId", response.user_data.id);
       if (
         response.user_data.is_storeowner &&
-        response.user_data.has_store &&  response.user_data.completed
+        response.user_data.has_store &&  !response.user_data.completed
       ) {
       
        navigate('/domain_creation')
       }
    else if (
         response.user_data.is_storeowner &&
-        response.user_data.has_store &&  !response.user_data.completed
-      ) {
-      
-        window.open(response?.user_data?.domain_name)
+        response.user_data.has_store &&  response.user_data.completed
+      ) {//https://rocktea-dropshippers.vercel.app/
+        
+        window.open(`http://localhost:5174/?store_id=${response?.user_data?.store_id}`,"_self",)
         console.log(response?.user_data?.domain_name)
       } else {
         // If neither is_services nor has_store is true, navigate to registration pages
@@ -317,14 +317,14 @@ const AppProvider = ({ children }) => {
           `https://rocktea-mall-product.vercel.app/dashboard/home?store_id=${response.user_data.store_id}`,
           "_self",
         );*/
-      console.log("Updated storeData:", storeData);
+    //  console.log("Updated storeData:", storeData);
 
-      console.log(response.user_data.id);
+      //console.log(response.user_data.id);
       toast.success("Logged in Successfully");
     } catch (error) {
       setLoginError(error); // Handle login error
-      console.error("Login error:", error);
-      console.error("Login status:", error.message);
+      //console.error("Login error:", error);
+      //console.error("Login status:", error.message);
       toast.error(error.detail || "Invalid credentials. Please try again.", error);
       //cogoToast.success("Log in Failed. Check you Details");
     } finally {
@@ -359,12 +359,12 @@ const AppProvider = ({ children }) => {
       "https://rocktea-mall-api-test.up.railway.app/rocktea/business_info/";
     try {
       setIsLoading(true);
-      console.log("access token from local storage:", storedToken);
+     // console.log("access token from local storage:", storedToken);
       const response = await axios.post(apiUrl, formData, { headers });
 
-      console.log("access token from store:", storedToken);
+      //console.log("access token from store:", storedToken);
 
-      console.log("Registration successful", response.data);
+      //console.log("Registration successful", response.data);
       // After successful store registration in handleStoreFormSubmit
       //localStorage.setItem("hasCompletedStoreDetails", "true");
       localStorage.setItem("serviceUser", response.data.owner);
@@ -418,12 +418,12 @@ const AppProvider = ({ children }) => {
       "https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/";
     try {
       setIsLoading(true);
-      console.log("access token from local storage:", storedToken);
+      //console.log("access token from local storage:", storedToken);
       const response = await axios.post(apiUrl, formData, { headers });
 
-      console.log("access token from store:", storedToken);
+      ///console.log("access token from store:", storedToken);
 
-      console.log("Registration successful", response.data);
+      ///console.log("Registration successful", response.data);
       // After successful store registration in handleStoreFormSubmit
       //localStorage.setItem("hasCompletedStoreDetails", "true");
       localStorage.setItem("owner", response.data.owner);
