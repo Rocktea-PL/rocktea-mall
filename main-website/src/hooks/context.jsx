@@ -265,24 +265,7 @@ const AppProvider = ({ children }) => {
       if (response.status === 400 || response.status === 401) {
         console.log("error is bad");
       }
-      /*if (response.user_data.has_store === false) {
-        navigate("/store_details");
-        //https://rocktea-mall-product.vercel.app
-        //`https://rocktea-mall-product.vercel.app/dashboard
-        //http://localhost:5174/dashboard/
-        //https://users.yourockteamall.com
-      } else {
-        window.open(
-          `https://rocktea-mall-product.vercel.app/dashboard?store_id=${store_id}`,
-          "_self",
-        );
-      }
-
-      if (response.user_data.is_services === false) {
-        navigate(`/services_info`);
-      } else {
-        navigate("/profile");
-      }*/
+     
       Cookies.set("user_id", response.user_data.id);
       localStorage.setItem("ownerId", response.user_data.id);
       if (
@@ -297,7 +280,7 @@ const AppProvider = ({ children }) => {
         response.user_data.has_store &&  response.user_data.completed
       ) {//https://rocktea-dropshippers.vercel.app/
         
-        window.open(`http://localhost:5174/?store_id=${response?.user_data?.store_id}`,"_self",)
+        window.open(`https://rocktea-dropshippers.vercel.app/?store_id=${response?.user_data?.store_id}`,"_self",)
         console.log(response?.user_data?.domain_name)
       } else {
         // If neither is_services nor has_store is true, navigate to registration pages
@@ -361,12 +344,6 @@ const AppProvider = ({ children }) => {
       setIsLoading(true);
      // console.log("access token from local storage:", storedToken);
       const response = await axios.post(apiUrl, formData, { headers });
-
-      //console.log("access token from store:", storedToken);
-
-      //console.log("Registration successful", response.data);
-      // After successful store registration in handleStoreFormSubmit
-      //localStorage.setItem("hasCompletedStoreDetails", "true");
       localStorage.setItem("serviceUser", response.data.owner);
       localStorage.setItem("serviceId", response.data.id);
       //setStoreId(localStorage.setItem("id", response.data.id))
@@ -420,12 +397,6 @@ const AppProvider = ({ children }) => {
       setIsLoading(true);
       //console.log("access token from local storage:", storedToken);
       const response = await axios.post(apiUrl, formData, { headers });
-
-      ///console.log("access token from store:", storedToken);
-
-      ///console.log("Registration successful", response.data);
-      // After successful store registration in handleStoreFormSubmit
-      //localStorage.setItem("hasCompletedStoreDetails", "true");
       localStorage.setItem("owner", response.data.owner);
       localStorage.setItem("id", response.data.id);
       //setStoreId(localStorage.setItem("id", response.data.id))
