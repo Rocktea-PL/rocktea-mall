@@ -57,7 +57,7 @@ export default function Categories() {
     console.log("store id", id);
 
     // Construct the URL for the PATCH request
-    const apiUrl = `https://rocktea-mall-api-test.up.railway.app/rocktea/create/store/${id}/`;
+    const apiUrl = `https://rocktea-mall-api-test.up.railway.app/rocktea/dropshippers/store/${id}/`;
     console.log("API URL:", apiUrl);
 
     try {
