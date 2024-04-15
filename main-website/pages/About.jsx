@@ -53,6 +53,7 @@ function About() {
             <img
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696399804/rocktea-main-website/assets/About_Us_1_hycsrn.png"
               className="hidden lg:block w-full h-full object-contain"
+              loading="'eager"
               alt="about hero"
             />
 
@@ -60,6 +61,7 @@ function About() {
               src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696399801/rocktea-main-website/assets/About_Us_2_rnw8se.png"
               className=" lg:hidden w-full h-[250px] "
               alt="about hero"
+              loading="'eager"
             />
           </>
         )}

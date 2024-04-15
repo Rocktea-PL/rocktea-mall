@@ -76,7 +76,7 @@ function HowItWorks() {
         </motion.article>
       </section>
       <Link to="/personal_details">
-        <div className="flex items-center justify-center mt-2 mb-8">
+        <div className="flex items-center justify-center mt-2 mb-8" onClick={() => window.open('https://dropshippers.yourockteamall.com/login')}>
           <Button text="Get Started" />
         </div>
       </Link>
