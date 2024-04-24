@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import "../../styles/topography.css";
 import ServicesImg from "../../assets/servicesHome.svg";
+import { Link } from "react-router-dom";
 function HomeDetails() {
   return (
     <section className="mt-12">
@@ -186,6 +187,11 @@ function HomeDetails() {
             cleaners—to streamline and elevate your daily activities. Certified
             and trusted experts at your service.
           </p>
+          <Link to='/services_waitlist'>
+          <button className="flex items-center justify-center bg-orange w-[120px] xsm:w-[150px] p-3 mt-4 max-md:justify-center max-md:mx-auto rounded-lg whitespace-nowrap " >
+             Services
+            </button>
+            </Link>
         </motion.div>
       </article>
     </section>
