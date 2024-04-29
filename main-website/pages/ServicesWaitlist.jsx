@@ -1,6 +1,6 @@
 //import React from 'react'
 import Plumber from '../src/assets/Plumber-icon.svg'
-import Fashion from '../src/assets/fashion-icon.svg'
+import Fashion from '../src/assets/Fashion-icon.svg'
 import Bricklayer from '../src/assets/bricklayer.svg'
 import Mechanic from '../src/assets/mechanic.svg'
 import Laundry from '../src/assets/laundry-icon.svg'
