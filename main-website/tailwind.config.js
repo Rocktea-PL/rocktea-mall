@@ -36,6 +36,8 @@ export default {
       
       backgroundImage:{
         'newsletter-big':'url("https://res.cloudinary.com/dwvdgmuaq/image/upload/v1696399800/rocktea-main-website/assets/Newstter_Bg_Image_s5rqys.png")',
+        'blur':' radial-gradient(39.79% 39.79% at 50% 50%, rgba(216, 253, 255, 0.5) 13.5%, rgba(249, 243, 236, 0.15) 100%)',
+        
       },
     },
   },

@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 
 import Button from "../Components/Button";
 import { HiBars3BottomRight, HiXMark } from "react-icons/hi2";
+import Logo from '../assets/rocktea-logo.png'
 const Navbar = () => {
   const path = useLocation();
 
@@ -31,14 +32,14 @@ const Navbar = () => {
   }, [path]);
 
   return (
-    <header className=" bg-white shadow-md w-full h-[80px] fixed top-0 left-0 z-[99]  items-center">
-      <nav className="md:flex md:items-center md:justify-between gap-8 py-[1.7rem]  md:px-10 px-7 ">
+    <header className=" bg-white shadow-md w-full p-3 py-5 h-[80px]  fixed top-0 left-0 z-[99]  items-center">
+      <nav className="md:flex md:items-center md:justify-between gap-8   md:px-10 px-7 ">
         <Link to="/">
           <figure className="flex items-center mt-2 md:mt-0">
             <img
-              src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421637/rocktea-main-website/assets/rocktea-logo_qlaflj.png"
-              width={130}
-              height={130}
+              src={ Logo || "https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421637/rocktea-main-website/assets/rocktea-logo_qlaflj.png"   }
+              width={160}
+              height={160}
               alt="logo"
             />
           </figure>
@@ -65,9 +66,11 @@ const Navbar = () => {
         </ul>
 
         <div className="mt-5 md:mt-0 hidden md:flex items-center justify-between">
-          <Link to="/signin">
-            <Button text="Sign In" />
-          </Link>
+         <div onClick={() => window.open('https://dropshippers.yourockteamall.com/login')}>
+         <Button text="Sign In" />
+         </div>
+           
+          
         </div>
 
         {/* MOBILE NAVIGATION ITEMS */}
@@ -90,9 +93,9 @@ const Navbar = () => {
           ))}
 
           <div className="mt-5 md:mt-0">
-            <Link to="/signin">
+          <div onClick={() => window.open('https://dropshippers.yourockteamall.com/login')}>
               <Button text="Sign In" />
-            </Link>
+            </div>
           </div>
         </ul>
       </nav>

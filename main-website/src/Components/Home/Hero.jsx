@@ -2,6 +2,7 @@
 import Counter from "./Counter";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import HomeImage from '../../assets/Home-image.png'
 function Hero() {
   const numbers = ["600+", "24 hrs"];
   const interval = 3000; // 3 seconds
@@ -28,11 +29,11 @@ function Hero() {
           Drop-shipping
         </p>
         <div className="flex items-center justify-center gap-5 lg:justify-start ">
-          <Link to="/personal_details">
-            <button className="flex items-center justify-center bg-orange w-[120px] xsm:w-[150px] p-3 rounded-lg whitespace-nowrap ">
+         
+            <button className="flex items-center justify-center bg-orange w-[120px] xsm:w-[150px] p-3 rounded-lg whitespace-nowrap " onClick={() => window.open('http://dropshippers.yourockteamall.com/login')}>
               Get Started
             </button>
-          </Link>
+          
           <Link to="/about">
             <button className="flex items-center justify-center border border-solid border-[var(--yellow)]  w-[120px] xsm:w-[150px] p-3 rounded-lg whitespace-nowrap">
               Learn More
@@ -58,14 +59,14 @@ function Hero() {
               ease: "easeInOut",
             },
           }}
-          className="relative flex items-center justify-center mx-auto z-10"
+          className="relative flex items-center justify-center -mt-16 lg:-mt-14 mx-auto z-10"
         >
-          <div className="relative bg-[var(--deep-blue)] xxsm:w-[250px] xxsm:h-[320px] w-[300px]  h-[380px]  sm:w-[380px] sm:h-[550px] mt-3 rounded-[2rem] max-md:-ml-4"></div>
+        
           <img
-            src="https://res.cloudinary.com/dwvdgmuaq/image/upload/v1694421644/rocktea-main-website/assets/receptionist_vbpllv.png"
-            width={400}
+            src={HomeImage}
+            width={430}
             height={450}
-            className="absolute bottom-0 "
+            className=" "
           />
         </motion.figure>
       </div>

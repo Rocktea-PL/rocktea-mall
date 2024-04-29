@@ -20,6 +20,7 @@ import Waiting from "../pages/Waiting";
 //import SignupChoice from "../pages/SignupChoice";
 //import ServicesSetings from "../pages/ServicesPage/ServicesSetings";
 import "./App.css";
+import ServicesWaitlist from "../pages/ServicesWaitlist";
 
 function App() {
   const router = createBrowserRouter([
@@ -67,6 +68,10 @@ function App() {
         {
           path: "/bank_details",
           element: <BankDetails />,
+        },
+        {
+          path: "/services_waitlist",
+          element: <ServicesWaitlist />,
         },
         
       ],
